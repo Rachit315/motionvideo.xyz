@@ -1,27 +1,16 @@
 import { Dialog } from "@base-ui/react/dialog";
-import { Link, useMatch, useMatches } from "@tanstack/react-router";
-import type { RegisteredRouter, RouteIds } from "@tanstack/react-router";
+import { Link, useMatch } from "@tanstack/react-router";
 import type { VariantProps } from "class-variance-authority";
-import { cn } from "cn";
 import { useState } from "react";
 import { useIntlayer } from "react-intlayer";
 import { ArrowRightUp } from "reicon-react/icons/ArrowRightUp";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
 import { Menu } from "reicon-react/icons/Menu";
 import { Xmark } from "reicon-react/icons/Xmark";
 
 import { AccountMenu } from "@/components/account-avatar";
 import { Brand } from "@/components/brand";
 import { CommandMenu } from "@/components/command-menu";
-import { SponsorSlots } from "@/components/sponsor-slots";
 import { buttonVariants } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLinkItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
 import { ROUTES } from "@/constants/routes";
 
 const linkClass =
@@ -53,7 +42,7 @@ const SkillLink = ({
         </span>
         {content.skill}
       </span>
-      <ReiconDuotone icon={ArrowRightUp} aria-hidden="true" />
+      <ArrowRightUp aria-hidden="true" />
     </Link>
   );
 };
@@ -82,50 +71,6 @@ const DiscoverLink = ({
   );
 };
 
-type RouteId = RouteIds<RegisteredRouter["routeTree"]>;
-
-// Sections behind the desktop "More" menu.
-const MORE_ROUTES = new Set<RouteId>(["/creatives", "/skills", "/extras"]);
-
-// Desktop: Creatives, Skills, and Extras share one menu; the trigger reads as
-// current on any of their pages.
-const MoreMenu = () => {
-  const content = useIntlayer("site-header");
-  const current = useMatches({
-    select: (matches) =>
-      matches.some(({ routeId }) => MORE_ROUTES.has(routeId)),
-  });
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger
-        data-current={current || undefined}
-        className={cn(
-          linkClass,
-          "data-current:text-foreground data-popup-open:text-foreground flex cursor-pointer items-center gap-1"
-        )}
-      >
-        {content.more}
-        <ReiconDuotone
-          icon={ChevronDown}
-          aria-hidden="true"
-          className="size-3.5 transition-transform in-data-popup-open:rotate-180"
-        />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-44">
-        <DropdownMenuLinkItem render={<Link to={ROUTES.CREATIVES} />}>
-          {content.creatives}
-        </DropdownMenuLinkItem>
-        <DropdownMenuLinkItem render={<Link to={ROUTES.SKILLS} />}>
-          {content.skills}
-        </DropdownMenuLinkItem>
-        <DropdownMenuLinkItem render={<Link to={ROUTES.EXTRAS} />}>
-          {content.extras}
-        </DropdownMenuLinkItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-};
-
 const MobileMenu = () => {
   const content = useIntlayer("site-header");
   const [open, setOpen] = useState(false);
@@ -136,7 +81,7 @@ const MobileMenu = () => {
         aria-label={content.openMenu.value}
         className={roundIconClass}
       >
-        <ReiconDuotone icon={Menu} aria-hidden="true" className="size-4" />
+        <Menu aria-hidden="true" className="size-4" />
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Popup
@@ -149,11 +94,7 @@ const MobileMenu = () => {
               aria-label={content.closeMenu.value}
               className={roundIconClass}
             >
-              <ReiconDuotone
-                icon={Xmark}
-                aria-hidden="true"
-                className="size-4"
-              />
+              <Xmark aria-hidden="true" className="size-4" />
             </Dialog.Close>
           </div>
           <nav
@@ -195,37 +136,41 @@ const MobileMenu = () => {
   );
 };
 
-// One header for every page. Desktop: brand + sections, ⌘K search centred,
-// actions right. Mobile: brand left; search, menu, and avatar right.
+// One header for every page. Left: brand + section links. Right: search,
+// skill CTA, and account. Mobile: brand left; search, menu, avatar right.
 // `signedIn` (from the page loader) only covers the first render; the account
 // menu follows the client session after that.
 export const SiteHeader = ({ signedIn }: { signedIn?: boolean }) => {
   const content = useIntlayer("site-header");
   return (
-    <header className="mx-auto grid w-full max-w-[1800px] grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-x-2 px-4 py-3 sm:px-6 md:gap-x-3 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,28rem)_minmax(0,1fr)] lg:gap-x-6">
+    <header className="mx-auto grid w-full max-w-[1800px] grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2 px-4 py-3 sm:px-6 md:gap-x-3">
       <div className="flex min-w-0 items-center gap-x-4">
         <Brand />
         <nav
           aria-label={content.navigation.value}
-          className="-ml-2 hidden items-center gap-0.5 md:flex"
+          className="-ml-2 hidden items-center gap-0.5 lg:flex"
         >
           <DiscoverLink className={linkClass} />
           <Link to={ROUTES.TOOLS} className={linkClass}>
             {content.tools}
           </Link>
-          <MoreMenu />
+          <Link to={ROUTES.CREATIVES} className={linkClass}>
+            {content.creatives}
+          </Link>
+          <Link to={ROUTES.SKILLS} className={linkClass}>
+            {content.skills}
+          </Link>
+          <Link to={ROUTES.EXTRAS} className={linkClass}>
+            {content.extras}
+          </Link>
         </nav>
       </div>
-      <CommandMenu />
       <div className="flex items-center gap-2 justify-self-end">
-        {/* Diamond sponsor marks, then the skill as the header's one CTA. */}
-        <div className="hidden lg:block">
-          <SponsorSlots />
-        </div>
+        <CommandMenu />
         <div className="max-md:hidden">
           <SkillLink variant="gradient" />
         </div>
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <MobileMenu />
         </div>
         <AccountMenu signedIn={signedIn} />

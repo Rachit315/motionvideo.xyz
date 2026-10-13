@@ -1,13 +1,16 @@
-import { Tooltip } from "@base-ui/react/tooltip";
 import type { VariantProps } from "class-variance-authority";
 import { cn } from "cn";
-import type { CSSProperties, MouseEvent, ReactNode } from "react";
+import type { CSSProperties, MouseEvent } from "react";
 import { useIntlayer } from "react-intlayer";
 import { Bookmark } from "reicon-react/icons/Bookmark";
 
 import { useSignInDialog } from "@/components/sign-in-dialog";
 import { buttonVariants } from "@/components/ui/button";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useSession } from "@/lib/auth-client";
 import { toggleBookmark, useBookmarks } from "@/lib/bookmarks";
 
@@ -15,21 +18,18 @@ type ButtonVariants = VariantProps<typeof buttonVariants>;
 
 /**
  * Saves a video to the signed-in user's bookmarks (optimistically). Signed
- * out, it opens the sign-in dialog instead. Pass `tooltip` to act as a
- * detached trigger of a shared `MotionTooltip`.
+ * out, it opens the sign-in dialog instead.
  */
 export const BookmarkButton = ({
   slug,
   variant = "outline",
   size = "icon",
-  tooltip,
   className,
   style,
 }: {
   slug: string;
   variant?: ButtonVariants["variant"];
   size?: ButtonVariants["size"];
-  tooltip?: Tooltip.Handle<ReactNode>;
   className?: string;
   style?: CSSProperties;
 }) => {
@@ -55,31 +55,20 @@ export const BookmarkButton = ({
     }
   };
 
-  const buttonProps = {
-    "aria-label": label,
-    "aria-pressed": saved,
-    onClick,
-    className: cn(buttonVariants({ variant, size }), className),
-    style,
-    children: (
-      <ReiconDuotone
-        icon={Bookmark}
-        filled={saved}
-        secondaryColor={saved ? "var(--primary)" : undefined}
-        aria-hidden="true"
-      />
-    ),
-  } as const;
-
-  return tooltip ? (
-    <Tooltip.Trigger
-      type="button"
-      handle={tooltip}
-      payload={label}
-      delay={200}
-      {...buttonProps}
-    />
-  ) : (
-    <button type="button" {...buttonProps} />
+  return (
+    <Tooltip>
+      <TooltipTrigger
+        delay={200}
+        render={
+          <button type="button" aria-label={label} aria-pressed={saved} />
+        }
+        onClick={onClick}
+        className={cn(buttonVariants({ variant, size }), className)}
+        style={style}
+      >
+        <Bookmark aria-hidden="true" />
+      </TooltipTrigger>
+      <TooltipContent>{label}</TooltipContent>
+    </Tooltip>
   );
 };

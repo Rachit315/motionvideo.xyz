@@ -19,7 +19,6 @@ import {
   StatusPanel,
 } from "@/components/login-form";
 import { Button } from "@/components/ui/button";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
 import { SITE } from "@/constants/site";
 import { authClient } from "@/lib/auth-client";
 import { createMetadata } from "@/seo/metadata";
@@ -92,13 +91,7 @@ const SignInLink = ({
   if (status === "sending") {
     return (
       <ThanksView
-        icon={
-          <ReiconDuotone
-            icon={Loader}
-            aria-hidden
-            className="size-8 animate-spin text-black"
-          />
-        }
+        icon={<Loader aria-hidden className="size-8 animate-spin text-black" />}
       >
         {content.sendingLink} <strong>{email}</strong>.
       </ThanksView>
@@ -108,13 +101,7 @@ const SignInLink = ({
   if (status === "failed") {
     return (
       <ThanksView
-        icon={
-          <ReiconDuotone
-            icon={EnvelopeCheck}
-            aria-hidden
-            className="size-8 text-black"
-          />
-        }
+        icon={<EnvelopeCheck aria-hidden className="size-8 text-black" />}
         action={
           <Button size="lg" onClick={send}>
             {content.sendAgain}
@@ -128,13 +115,7 @@ const SignInLink = ({
 
   return (
     <ThanksView
-      icon={
-        <ReiconDuotone
-          icon={EnvelopeCheck}
-          aria-hidden
-          className="size-8 text-black"
-        />
-      }
+      icon={<EnvelopeCheck aria-hidden className="size-8 text-black" />}
     >
       <LinkSentMessage email={email} />
     </ThanksView>
@@ -167,11 +148,7 @@ const Welcome = () => {
         ) : (
           <StatusPanel
             icon={
-              <ReiconDuotone
-                icon={Loader}
-                aria-hidden
-                className="size-8 animate-spin text-black"
-              />
+              <Loader aria-hidden className="size-8 animate-spin text-black" />
             }
             title={content.confirming}
             action={

@@ -31,7 +31,7 @@ const toolsOfKind = (kind: DirectoryKind) =>
 
 // The import files every skill under "Skills"; their sub-category is picked
 // here by id. A skill missing from this list stays under "All" only.
-const SKILL_CATEGORY_BY_ID: Record<string, string> = {
+const SKILL_CATEGORY_BY_ID = {
   "oil-motion": "Motion graphics",
   "remotion-skills": "Motion graphics",
   "jacky-motion": "Motion graphics",
@@ -46,14 +46,17 @@ const SKILL_CATEGORY_BY_ID: Record<string, string> = {
   director: "AI video",
   "one-prompt-video": "AI video",
   "minimax-h3-video-reverse": "AI video",
-};
+} as const satisfies Record<string, string>;
+
+const skillCategoryOf = (id: string): string | undefined =>
+  Object.entries(SKILL_CATEGORY_BY_ID).find(([key]) => key === id)?.[1];
 
 export const DIRECTORY_ENTRIES: Record<DirectoryKind, DirectoryEntry[]> = {
   tool: toolsOfKind("tool"),
   studio: directories.studios.entries,
   skill: toolsOfKind("skill").map((entry) => ({
     ...entry,
-    category: SKILL_CATEGORY_BY_ID[entry.id] ?? entry.category,
+    category: skillCategoryOf(entry.id) ?? entry.category,
   })),
   // X articles (`pnpm catalog:import:articles`) come before the resources.
   extra: [...xArticles.entries, ...toolsOfKind("extra")],
@@ -99,30 +102,28 @@ const toCategories = <Kind extends DirectoryKind>(
 };
 
 // Chip order follows the first appearance of each category in the entries.
-export const DIRECTORY_CATEGORIES: {
-  [K in DirectoryKind]: DirectoryCategory<K>[];
-} = {
+export const DIRECTORY_CATEGORIES = {
   tool: toCategories("tool"),
   studio: toCategories("studio"),
   skill: toCategories("skill"),
   extra: toCategories("extra"),
+} satisfies {
+  [K in DirectoryKind]: DirectoryCategory<K>[];
 };
 
 export const findDirectoryCategory = <Kind extends DirectoryKind>(
   kind: Kind,
   slug: string | undefined
 ): DirectoryCategory<Kind> | undefined =>
+  // SAFETY: DIRECTORY_CATEGORIES is keyed by every DirectoryKind with that
+  // kind's own category array, so indexing by `kind` yields exactly
+  // DirectoryCategory<Kind>[].
   (DIRECTORY_CATEGORIES[kind] as DirectoryCategory<Kind>[]).find(
     (category) => category.slug === slug
   );
 
 // English head tags for each category page (`/tools/ai`, `/skills/motion`…).
-export const DIRECTORY_PAGES: {
-  [K in DirectoryKind]: Record<
-    DirectorySlug<K>,
-    { title: string; description: string }
-  >;
-} = {
+export const DIRECTORY_PAGES = {
   tool: {
     ai: {
       title: "AI video tools",
@@ -186,4 +187,9 @@ export const DIRECTORY_PAGES: {
         "References and archives for making motion videos and product films, curated by MotionVideo.",
     },
   },
+} satisfies {
+  [K in DirectoryKind]: Record<
+    DirectorySlug<K>,
+    { title: string; description: string }
+  >;
 };

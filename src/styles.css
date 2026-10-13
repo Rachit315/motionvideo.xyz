@@ -1,27 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@font-face {
-  font-family: "Timeless Sans";
-  src: url("https://assets.motionvideo.xyz/fonts/timeless/TimelessSansVF-1.094.woff2")
-    format("woff2");
-  font-style: normal;
-  font-weight: 300 900;
-  font-display: optional;
-  font-variation-settings: "STYL" 0;
-}
-
-@font-face {
-  font-family: "Timeless Sans";
-  src: url("https://assets.motionvideo.xyz/fonts/timeless/TimelessSansVF-1.094.woff2")
-    format("woff2");
-  font-style: italic;
-  font-weight: 300 900;
-  font-display: optional;
-  font-variation-settings:
-    "STYL" 0,
-    "ital" 1;
-}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -71,6 +50,11 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --color-badge-blue-fg: var(----badge-blue-fg);
+  --color-badge-blue-bg: var(----badge-blue-bg);
+  --ease-exit: cubic-bezier(0.4, 0, 0.6, 1);
+  --color-shell-fg-muted: var(--shell-fg-muted);
+  --color-shell-fg-faint: var(--shell-fg-faint);
 }
 
 :root {
@@ -110,6 +94,10 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --badge-blue-bg: oklch(0.62 0.19 258 / 0.12);
+  --badge-blue-fg: oklch(0.48 0.17 258);
+  --shell-fg-muted: #333333;
+  --shell-fg-faint: #6d6d6d;
 }
 
 .dark {
@@ -147,6 +135,10 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --badge-blue-bg: oklch(0.62 0.19 258 / 0.2);
+  --badge-blue-fg: oklch(0.72 0.145 258);
+  --shell-fg-muted: #d4d4d4;
+  --shell-fg-faint: #8e8e8e;
 }
 
 /* Site cursor: the kibo-ui pointer arrow (black, white keyline so it reads on
@@ -257,6 +249,8 @@
   --animate-mv-cycle: mv-cycle 6s ease-in-out infinite both;
   /* A short no-go shake (the overlay's end-of-list step button). */
   --animate-mv-shake: mv-shake 420ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  /* Sponsored card timer hairline: fills once per rotation. */
+  --animate-mv-rotate: mv-rotate 6s linear forwards;
 }
 
 /* `mv-delay-<ms>`: staggers the looping demo animations. */
@@ -383,11 +377,23 @@
   transform-box: fill-box;
 }
 
-/* Sutro video player (player.style) in the site's colors. */
+/* Sutro video player (player.style → Media Chrome). Its controls render in the
+   theme's shadow root, so from the outside they are themed with the custom
+   properties Media Chrome inherits across that boundary (see the Media Chrome
+   "Styling" docs): primary = icon/text color, secondary = control hover
+   background, accent = range bars and scrub thumb. */
 media-theme-sutro {
-  --media-primary-color: #ffffff;
-  --media-secondary-color: rgb(0 0 0 / 0.55);
-  --media-accent-color: #ffbe25;
+  /* Icons, time text and menu labels sit on the video's bottom gradient. */
+  --media-primary-color: oklch(1 0 0);
+  /* Hover chip behind the control buttons. */
+  --media-secondary-color: oklch(0 0 0 / 0.5);
+  /* Progress + volume bars and the scrub thumb follow the brand accent,
+     tracking `--primary` in light and dark instead of a hardcoded swatch. */
+  --media-accent-color: var(--primary);
+  /* Letterbox / pre-load area behind the video, instead of the default black. */
+  --media-background-color: var(--background);
+  /* Scrub thumb depth, in place of media-chrome's default hairline shadow. */
+  --media-range-thumb-box-shadow: 0 1px 2px oklch(0 0 0 / 0.4);
 }
 
 /* Route view transitions (`viewTransition` on gallery ↔ /videos/$slug links):
@@ -397,21 +403,16 @@ media-theme-sutro {
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Card hover preview (motion-video.tsx): the expanded preview fades in above
-   the card media's `video-*` group, and the action buttons glide on top. */
-::view-transition-group(.card-preview) {
-  z-index: 1;
-}
-
-::view-transition-group(.card-action) {
-  z-index: 2;
-}
-
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*),
   ::view-transition-old(*),
   ::view-transition-new(*) {
     animation: none !important;
+  }
+  .sound-slash,
+  .sound-wave,
+  .sound-speaker {
+    transition: none;
   }
 }
 
@@ -436,5 +437,84 @@ media-theme-sutro {
   40%,
   80% {
     transform: translateX(5px);
+  }
+}
+
+@keyframes mv-rotate {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .dark [data-slot="tooltip-content"] {
+    background: var(--popover);
+    backdrop-filter: none;
+  }
+}
+.sound-slash {
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1.02;
+  --slash-ms: 200ms;
+  transition: stroke-dashoffset var(--slash-ms) var(--ease-out);
+}
+[data-muted="true"] .sound-slash {
+  stroke-dashoffset: 0;
+  --slash-ms: 260ms;
+}
+.sound-wave {
+  transform-box: view-box;
+  transform-origin: 11px 12px;
+  transition:
+    opacity 130ms var(--ease-out) var(--wave-delay),
+    transform 130ms var(--ease-out) var(--wave-delay),
+    filter 130ms var(--ease-out) var(--wave-delay);
+}
+[data-muted="true"] .sound-wave {
+  opacity: 0;
+  transform: scale(0.25);
+  filter: blur(1px);
+}
+.sound-wave-inner {
+  --wave-delay: 45ms;
+}
+.sound-wave-outer {
+  --wave-delay: 20ms;
+}
+[data-muted="true"] .sound-wave-inner {
+  --wave-delay: 50ms;
+}
+[data-muted="true"] .sound-wave-outer {
+  --wave-delay: 75ms;
+}
+.sound-speaker {
+  --speaker-ms: 220ms;
+  --speaker-delay: 0ms;
+  transition: transform var(--speaker-ms) var(--ease-out) var(--speaker-delay);
+}
+[data-muted="true"] .sound-speaker {
+  transform: translateX(5.5px);
+  --speaker-ms: 260ms;
+  --speaker-delay: 80ms;
+}
+
+@supports (-moz-appearance: none) {
+  .video-player > [data-slot="loomix-glass"],
+  .video-player > [data-slot="loomix-glass-scrim"],
+  .video-player > [data-slot="video-glass"],
+  .video-player > [data-slot="video-glass-scrim"] {
+    display: none;
+  }
+  .video-player > div > button {
+    visibility: visible;
+    background-color: rgb(0 0 0 / 0.24);
+    border-color: rgb(255 255 255 / 0.2);
+    backdrop-filter: blur(16px) saturate(1.2);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.08),
+      0 4px 16px rgb(0 0 0 / 0.12);
   }
 }

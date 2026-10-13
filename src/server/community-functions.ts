@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
 import { env } from "cloudflare:workers";
+import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 
 import { communitySubmissionSchema } from "@/lib/community";
@@ -20,6 +21,43 @@ export const getSubmitter = createServerFn({ method: "GET" }).handler(
   async () => {
     const session = await getCurrentSession();
     return session ? { email: session.user.email } : null;
+  }
+);
+
+/** A submission filed by the signed-in account, newest first. */
+export interface MySubmission {
+  id: string;
+  kind: "video" | "tool" | "studio" | "skill" | "extra";
+  category: string | null;
+  title: string;
+  url: string;
+  description: string;
+  status: string;
+  createdAt: Date;
+}
+
+/** The signed-in user's own submissions; `null` when signed out. */
+export const getMySubmissions = createServerFn({ method: "GET" }).handler(
+  async (): Promise<MySubmission[] | null> => {
+    const session = await getCurrentSession();
+    if (!session) {
+      return null;
+    }
+    const rows = await drizzle(env.DB)
+      .select({
+        id: communitySubmissions.id,
+        kind: communitySubmissions.kind,
+        category: communitySubmissions.category,
+        title: communitySubmissions.title,
+        url: communitySubmissions.url,
+        description: communitySubmissions.description,
+        status: communitySubmissions.status,
+        createdAt: communitySubmissions.createdAt,
+      })
+      .from(communitySubmissions)
+      .where(eq(communitySubmissions.email, session.user.email))
+      .orderBy(desc(communitySubmissions.createdAt));
+    return rows;
   }
 );
 

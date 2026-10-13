@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev --port 3000",
+    "predev": "node scripts/pull-fonts.mjs",
     "build": "vite build",
+    "prebuild": "node scripts/pull-fonts.mjs",
+    "fonts:pull": "node scripts/pull-fonts.mjs",
     "catalog:import": "node scripts/import-motion-catalog.mjs",
     "catalog:import:resources": "node scripts/import-resource-directories.mjs",
     "catalog:import:whatships": "node scripts/import-whatships-motion.mjs",
@@ -25,8 +28,7 @@
     "email:dev": "email dev --dir src/emails --port 3001",
     "fix": "ultracite fix",
     "prepare": "lefthook install",
-    "assets:mirror": "node scripts/mirror-assets.mjs",
-    "icons:duotone": "node scripts/vendor-reicon-duotone.mjs"
+    "assets:mirror": "node scripts/mirror-assets.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
@@ -38,13 +40,16 @@
     "@tanstack/react-router-devtools": "latest",
     "@tanstack/react-start": "latest",
     "@tanstack/router-plugin": "latest",
+    "@web-kits/audio": "^0.2.0",
     "better-auth": "^1.7.6",
     "canvas-confetti": "^1.9.4",
     "class-variance-authority": "^0.7.1",
+    "cmdk": "^1.1.1",
     "cn": "^0.4.0",
     "dodopayments": "^2.54.1",
     "drizzle-orm": "^0.45.3",
     "intlayer": "^9.7.0",
+    "motion": "^14.1.0",
     "player.style": "^0.3.4",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

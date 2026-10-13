@@ -5,8 +5,6 @@ import { Check } from "reicon-react/icons/Check";
 import { ChevronDown } from "reicon-react/icons/ChevronDown";
 import { ChevronUp } from "reicon-react/icons/ChevronUp";
 
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
-
 const Select = SelectPrimitive.Root;
 
 const SelectGroup = ({ className, ...props }: SelectPrimitive.Group.Props) => (
@@ -44,8 +42,7 @@ const SelectTrigger = ({
   >
     {children}
     <SelectPrimitive.Icon>
-      <ReiconDuotone
-        icon={ChevronDown}
+      <ChevronDown
         aria-hidden="true"
         className="text-muted-foreground pointer-events-none size-4"
       />
@@ -65,7 +62,7 @@ const SelectScrollUpButton = ({
     )}
     {...props}
   >
-    <ReiconDuotone icon={ChevronUp} />
+    <ChevronUp />
   </SelectPrimitive.ScrollUpArrow>
 );
 
@@ -81,7 +78,7 @@ const SelectScrollDownButton = ({
     )}
     {...props}
   >
-    <ReiconDuotone icon={ChevronDown} />
+    <ChevronDown />
   </SelectPrimitive.ScrollDownArrow>
 );
 
@@ -157,7 +154,7 @@ const SelectItem = ({
         <span className="pointer-events-none absolute right-2 flex size-4 items-center justify-center" />
       }
     >
-      <ReiconDuotone icon={Check} className="pointer-events-none" />
+      <Check className="pointer-events-none" />
     </SelectPrimitive.ItemIndicator>
   </SelectPrimitive.Item>
 );

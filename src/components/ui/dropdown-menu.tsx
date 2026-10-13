@@ -4,8 +4,6 @@ import * as React from "react";
 import { Check } from "reicon-react/icons/Check";
 import { ChevronRight } from "reicon-react/icons/ChevronRight";
 
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
-
 const DropdownMenu = ({ ...props }: MenuPrimitive.Root.Props) => (
   <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />
 );
@@ -130,7 +128,7 @@ const DropdownMenuSubTrigger = ({
     {...props}
   >
     {children}
-    <ReiconDuotone icon={ChevronRight} className="ml-auto" />
+    <ChevronRight className="ml-auto" />
   </MenuPrimitive.SubmenuTrigger>
 );
 
@@ -180,7 +178,7 @@ const DropdownMenuCheckboxItem = ({
       data-slot="dropdown-menu-checkbox-item-indicator"
     >
       <MenuPrimitive.CheckboxItemIndicator>
-        <ReiconDuotone icon={Check} />
+        <Check />
       </MenuPrimitive.CheckboxItemIndicator>
     </span>
     {children}
@@ -215,7 +213,7 @@ const DropdownMenuRadioItem = ({
       data-slot="dropdown-menu-radio-item-indicator"
     >
       <MenuPrimitive.RadioItemIndicator>
-        <ReiconDuotone icon={Check} />
+        <Check />
       </MenuPrimitive.RadioItemIndicator>
     </span>
     {children}

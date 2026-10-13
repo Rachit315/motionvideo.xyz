@@ -16,7 +16,9 @@ import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as CreativesRouteImport } from './routes/creatives'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ExtrasRouteImport } from './routes/extras'
+import { Route as FeaturedRouteImport } from './routes/featured'
 import { Route as MotionvideoSkillRouteImport } from './routes/motionvideo-skill'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as SkillsRouteImport } from './routes/skills'
 import { Route as SponsorRouteImport } from './routes/sponsor'
@@ -80,9 +82,19 @@ const ExtrasRoute = ExtrasRouteImport.update({
   path: '/extras',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FeaturedRoute = FeaturedRouteImport.update({
+  id: '/featured',
+  path: '/featured',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MotionvideoSkillRoute = MotionvideoSkillRouteImport.update({
   id: '/motionvideo-skill',
   path: '/motionvideo-skill',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SignInRoute = SignInRouteImport.update({
@@ -240,7 +252,9 @@ export interface FileRoutesByFullPath {
   '/creatives': typeof CreativesRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/extras': typeof ExtrasRouteWithChildren
+  '/featured': typeof FeaturedRoute
   '/motionvideo-skill': typeof MotionvideoSkillRoute
+  '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/skills': typeof SkillsRouteWithChildren
   '/sponsor': typeof SponsorRoute
@@ -275,7 +289,9 @@ export interface FileRoutesByTo {
   '/bookmarks': typeof BookmarksRoute
   '/checkout': typeof CheckoutRoute
   '/dashboard': typeof DashboardRoute
+  '/featured': typeof FeaturedRoute
   '/motionvideo-skill': typeof MotionvideoSkillRoute
+  '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/sponsor': typeof SponsorRoute
   '/studios': typeof StudiosRoute
@@ -311,7 +327,9 @@ export interface FileRoutesById {
   '/creatives': typeof CreativesRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/extras': typeof ExtrasRouteWithChildren
+  '/featured': typeof FeaturedRoute
   '/motionvideo-skill': typeof MotionvideoSkillRoute
+  '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/skills': typeof SkillsRouteWithChildren
   '/sponsor': typeof SponsorRoute
@@ -351,7 +369,9 @@ export interface FileRouteTypes {
     | '/creatives'
     | '/dashboard'
     | '/extras'
+    | '/featured'
     | '/motionvideo-skill'
+    | '/settings'
     | '/sign-in'
     | '/skills'
     | '/sponsor'
@@ -386,7 +406,9 @@ export interface FileRouteTypes {
     | '/bookmarks'
     | '/checkout'
     | '/dashboard'
+    | '/featured'
     | '/motionvideo-skill'
+    | '/settings'
     | '/sign-in'
     | '/sponsor'
     | '/studios'
@@ -421,7 +443,9 @@ export interface FileRouteTypes {
     | '/creatives'
     | '/dashboard'
     | '/extras'
+    | '/featured'
     | '/motionvideo-skill'
+    | '/settings'
     | '/sign-in'
     | '/skills'
     | '/sponsor'
@@ -461,7 +485,9 @@ export interface RootRouteChildren {
   CreativesRoute: typeof CreativesRouteWithChildren
   DashboardRoute: typeof DashboardRoute
   ExtrasRoute: typeof ExtrasRouteWithChildren
+  FeaturedRoute: typeof FeaturedRoute
   MotionvideoSkillRoute: typeof MotionvideoSkillRoute
+  SettingsRoute: typeof SettingsRoute
   SignInRoute: typeof SignInRoute
   SkillsRoute: typeof SkillsRouteWithChildren
   SponsorRoute: typeof SponsorRoute
@@ -524,11 +550,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExtrasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/featured': {
+      id: '/featured'
+      path: '/featured'
+      fullPath: '/featured'
+      preLoaderRoute: typeof FeaturedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/motionvideo-skill': {
       id: '/motionvideo-skill'
       path: '/motionvideo-skill'
       fullPath: '/motionvideo-skill'
       preLoaderRoute: typeof MotionvideoSkillRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sign-in': {
@@ -851,7 +891,9 @@ const rootRouteChildren: RootRouteChildren = {
   CreativesRoute: CreativesRouteWithChildren,
   DashboardRoute: DashboardRoute,
   ExtrasRoute: ExtrasRouteWithChildren,
+  FeaturedRoute: FeaturedRoute,
   MotionvideoSkillRoute: MotionvideoSkillRoute,
+  SettingsRoute: SettingsRoute,
   SignInRoute: SignInRoute,
   SkillsRoute: SkillsRouteWithChildren,
   SponsorRoute: SponsorRoute,

@@ -8,7 +8,6 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
 import {
   BASE_PRICE_CENTS,
   formatUsd,
@@ -115,8 +114,7 @@ export const PriceCard = ({ offer }: { offer: Offer }) => {
         <ul className="flex flex-col gap-3 text-sm">
           {content.perks.map((perk) => (
             <li key={perk.value} className="flex gap-2">
-              <ReiconDuotone
-                icon={Check}
+              <Check
                 aria-hidden
                 className="text-primary mt-0.5 size-4 shrink-0"
               />

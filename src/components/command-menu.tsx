@@ -1,19 +1,45 @@
-import { Autocomplete } from "@base-ui/react/autocomplete";
-import { Dialog } from "@base-ui/react/dialog";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
-import { useIntlayer } from "react-intlayer";
-import { ArrowRightUp } from "reicon-react/icons/ArrowRightUp";
+import type { ReactNode } from "react";
+import { useIntlayer, useLocale } from "react-intlayer";
 import { Compass } from "reicon-react/icons/Compass";
-import { Hashtag } from "reicon-react/icons/Hashtag";
+import { Designtools } from "reicon-react/icons/Designtools";
+import { Envelope } from "reicon-react/icons/Envelope";
+import { File } from "reicon-react/icons/File";
+import { Global } from "reicon-react/icons/Global";
+import { HandHeart } from "reicon-react/icons/HandHeart";
+import { Information } from "reicon-react/icons/Information";
+import { Lock } from "reicon-react/icons/Lock";
+import { Monitor } from "reicon-react/icons/Monitor";
+import { Moon } from "reicon-react/icons/Moon";
+import { Play } from "reicon-react/icons/Play";
+import { Plus } from "reicon-react/icons/Plus";
+import { Scroll } from "reicon-react/icons/Scroll";
 import { Search } from "reicon-react/icons/Search";
+import { Settings } from "reicon-react/icons/Settings";
+import { Shield } from "reicon-react/icons/Shield";
+import { Sparkles } from "reicon-react/icons/Sparkles";
+import { Sun } from "reicon-react/icons/Sun";
+import { Undo } from "reicon-react/icons/Undo";
+import { User2 } from "reicon-react/icons/User2";
 
+import { GitHubIcon, XIcon } from "@/components/brand-icons";
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandShortcut,
+} from "@/components/ui/command";
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
+import { LINK } from "@/constants/links";
 import { useHotkey } from "@/hooks/use-hotkey";
 import type { DirectoryEntry, DirectoryKind } from "@/lib/directories";
-import { MOTION_CATEGORIES, filterMotionVideos } from "@/lib/motion-catalog";
-import type { MotionCategory, MotionVideo } from "@/lib/motion-catalog";
+import type { MotionVideo } from "@/lib/motion-catalog";
+import { setTheme } from "@/lib/theme";
 
 type PagePath =
   | "/"
@@ -21,23 +47,20 @@ type PagePath =
   | "/creatives"
   | "/skills"
   | "/extras"
+  | "/featured"
+  | "/settings"
   | "/submit"
   | "/bookmarks"
   | "/sponsor"
-  | "/motionvideo-skill";
-
-type CommandItem =
-  | { kind: "page"; id: string; label: string; to: PagePath }
-  | { kind: "category"; id: string; label: string; category: MotionCategory }
-  | { kind: "video"; id: string; label: string; video: MotionVideo }
-  | { kind: "link"; id: string; label: string; entry: DirectoryEntry };
-
-// Base UI's `Group` type requires an index signature.
-interface CommandGroup {
-  [key: string]: string | CommandItem[];
-  value: string;
-  items: CommandItem[];
-}
+  | "/motionvideo-skill"
+  | "/about"
+  | "/brand"
+  | "/contact"
+  | "/privacy"
+  | "/terms"
+  | "/refunds"
+  | "/dpa"
+  | "/dashboard";
 
 interface SearchData {
   videos: MotionVideo[];
@@ -48,9 +71,6 @@ const EMPTY_DATA: SearchData = {
   videos: [],
   directories: { tool: [], studio: [], skill: [], extra: [] },
 };
-const SUGGESTED_VIDEOS = 6;
-const VIDEO_LIMIT = 12;
-const DIRECTORY_LIMIT = 6;
 
 const importSearchData = async (): Promise<SearchData> => {
   const [catalog, directories] = await Promise.all([
@@ -65,12 +85,12 @@ const importSearchData = async (): Promise<SearchData> => {
 
 // The catalog is ~370 kB; load it only once someone reaches for search.
 let dataPromise: Promise<SearchData> | undefined;
-const loadSearchData = async () => {
+const loadSearchData = async (): Promise<SearchData> => {
   dataPromise ??= importSearchData();
   try {
     return await dataPromise;
   } catch {
-    // Pages and categories stay searchable; the next open retries the chunk.
+    // The palette stays usable; the next open retries the chunk.
     dataPromise = undefined;
     return EMPTY_DATA;
   }
@@ -80,89 +100,36 @@ const subscribeNever = () => () => {
   // The platform never changes while the page is open.
 };
 
-const matches = (text: string, words: string[]) => {
-  const haystack = text.toLocaleLowerCase();
-  return words.every((word) => haystack.includes(word));
-};
+const LANGUAGE_OPTIONS: {
+  code: "en" | "es" | "fr";
+  label: string;
+  keywords: string;
+}[] = [
+  { code: "en", label: "English", keywords: "english" },
+  { code: "es", label: "Español", keywords: "spanish español" },
+  { code: "fr", label: "Français", keywords: "french français" },
+];
 
-const Thumbnail = ({ src }: { src: string | null }) => (
-  <span className="bg-muted relative aspect-video w-16 shrink-0 overflow-hidden rounded-md">
-    {src && (
-      <img
-        src={src}
-        alt=""
-        loading="lazy"
-        decoding="async"
-        referrerPolicy="no-referrer"
-        className="size-full object-cover"
-      />
-    )}
-  </span>
-);
+interface PaletteItem {
+  id: string;
+  label: string;
+  /** Extra terms cmdk matches against, beyond the label and id. */
+  keywords?: string[];
+  icon?: ReactNode;
+  /** Right-aligned muted text (e.g. an `@handle` or description). */
+  hint?: string;
+  action: () => void;
+}
 
-const ItemBody = ({ item }: { item: CommandItem }) => {
-  switch (item.kind) {
-    case "page": {
-      return (
-        <>
-          <ReiconDuotone
-            icon={Compass}
-            aria-hidden="true"
-            className="text-muted-foreground size-4"
-          />
-          <span className="truncate">{item.label}</span>
-        </>
-      );
-    }
-    case "category": {
-      return (
-        <>
-          <ReiconDuotone
-            icon={Hashtag}
-            aria-hidden="true"
-            className="text-muted-foreground size-4"
-          />
-          <span className="truncate">{item.label}</span>
-        </>
-      );
-    }
-    case "video": {
-      return (
-        <>
-          <Thumbnail src={item.video.poster} />
-          <span className="flex min-w-0 flex-col">
-            <span className="truncate">{item.label}</span>
-            <span className="text-muted-foreground truncate text-xs">
-              @{item.video.handle}
-            </span>
-          </span>
-        </>
-      );
-    }
-    default: {
-      return (
-        <>
-          <Thumbnail src={item.entry.cover} />
-          <span className="flex min-w-0 flex-1 flex-col">
-            <span className="truncate">{item.label}</span>
-            <span lang="en" className="text-muted-foreground truncate text-xs">
-              {item.entry.description}
-            </span>
-          </span>
-          <ReiconDuotone
-            icon={ArrowRightUp}
-            aria-hidden="true"
-            className="text-muted-foreground size-3.5"
-          />
-        </>
-      );
-    }
-  }
-};
+interface PaletteGroup {
+  id: string;
+  heading: ReactNode;
+  items: PaletteItem[];
+}
 
 export const CommandMenu = () => {
   const content = useIntlayer("command-menu");
-  const gallery = useIntlayer("motion-gallery");
+  const { setLocale } = useLocale();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -173,227 +140,278 @@ export const CommandMenu = () => {
     () => "⌘"
   );
 
+  const ensureData = async () => {
+    setData(await loadSearchData());
+  };
+
+  useHotkey("/", () => {
+    void ensureData();
+    setOpen(true);
+  });
+
+  // kmenu used to own ⌘K/Ctrl+K; with cmdk the palette is plain state, so the
+  // global toggle lives here. preventDefault keeps it off the browser's own.
   useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
+    const onKeyDown = async (event: KeyboardEvent) => {
       if (
-        event.key.toLowerCase() === "k" &&
-        (event.metaKey || event.ctrlKey) &&
-        !event.altKey
+        !(event.metaKey || event.ctrlKey) ||
+        event.key.toLowerCase() !== "k"
       ) {
-        event.preventDefault();
-        setOpen((current) => !current);
+        return;
       }
+      event.preventDefault();
+      setData(await loadSearchData());
+      setOpen((wasOpen) => !wasOpen);
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
-  useHotkey(
-    "/",
-    (event) => {
-      event.preventDefault();
-      setOpen(true);
-    },
-    { enabled: !open }
-  );
 
-  useEffect(() => {
-    if (!open) {
-      return;
-    }
-    let active = true;
-    const load = async () => {
-      const loaded = await loadSearchData();
-      if (active) {
-        setData(loaded);
-      }
-    };
-    load();
-    return () => {
-      active = false;
-    };
-  }, [open]);
-
-  const pages = useMemo<CommandItem[]>(
-    () => [
-      { kind: "page", id: "page:/", label: content.discover.value, to: "/" },
-      {
-        kind: "page",
-        id: "page:/tools",
-        label: content.tools.value,
-        to: "/tools",
-      },
-      {
-        kind: "page",
-        id: "page:/creatives",
-        label: content.creatives.value,
-        to: "/creatives",
-      },
-      {
-        kind: "page",
-        id: "page:/skills",
-        label: content.skills.value,
-        to: "/skills",
-      },
-      {
-        kind: "page",
-        id: "page:/extras",
-        label: content.extras.value,
-        to: "/extras",
-      },
-      {
-        kind: "page",
-        id: "page:/submit",
-        label: content.submit.value,
-        to: "/submit",
-      },
-      {
-        kind: "page",
-        id: "page:/bookmarks",
-        label: content.bookmarks.value,
-        to: "/bookmarks",
-      },
-      {
-        kind: "page",
-        id: "page:/sponsor",
-        label: content.sponsor.value,
-        to: "/sponsor",
-      },
-      {
-        kind: "page",
-        id: "page:/motionvideo-skill",
-        label: content.skill.value,
-        to: "/motionvideo-skill",
-      },
-    ],
-    [content]
-  );
-  const categories = useMemo<CommandItem[]>(
-    () =>
-      MOTION_CATEGORIES.map((category) => ({
-        kind: "category",
-        id: `category:${category}`,
-        label: gallery.categories[category].value,
-        category,
-      })),
-    [gallery]
-  );
-
-  const groups = useMemo<CommandGroup[]>(() => {
-    const words = query
-      .trim()
-      .toLocaleLowerCase()
-      .split(/\s+/u)
-      .filter(Boolean);
-    const toVideoItem = (video: MotionVideo): CommandItem => ({
-      kind: "video",
+  const groups = useMemo<PaletteGroup[]>(() => {
+    // SAFETY: every page below is a literal member of the PagePath union, so
+    // these casts are exact.
+    const page = (
+      to: PagePath,
+      label: string,
+      icon: ReactNode,
+      keywords: string[] = []
+    ): PaletteItem => ({
+      id: `page:${to}`,
+      label,
+      keywords: [to, ...keywords],
+      icon,
+      action: () => navigate({ to: to as PagePath }),
+    });
+    const videos: PaletteItem[] = data.videos.map((video) => ({
       id: `video:${video.slug}`,
       label: video.title,
-      video,
-    });
-    const toLinkItems = (entries: DirectoryEntry[]) =>
-      entries
-        .filter((entry) =>
-          matches(`${entry.name} ${entry.description} ${entry.category}`, words)
-        )
-        .slice(0, DIRECTORY_LIMIT)
-        .map((entry): CommandItem => ({
-          kind: "link",
-          id: `link:${entry.url}`,
-          label: entry.name,
-          entry,
-        }));
-    const result: CommandGroup[] = words.length
-      ? [
-          {
-            value: content.videos.value,
-            items: filterMotionVideos(data.videos, { q: query })
-              .slice(0, VIDEO_LIMIT)
-              .map(toVideoItem),
-          },
-          {
-            value: content.categories.value,
-            items: categories.filter((item) => matches(item.label, words)),
-          },
-          {
-            value: content.pages.value,
-            items: pages.filter((item) => matches(item.label, words)),
-          },
-          {
-            value: content.tools.value,
-            items: toLinkItems(data.directories.tool),
-          },
-          {
-            value: content.creatives.value,
-            items: toLinkItems(data.directories.studio),
-          },
-          {
-            value: content.skills.value,
-            items: toLinkItems(data.directories.skill),
-          },
-          {
-            value: content.extras.value,
-            items: toLinkItems(data.directories.extra),
-          },
-        ]
-      : [
-          { value: content.pages.value, items: pages },
-          {
-            value: content.popular.value,
-            items: data.videos.slice(0, SUGGESTED_VIDEOS).map(toVideoItem),
-          },
-          { value: content.categories.value, items: categories },
-        ];
-    return result.filter((group) => group.items.length > 0);
-  }, [query, data, pages, categories, content]);
-
-  const runItem = (item: CommandItem) => {
-    setOpen(false);
-    setQuery("");
-    switch (item.kind) {
-      case "page": {
-        void navigate({ to: item.to });
-        break;
-      }
-      case "category": {
-        void navigate({
-          to: "/category/$category",
-          params: { category: item.category },
-        });
-        break;
-      }
-      case "video": {
-        void navigate({
+      keywords: [video.title, `@${video.handle}`, video.handle],
+      hint: `@${video.handle}`,
+      action: () =>
+        navigate({
           to: "/videos/$slug",
-          params: { slug: item.video.slug },
+          params: { slug: video.slug },
           viewTransition: true,
-        });
-        break;
-      }
-      default: {
-        window.open(item.entry.url, "_blank", "noopener,noreferrer");
-      }
+        }),
+    }));
+    const linkItems = (entries: DirectoryEntry[]): PaletteItem[] =>
+      entries.map((entry) => ({
+        id: `link:${entry.url}`,
+        label: entry.name,
+        keywords: [entry.name, entry.description, entry.category],
+        hint: entry.description,
+        action: () => {
+          window.open(entry.url, "_blank", "noopener,noreferrer");
+        },
+      }));
+    const item = (entry: Omit<PaletteItem, "action">, action: () => void) => ({
+      ...entry,
+      action,
+    });
+    // Always visible: Pages, Theme, Socials. Videos + directory entries stay
+    // hidden until the user types, but remain searchable via cmdk filtering.
+    const hasQuery = query.trim().length > 0;
+    const visible: PaletteGroup[] = [
+      {
+        id: "pages",
+        heading: content.pages.value,
+        items: [
+          page("/", content.discover.value, <Compass aria-hidden="true" />),
+          page(
+            "/tools",
+            content.tools.value,
+            <Designtools aria-hidden="true" />
+          ),
+          page(
+            "/creatives",
+            content.creatives.value,
+            <User2 aria-hidden="true" />
+          ),
+          page(
+            "/skills",
+            content.skills.value,
+            <Sparkles aria-hidden="true" />
+          ),
+          page("/extras", content.extras.value, <Plus aria-hidden="true" />),
+          page(
+            "/featured",
+            content.featured.value,
+            <Sparkles aria-hidden="true" />
+          ),
+          page(
+            "/settings",
+            content.settings.value,
+            <Settings aria-hidden="true" />
+          ),
+          page("/motionvideo-skill", "SKILL.md", <File aria-hidden="true" />, [
+            "skill",
+            "skill.md",
+            "agent",
+          ]),
+          page(
+            "/about",
+            content.about.value,
+            <Information aria-hidden="true" />
+          ),
+          page(
+            "/contact",
+            content.contact.value,
+            <Envelope aria-hidden="true" />
+          ),
+          page(
+            "/sponsor",
+            content.sponsor.value,
+            <HandHeart aria-hidden="true" />
+          ),
+          page("/terms", content.terms.value, <Scroll aria-hidden="true" />),
+          page("/privacy", content.privacy.value, <Lock aria-hidden="true" />),
+          page("/refunds", content.refunds.value, <Undo aria-hidden="true" />),
+          page("/dpa", content.dpa.value, <Shield aria-hidden="true" />),
+        ],
+      },
+      {
+        id: "theme",
+        heading: content.theme.value,
+        items: [
+          item(
+            {
+              id: "theme:light",
+              label: content.light.value,
+              keywords: ["theme", "appearance", "mode", "light"],
+              icon: <Sun aria-hidden="true" />,
+            },
+            () => setTheme("light")
+          ),
+          item(
+            {
+              id: "theme:dark",
+              label: content.dark.value,
+              keywords: ["theme", "appearance", "mode", "dark"],
+              icon: <Moon aria-hidden="true" />,
+            },
+            () => setTheme("dark")
+          ),
+          item(
+            {
+              id: "theme:system",
+              label: content.system.value,
+              keywords: ["theme", "appearance", "mode", "system", "auto"],
+              icon: <Monitor aria-hidden="true" />,
+            },
+            () => setTheme("system")
+          ),
+        ],
+      },
+      {
+        id: "language",
+        heading: content.language.value,
+        items: LANGUAGE_OPTIONS.map((language): PaletteItem => ({
+          id: `language:${language.code}`,
+          label: language.label,
+          keywords: ["language", "locale", "translate", language.keywords],
+          icon: <Global aria-hidden="true" />,
+          action: () => setLocale(language.code),
+        })),
+      },
+      {
+        id: "socials",
+        heading: content.socials.value,
+        items: [
+          {
+            id: "other:github",
+            label: "GitHub",
+            keywords: ["github", "git", "repo", "star"],
+            icon: <GitHubIcon className="size-4" />,
+            action: () => {
+              window.open(LINK.GITHUB_REPO, "_blank", "noopener,noreferrer");
+            },
+          },
+          {
+            id: "other:x",
+            label: "X",
+            keywords: ["x", "twitter", "follow"],
+            icon: <XIcon className="size-4" />,
+            action: () => {
+              window.open(LINK.X, "_blank", "noopener,noreferrer");
+            },
+          },
+        ],
+      },
+    ];
+    if (!hasQuery) {
+      return visible;
     }
-  };
+    return [
+      ...visible,
+      {
+        id: "videos",
+        heading: (
+          <span className="flex items-center gap-1.5">
+            <Play aria-hidden="true" className="size-3" />
+            {content.videos.value}
+          </span>
+        ),
+        items: videos,
+      },
+      {
+        id: "tools",
+        heading: (
+          <span className="flex items-center gap-1.5">
+            <Designtools aria-hidden="true" className="size-3" />
+            {content.tools.value}
+          </span>
+        ),
+        items: linkItems(data.directories.tool),
+      },
+      {
+        id: "creatives",
+        heading: (
+          <span className="flex items-center gap-1.5">
+            <User2 aria-hidden="true" className="size-3" />
+            {content.creatives.value}
+          </span>
+        ),
+        items: linkItems(data.directories.studio),
+      },
+      {
+        id: "skills",
+        heading: (
+          <span className="flex items-center gap-1.5">
+            <Sparkles aria-hidden="true" className="size-3" />
+            {content.skills.value}
+          </span>
+        ),
+        items: linkItems(data.directories.skill),
+      },
+      {
+        id: "extras",
+        heading: (
+          <span className="flex items-center gap-1.5">
+            <Plus aria-hidden="true" className="size-3" />
+            {content.extras.value}
+          </span>
+        ),
+        items: linkItems(data.directories.extra),
+      },
+    ];
+  }, [data, content, navigate, query, setLocale]);
 
   return (
-    <Dialog.Root
-      open={open}
-      onOpenChange={(next) => {
-        setOpen(next);
-        if (!next) {
-          setQuery("");
-        }
-      }}
-    >
-      <Dialog.Trigger
+    <>
+      <button
+        type="button"
         aria-label={content.open.value}
         aria-keyshortcuts="Meta+K Control+K /"
         onPointerEnter={() => {
-          loadSearchData();
+          void ensureData();
         }}
-        className="bg-secondary text-muted-foreground hover:text-foreground focus-visible:ring-ring/50 flex h-9 w-full min-w-0 items-center gap-2 rounded-full px-3 text-sm transition-colors outline-none hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] focus-visible:ring-3 max-lg:size-9 max-lg:justify-center max-lg:px-0"
+        onClick={() => {
+          void ensureData();
+          setOpen(true);
+        }}
+        className="bg-secondary text-muted-foreground hover:text-foreground focus-visible:ring-ring/50 flex h-8 w-full min-w-0 items-center gap-2 rounded-lg px-3 text-sm transition-colors outline-none hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] focus-visible:ring-3 max-lg:size-9 max-lg:justify-center max-lg:px-0 lg:w-56 xl:w-64"
       >
-        <ReiconDuotone icon={Search} aria-hidden="true" className="size-4" />
+        <Search aria-hidden="true" className="size-4" />
         <span className="hidden flex-1 truncate text-left lg:inline">
           {content.placeholder}
         </span>
@@ -401,81 +419,54 @@ export const CommandMenu = () => {
           <Kbd className="bg-background">{modifier}</Kbd>
           <Kbd className="bg-background">K</Kbd>
         </KbdGroup>
-      </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0" />
-        <Dialog.Viewport className="fixed inset-0 z-50 flex items-start justify-center px-3 pt-[12svh] pb-3">
-          <Dialog.Popup
-            aria-label={content.open.value}
-            className="bg-popover text-popover-foreground shadow-popover flex max-h-[min(36rem,80svh)] w-full max-w-xl flex-col overflow-hidden rounded-2xl transition-[translate,scale,opacity] duration-150 outline-none data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0"
-          >
-            <Autocomplete.Root
-              open
-              inline
-              items={groups}
-              filteredItems={groups}
-              value={query}
-              onValueChange={setQuery}
-              itemToStringValue={(item: CommandItem) => item.label}
-              autoHighlight="always"
-              keepHighlight
-            >
-              <div className="flex items-center gap-2 px-4">
-                <ReiconDuotone
-                  icon={Search}
-                  aria-hidden="true"
-                  className="text-muted-foreground size-4"
-                />
-                <Autocomplete.Input
-                  aria-label={content.open.value}
-                  placeholder={content.placeholder.value}
-                  className="placeholder:text-muted-foreground h-12 w-full bg-transparent text-sm outline-none"
-                />
-                <Dialog.Close
-                  render={
-                    <Kbd className="pointer-events-auto cursor-pointer" />
-                  }
-                  aria-label={content.close.value}
-                >
-                  Esc
-                </Dialog.Close>
-              </div>
-              <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2 pb-2">
-                <Autocomplete.Empty>
-                  <p className="text-muted-foreground px-3 py-10 text-center text-sm">
-                    {content.empty}
-                  </p>
-                </Autocomplete.Empty>
-                <Autocomplete.List>
-                  {(group: CommandGroup) => (
-                    <Autocomplete.Group
-                      key={group.value}
-                      items={group.items}
-                      className="pt-2"
-                    >
-                      <Autocomplete.GroupLabel className="text-muted-foreground px-3 py-1.5 text-xs font-medium">
-                        {group.value}
-                      </Autocomplete.GroupLabel>
-                      <Autocomplete.Collection>
-                        {(item: CommandItem) => (
-                          <Autocomplete.Item
-                            key={item.id}
-                            value={item}
-                            onClick={() => runItem(item)}
-                            className="data-highlighted:bg-accent data-highlighted:text-accent-foreground flex min-h-9 cursor-default [scroll-margin-block:0.5rem] items-center gap-3 rounded-lg px-3 py-1.5 text-sm outline-none select-none"
-                          >
-                            <ItemBody item={item} />
-                          </Autocomplete.Item>
-                        )}
-                      </Autocomplete.Collection>
-                    </Autocomplete.Group>
-                  )}
-                </Autocomplete.List>
-              </div>
-            </Autocomplete.Root>
-          </Dialog.Popup>
-        </Dialog.Viewport>
-      </Dialog.Portal>
-    </Dialog.Root>
+      </button>
+      <CommandDialog
+        open={open}
+        onOpenChange={(next) => {
+          setOpen(next);
+          if (!next) {
+            setQuery("");
+          }
+        }}
+        title={content.open.value}
+        description={content.placeholder.value}
+      >
+        <Command loop>
+          <CommandInput
+            placeholder={content.placeholder.value}
+            value={query}
+            onValueChange={setQuery}
+          />
+          <CommandList>
+            <CommandEmpty>{content.empty.value}</CommandEmpty>
+            {groups.map((group) => (
+              <CommandGroup key={group.id} heading={group.heading}>
+                {group.items.map((entry) => (
+                  <CommandItem
+                    key={entry.id}
+                    // Unique per entry while still starting with the label, so
+                    // cmdk ranks label-prefix matches first.
+                    value={`${entry.label} ${entry.id}`}
+                    keywords={entry.keywords}
+                    onSelect={() => {
+                      entry.action();
+                      setOpen(false);
+                    }}
+                  >
+                    {entry.icon}
+                    <span className="truncate">{entry.label}</span>
+                    {entry.hint && (
+                      <CommandShortcut className="max-w-1/2 truncate tracking-normal">
+                        {entry.hint}
+                      </CommandShortcut>
+                    )}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            ))}
+          </CommandList>
+        </Command>
+      </CommandDialog>
+    </>
   );
 };

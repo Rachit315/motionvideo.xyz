@@ -1,5 +1,4 @@
 import {
-  Link,
   Outlet,
   createFileRoute,
   getRouteApi,
@@ -9,19 +8,27 @@ import {
 import { cn } from "cn";
 import { useMemo, useState } from "react";
 import { useIntlayer } from "react-intlayer";
-import { ArrowRightUp } from "reicon-react/icons/ArrowRightUp";
 import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { Pause } from "reicon-react/icons/Pause";
+import { Pause3 } from "reicon-react/icons/Pause3";
 import { Play } from "reicon-react/icons/Play";
 import { Search } from "reicon-react/icons/Search";
-import { Ufo } from "reicon-react/icons/Ufo";
 import { z } from "zod";
 
+import {
+  CollectionGrid,
+  CollectionEmptyState,
+} from "@/components/collection-grid";
+import { CollectionIntro } from "@/components/collection-intro";
+import {
+  CategoryChip,
+  CollectionToolbar,
+} from "@/components/collection-toolbar";
 import { FadeScroller } from "@/components/fade-scroller";
 import { MotionVideoCard } from "@/components/motion-video";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { SponsoredCard } from "@/components/sponsored-card";
+import { buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,12 +36,10 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
 import { Separator } from "@/components/ui/separator";
-import { VirtualMasonry } from "@/components/virtual-masonry";
 import type { MasonryItem } from "@/components/virtual-masonry";
-import { ROUTES } from "@/constants/routes";
 import catalog from "@/data/motion-catalog.json";
+import { useLaneCount } from "@/hooks/use-lane-count";
 import {
   MOTION_CATEGORIES,
   filterMotionVideos,
@@ -97,6 +102,7 @@ const Gallery = () => {
     );
   }, [search.type]);
   const previewsPaused = paused || Boolean(openSlug);
+  const lanes = useLaneCount();
 
   // Type and sort stay search params on whichever page is showing.
   const updateSearch = (patch: GallerySearch) => {
@@ -111,61 +117,40 @@ const Gallery = () => {
       : navigate({ to: "/", search: next, resetScroll: false }));
   };
 
+  const surprise = () => {
+    const video = filtered[Math.floor(Math.random() * filtered.length)];
+    if (!video) {
+      return;
+    }
+    const options = {
+      search,
+      resetScroll: false,
+      viewTransition: true,
+    };
+    void (category
+      ? navigate({
+          to: "/category/$category/videos/$slug",
+          params: { category, slug: video.slug },
+          ...options,
+        })
+      : navigate({
+          to: "/videos/$slug",
+          params: { slug: video.slug },
+          ...options,
+        }));
+  };
+
   const intro = (
-    <section
-      aria-labelledby="gallery-intro-title"
-      className="flex flex-col gap-5 py-4"
-    >
-      <h1
-        id="gallery-intro-title"
-        className="text-2xl leading-tight font-semibold tracking-tight text-balance"
-      >
-        {category ? content.categoryTitles[category] : content.title}
-      </h1>
-      <p className="text-muted-foreground text-sm leading-relaxed text-pretty">
-        {category ? content.categoryIntros[category] : content.intro}
-      </p>
-      <div className="flex flex-wrap gap-2">
-        <Button
-          variant="outline"
-          size="lg"
-          disabled={filtered.length === 0}
-          onClick={() => {
-            const video = filtered[Math.floor(Math.random() * filtered.length)];
-            if (!video) {
-              return;
-            }
-            const options = {
-              search,
-              resetScroll: false,
-              viewTransition: true,
-            };
-            void (category
-              ? navigate({
-                  to: "/category/$category/videos/$slug",
-                  params: { category, slug: video.slug },
-                  ...options,
-                })
-              : navigate({
-                  to: "/videos/$slug",
-                  params: { slug: video.slug },
-                  ...options,
-                }));
-          }}
-        >
-          <ReiconDuotone icon={Ufo} aria-hidden="true" />
-          {content.surprise}
-        </Button>
-        <Link
-          to={ROUTES.SUBMIT}
-          search={{ kind: "video", category }}
-          className={buttonVariants({ variant: "gradient", size: "lg" })}
-        >
-          {content.submitVideo}
-          <ReiconDuotone icon={ArrowRightUp} aria-hidden="true" />
-        </Link>
-      </div>
-    </section>
+    <CollectionIntro
+      titleId="gallery-intro-title"
+      title={category ? content.categoryTitles[category] : content.title}
+      description={category ? content.categoryIntros[category] : content.intro}
+      onSurprise={surprise}
+      surpriseDisabled={filtered.length === 0}
+      surpriseLabel={content.surprise}
+      submitLabel={content.submitVideo}
+      submitSearch={{ kind: "video", category }}
+    />
   );
 
   const cards: MasonryItem[] = filtered.map((video) => ({
@@ -182,164 +167,152 @@ const Gallery = () => {
     ),
   }));
   const items: MasonryItem[] = [{ key: "intro", node: intro }, ...cards];
+  // Sponsored tile in the first row's rightmost lane — but when the row
+  // isn't full it just follows the last tile instead of floating apart.
+  let sponsoredIndex = 1 + cards.length;
+  if (lanes < 2) {
+    sponsoredIndex = 1;
+  } else if (sponsoredIndex >= lanes) {
+    sponsoredIndex = lanes - 1;
+  }
+  items.splice(sponsoredIndex, 0, {
+    key: "sponsored",
+    aspectRatio: 16 / 9,
+    node: <SponsoredCard />,
+  });
 
   return (
     <>
       <SiteHeader signedIn={signedIn} />
-      <div className="bg-background/90 sticky top-0 z-30 backdrop-blur-md">
-        <div
-          role="toolbar"
-          aria-label={content.browse.value}
-          className="mx-auto flex w-full max-w-[1800px] items-center gap-2 px-4 py-2.5 sm:gap-3 sm:px-6"
-        >
-          <div className="flex min-w-0 flex-1 items-center gap-2 lg:flex-none lg:basis-[65%]">
-            <DropdownMenu>
-              <DropdownMenuTrigger
-                aria-label={content.filterType.value}
-                className={chipClass(Boolean(search.type))}
+      <CollectionToolbar label={content.browse.value}>
+        <div className="flex min-w-0 flex-1 items-center gap-2 lg:flex-none lg:basis-[65%]">
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              aria-label={content.filterType.value}
+              className={chipClass(Boolean(search.type))}
+            >
+              {search.type ? content[search.type] : content.all}
+              <ChevronDown aria-hidden="true" className="size-3.5" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-44">
+              <DropdownMenuRadioGroup
+                value={search.type ?? "all"}
+                onValueChange={(value) =>
+                  updateSearch({
+                    type: TYPES.find((type) => type === value),
+                  })
+                }
               >
-                {search.type ? content[search.type] : content.all}
-                <ReiconDuotone
-                  icon={ChevronDown}
-                  aria-hidden="true"
-                  className="size-3.5"
-                />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-44">
-                <DropdownMenuRadioGroup
-                  value={search.type ?? "all"}
-                  onValueChange={(value) =>
-                    updateSearch({
-                      type: TYPES.find((type) => type === value),
-                    })
-                  }
-                >
-                  <DropdownMenuRadioItem value="all">
-                    {content.all}
+                <DropdownMenuRadioItem value="all">
+                  {content.all}
+                  <span className="text-muted-foreground ml-auto text-xs tabular-nums">
+                    {videos.length}
+                  </span>
+                </DropdownMenuRadioItem>
+                {TYPES.map((type) => (
+                  <DropdownMenuRadioItem key={type} value={type}>
+                    {content[type]}
                     <span className="text-muted-foreground ml-auto text-xs tabular-nums">
-                      {videos.length}
+                      {typeCounts[type]}
                     </span>
                   </DropdownMenuRadioItem>
-                  {TYPES.map((type) => (
-                    <DropdownMenuRadioItem key={type} value={type}>
-                      {content[type]}
-                      <span className="text-muted-foreground ml-auto text-xs tabular-nums">
-                        {typeCounts[type]}
-                      </span>
-                    </DropdownMenuRadioItem>
-                  ))}
-                </DropdownMenuRadioGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <Separator orientation="vertical" className="my-1.5" />
-            <FadeScroller
-              label={content.filterCategory.value}
-              className="-mx-1 -my-1 min-w-0 flex-1 px-1 py-1"
-            >
-              {MOTION_CATEGORIES.map((id) => {
-                const active = category === id;
-                const chipProps = {
-                  search,
-                  resetScroll: false,
-                  "aria-current": active ? ("page" as const) : undefined,
-                  className: cn(
-                    buttonVariants({
-                      variant: active ? "default" : "secondary",
-                    }),
-                    "rounded-full px-3",
-                    !active && "text-muted-foreground"
-                  ),
-                  children: (
-                    <>
-                      {content.categories[id]}
-                      <span className="text-xs tabular-nums opacity-60">
-                        {categoryCounts[id]}
-                      </span>
-                    </>
-                  ),
-                };
-                // Each category is its own page; the active chip goes back to `/`.
-                return active ? (
-                  <Link key={id} to="/" {...chipProps} />
-                ) : (
-                  <Link
-                    key={id}
-                    to="/category/$category"
-                    params={{ category: id }}
-                    {...chipProps}
-                  />
-                );
-              })}
-            </FadeScroller>
-          </div>
-          <div className="ml-auto flex shrink-0 items-center gap-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger
-                aria-label={content.sort.value}
-                className={chipClass(sort !== "popular")}
-              >
-                {sortLabels[sort]}
-                <ReiconDuotone
-                  icon={ChevronDown}
-                  aria-hidden="true"
-                  className="size-3.5"
+                ))}
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <Separator orientation="vertical" className="my-1.5" />
+          <FadeScroller
+            label={content.filterCategory.value}
+            className="-mx-1 -my-1 min-w-0 flex-1 px-1 py-1"
+          >
+            {MOTION_CATEGORIES.map((id) => {
+              const active = category === id;
+              // Each category is its own page; the active chip goes back to `/`.
+              return active ? (
+                <CategoryChip
+                  key={id}
+                  to="/"
+                  search={search}
+                  active
+                  label={content.categories[id]}
+                  count={categoryCounts[id]}
                 />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-44">
-                <DropdownMenuRadioGroup
-                  value={sort}
-                  onValueChange={(value) =>
-                    updateSearch({
-                      sort:
-                        value === "newest" || value === "oldest"
-                          ? value
-                          : undefined,
-                    })
-                  }
-                >
-                  <DropdownMenuRadioItem value="popular">
-                    {content.popular}
-                  </DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="newest">
-                    {content.newest}
-                  </DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="oldest">
-                    {content.oldest}
-                  </DropdownMenuRadioItem>
-                </DropdownMenuRadioGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <button
-              type="button"
-              aria-pressed={paused}
-              onClick={() => setPaused(!paused)}
-              className={chipClass(paused)}
-            >
-              <ReiconDuotone icon={paused ? Play : Pause} aria-hidden="true" />
-              <span className="max-sm:sr-only">
-                {paused ? content.play : content.pause}
-              </span>
-            </button>
-          </div>
+              ) : (
+                <CategoryChip
+                  key={id}
+                  to="/category/$category"
+                  params={{ category: id }}
+                  search={search}
+                  active={false}
+                  label={content.categories[id]}
+                  count={categoryCounts[id]}
+                />
+              );
+            })}
+          </FadeScroller>
         </div>
-      </div>
-      <main
-        id="main-content"
-        className="mx-auto w-full max-w-[1800px] px-4 pt-2 pb-16 sm:px-6"
-      >
-        <VirtualMasonry items={items} />
-        {filtered.length === 0 && (
-          <div className="bg-muted/40 flex flex-col items-center gap-2 rounded-2xl py-14 text-center">
-            <ReiconDuotone
+        <div className="ml-auto flex shrink-0 items-center gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              aria-label={content.sort.value}
+              className={chipClass(sort !== "popular")}
+            >
+              {sortLabels[sort]}
+              <ChevronDown aria-hidden="true" className="size-3.5" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-44">
+              <DropdownMenuRadioGroup
+                value={sort}
+                onValueChange={(value) =>
+                  updateSearch({
+                    sort:
+                      value === "newest" || value === "oldest"
+                        ? value
+                        : undefined,
+                  })
+                }
+              >
+                <DropdownMenuRadioItem value="popular">
+                  {content.popular}
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="newest">
+                  {content.newest}
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="oldest">
+                  {content.oldest}
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <button
+            type="button"
+            aria-pressed={paused}
+            onClick={() => setPaused(!paused)}
+            className={cn(chipClass(paused), "max-sm:px-2")}
+          >
+            {paused ? (
+              <Play aria-hidden="true" />
+            ) : (
+              <Pause3 aria-hidden="true" />
+            )}
+            <span className="max-sm:sr-only">
+              {paused ? content.play : content.pause}
+            </span>
+          </button>
+        </div>
+      </CollectionToolbar>
+      <CollectionGrid
+        items={items}
+        emptyState={
+          filtered.length === 0 ? (
+            <CollectionEmptyState
               icon={Search}
-              className="text-muted-foreground size-7"
-              aria-hidden="true"
+              title={content.noResults}
+              description={content.tryAgain}
             />
-            <h2 className="font-medium">{content.noResults}</h2>
-            <p className="text-muted-foreground text-sm">{content.tryAgain}</p>
-          </div>
-        )}
-      </main>
+          ) : undefined
+        }
+      />
       <Outlet />
       <SiteFooter />
     </>

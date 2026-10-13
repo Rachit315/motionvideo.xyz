@@ -19,7 +19,6 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
 import { VirtualMasonry } from "@/components/virtual-masonry";
 import type { MasonryItem } from "@/components/virtual-masonry";
 import { ROUTES } from "@/constants/routes";
@@ -83,8 +82,7 @@ const Bookmarks = () => {
           <Empty className="bg-muted/40 rounded-2xl">
             <EmptyHeader>
               <EmptyMedia>
-                <ReiconDuotone
-                  icon={Bookmark}
+                <Bookmark
                   aria-hidden="true"
                   className="text-muted-foreground size-7"
                 />

@@ -28,7 +28,6 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
 import { SITE } from "@/constants/site";
 import { authClient } from "@/lib/auth-client";
 import { createMetadata } from "@/seo/metadata";
@@ -63,10 +62,10 @@ const PurchaseCard = () => {
 
   if (account.purchased) {
     return (
-      <Empty className="bg-card border border-solid">
+      <Empty className="bg-card shadow-outline">
         <EmptyHeader>
           <EmptyMedia className="text-primary">
-            <ReiconDuotone icon={CheckCircle} aria-hidden className="size-8" />
+            <CheckCircle aria-hidden className="size-8" />
           </EmptyMedia>
           <EmptyTitle className="text-base">
             {content.own} {SITE.NAME}

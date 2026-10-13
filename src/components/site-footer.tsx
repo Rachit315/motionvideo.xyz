@@ -18,7 +18,6 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
 import {
   Tooltip,
   TooltipContent,
@@ -45,8 +44,7 @@ const FooterMenu = ({
   <DropdownMenu>
     <DropdownMenuTrigger className={buttonVariants({ variant: "subtle" })}>
       {label}
-      <ReiconDuotone
-        icon={ChevronDown}
+      <ChevronDown
         aria-hidden="true"
         className="size-3.5 transition-transform in-data-popup-open:rotate-180"
       />

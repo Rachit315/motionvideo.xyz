@@ -83,7 +83,9 @@ export const hasPurchased = async (email: string): Promise<boolean> => {
 };
 
 const launchDiscount = async (): Promise<{ code: string; offer: Offer }> => {
-  const discount = await getDodo().discounts.retrieve(env.DODO_LAUNCH_DISCOUNT_ID);
+  const discount = await getDodo().discounts.retrieve(
+    env.DODO_LAUNCH_DISCOUNT_ID
+  );
   const usd = discount.currency_options?.find(
     (option) => option.currency === "USD"
   );

@@ -25,7 +25,6 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
 import { LINK } from "@/constants/links";
 import { ROUTES } from "@/constants/routes";
 import catalog from "@/data/motion-catalog.json";
@@ -81,13 +80,9 @@ const Sponsor = () => {
         {thanks && (
           <section
             aria-live="polite"
-            className="bg-card flex items-start gap-3 rounded-2xl border p-6"
+            className="bg-card shadow-outline flex items-start gap-3 rounded-2xl p-6"
           >
-            <ReiconDuotone
-              icon={HandHeart}
-              aria-hidden="true"
-              className="mt-0.5 size-6 shrink-0"
-            />
+            <HandHeart aria-hidden="true" className="mt-0.5 size-6 shrink-0" />
             <div className="flex flex-col gap-2">
               <h2 className="text-lg font-semibold">{content.thanksTitle}</h2>
               <p className="text-muted-foreground text-sm leading-relaxed">
@@ -123,7 +118,7 @@ const Sponsor = () => {
             {STATS.map((stat) => (
               <div
                 key={stat.id}
-                className="bg-card flex flex-col-reverse gap-1 rounded-xl border p-4"
+                className="bg-card shadow-outline flex flex-col-reverse gap-1 rounded-xl p-4"
               >
                 <dt className="text-muted-foreground text-sm">
                   {content.stats[stat.id]}
@@ -154,22 +149,14 @@ const Sponsor = () => {
                   className="group hover:bg-muted/60 border-foreground/20 flex items-center gap-3 rounded-xl border border-dashed p-3 transition-colors"
                 >
                   <span className="bg-muted text-muted-foreground group-hover:text-foreground flex size-10 shrink-0 items-center justify-center rounded-lg transition-colors">
-                    <ReiconDuotone
-                      icon={Plus}
-                      aria-hidden="true"
-                      className="size-4"
-                    />
+                    <Plus aria-hidden="true" className="size-4" />
                   </span>
                   <span className="min-w-0 flex-1 text-sm font-medium">
                     {content.tiers[id].firstSponsor}
                   </span>
                   <span className="text-muted-foreground group-hover:text-foreground hidden items-center gap-1.5 text-sm transition-colors sm:inline-flex">
                     {content.takeSlot}
-                    <ReiconDuotone
-                      icon={ArrowRight}
-                      aria-hidden="true"
-                      className="size-4"
-                    />
+                    <ArrowRight aria-hidden="true" className="size-4" />
                   </span>
                 </a>
               </li>
@@ -208,8 +195,7 @@ const Sponsor = () => {
                       <ul className="flex flex-col gap-3 text-sm">
                         {tier.perks.map((perk) => (
                           <li key={perk.value} className="flex gap-2">
-                            <ReiconDuotone
-                              icon={Check}
+                            <Check
                               aria-hidden="true"
                               className="text-primary mt-0.5 size-4 shrink-0"
                             />
@@ -228,7 +214,7 @@ const Sponsor = () => {
                         })}
                       >
                         {tier.choose}
-                        <ReiconDuotone icon={ArrowRight} aria-hidden="true" />
+                        <ArrowRight aria-hidden="true" />
                       </a>
                     </CardFooter>
                   </Card>
@@ -240,7 +226,7 @@ const Sponsor = () => {
 
         <section
           aria-labelledby="custom"
-          className="bg-card flex flex-col gap-5 rounded-2xl border p-6 sm:flex-row sm:items-center sm:justify-between"
+          className="bg-card shadow-outline flex flex-col gap-5 rounded-2xl p-6 sm:flex-row sm:items-center sm:justify-between"
         >
           <div className="flex flex-col gap-2">
             <h2 id="custom" className="text-lg font-semibold">
@@ -255,7 +241,7 @@ const Sponsor = () => {
               href={`mailto:${LINK.EMAIL}`}
               className={buttonVariants({ variant: "outline", size: "lg" })}
             >
-              <ReiconDuotone icon={Envelope} aria-hidden="true" />
+              <Envelope aria-hidden="true" />
               {content.email}
             </a>
             <a
@@ -266,7 +252,7 @@ const Sponsor = () => {
             >
               <XIcon aria-hidden="true" />
               {content.dmX}
-              <ReiconDuotone icon={ArrowRightUp} aria-hidden="true" />
+              <ArrowRightUp aria-hidden="true" />
             </a>
           </div>
         </section>

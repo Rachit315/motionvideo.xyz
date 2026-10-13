@@ -136,7 +136,7 @@ const Landing = () => {
               {features.map((item) => (
                 <div
                   key={item.title.value}
-                  className="bg-card flex flex-col gap-4 rounded-xl border p-4"
+                  className="bg-card shadow-outline flex flex-col gap-4 rounded-xl p-4"
                 >
                   <FeatureArt kind={item.art.value} />
                   <div className="flex flex-col gap-1.5 px-1 pb-1">

@@ -125,6 +125,16 @@ export default {
       es: "Abrir en X",
       fr: "Ouvrir sur X",
     }),
+    sponsored: t({
+      en: "Sponsored",
+      es: "Patrocinado",
+      fr: "Sponsorisé",
+    }),
+    viewSource: t({
+      en: "View source",
+      es: "Ver fuente",
+      fr: "Voir la source",
+    }),
     category: t({ en: "Category", es: "Categoría", fr: "Catégorie" }),
     type: t({ en: "Type", es: "Tipo", fr: "Type" }),
     previewError: t({

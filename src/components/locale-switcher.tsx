@@ -11,7 +11,6 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
 
 const localeNames = { en: "English", es: "Español", fr: "Français" } as const;
 
@@ -25,9 +24,9 @@ export const LocaleSwitcher = () => {
         aria-label={`${content.language.value}: ${locale.toUpperCase()}`}
         className={buttonVariants({ variant: "subtle" })}
       >
-        <ReiconDuotone icon={Global} aria-hidden className="size-4" />
+        <Global aria-hidden className="size-4" />
         <span className="uppercase">{locale}</span>
-        <ReiconDuotone icon={ChevronDown} aria-hidden className="size-3.5" />
+        <ChevronDown aria-hidden className="size-3.5" />
       </DropdownMenuTrigger>
       <DropdownMenuContent side="top">
         <DropdownMenuRadioGroup

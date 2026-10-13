@@ -1,17 +1,9 @@
 import { Dialog } from "@base-ui/react/dialog";
-import { PreviewCard } from "@base-ui/react/preview-card";
-import { Tooltip } from "@base-ui/react/tooltip";
 import { Link } from "@tanstack/react-router";
 import { cn } from "cn";
 import MediaThemeSutro from "player.style/sutro/react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import type {
-  CSSProperties,
-  ComponentPropsWithRef,
-  ReactElement,
-  ReactNode,
-} from "react";
-import { flushSync } from "react-dom";
+import { useEffect, useRef, useState } from "react";
+import type { ComponentPropsWithRef, ReactNode } from "react";
 import { useIntlayer, useLocale } from "react-intlayer";
 import type { IconComponent } from "reicon-react";
 import { ArrowRightUp } from "reicon-react/icons/ArrowRightUp";
@@ -19,14 +11,17 @@ import { Check } from "reicon-react/icons/Check";
 import { ChevronLeft } from "reicon-react/icons/ChevronLeft";
 import { ChevronRight } from "reicon-react/icons/ChevronRight";
 import { Copy } from "reicon-react/icons/Copy";
-import { Maximize } from "reicon-react/icons/Maximize";
 import { User } from "reicon-react/icons/User";
 import { Xmark } from "reicon-react/icons/Xmark";
 
 import { BookmarkButton } from "@/components/bookmark-button";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { MotionTooltip } from "@/components/ui/motion-tooltip";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { findMotionCategory } from "@/lib/motion-catalog";
 import type {
   GallerySearch,
@@ -93,8 +88,7 @@ const CreatorAvatar = ({
       className={cn("bg-muted object-cover", className)}
     />
   ) : (
-    <ReiconDuotone
-      icon={User}
+    <User
       aria-hidden="true"
       className={cn("bg-muted text-muted-foreground p-1", className)}
     />
@@ -155,7 +149,7 @@ const MotionPreview = ({
 
   return (
     <div
-      className="bg-muted ring-foreground/5 relative overflow-hidden rounded-xl ring-1 ring-inset"
+      className="bg-muted shadow-outline relative overflow-hidden rounded-xl"
       style={{
         aspectRatio: `${video.width} / ${video.height}`,
         viewTransitionName: transitionName,
@@ -183,112 +177,67 @@ const MotionPreview = ({
   );
 };
 
-// Hovering a card for HOVER_DELAY ms opens a larger, playing preview over it.
-const HOVER_DELAY = 2000;
 const TOOLTIP_DELAY = 200;
-// Space kept between the expanded preview and the viewport edges (px).
-const PREVIEW_EDGE = 12;
-
-const clamp = (value: number, min: number, max: number) =>
-  Math.min(Math.max(value, min), max);
 
 const CopyPromptButton = ({
   prompt,
-  tooltip,
-  style,
   size,
 }: {
   prompt: string;
-  tooltip: Tooltip.Handle<ReactNode>;
-  style: CSSProperties;
   size: "icon" | "icon-sm";
 }) => {
   const content = useIntlayer("motion-gallery");
   const [copied, setCopied] = useState(false);
   const label = copied ? content.copied.value : content.copy.value;
   return (
-    <Tooltip.Trigger
-      handle={tooltip}
-      payload={label}
-      delay={TOOLTIP_DELAY}
-      render={<button type="button" aria-label={label} />}
-      onClick={async () => {
-        try {
-          await navigator.clipboard.writeText(prompt);
-          setCopied(true);
-        } catch {
-          // The detail view explains clipboard failures; keep this control quiet.
-        }
-      }}
-      style={style}
-      className={cn(
-        buttonVariants({ size, variant: "outline" }),
-        "[view-transition-class:card-action]"
-      )}
-    >
-      <ReiconDuotone icon={copied ? Check : Copy} aria-hidden="true" />
-    </Tooltip.Trigger>
+    <Tooltip>
+      <TooltipTrigger
+        delay={TOOLTIP_DELAY}
+        render={<button type="button" aria-label={label} />}
+        onClick={async () => {
+          try {
+            await navigator.clipboard.writeText(prompt);
+            setCopied(true);
+          } catch {
+            // The detail view explains clipboard failures; keep this control quiet.
+          }
+        }}
+        className={cn(
+          buttonVariants({ size, variant: "outline" }),
+          "rounded-full"
+        )}
+      >
+        {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+      </TooltipTrigger>
+      <TooltipContent>{label}</TooltipContent>
+    </Tooltip>
   );
 };
 
 /**
  * Copy prompt and Bookmark (the two main actions, outline) on the hovered
- * card; the expanded preview adds Open (ghost) after them. `morphId` (set on
- * one row at a time, only while the preview morphs) lets Copy and Bookmark
- * glide between the two rows.
+ * card.
  */
 const VideoActions = ({
   video,
-  tooltip,
-  openLink,
-  morphId,
   className,
   size = "icon",
 }: {
   video: MotionVideo;
-  tooltip: Tooltip.Handle<ReactNode>;
-  /** Renders the Open button; the card itself already opens on click. */
-  openLink?: ReactElement;
-  /** Sanitized slug naming the buttons `copy-`/`bookmark-<id>`. */
-  morphId: string | undefined;
   className?: string;
-  /** `icon-sm` (28px) on the card, `icon` (32px) in the expanded preview. */
+  /** `icon-sm` (28px) on the card. */
   size?: "icon" | "icon-sm";
-}) => {
-  const content = useIntlayer("motion-gallery");
-  return (
-    <div className={cn("flex shrink-0 gap-2", className)}>
-      {video.prompt && (
-        <CopyPromptButton
-          prompt={video.prompt}
-          tooltip={tooltip}
-          style={{ viewTransitionName: morphId && `copy-${morphId}` }}
-          size={size}
-        />
-      )}
-      <BookmarkButton
-        slug={video.slug}
-        variant="outline"
-        size={size}
-        tooltip={tooltip}
-        style={{ viewTransitionName: morphId && `bookmark-${morphId}` }}
-        className="[view-transition-class:card-action]"
-      />
-      {openLink && (
-        <Tooltip.Trigger
-          handle={tooltip}
-          payload={content.open.value}
-          delay={TOOLTIP_DELAY}
-          render={openLink}
-          aria-label={`${content.open.value}: ${video.title}`}
-          className={buttonVariants({ size: "icon", variant: "ghost" })}
-        >
-          <ReiconDuotone icon={Maximize} aria-hidden="true" />
-        </Tooltip.Trigger>
-      )}
-    </div>
-  );
-};
+}) => (
+  <div className={cn("flex shrink-0 gap-2", className)}>
+    {video.prompt && <CopyPromptButton prompt={video.prompt} size={size} />}
+    <BookmarkButton
+      slug={video.slug}
+      variant="outline"
+      size={size}
+      className="rounded-full"
+    />
+  </div>
+);
 
 export const MotionVideoCard = ({
   video,
@@ -306,226 +255,85 @@ export const MotionVideoCard = ({
   search: GallerySearch;
 }) => {
   const content = useIntlayer("motion-gallery");
-  const [expanded, setExpanded] = useState(false);
-  const triggerRef = useRef<HTMLAnchorElement>(null);
-  const popupRef = useRef<HTMLDivElement>(null);
-  // Floating UI centres the preview on this anchor. It is the card's rect with
-  // its centre clamped so a preview of the popup's measured height stays fully
-  // inside the viewport: a card cut off at the bottom zooms upwards, one cut
-  // off at the top zooms downwards.
-  const previewAnchor = () => {
-    const card = triggerRef.current;
-    if (!card) {
-      return null;
-    }
-    return {
-      contextElement: card,
-      getBoundingClientRect: () => {
-        const rect = card.getBoundingClientRect();
-        const height = popupRef.current?.offsetHeight ?? 0;
-        const low = PREVIEW_EDGE + height / 2;
-        const high = Math.max(
-          low,
-          window.innerHeight - PREVIEW_EDGE - height / 2
-        );
-        const centre = clamp(rect.top + rect.height / 2, low, high);
-        return new DOMRect(
-          rect.left,
-          centre - rect.height / 2,
-          rect.width,
-          rect.height
-        );
-      },
-    };
-  };
-  // True while a view transition expands or collapses the preview: only then
-  // do the action buttons carry shared-element names, so route transitions
-  // (card → overlay) never capture them.
-  const [morphing, setMorphing] = useState(false);
-  // The latest requested state: Base UI can report the same change several
-  // times before a view transition's update callback commits it.
-  const requested = useRef(false);
-  const latestTransition = useRef<ViewTransition>(null);
-  // Following a detail link closes the preview without a morph; the route's
-  // own view transition takes over.
-  const collapse = () => {
-    requested.current = false;
-    setExpanded(false);
-  };
-  // One tooltip per card; it glides between the card's and preview's buttons.
-  const tooltip = useMemo(() => Tooltip.createHandle<ReactNode>(), []);
-  const morphId = video.slug.replaceAll(/[^\w-]/gu, "");
   const label = `${content.watch.value}: ${video.title}, @${video.handle}`;
-  const detailLink = (
-    <VideoLink
-      slug={video.slug}
-      category={category}
-      search={search}
-      onClick={collapse}
-    />
-  );
-
-  // Expanding/collapsing morphs the card's action row into the preview's
-  // bottom bar (and back) with the View Transitions API when available.
-  const changeExpanded = async (next: boolean) => {
-    if (next === requested.current) {
-      return;
-    }
-    requested.current = next;
-    if (
-      !document.startViewTransition ||
-      matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      setExpanded(next);
-      return;
-    }
-    // Name the outgoing row before the old state is captured.
-    flushSync(() => setMorphing(true));
-    const transition = document.startViewTransition(() => {
-      flushSync(() => setExpanded(next));
-    });
-    latestTransition.current = transition;
-    // `finished` always resolves, even when another transition skips this one.
-    await transition.finished;
-    if (latestTransition.current === transition) {
-      setMorphing(false);
-    }
-  };
 
   return (
     <article className="group/card relative">
-      <PreviewCard.Root open={expanded} onOpenChange={changeExpanded}>
-        <PreviewCard.Trigger
-          ref={triggerRef}
-          delay={HOVER_DELAY}
-          render={detailLink}
-          aria-label={label}
-          className="group focus-visible:ring-ring relative block rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-        >
-          <MotionPreview
-            video={video}
-            paused={paused || expanded}
-            transitionName={open ? undefined : videoTransitionName(video.slug)}
-          />
-          <div className="pointer-events-none absolute inset-0 flex flex-col justify-between rounded-xl bg-linear-to-t from-black/70 via-transparent to-transparent p-2.5 opacity-0 transition-opacity duration-200 group-hover/card:opacity-100 group-focus-visible:opacity-100">
-            <div className="flex gap-1">
-              {video.tags
-                .filter((tag) => tag === "prompt" || tag === "skill")
-                .map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full bg-black/55 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm"
-                  >
-                    {tag === "prompt" ? content.prompt : content.skill}
-                  </span>
-                ))}
-            </div>
-            <h2 className="truncate pl-7 text-sm font-medium tracking-tight text-white">
-              {video.title}
-            </h2>
+      <VideoLink
+        slug={video.slug}
+        category={category}
+        search={search}
+        aria-label={label}
+        className="group focus-visible:ring-ring relative block rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+      >
+        <MotionPreview
+          video={video}
+          paused={paused}
+          transitionName={open ? undefined : videoTransitionName(video.slug)}
+        />
+        {/* Plain hover state: tags and title over a bottom gradient. */}
+        <div className="pointer-events-none absolute inset-0 flex flex-col justify-between rounded-xl bg-linear-to-t from-black/70 via-transparent to-transparent p-2.5 opacity-0 transition-opacity duration-200 group-hover/card:opacity-100 group-focus-visible:opacity-100">
+          <div className="flex gap-1">
+            {video.tags
+              .filter((tag) => tag === "prompt" || tag === "skill")
+              .map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full bg-black/55 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm"
+                >
+                  {tag === "prompt" ? content.prompt : content.skill}
+                </span>
+              ))}
           </div>
-        </PreviewCard.Trigger>
-        <PreviewCard.Portal>
-          <PreviewCard.Positioner
-            anchor={previewAnchor}
-            side="top"
-            // Centre the expanded view over the card instead of beside it.
-            sideOffset={({ anchor, positioner }) =>
-              -(anchor.height + positioner.height) / 2
-            }
-            collisionAvoidance={{ side: "shift", align: "shift" }}
-            collisionPadding={PREVIEW_EDGE}
-            className="z-40"
-          >
-            <PreviewCard.Popup
-              ref={popupRef}
-              style={{
-                // The media keeps its aspect ratio, so capping the width by
-                // the viewport height (minus the 4.5rem info bar and the
-                // collision padding) keeps the whole preview on screen.
-                width: `min(max(24rem, calc(var(--anchor-width) * 1.4)), calc(100vw - 1.5rem), calc((100svh - 6rem) * ${video.width / video.height}))`,
-                viewTransitionName:
-                  morphing && expanded ? `preview-${morphId}` : undefined,
-              }}
-              className={cn(
-                "bg-popover text-popover-foreground shadow-popover origin-(--transform-origin) overflow-hidden rounded-2xl [view-transition-class:card-preview]",
-                // The view transition animates the preview while morphing;
-                // otherwise (no API) it scales in and out with CSS.
-                morphing
-                  ? "data-closed:hidden"
-                  : "transition-[scale,opacity] duration-200 data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0 motion-reduce:transition-none"
-              )}
-            >
-              <VideoLink
-                slug={video.slug}
-                category={category}
-                search={search}
-                onClick={collapse}
-                aria-label={label}
-                tabIndex={-1}
-                className="bg-muted block"
-                style={{ aspectRatio: `${video.width} / ${video.height}` }}
-              >
-                {/* Decorative muted preview, as on the card. */}
-                {/* oxlint-disable-next-line jsx-a11y/media-has-caption */}
-                <video
-                  src={video.preview}
-                  poster={video.poster}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  aria-hidden="true"
-                  className="size-full object-cover"
-                />
-              </VideoLink>
-              <div className="flex items-center gap-3 p-3">
-                <CreatorAvatar
-                  src={video.avatar}
-                  size={32}
-                  className="size-8 shrink-0 rounded-full"
-                />
-                <div className="flex min-w-0 flex-1 flex-col">
-                  <p className="truncate text-sm font-medium">{video.title}</p>
-                  <a
-                    href={`https://x.com/${video.handle}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground w-fit truncate text-xs"
-                  >
-                    @{video.handle}
-                  </a>
-                </div>
-                <VideoActions
-                  video={video}
-                  tooltip={tooltip}
-                  openLink={detailLink}
-                  morphId={morphing && expanded ? morphId : undefined}
-                />
-              </div>
-            </PreviewCard.Popup>
-          </PreviewCard.Positioner>
-        </PreviewCard.Portal>
-      </PreviewCard.Root>
+          <h2 className="h-7 truncate pl-10 text-sm leading-7 font-medium tracking-tight text-white">
+            {video.title}
+          </h2>
+        </div>
+      </VideoLink>
       {/* Siblings of the card link (buttons can't nest in a link); shown on
           hover or keyboard focus, clear of the tags, title and avatar. */}
-      <VideoActions
-        video={video}
-        tooltip={tooltip}
-        morphId={morphing && !expanded ? morphId : undefined}
-        size="icon-sm"
-        className="pointer-events-none absolute top-2.5 right-2.5 opacity-0 transition-opacity duration-200 group-focus-within/card:pointer-events-auto group-focus-within/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 motion-reduce:transition-none"
-      />
-      <MotionTooltip handle={tooltip} />
+      {/* One provider for the card's actions, so their tooltips share
+          open state and morph between labels instead of blinking. */}
+      <TooltipProvider>
+        <VideoActions
+          video={video}
+          size="icon-sm"
+          className="pointer-events-none absolute top-2.5 right-2.5 opacity-0 transition-opacity duration-200 group-focus-within/card:pointer-events-auto group-focus-within/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 motion-reduce:transition-none"
+        />
+        {/* Source link, like the top-right actions but pinned bottom-right. */}
+        {video.sourceUrl && (
+          <Tooltip>
+            <TooltipTrigger
+              delay={TOOLTIP_DELAY}
+              render={
+                <a
+                  href={video.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={content.viewSource.value}
+                />
+              }
+              className={cn(
+                buttonVariants({ size: "icon-sm", variant: "outline" }),
+                "rounded-full",
+                "pointer-events-none absolute right-2.5 bottom-2.5 opacity-0 transition-opacity duration-200 group-focus-within/card:pointer-events-auto group-focus-within/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 motion-reduce:transition-none"
+              )}
+            >
+              <ArrowRightUp aria-hidden="true" />
+            </TooltipTrigger>
+            <TooltipContent>{content.viewSource.value}</TooltipContent>
+          </Tooltip>
+        )}
+      </TooltipProvider>
       <a
         href={`https://x.com/${video.handle}`}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`@${video.handle}`}
         title={`@${video.handle}`}
-        className="focus-visible:ring-ring absolute bottom-2.5 left-2.5 size-5 overflow-hidden rounded-full shadow-sm ring-2 ring-white/80 transition-transform outline-none hover:scale-110 focus-visible:ring-2"
+        className="focus-visible:ring-ring absolute bottom-2.5 left-2.5 size-7 overflow-hidden rounded-full shadow-sm transition-transform outline-none hover:scale-110 focus-visible:ring-2"
       >
-        <CreatorAvatar src={video.avatar} size={20} className="size-full" />
+        <CreatorAvatar src={video.avatar} size={28} className="size-full" />
       </a>
     </article>
   );
@@ -571,7 +379,7 @@ const relativeDate = (date: string, locale: string) => {
  */
 const StepButton = ({
   onStep,
-  icon,
+  icon: Icon,
   label,
   endLabel,
 }: {
@@ -589,7 +397,7 @@ const StepButton = ({
       onClick={onStep}
       className="rounded-full"
     >
-      <ReiconDuotone icon={icon} aria-hidden="true" />
+      <Icon aria-hidden="true" />
     </Button>
   ) : (
     <Button
@@ -691,7 +499,9 @@ export const MotionVideoOverlay = ({
       <Dialog.Portal>
         <Dialog.Backdrop className="bg-background/80 fixed inset-0 z-50 backdrop-blur-xl" />
         <Dialog.Popup className="fixed inset-0 z-50 overflow-y-auto outline-none lg:overflow-hidden">
-          <div className="grid min-h-full gap-6 p-4 sm:p-6 lg:h-full lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-10">
+          <div className="grid min-h-full lg:h-full lg:grid-cols-[minmax(0,1fr)_22rem]">
+            {/* Full-bleed frosted stage: the whole page is blurred, so the
+                empty space around the player reads as dismissible. */}
             <div className="relative min-h-[70svh] lg:min-h-0">
               {/* Clicking the empty space around the player closes, like a backdrop. */}
               <Dialog.Close
@@ -707,9 +517,11 @@ export const MotionVideoOverlay = ({
                 className="pointer-events-none absolute inset-[8%] size-[84%] scale-110 object-cover opacity-60 blur-3xl saturate-150 dark:opacity-45"
               />
               {/* The stage is the column minus the step row (3rem buttons +
-                  1rem gap). As a size container it lets the player fit both
+                  1rem gap) plus the inner breathing room, so the video never
+                  touches the viewport top and the buttons never touch the
+                  bottom. As a size container it lets the player fit both
                   ways and stay centred, whatever the video's shape. */}
-              <div className="[container-type:size] pointer-events-none absolute inset-x-0 top-0 bottom-16 flex items-center justify-center">
+              <div className="[container-type:size] pointer-events-none absolute inset-x-5 top-5 bottom-20 flex items-center justify-center">
                 {/* Sutro (player.style) frame, as on the skill page. */}
                 <MediaThemeSutro
                   className="pointer-events-auto relative block overflow-hidden rounded-xl shadow-2xl"
@@ -735,8 +547,9 @@ export const MotionVideoOverlay = ({
                   />
                 </MediaThemeSutro>
               </div>
-              {/* Pinned to the bottom centre, independent of the video's size. */}
-              <div className="absolute bottom-0 left-1/2 flex -translate-x-1/2 gap-3">
+              {/* Pinned to the bottom centre, clear of the viewport edge,
+                  independent of the video's size. */}
+              <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-3">
                 <StepButton
                   onStep={previous}
                   icon={ChevronLeft}
@@ -751,7 +564,7 @@ export const MotionVideoOverlay = ({
                 />
               </div>
             </div>
-            <aside className="flex min-h-0 flex-col gap-5 lg:overflow-y-auto lg:py-2">
+            <aside className="bg-background flex min-h-0 flex-col gap-5 border-t p-5 lg:h-full lg:overflow-y-auto lg:border-t-0 lg:border-l">
               <div className="flex flex-col gap-0.5">
                 {/* Category on the left, Bookmark and Close side by side on
                     the right of the same row; the title sits below. */}
@@ -776,7 +589,7 @@ export const MotionVideoOverlay = ({
                         "rounded-full"
                       )}
                     >
-                      <ReiconDuotone icon={Xmark} aria-hidden="true" />
+                      <Xmark aria-hidden="true" />
                     </Dialog.Close>
                   </div>
                 </div>
@@ -812,7 +625,7 @@ export const MotionVideoOverlay = ({
                     })}
                   >
                     {content.originalPost}
-                    <ReiconDuotone icon={ArrowRightUp} aria-hidden="true" />
+                    <ArrowRightUp aria-hidden="true" />
                   </a>
                 )}
                 {video.skillUrl && (
@@ -826,7 +639,7 @@ export const MotionVideoOverlay = ({
                     })}
                   >
                     {content.viewSkill}
-                    <ReiconDuotone icon={ArrowRightUp} aria-hidden="true" />
+                    <ArrowRightUp aria-hidden="true" />
                   </a>
                 )}
               </div>
@@ -876,10 +689,11 @@ export const MotionVideoOverlay = ({
                   <h2 className="text-sm font-medium">{content.prompt}</h2>
                   {video.prompt && (
                     <Button variant="outline" size="sm" onClick={copyPrompt}>
-                      <ReiconDuotone
-                        icon={copyStatus === "copied" ? Check : Copy}
-                        aria-hidden="true"
-                      />
+                      {copyStatus === "copied" ? (
+                        <Check aria-hidden="true" />
+                      ) : (
+                        <Copy aria-hidden="true" />
+                      )}
                       {copyStatus === "copied" ? content.copied : content.copy}
                     </Button>
                   )}

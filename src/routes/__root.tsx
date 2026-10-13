@@ -6,10 +6,12 @@ import { LocaleProvider } from "@/components/locale-provider";
 import { NotFound } from "@/components/not-found";
 import { ProgressiveBlur } from "@/components/progressive-blur";
 import { SignInDialogProvider } from "@/components/sign-in-dialog";
+import { SoundEffects } from "@/components/ui/sound";
 import { themeScript } from "@/lib/theme";
 import { organizationJsonLd, websiteJsonLd } from "@/seo/json-ld";
 import { baseMetadata } from "@/seo/metadata";
 
+import fontsCss from "../fonts.css?url";
 import appCss from "../styles.css?url";
 
 const RootDocument = ({ children }: { children: React.ReactNode }) => (
@@ -19,7 +21,9 @@ const RootDocument = ({ children }: { children: React.ReactNode }) => (
     </head>
     <body className="flex min-h-svh flex-col antialiased">
       <LocaleProvider>
-        <SignInDialogProvider>{children}</SignInDialogProvider>
+        <SignInDialogProvider>
+          <SoundEffects>{children}</SoundEffects>
+        </SignInDialogProvider>
       </LocaleProvider>
       <ProgressiveBlur />
       <TanStackDevtools
@@ -42,11 +46,14 @@ export const Route = createRootRoute({
   head: () => ({
     links: [
       { href: appCss, rel: "stylesheet" },
-      // Preload the same website font served from R2 as the stylesheet.
+      // Own stylesheet so HMR on app CSS never re-resolves the font.
+      { href: fontsCss, rel: "stylesheet" },
+      // Preload the same-origin website font served from `/fonts`.
       {
         as: "font",
         crossOrigin: "anonymous",
-        href: "https://assets.motionvideo.xyz/fonts/timeless/TimelessSansVF-1.094.woff2",
+        fetchPriority: "high",
+        href: "/fonts/timeless/TimelessSansVF-1.094.woff2",
         rel: "preload",
         type: "font/woff2",
       },

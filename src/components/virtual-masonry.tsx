@@ -36,9 +36,8 @@ const readInitialLayout = (id: string): InitialLayout | undefined => {
   if (typeof document === "undefined") {
     return undefined;
   }
-  const serialized = document.querySelector<HTMLElement>(
-    `#${CSS.escape(id)}`
-  )?.dataset.masonryLayout;
+  const serialized = document.querySelector<HTMLElement>(`#${CSS.escape(id)}`)
+    ?.dataset.masonryLayout;
   return serialized ? JSON.parse(serialized) : undefined;
 };
 

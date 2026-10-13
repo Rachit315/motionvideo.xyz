@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Kbd } from "@/components/ui/kbd";
 import { Label } from "@/components/ui/label";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
 import {
   Select,
   SelectContent,
@@ -85,11 +84,7 @@ const Contact = () => {
       <PageHeader title={content.title.value} intro={content.intro.value} />
       {status === "sent" ? (
         <div className="bg-muted/50 flex items-start gap-3 rounded-xl p-5">
-          <ReiconDuotone
-            icon={Check}
-            aria-hidden
-            className="text-primary mt-0.5 size-5"
-          />
+          <Check aria-hidden className="text-primary mt-0.5 size-5" />
           <div className="flex flex-col gap-1">
             <p className="font-medium">{content.sent}</p>
             <p className="text-muted-foreground text-sm">{content.thanks}</p>
@@ -182,13 +177,13 @@ const Contact = () => {
           )}
           <div className="flex flex-wrap items-center justify-between gap-4">
             <Button type="submit" size="lg" disabled={status === "sending"}>
-              <ReiconDuotone icon={Send} data-icon="inline-start" aria-hidden />
+              <Send data-icon="inline-start" aria-hidden />
               {status === "sending" ? content.sending : content.send}
             </Button>
             <span className="text-muted-foreground flex items-center gap-1.5 text-sm">
               {content.or}
               <Kbd>
-                <ReiconDuotone icon={Keyboard} aria-hidden />
+                <Keyboard aria-hidden />
                 {content.enter}
               </Kbd>
               {content.toSend}

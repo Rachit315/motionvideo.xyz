@@ -14,7 +14,6 @@ import { Xmark } from "reicon-react/icons/Xmark";
 
 import { LoginForm } from "@/components/login-form";
 import { buttonVariants } from "@/components/ui/button";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
 import { useSession } from "@/lib/auth-client";
 import { syncBookmarks } from "@/lib/bookmarks";
 
@@ -121,7 +120,7 @@ export const SignInDialogProvider = ({ children }: { children: ReactNode }) => {
                   className: "absolute top-3 right-3",
                 })}
               >
-                <ReiconDuotone icon={Xmark} aria-hidden="true" />
+                <Xmark aria-hidden="true" />
               </Dialog.Close>
               <LoginForm
                 key={state.key}

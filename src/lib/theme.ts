@@ -5,6 +5,8 @@ import { META_THEME_COLORS } from "@/constants/site";
 
 export const THEME_KEY = "theme";
 
+export type ThemeMode = "light" | "dark" | "system";
+
 // `theme-color` (browser chrome) is created by `themeScript`, not route head
 // metadata, so React never re-renders it with a stale color.
 export const setThemeColor = (dark: boolean) => {
@@ -14,6 +16,21 @@ export const setThemeColor = (dark: boolean) => {
       "content",
       dark ? META_THEME_COLORS.dark : META_THEME_COLORS.light
     );
+};
+
+// Explicit choice; `system` clears the stored value so the OS setting (and
+// the `themeScript` media listener) takes over again.
+export const setTheme = (mode: ThemeMode) => {
+  if (mode === "system") {
+    localStorage.removeItem(THEME_KEY);
+  } else {
+    localStorage.setItem(THEME_KEY, mode);
+  }
+  const dark =
+    mode === "dark" ||
+    (mode === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+  document.documentElement.classList.toggle("dark", dark);
+  setThemeColor(dark);
 };
 
 // Inlined in <head> so the right theme is applied before first paint. Keep in

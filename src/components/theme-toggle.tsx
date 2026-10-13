@@ -4,7 +4,6 @@ import { Sun } from "reicon-react/icons/Sun";
 
 import { buttonVariants } from "@/components/ui/button";
 import { Kbd } from "@/components/ui/kbd";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
 import {
   Tooltip,
   TooltipContent,
@@ -16,7 +15,7 @@ import { THEME_KEY, setThemeColor } from "@/lib/theme";
 
 const HOTKEY = "d";
 
-const toggleTheme = () => {
+export const toggleTheme = () => {
   const dark = !document.documentElement.classList.contains("dark");
   document.documentElement.classList.toggle("dark", dark);
   setThemeColor(dark);
@@ -41,13 +40,11 @@ export const ThemeToggle = ({ hotkey = false }: { hotkey?: boolean }) => {
           }
           onClick={toggleTheme}
         >
-          <ReiconDuotone
-            icon={Sun}
+          <Sun
             aria-hidden="true"
             className="size-[18px] transition-transform duration-500 motion-reduce:transition-none dark:hidden"
           />
-          <ReiconDuotone
-            icon={Moon}
+          <Moon
             aria-hidden="true"
             className="hidden size-[18px] transition-transform duration-500 motion-reduce:transition-none dark:block"
           />

@@ -12,7 +12,6 @@ import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
 import {
   Select,
   SelectContent,
@@ -130,14 +129,10 @@ const SubmissionForm = ({
     return (
       <section
         aria-live="polite"
-        className="bg-card flex flex-col gap-5 rounded-2xl border p-6"
+        className="bg-card shadow-outline flex flex-col gap-5 rounded-2xl p-6"
       >
         <div className="flex items-start gap-3">
-          <ReiconDuotone
-            icon={Check}
-            aria-hidden="true"
-            className="mt-0.5 size-6 shrink-0"
-          />
+          <Check aria-hidden="true" className="mt-0.5 size-6 shrink-0" />
           <div className="flex flex-col gap-2">
             <h2 className="text-lg font-semibold">{content.saved}</h2>
             <p className="text-muted-foreground text-sm leading-relaxed">
@@ -156,7 +151,7 @@ const SubmissionForm = ({
     <form
       onSubmit={onSubmit}
       aria-busy={status === "pending"}
-      className="bg-card rounded-2xl border p-5 sm:p-8"
+      className="bg-card shadow-outline rounded-2xl p-5 sm:p-8"
     >
       <fieldset
         disabled={status === "pending"}
@@ -330,7 +325,7 @@ const SubmissionForm = ({
           disabled={status === "pending"}
           className="w-fit"
         >
-          <ReiconDuotone icon={Send} aria-hidden="true" />
+          <Send aria-hidden="true" />
           {status === "pending" ? content.pending : content.submit}
         </Button>
       </fieldset>

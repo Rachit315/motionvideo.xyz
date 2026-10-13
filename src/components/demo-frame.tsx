@@ -5,8 +5,6 @@ import { useIntlayer } from "react-intlayer";
 import { Cursor } from "reicon-react/icons/Cursor";
 import { Play } from "reicon-react/icons/Play";
 
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
-
 interface DemoFrameProps {
   /** Rendered video URL. Empty shows the animated placeholder. */
   src: string;
@@ -176,13 +174,12 @@ export const DemoFrame = ({
             <div className="animate-mv-zoom absolute inset-0 p-4 motion-reduce:animate-none sm:p-8">
               {variant === "dashboard" ? <DashboardScene /> : <PaletteScene />}
             </div>
-            <ReiconDuotone
-              icon={Cursor}
+            <Cursor
               aria-hidden
               className="animate-mv-cursor text-foreground absolute top-0 left-0 size-[6%] drop-shadow motion-reduce:animate-none"
             />
             <div className="from-background/90 absolute inset-x-0 bottom-0 flex items-center gap-2 bg-gradient-to-t to-transparent px-3 pt-6 pb-2">
-              <ReiconDuotone icon={Play} aria-hidden className="size-3" />
+              <Play aria-hidden className="size-3" />
               <div className="bg-foreground/15 h-0.5 flex-1 overflow-hidden rounded-full">
                 <div className="animate-mv-progress bg-foreground/70 h-full motion-reduce:animate-none" />
               </div>

@@ -14,7 +14,6 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
 import { ROUTES } from "@/constants/routes";
 import { authClient } from "@/lib/auth-client";
 
@@ -198,13 +197,7 @@ export const LoginForm = ({
       />
       <StatusPanel
         hidden={status !== "sent"}
-        icon={
-          <ReiconDuotone
-            icon={EnvelopeCheck}
-            aria-hidden
-            className="size-8 text-black"
-          />
-        }
+        icon={<EnvelopeCheck aria-hidden className="size-8 text-black" />}
         title={content.checkEmail}
       >
         <LinkSentMessage email={email} />

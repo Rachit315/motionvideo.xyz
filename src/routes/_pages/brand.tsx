@@ -10,7 +10,6 @@ import {
   PageSection,
   SupportEmail,
 } from "@/components/page";
-import { ReiconDuotone } from "@/components/ui/reicon-duotone";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { breadcrumbJsonLd } from "@/seo/json-ld";
@@ -75,11 +74,7 @@ const Brand = () => {
                       download
                       className="hover:text-foreground inline-flex items-center gap-1 transition-colors"
                     >
-                      <ReiconDuotone
-                        icon={Download}
-                        aria-hidden
-                        className="size-3.5"
-                      />
+                      <Download aria-hidden className="size-3.5" />
                       {file.label}
                     </a>
                   ))}
