@@ -66,7 +66,7 @@ export const productJsonLd = (offer?: Offer) =>
     "@type": "Product",
     brand: { "@type": "Brand", name: SITE.NAME },
     description: SITE.DESCRIPTION.LONG,
-    image: absoluteUrl("/og.png"),
+    image: absoluteUrl("/og.jpg"),
     name: PRODUCT_NAME,
     url: absoluteUrl(ROUTES.MOTIONVIDEO_SKILL),
     offers: {

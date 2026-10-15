@@ -1,7 +1,7 @@
 <div align="center">
 
 <a href="https://motionvideo.xyz">
-  <img src="public/og.png" alt="MotionVideo: Motion design, written in code." width="800" />
+  <img src="public/og.jpg" alt="MotionVideo: motion videos made with AI and code." width="800" />
 </a>
 
 # MotionVideo

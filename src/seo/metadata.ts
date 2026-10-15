@@ -1,11 +1,12 @@
 import { SITE } from "@/constants/site";
 import { absoluteUrl } from "@/constants/url";
 
-// Static 1200×630 share image (public/og.png).
+// Static 1200×630 share image (public/og.jpg): the logomark and name over a
+// collage of catalog posters, used for every page.
 const OG_IMAGE = {
   alt: `${SITE.NAME}: ${SITE.TAGLINE}`,
   height: "630",
-  url: absoluteUrl("/og.png"),
+  url: absoluteUrl("/og.jpg"),
   width: "1200",
 } as const;
 
