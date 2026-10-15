@@ -41,11 +41,11 @@ export const ThemeToggle = () => {
       >
         <Sun
           aria-hidden="true"
-          className="size-[18px] transition-transform duration-500 motion-reduce:transition-none dark:hidden"
+          className="size-[18px] transition-transform duration-300 ease-out motion-reduce:transition-none dark:hidden"
         />
         <Moon
           aria-hidden="true"
-          className="hidden size-[18px] transition-transform duration-500 motion-reduce:transition-none dark:block"
+          className="hidden size-[18px] transition-transform duration-300 ease-out motion-reduce:transition-none dark:block"
         />
       </TooltipTrigger>
       <TooltipContent side="top">

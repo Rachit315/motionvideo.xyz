@@ -12,7 +12,7 @@ const WIDGET_LIMIT = 6;
 
 /**
  * Open roles in the Discover grid, pinned under the sponsored card on wide
- * screens. A plain grid tile like its neighbours: title and Post a job up
+ * screens, and only rendered when there are open roles. A plain grid tile like its neighbours: title and Post a job up
  * top, one row per role, See all jobs at the bottom.
  */
 export const JobsWidget = ({ jobs }: { jobs: JobListing[] }) => {
@@ -35,37 +35,31 @@ export const JobsWidget = ({ jobs }: { jobs: JobListing[] }) => {
           {content.postJob}
         </Link>
       </header>
-      {jobs.length > 0 ? (
-        <ul className="flex flex-col">
-          {jobs.slice(0, WIDGET_LIMIT).map((job) => (
-            <li key={job.id}>
-              <a
-                href={job.applyUrl}
-                data-track="job_apply"
-                data-track-company={job.company}
-                data-track-from="discover"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:bg-muted focus-visible:ring-ring flex items-center gap-3 rounded-lg p-2 transition-colors outline-none focus-visible:ring-2"
-              >
-                <CompanyLogo job={job} className="size-8 rounded-md" />
-                <span className="flex min-w-0 flex-1 flex-col">
-                  <span className="truncate text-sm font-medium">
-                    {job.title}
-                  </span>
-                  <span className="text-muted-foreground truncate text-xs">
-                    {job.company}
-                  </span>
+      <ul className="flex flex-col">
+        {jobs.slice(0, WIDGET_LIMIT).map((job) => (
+          <li key={job.id}>
+            <a
+              href={job.applyUrl}
+              data-track="job_apply"
+              data-track-company={job.company}
+              data-track-from="discover"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:bg-muted focus-visible:ring-ring flex items-center gap-3 rounded-lg p-2 transition-colors outline-none focus-visible:ring-2"
+            >
+              <CompanyLogo job={job} className="size-8 rounded-md" />
+              <span className="flex min-w-0 flex-1 flex-col">
+                <span className="truncate text-sm font-medium">
+                  {job.title}
                 </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-muted-foreground px-2 py-1 text-sm">
-          {content.widgetEmpty}
-        </p>
-      )}
+                <span className="text-muted-foreground truncate text-xs">
+                  {job.company}
+                </span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
       <Link
         to={ROUTES.JOBS}
         className="text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:ring-ring flex items-center justify-between gap-2 rounded-lg p-2 text-sm transition-colors outline-none focus-visible:ring-2"

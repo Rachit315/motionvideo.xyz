@@ -4,8 +4,11 @@ import type { VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
+// Fills cover the border box (`bg-clip-border`), so every variant is exactly
+// the same size as any other (all keep the 1px transparent border) and
+// toggling between variants never resizes a button.
 const buttonCva = cva(
-  "group/button focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:ring-3 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-border text-sm font-medium whitespace-nowrap transition-[color,background-color,box-shadow,transform,filter,opacity] duration-150 ease-out outline-none select-none focus-visible:ring-3 active:not-aria-[haspopup]:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 aria-invalid:ring-3 motion-reduce:transition-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
@@ -15,9 +18,9 @@ const buttonCva = cva(
         // Yellow gradient from the landing CTA (`--color-cta-*` in styles.css).
         // Reserved for special calls to action such as checkout.
         gradient:
-          "from-cta-from to-cta-to shadow-cta text-cta-foreground border-0 bg-linear-to-b bg-clip-border duration-200 hover:brightness-105",
+          "from-cta-from to-cta-to shadow-cta text-cta-foreground bg-linear-to-b duration-200 hover:brightness-105",
         outline:
-          "bg-background shadow-outline hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:bg-popover dark:hover:bg-muted border-none",
+          "bg-background shadow-outline hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:bg-popover dark:hover:bg-muted",
         secondary:
           "bg-secondary text-secondary-foreground aria-expanded:bg-secondary aria-expanded:text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]",
         ghost:

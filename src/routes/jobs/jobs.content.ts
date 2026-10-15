@@ -84,11 +84,6 @@ export default {
       es: "Ver todos los empleos",
       fr: "Voir toutes les offres",
     }),
-    widgetEmpty: t({
-      en: "No open roles yet. Hiring? Be the first on the board.",
-      es: "Aún no hay puestos. ¿Contratas? Sé el primero.",
-      fr: "Aucun poste pour l’instant. Vous recrutez ? Soyez les premiers.",
-    }),
     postJob: t({
       en: "Post a job",
       es: "Publicar empleo",

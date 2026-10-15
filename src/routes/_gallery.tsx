@@ -64,11 +64,13 @@ const typeCounts = Object.fromEntries(
   ])
 );
 // Pills are outline buttons with rounded-full: default choices read as plain
-// white chips; any other choice turns yellow.
+// white chips; any other choice turns yellow, keeping the same hairline edge
+// so the pill doesn't look smaller when it fills.
 const chipClass = (active: boolean) =>
   cn(
     buttonVariants({ variant: active ? "default" : "outline" }),
-    "rounded-full px-3"
+    "rounded-full px-3",
+    active && "shadow-outline"
   );
 
 const Gallery = () => {
@@ -192,14 +194,16 @@ const Gallery = () => {
     node: <SponsoredCard category={sponsorCategory} />,
   });
   // Open roles right after the sponsored card: in the same lane on desktop,
-  // next in the single column on phones.
-  if (lanes >= 3 && sponsoredIndex === lanes - 1) {
+  // next in the single column on phones. Only when there are open roles; the
+  // header's Jobs link covers the rest.
+  const hasJobs = jobs.length > 0;
+  if (hasJobs && lanes >= 3 && sponsoredIndex === lanes - 1) {
     items.splice(sponsoredIndex + 1, 0, {
       key: "jobs",
       lane: lanes - 1,
       node: <JobsWidget jobs={jobs} />,
     });
-  } else if (lanes < 2) {
+  } else if (hasJobs && lanes < 2) {
     items.splice(sponsoredIndex + 1, 0, {
       key: "jobs",
       node: <JobsWidget jobs={jobs} />,
@@ -320,8 +324,27 @@ const Gallery = () => {
             ) : (
               <Pause3 aria-hidden="true" />
             )}
-            <span className="max-sm:sr-only">
-              {paused ? content.play : content.pause}
+            {/* Both labels share one grid cell, so the chip keeps the wider
+                label's width and never jumps when it toggles. */}
+            <span className="grid justify-items-center max-sm:sr-only">
+              <span
+                aria-hidden={paused}
+                className={cn(
+                  "col-start-1 row-start-1 transition-opacity duration-150 ease-out",
+                  paused && "opacity-0"
+                )}
+              >
+                {content.pause}
+              </span>
+              <span
+                aria-hidden={!paused}
+                className={cn(
+                  "col-start-1 row-start-1 transition-opacity duration-150 ease-out",
+                  !paused && "opacity-0"
+                )}
+              >
+                {content.play}
+              </span>
             </span>
           </button>
         </div>
