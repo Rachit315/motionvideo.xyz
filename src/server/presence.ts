@@ -25,6 +25,8 @@ const COLORS = [
 ] as const;
 
 const PATH_MAX = 200;
+/** Open sockets kept at once; more are refused (free-tier guard). */
+const MAX_SOCKETS = 500;
 /** Tabs ping every 25 s; a socket silent for longer than this is dropped. */
 const SILENT_LIMIT = 70_000;
 
@@ -114,6 +116,9 @@ export class Presence extends DurableObject<Env> {
   fetch(request: Request): Response {
     if (request.headers.get("Upgrade") !== "websocket") {
       return new Response("Expected a WebSocket", { status: 426 });
+    }
+    if (this.ctx.getWebSockets().length >= MAX_SOCKETS) {
+      return new Response("Busy", { status: 503 });
     }
     const { 0: client, 1: server } = new WebSocketPair();
     const id = crypto.randomUUID().slice(0, 8);

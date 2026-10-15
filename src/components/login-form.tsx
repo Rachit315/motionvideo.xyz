@@ -4,6 +4,7 @@ import { useIntlayer } from "react-intlayer";
 
 import { Brand } from "@/components/brand";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { Turnstile } from "@/components/turnstile";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -18,7 +19,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { WELCOME_HEADER } from "@/constants/auth";
+import { CAPTCHA_HEADER, WELCOME_HEADER } from "@/constants/auth";
 import { ROUTES } from "@/constants/routes";
 import { track } from "@/lib/analytics";
 import { authClient } from "@/lib/auth-client";
@@ -102,18 +103,27 @@ export const LoginForm = ({
   const [error, setError] = useState<LoginError | null>(null);
   const [verified, setVerified] = useState(false);
   const codeForm = useRef<HTMLFormElement>(null);
+  // Turnstile: a token is needed to send a code, and each one is single-use.
+  const [captcha, setCaptcha] = useState<string | null>(null);
+  const [captchaReset, setCaptchaReset] = useState(0);
 
   const sendCode = async (address: string) => {
+    if (!captcha) {
+      return false;
+    }
     setBusy(true);
     setError(null);
+    const headers = {
+      [CAPTCHA_HEADER]: captcha,
+      [WELCOME_HEADER]: welcome ? "1" : "0",
+    };
     const { error: sendError } = await authClient.emailOtp.sendVerificationOtp({
       email: address,
       type: "sign-in",
-      fetchOptions: welcome
-        ? { headers: { [WELCOME_HEADER]: "1" } }
-        : undefined,
+      fetchOptions: { headers },
     });
     setBusy(false);
+    setCaptchaReset((count) => count + 1);
     if (sendError) {
       setError(sendError.status === 429 ? "rate-limit" : "sending");
       return false;
@@ -122,10 +132,11 @@ export const LoginForm = ({
     return true;
   };
 
-  // /welcome: the buyer's email is known, so the code goes out on arrival.
+  // /welcome: the buyer's email is known, so the code goes out as soon as
+  // Turnstile hands over its first token.
   const autoSent = useRef(false);
   useEffect(() => {
-    if (presetEmail && !autoSent.current) {
+    if (presetEmail && captcha && !autoSent.current) {
       autoSent.current = true;
       void sendCode(presetEmail);
     }
@@ -208,7 +219,7 @@ export const LoginForm = ({
               </Field>
               {error && <FieldError>{errorMessages[error]}</FieldError>}
               <Field>
-                <Button type="submit" size="lg" disabled={busy}>
+                <Button type="submit" size="lg" disabled={busy || !captcha}>
                   {busy ? content.sending : content.sendCode}
                 </Button>
               </Field>
@@ -283,13 +294,16 @@ export const LoginForm = ({
               type="button"
               className={textButtonClass}
               onClick={resend}
-              disabled={busy}
+              disabled={busy || !captcha}
             >
               {content.resend}
             </button>
           </FieldDescription>
         </div>
       )}
+      {/* One widget for both steps (kept mounted), so a fresh token is
+          ready for "Send a new code" too. */}
+      <Turnstile onToken={setCaptcha} resetKey={captchaReset} />
     </AuthCard>
   );
 };

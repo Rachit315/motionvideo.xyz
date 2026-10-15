@@ -133,9 +133,9 @@ const privacyContent = {
     }),
     text27: t({ en: "Cloudflare", es: "Cloudflare", fr: "Cloudflare" }),
     text28: t({
-      en: ": hosts the site, our database (D1), the media storage (R2) behind assets.motionvideo.xyz, DNS, and email forwarding, and sees the IP address of every request, as any host does. PostHog runs the analytics described above. Both act under",
-      es: ": aloja el sitio, nuestra base de datos (D1), el almacenamiento multimedia (R2) de assets.motionvideo.xyz, DNS y reenvío de correo, y ve la dirección IP de cada solicitud, como cualquier proveedor de alojamiento. PostHog ofrece la analítica descrita anteriormente. Ambos actúan conforme a",
-      fr: ": héberge le site, notre base de données (D1), le stockage des médias (R2) derrière assets.motionvideo.xyz, le DNS et le transfert d’e-mails, et voit l’adresse IP de chaque requête, comme tout hébergeur. PostHog fournit les statistiques décrites ci-dessus. Tous deux agissent conformément à",
+      en: ": hosts the site, our database (D1), the media storage (R2) behind assets.motionvideo.xyz, DNS, email forwarding, and the Turnstile bot check shown before we send a sign-in code, and sees the IP address of every request, as any host does. PostHog runs the analytics described above. Both act under",
+      es: ": aloja el sitio, nuestra base de datos (D1), el almacenamiento multimedia (R2) de assets.motionvideo.xyz, DNS, reenvío de correo y la verificación antibots Turnstile que aparece antes de enviar un código de acceso, y ve la dirección IP de cada solicitud, como cualquier proveedor de alojamiento. PostHog ofrece la analítica descrita anteriormente. Ambos actúan conforme a",
+      fr: ": héberge le site, notre base de données (D1), le stockage des médias (R2) derrière assets.motionvideo.xyz, le DNS, le transfert d’e-mails et la vérification anti-robots Turnstile affichée avant l’envoi d’un code de connexion, et voit l’adresse IP de chaque requête, comme tout hébergeur. PostHog fournit les statistiques décrites ci-dessus. Tous deux agissent conformément à",
     }),
     text29: t({
       en: "Cloudflare’s privacy policy",

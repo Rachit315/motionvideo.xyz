@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
-import { trackClicks } from "@/lib/analytics";
+import { startAnalytics } from "@/lib/analytics";
 
-/** Mounted once in the root: sends every `data-track` click (see analytics). */
+/** Mounted once in the root: loads PostHog and sends `data-track` clicks. */
 export const ClickTracking = () => {
-  useEffect(() => trackClicks(), []);
+  useEffect(() => startAnalytics(), []);
   return null;
 };

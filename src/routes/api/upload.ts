@@ -30,7 +30,8 @@ const purposeSchema = z.enum(UPLOAD_PURPOSES);
 
 /**
  * POST multipart `file` + `purpose` (logo | cover). Signed-in accounts only.
- * Returns `{ path }`, served by the Worker at that path.
+ * Returns `{ path }`: the public asset URL in production, else a same-origin
+ * path the Worker serves.
  */
 export const Route = createFileRoute("/api/upload")({
   server: {
@@ -39,6 +40,12 @@ export const Route = createFileRoute("/api/upload")({
         const session = await auth.api.getSession({ headers: request.headers });
         if (!session) {
           return Response.json({ error: "unauthorized" }, { status: 401 });
+        }
+        // Per IP, so new accounts can't be used to fill the bucket.
+        const ip = request.headers.get("cf-connecting-ip") ?? session.user.id;
+        const limit = await env.UPLOAD_LIMITER?.limit({ key: ip });
+        if (limit && !limit.success) {
+          return Response.json({ error: "rate-limit" }, { status: 429 });
         }
         let form: FormData;
         try {
@@ -67,8 +74,13 @@ export const Route = createFileRoute("/api/upload")({
           },
           customMetadata: { userId: session.user.id },
         });
+        // Production links the bucket's public domain (edge-cached, no
+        // Worker or R2 read per view); elsewhere the Worker serves the path.
+        const path = `${UPLOAD_PATH_PREFIX}${key.slice("uploads/".length)}`;
         return Response.json({
-          path: `${UPLOAD_PATH_PREFIX}${key.slice("uploads/".length)}`,
+          path: env.UPLOADS_PUBLIC_URL
+            ? `${env.UPLOADS_PUBLIC_URL}${path}`
+            : path,
         });
       },
     },

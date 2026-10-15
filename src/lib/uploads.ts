@@ -2,9 +2,9 @@ import { z } from "zod";
 
 import { publicUrlSchema } from "@/lib/community";
 
-// Images uploaded through /api/upload are stored in R2 and served by the
-// Worker at /uploads/<purpose>/<id>.<ext> (src/server.ts), so forms store the
-// same-origin path rather than an absolute URL.
+// Images uploaded through /api/upload are stored in R2 under uploads/. In
+// production forms store the public URL on assets.motionvideo.xyz; locally and
+// on previews, the same-origin /uploads/… path the Worker serves.
 export const UPLOAD_PATH_PREFIX = "/uploads/";
 
 export const UPLOAD_PURPOSES = ["logo", "cover"] as const;

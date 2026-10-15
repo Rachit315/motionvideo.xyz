@@ -1,6 +1,6 @@
 import { drizzleAdapter } from "@better-auth/drizzle-adapter";
 import { betterAuth } from "better-auth";
-import { emailOTP } from "better-auth/plugins";
+import { captcha, emailOTP } from "better-auth/plugins";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
@@ -10,6 +10,8 @@ import type * as schema from "./db/schema";
 export interface AuthConfig {
   baseURL: string;
   secret: string;
+  /** Turnstile secret; when unset, sending codes needs no captcha. */
+  turnstileSecret?: string;
   /** `welcome`: requested from /welcome right after checkout. */
   sendSignInCode: (
     email: string,
@@ -52,6 +54,17 @@ export const createAuth = (
             welcome: ctx?.headers?.get(WELCOME_HEADER) === "1",
           }),
       }),
+      // Sending a code needs a Turnstile token, so scripts can't flood
+      // people's inboxes (or our email quota) with sign-in codes.
+      ...(config.turnstileSecret
+        ? [
+            captcha({
+              provider: "cloudflare-turnstile",
+              secretKey: config.turnstileSecret,
+              endpoints: ["/email-otp/send-verification-otp"],
+            }),
+          ]
+        : []),
       // Must stay last.
       tanstackStartCookies(),
     ],

@@ -24,8 +24,12 @@ import { cn } from "@/lib/utils";
 
 const SOCKET_PATH = "/api/presence";
 const STORAGE_KEY = "motionvideo-live-cursors";
-/** Minimum gap between cursor updates sent, in ms (~20 per second). */
-const SEND_INTERVAL = 50;
+/**
+ * Minimum gap between cursor updates sent, in ms (~8 per second). Every
+ * message counts toward the Durable Object's free daily requests (20
+ * messages = 1 request), so this stays coarse; the CSS transition smooths it.
+ */
+const SEND_INTERVAL = 120;
 /** A cursor with no update for this long is dropped, in ms. */
 const STALE_AFTER = 15_000;
 const RETRY_MAX = 30_000;
@@ -211,6 +215,10 @@ export const LivePresenceProvider = ({ children }: { children: ReactNode }) => {
       }
     };
     const onMove = (event: PointerEvent) => {
+      // Background tabs never send (synthetic or stray events).
+      if (document.hidden) {
+        return;
+      }
       client = { x: event.clientX, y: event.clientY };
       queue();
     };
@@ -270,7 +278,7 @@ export const LivePresenceProvider = ({ children }: { children: ReactNode }) => {
                 viewBox="0 0 16 16"
                 width={18}
                 height={18}
-                className="absolute top-0 left-0 drop-shadow-sm transition-transform duration-75 ease-linear motion-reduce:transition-none"
+                className="absolute top-0 left-0 drop-shadow-sm transition-transform duration-150 ease-linear motion-reduce:transition-none"
                 style={{
                   transform: `translate(${cursor.x * document.documentElement.scrollWidth}px, ${cursor.y}px)`,
                 }}

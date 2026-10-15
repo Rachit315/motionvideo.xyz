@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { env } from "cloudflare:workers";
-import { and, desc, eq, gt, inArray, ne, sql } from "drizzle-orm";
+import { and, count, desc, eq, gt, inArray, ne, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 import { z } from "zod";
 
@@ -18,6 +18,7 @@ import { sendEmail } from "./email";
 import { syncJobPayment } from "./jobs";
 
 const DAY = 24 * 60 * 60 * 1000;
+const MAX_DRAFTS = 10;
 const idSchema = z.string().min(1).max(100);
 
 const listingColumns = {
@@ -146,6 +147,19 @@ export const saveJobPost = createServerFn({ method: "POST" })
       updatedAt: now,
     };
     if (!data.id) {
+      // Unpaid drafts cost nothing to make; cap them per account.
+      const [drafts] = await db
+        .select({ total: count() })
+        .from(jobPosts)
+        .where(
+          and(
+            eq(jobPosts.userId, session.user.id),
+            eq(jobPosts.status, "draft")
+          )
+        );
+      if ((drafts?.total ?? 0) >= MAX_DRAFTS) {
+        throw new Error("Too many unpaid drafts; pay for or edit one first");
+      }
       const id = crypto.randomUUID();
       await db
         .insert(jobPosts)
