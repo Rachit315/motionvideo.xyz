@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -325,11 +326,13 @@ export const CreativeSections = ({
                   </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
-                  {SUBMISSION_KINDS.map((value) => (
-                    <SelectItem key={value} value={value}>
-                      {content.sections[value]}
-                    </SelectItem>
-                  ))}
+                  <SelectGroup>
+                    {SUBMISSION_KINDS.map((value) => (
+                      <SelectItem key={value} value={value}>
+                        {content.sections[value]}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
                 </SelectContent>
               </Select>
             </div>
@@ -350,11 +353,13 @@ export const CreativeSections = ({
                   </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
-                  {categoryOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
+                  <SelectGroup>
+                    {categoryOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
                 </SelectContent>
               </Select>
               <p id={id("category-help")} className={helpClass}>

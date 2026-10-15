@@ -3,7 +3,6 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { useIntlayer } from "react-intlayer";
 import { Check } from "reicon-react/icons/Check";
-import { Send } from "reicon-react/icons/Send";
 import { z } from "zod";
 
 import { FormSection, HeroHeader, PageMain } from "@/components/page";
@@ -16,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -174,11 +174,13 @@ const SubmissionForm = ({
                 <SelectValue>{content.kinds[kind]}</SelectValue>
               </SelectTrigger>
               <SelectContent>
-                {SUBMISSION_KINDS.map((value) => (
-                  <SelectItem key={value} value={value}>
-                    {content.kinds[value]}
-                  </SelectItem>
-                ))}
+                <SelectGroup>
+                  {SUBMISSION_KINDS.map((value) => (
+                    <SelectItem key={value} value={value}>
+                      {content.kinds[value]}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
               </SelectContent>
             </Select>
           </div>
@@ -196,12 +198,14 @@ const SubmissionForm = ({
                   </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={null}>{content.noCategory}</SelectItem>
-                  {categoryOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
+                  <SelectGroup>
+                    <SelectItem value={null}>{content.noCategory}</SelectItem>
+                    {categoryOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
                 </SelectContent>
               </Select>
               <p
@@ -347,13 +351,7 @@ const SubmissionForm = ({
               {content.errors[error]}
             </p>
           )}
-          <Button
-            type="submit"
-            size="lg"
-            disabled={status === "pending"}
-            className="w-fit"
-          >
-            <Send aria-hidden="true" />
+          <Button type="submit" size="lg" className="w-fit">
             {status === "pending" ? content.pending : content.submit}
           </Button>
         </FormSection>

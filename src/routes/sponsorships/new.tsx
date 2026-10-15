@@ -2,13 +2,13 @@ import { createFileRoute, getRouteApi, redirect } from "@tanstack/react-router";
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { useIntlayer } from "react-intlayer";
-import { Check } from "reicon-react/icons/Check";
-import { ChevronDown } from "reicon-react/icons/ChevronDown";
 import { z } from "zod";
 
 import { ChoiceCard } from "@/components/choice-card";
+import { OrderSummary } from "@/components/order-summary";
 import { FormSection, HeroHeader, PageMain } from "@/components/page";
 import { PlacementSketch } from "@/components/placement-sketch";
+import { PlanDetails } from "@/components/plan-details";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import {
@@ -17,12 +17,7 @@ import {
   EMPTY_CREATIVE,
 } from "@/components/sponsor-creative-fields";
 import type { CreativeFields } from "@/components/sponsor-creative-fields";
-import { Button, buttonVariants } from "@/components/ui/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
 import {
   SPONSOR_BILLINGS,
@@ -99,54 +94,9 @@ const fieldsOf = (
   };
 };
 
-/**
- * Details under a plan's price: where the plan shows (the same sketch as on
- * /sponsor) and everything it includes.
- */
-const PlanDetails = ({ tier }: { tier: SponsorTier }) => {
-  const content = useIntlayer("sponsorships-page");
-  const sponsorCopy = useIntlayer("sponsor");
-  const [open, setOpen] = useState(false);
-
-  return (
-    <Collapsible open={open} onOpenChange={setOpen} className="flex flex-col">
-      <CollapsibleTrigger
-        className={buttonVariants({
-          variant: "ghost",
-          size: "xs",
-          className: "group -ml-2 w-fit",
-        })}
-      >
-        {content.checkout.details}
-        <ChevronDown
-          aria-hidden="true"
-          className="transition-transform duration-150 ease-out group-data-panel-open:rotate-180"
-        />
-      </CollapsibleTrigger>
-      {/* -mx-1/px-1 leave room for the sketch's shadow inside the clipped
-          (height-animated) panel. */}
-      <CollapsibleContent className="-mx-1 h-(--collapsible-panel-height) overflow-hidden px-1 transition-[height] duration-200 ease-out data-ending-style:h-0 data-starting-style:h-0 motion-reduce:transition-none [&[hidden]:not([hidden='until-found'])]:hidden">
-        <div className="flex flex-col gap-3 pt-3 pb-1">
-          <PlacementSketch tier={tier} />
-          <ul className="flex flex-col gap-2 text-sm">
-            {sponsorCopy.tiers[tier].perks.map((perk) => (
-              <li key={perk.value} className="flex gap-2">
-                <Check
-                  aria-hidden="true"
-                  className="text-primary mt-0.5 size-4 shrink-0"
-                />
-                {perk}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </CollapsibleContent>
-    </Collapsible>
-  );
-};
-
 const NewSponsorship = () => {
   const content = useIntlayer("sponsorships-page");
+  const sponsorCopy = useIntlayer("sponsor");
   const { email, sponsorships, diamondSoldOut } = routeApi.useLoaderData();
   const search = routeApi.useSearch();
   const draft = sponsorships.find(
@@ -259,7 +209,14 @@ const NewSponsorship = () => {
                       priceNote={content.priceSuffix[fields.billing]}
                       body={soldOut ? content.checkout.soldOut : undefined}
                     >
-                      <PlanDetails tier={tier} />
+                      <PlanDetails
+                        label={content.checkout.details}
+                        visual={<PlacementSketch tier={tier} />}
+                        perks={sponsorCopy.tiers[tier].perks.map((perk) => ({
+                          key: perk.value,
+                          node: perk,
+                        }))}
+                      />
                     </ChoiceCard>
                   );
                 })}
@@ -302,27 +259,15 @@ const NewSponsorship = () => {
               title={content.checkout.reviewSection}
               description={content.checkout.reviewSectionBody}
             >
-              <dl className="bg-card shadow-outline divide-border flex flex-col divide-y overflow-hidden rounded-xl text-sm">
-                <div className="flex items-start justify-between gap-4 p-4">
-                  <dt className="flex flex-col gap-0.5">
-                    <span className="font-medium">
-                      {content.tiers[fields.tier]}
-                    </span>
-                    <span className="text-muted-foreground">
-                      {content.billings[fields.billing]}
-                    </span>
-                  </dt>
-                  <dd className="tabular-nums">${price}</dd>
-                </div>
-                <div className="bg-muted/60 flex items-center justify-between gap-4 p-4 font-medium">
-                  <dt>{content.checkout.dueToday}</dt>
-                  <dd className="tabular-nums">${price}</dd>
-                </div>
-                <div className="text-muted-foreground flex items-center justify-between gap-4 p-4 text-xs">
-                  <dt>{content.checkout.signedInAs}</dt>
-                  <dd className="truncate">{email}</dd>
-                </div>
-              </dl>
+              <OrderSummary
+                item={content.tiers[fields.tier]}
+                terms={content.billings[fields.billing]}
+                price={`$${price}`}
+                dueLabel={content.checkout.dueToday}
+                due={`$${price}`}
+                signedInLabel={content.checkout.signedInAs}
+                email={email}
+              />
               <p className="text-muted-foreground text-xs leading-relaxed">
                 {content.checkout.note}
               </p>

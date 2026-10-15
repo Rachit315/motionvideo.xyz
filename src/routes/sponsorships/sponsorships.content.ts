@@ -262,9 +262,9 @@ export default {
     opening: t({ en: "Opening…", es: "Abriendo…", fr: "Ouverture…" }),
     checkout: {
       heroTitle: t({
-        en: "Put your brand in front of motion makers",
-        es: "Muestra tu marca a quienes crean motion",
-        fr: "Présentez votre marque aux créateurs de motion",
+        en: "Put your brand in front of motion makers.",
+        es: "Muestra tu marca a quienes crean motion.",
+        fr: "Présentez votre marque aux créateurs de motion.",
       }),
       heroIntro: t({
         en: "Pick a plan, add your creative, and check out. Your placement goes live after a quick review.",
@@ -334,9 +334,9 @@ export default {
       }),
       errors: {
         validation: t({
-          en: "Check the fields: links must be public HTTPS addresses.",
-          es: "Revisa los campos: los enlaces deben ser direcciones HTTPS públicas.",
-          fr: "Vérifiez les champs : les liens doivent être des adresses HTTPS publiques.",
+          en: "Check the fields: every required one needs a value, and links must be public HTTPS addresses.",
+          es: "Revisa los campos: todos los obligatorios necesitan un valor y los enlaces deben ser direcciones HTTPS públicas.",
+          fr: "Vérifiez les champs : chaque champ obligatoire doit être rempli et les liens doivent être des adresses HTTPS publiques.",
         }),
         cover: t({
           en: "Add a cover image for your placement.",
