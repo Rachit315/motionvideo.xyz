@@ -2,10 +2,13 @@ import { createFileRoute, getRouteApi, redirect } from "@tanstack/react-router";
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { useIntlayer } from "react-intlayer";
+import { Check } from "reicon-react/icons/Check";
+import { ChevronDown } from "reicon-react/icons/ChevronDown";
 import { z } from "zod";
 
 import { ChoiceCard } from "@/components/choice-card";
 import { FormSection, HeroHeader, PageMain } from "@/components/page";
+import { PlacementSketch } from "@/components/placement-sketch";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import {
@@ -14,7 +17,12 @@ import {
   EMPTY_CREATIVE,
 } from "@/components/sponsor-creative-fields";
 import type { CreativeFields } from "@/components/sponsor-creative-fields";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { ROUTES } from "@/constants/routes";
 import {
   SPONSOR_BILLINGS,
@@ -89,6 +97,52 @@ const fieldsOf = (
     tier,
     billing: search.billing ?? "monthly",
   };
+};
+
+/**
+ * Details under a plan's price: where the plan shows (the same sketch as on
+ * /sponsor) and everything it includes.
+ */
+const PlanDetails = ({ tier }: { tier: SponsorTier }) => {
+  const content = useIntlayer("sponsorships-page");
+  const sponsorCopy = useIntlayer("sponsor");
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Collapsible open={open} onOpenChange={setOpen} className="flex flex-col">
+      <CollapsibleTrigger
+        className={buttonVariants({
+          variant: "ghost",
+          size: "xs",
+          className: "group -ml-2 w-fit",
+        })}
+      >
+        {content.checkout.details}
+        <ChevronDown
+          aria-hidden="true"
+          className="transition-transform duration-150 ease-out group-data-panel-open:rotate-180"
+        />
+      </CollapsibleTrigger>
+      {/* -mx-1/px-1 leave room for the sketch's shadow inside the clipped
+          (height-animated) panel. */}
+      <CollapsibleContent className="-mx-1 h-(--collapsible-panel-height) overflow-hidden px-1 transition-[height] duration-200 ease-out data-ending-style:h-0 data-starting-style:h-0 motion-reduce:transition-none [&[hidden]:not([hidden='until-found'])]:hidden">
+        <div className="flex flex-col gap-3 pt-3 pb-1">
+          <PlacementSketch tier={tier} />
+          <ul className="flex flex-col gap-2 text-sm">
+            {sponsorCopy.tiers[tier].perks.map((perk) => (
+              <li key={perk.value} className="flex gap-2">
+                <Check
+                  aria-hidden="true"
+                  className="text-primary mt-0.5 size-4 shrink-0"
+                />
+                {perk}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </CollapsibleContent>
+    </Collapsible>
+  );
 };
 
 const NewSponsorship = () => {
@@ -204,7 +258,9 @@ const NewSponsorship = () => {
                       price={SPONSOR_PRICE_USD[tier]}
                       priceNote={content.priceSuffix[fields.billing]}
                       body={soldOut ? content.checkout.soldOut : undefined}
-                    />
+                    >
+                      <PlanDetails tier={tier} />
+                    </ChoiceCard>
                   );
                 })}
               </div>
@@ -239,7 +295,7 @@ const NewSponsorship = () => {
               title={content.preview}
               description={content.previewSectionBody}
             >
-              <CreativePreview fields={fields} />
+              <CreativePreview fields={fields} tier={fields.tier} />
             </FormSection>
 
             <FormSection
@@ -256,10 +312,7 @@ const NewSponsorship = () => {
                       {content.billings[fields.billing]}
                     </span>
                   </dt>
-                  <dd className="tabular-nums">
-                    ${price}
-                    {content.priceSuffix[fields.billing]}
-                  </dd>
+                  <dd className="tabular-nums">${price}</dd>
                 </div>
                 <div className="bg-muted/60 flex items-center justify-between gap-4 p-4 font-medium">
                   <dt>{content.checkout.dueToday}</dt>

@@ -54,7 +54,7 @@ export const FadeScroller = ({
       data-fade-start={edges.start || undefined}
       data-fade-end={edges.end || undefined}
       className={cn(
-        "flex [scrollbar-width:none] gap-2 overflow-x-auto [mask-image:linear-gradient(to_right,transparent,#000_var(--fade-start),#000_calc(100%-var(--fade-end)),transparent)] transition-[--fade-start,--fade-end] duration-200 data-fade-end:[--fade-end:4rem] data-fade-start:[--fade-start:4rem] motion-reduce:transition-none [&::-webkit-scrollbar]:hidden",
+        "no-scrollbar flex gap-2 overflow-x-auto [mask-image:linear-gradient(to_right,transparent,#000_var(--fade-start),#000_calc(100%-var(--fade-end)),transparent)] transition-[--fade-start,--fade-end] duration-200 data-fade-end:[--fade-end:4rem] data-fade-start:[--fade-start:4rem] motion-reduce:transition-none [&::-webkit-scrollbar]:hidden",
         className
       )}
     >

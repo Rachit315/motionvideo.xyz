@@ -6,6 +6,7 @@ export const INQUIRY_TYPES = [
   "Support",
   "Partnership",
   "Press",
+  "Removal or credit",
 ] as const;
 
 // Shared by the contact form (client-side check) and its server function.

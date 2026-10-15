@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { FormEvent, KeyboardEvent } from "react";
 import { useIntlayer } from "react-intlayer";
 import { Check } from "reicon-react/icons/Check";
@@ -23,6 +23,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { LINK } from "@/constants/links";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
+import { publicUrlSchema } from "@/lib/community";
 import { INQUIRY_TYPES, contactSchema } from "@/lib/contact";
 import type { ContactInput } from "@/lib/contact";
 import { breadcrumbJsonLd } from "@/seo/json-ld";
@@ -31,14 +32,56 @@ import { sendContactMessage } from "@/server/functions";
 
 const inlineLink = "text-foreground underline underline-offset-4";
 
+// Links into the form preset it, e.g. the "Contact us" line under a video:
+// `?inquiry=removal&ref=<page URL>`.
+interface ContactSearch {
+  inquiry?: "removal";
+  ref?: string;
+}
+
+const noSubscribe = () => () => {
+  // Nothing changes after hydration.
+};
+
 const Contact = () => {
   const content = useIntlayer("contact");
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [error, setError] = useState<"validation" | "send" | null>(null);
-  const [inquiry, setInquiry] = useState<ContactInput["inquiry"]>(
-    INQUIRY_TYPES[0]
+  const search = Route.useSearch();
+  // The page is prerendered without a query string, so the preset applies
+  // only once hydrated (false while hydrating, true after).
+  const hydrated = useSyncExternalStore(
+    noSubscribe,
+    () => true,
+    () => false
   );
+  const [picked, setPicked] = useState<ContactInput["inquiry"] | null>(null);
+  const inquiry =
+    picked ??
+    (hydrated && search.inquiry === "removal"
+      ? "Removal or credit"
+      : INQUIRY_TYPES[0]);
+
+  // The page the link came from goes into the subject and message.
+  useEffect(() => {
+    if (search.inquiry !== "removal") {
+      return;
+    }
+    const form = formRef.current;
+    const subject = form?.elements.namedItem("subject");
+    const message = form?.elements.namedItem("message");
+    if (search.ref && subject instanceof HTMLInputElement && !subject.value) {
+      subject.value = search.ref.slice(0, 150);
+    }
+    if (
+      search.ref &&
+      message instanceof HTMLTextAreaElement &&
+      !message.value
+    ) {
+      message.value = `${search.ref}\n\n`;
+    }
+  }, [search.inquiry, search.ref]);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -119,7 +162,7 @@ const Contact = () => {
             <Label htmlFor="inquiry">{content.inquiry}</Label>
             <Select
               value={inquiry}
-              onValueChange={(value) => value && setInquiry(value)}
+              onValueChange={(value) => value && setPicked(value)}
             >
               <SelectTrigger id="inquiry" className="w-full">
                 <SelectValue />
@@ -209,6 +252,10 @@ const Contact = () => {
 
 export const Route = createFileRoute("/_pages/contact")({
   component: Contact,
+  validateSearch: (search): ContactSearch => ({
+    inquiry: search.inquiry === "removal" ? "removal" : undefined,
+    ref: publicUrlSchema.safeParse(search.ref).data,
+  }),
   head: () => ({
     ...createMetadata({
       canonical: ROUTES.CONTACT,

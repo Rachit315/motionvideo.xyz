@@ -110,6 +110,12 @@ export default {
       es: "Portapapeles no disponible. Selecciona y copia la instrucción de abajo.",
       fr: "Presse-papiers indisponible. Sélectionnez et copiez l’instruction ci-dessous.",
     }),
+    questions: t({
+      en: "Questions, credit, or want this removed?",
+      es: "¿Preguntas, créditos o quieres que lo retiremos?",
+      fr: "Une question, un crédit ou un retrait ?",
+    }),
+    contactUs: t({ en: "Contact us", es: "Escríbenos", fr: "Contactez-nous" }),
     unavailablePrompt: t({
       en: "The prompt is not published in this collection. Check the creator’s original post for more context.",
       es: "La instrucción no está publicada en esta colección. Consulta la publicación original del creador.",

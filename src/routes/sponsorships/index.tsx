@@ -142,7 +142,7 @@ const CreativeForm = ({ sponsorship }: { sponsorship: MySponsorship }) => {
           title={content.preview}
           description={content.previewSectionBody}
         >
-          <CreativePreview fields={fields} />
+          <CreativePreview fields={fields} tier={sponsorship.tier} />
         </FormSection>
 
         <FormSection
@@ -426,8 +426,8 @@ const Sponsorships = () => {
               <EmptyDescription>{content.emptyDescription}</EmptyDescription>
             </EmptyHeader>
             <EmptyContent>
-              <Link to={ROUTES.SPONSOR} className={buttonVariants()}>
-                {content.seePlans}
+              <Link to={ROUTES.SPONSORSHIPS_NEW} className={buttonVariants()}>
+                {content.startCampaign}
               </Link>
             </EmptyContent>
           </Empty>

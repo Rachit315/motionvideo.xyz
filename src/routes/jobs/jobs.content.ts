@@ -178,56 +178,6 @@ export default {
       es: "Publica tu puesto donde motion designers y desarrolladores creativos ya buscan su próximo proyecto.",
       fr: "Publiez votre poste là où motion designers et développeurs créatifs cherchent déjà leur prochain projet.",
     }),
-    features: {
-      board: {
-        title: t({
-          en: "Job board",
-          es: "Bolsa de empleo",
-          fr: "Offres d’emploi",
-        }),
-        body: t({
-          en: "Listed on Jobs for 30 days, featured posts on top.",
-          es: "En Empleos durante 30 días, las destacadas arriba.",
-          fr: "Dans Emplois pendant 30 jours, les offres à la une en tête.",
-        }),
-      },
-      widget: {
-        title: t({
-          en: "Discover widget",
-          es: "Widget en Descubrir",
-          fr: "Widget Découvrir",
-        }),
-        body: t({
-          en: "Shown in the open roles card on the Discover grid.",
-          es: "Aparece en la tarjeta de puestos del muro Descubrir.",
-          fr: "Affichée dans la carte des postes de la grille Découvrir.",
-        }),
-      },
-      shoutout: {
-        title: t({
-          en: "Shoutout on X",
-          es: "Mención en X",
-          fr: "Mention sur X",
-        }),
-        body: t({
-          en: "Featured posts are shared with our followers on X.",
-          es: "Las destacadas se comparten con nuestros seguidores en X.",
-          fr: "Les offres à la une sont partagées sur X.",
-        }),
-      },
-      review: {
-        title: t({
-          en: "Quick review",
-          es: "Revisión rápida",
-          fr: "Relecture rapide",
-        }),
-        body: t({
-          en: "A person checks every post within a business day.",
-          es: "Una persona revisa cada oferta en un día hábil.",
-          fr: "Une personne relit chaque offre sous un jour ouvré.",
-        }),
-      },
-    },
     planSection: t({ en: "Plan", es: "Plan", fr: "Formule" }),
     planSectionBody: t({
       en: "Standard lists the role; Featured pins it and adds a shoutout.",

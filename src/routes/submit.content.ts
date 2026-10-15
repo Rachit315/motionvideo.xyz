@@ -10,10 +10,36 @@ export default {
       fr: "Partagez une belle découverte.",
     }),
     intro: t({
-      en: "Send a motion video, a tool, a creative, an agent skill, or any other resource for our collection. Every submission is reviewed before anything is published.",
-      es: "Envía un vídeo de motion, una herramienta, un creativo, una habilidad de agente o cualquier otro recurso para nuestra colección. Revisamos cada propuesta antes de publicarla.",
-      fr: "Proposez une vidéo motion, un outil, un créatif, une compétence d’agent ou toute autre ressource pour notre collection. Chaque proposition est examinée avant toute publication.",
+      en: "Send a motion video, tool, creative, or agent skill. We review everything before it goes live.",
+      es: "Envía un vídeo de motion, una herramienta, un creativo o una skill. Lo revisamos todo antes de publicarlo.",
+      fr: "Proposez une vidéo motion, un outil, un créatif ou une skill. Tout est examiné avant publication.",
     }),
+    sections: {
+      kind: t({ en: "Type", es: "Tipo", fr: "Type" }),
+      kindBody: t({
+        en: "What you’re sharing and where it belongs.",
+        es: "Qué compartes y dónde encaja.",
+        fr: "Ce que vous partagez et où il a sa place.",
+      }),
+      entry: t({ en: "Entry", es: "Propuesta", fr: "Proposition" }),
+      entryBody: t({
+        en: "The title, link, and details we review.",
+        es: "El título, el enlace y los detalles que revisamos.",
+        fr: "Le titre, le lien et les détails que nous examinons.",
+      }),
+      you: t({ en: "About you", es: "Sobre ti", fr: "À propos de vous" }),
+      youBody: t({
+        en: "Who to credit and where we reply.",
+        es: "A quién atribuirlo y dónde respondemos.",
+        fr: "Qui créditer et où nous répondons.",
+      }),
+      submit: t({ en: "Submit", es: "Enviar", fr: "Envoyer" }),
+      submitBody: t({
+        en: "Every submission is reviewed before anything is published.",
+        es: "Revisamos cada propuesta antes de publicarla.",
+        fr: "Chaque proposition est examinée avant publication.",
+      }),
+    },
     kind: t({
       en: "What are you sharing?",
       es: "¿Qué quieres compartir?",

@@ -59,6 +59,11 @@ export default {
         fr: "Partenariat",
       }),
       Press: t({ en: "Press", es: "Prensa", fr: "Presse" }),
+      "Removal or credit": t({
+        en: "Removal or credit",
+        es: "Retirada o crédito",
+        fr: "Retrait ou crédit",
+      }),
     },
     subject: t({ en: "Subject", es: "Asunto", fr: "Objet" }),
     subjectPlaceholder: t({

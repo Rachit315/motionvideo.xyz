@@ -28,6 +28,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { ROUTES } from "@/constants/routes";
+import { absoluteUrl } from "@/constants/url";
 import { useTransientStatus } from "@/hooks/use-transient-status";
 import { track } from "@/lib/analytics";
 import { findMotionCategory } from "@/lib/motion-catalog";
@@ -827,6 +829,21 @@ export const MotionVideoOverlay = ({
                   {copyStatus === "failed" && content.copyError}
                 </output>
               </section>
+              {/* Quiet, at the bottom: questions, credit or removal requests
+                  land on /contact with this video already filled in. */}
+              <p className="text-muted-foreground mt-auto pt-2 text-xs">
+                {content.questions}{" "}
+                <Link
+                  to={ROUTES.CONTACT}
+                  search={{
+                    inquiry: "removal",
+                    ref: absoluteUrl(`/videos/${video.slug}`),
+                  }}
+                  className="hover:text-foreground underline underline-offset-4 transition-colors"
+                >
+                  {content.contactUs}
+                </Link>
+              </p>
             </aside>
           </div>
         </Dialog.Popup>

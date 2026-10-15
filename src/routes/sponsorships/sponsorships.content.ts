@@ -41,7 +41,11 @@ export default {
       es: "Elige un plan para mostrar tu producto a quienes crean vídeos de producto y motion design.",
       fr: "Choisissez une formule pour présenter votre produit à celles et ceux qui créent des films produit et du motion design.",
     }),
-    seePlans: t({ en: "See plans", es: "Ver planes", fr: "Voir les formules" }),
+    startCampaign: t({
+      en: "Start a campaign",
+      es: "Empezar una campaña",
+      fr: "Lancer une campagne",
+    }),
     tiers: {
       diamond: t({ en: "Diamond", es: "Diamante", fr: "Diamant" }),
       gold: t({ en: "Gold", es: "Oro", fr: "Or" }),
@@ -182,6 +186,14 @@ export default {
       }),
     },
     preview: t({ en: "Preview", es: "Vista previa", fr: "Aperçu" }),
+    placements: {
+      card: t({ en: "Grid card", es: "Tarjeta", fr: "Carte" }),
+      slot: t({
+        en: "Sponsor slot",
+        es: "Espacio de patrocinio",
+        fr: "Emplacement sponsor",
+      }),
+    },
     campaignSection: t({ en: "Campaign", es: "Campaña", fr: "Campagne" }),
     campaignSectionBody: t({
       en: "Who the placement is for, its line of copy, and where it links.",
@@ -265,6 +277,7 @@ export default {
         es: "Dónde aparece tu espacio.",
         fr: "Où s’affiche votre emplacement.",
       }),
+      details: t({ en: "Details", es: "Detalles", fr: "Détails" }),
       soldOut: t({
         en: "Sold out: every seat is taken.",
         es: "Agotado: todos los espacios están ocupados.",

@@ -5,14 +5,10 @@ import {
   useNavigate,
 } from "@tanstack/react-router";
 import { useState } from "react";
-import type { ComponentType, FormEvent, SVGProps } from "react";
+import type { FormEvent } from "react";
 import { useIntlayer } from "react-intlayer";
-import { Checklist } from "reicon-react/icons/Checklist";
-import { List } from "reicon-react/icons/List";
-import { Widget } from "reicon-react/icons/Widget";
 import { z } from "zod";
 
-import { XIcon } from "@/components/brand-icons";
 import { ChoiceCard } from "@/components/choice-card";
 import { ImageDropzone } from "@/components/image-dropzone";
 import { FormSection, HeroHeader, PageMain } from "@/components/page";
@@ -96,17 +92,6 @@ const fieldsOf = (post: MyJobPost | undefined, plan: JobPlan): JobFields =>
 
 type FormError = "validation" | "save" | "checkout";
 
-const FEATURES: {
-  id: "board" | "widget" | "shoutout" | "review";
-  // Reicon glyphs and the X brand mark both take SVG props.
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
-}[] = [
-  { id: "board", icon: List },
-  { id: "widget", icon: Widget },
-  { id: "shoutout", icon: XIcon },
-  { id: "review", icon: Checklist },
-];
-
 const PostJob = () => {
   const content = useIntlayer("jobs-page");
   const navigate = useNavigate();
@@ -178,26 +163,6 @@ const PostJob = () => {
           title={content.postHeroTitle}
           intro={content.postHeroIntro}
         />
-        <ul className="mx-auto grid max-w-lg grid-cols-2 gap-x-8 gap-y-10">
-          {FEATURES.map(({ id, icon: Icon }) => (
-            <li
-              key={id}
-              className="flex flex-col items-center gap-1 text-center"
-            >
-              <Icon
-                aria-hidden="true"
-                className="text-muted-foreground mb-2 size-6"
-              />
-              <span className="text-sm font-medium">
-                {content.features[id].title}
-              </span>
-              <span className="text-muted-foreground text-xs text-balance">
-                {content.features[id].body}
-              </span>
-            </li>
-          ))}
-        </ul>
-
         <form
           onSubmit={onSubmit}
           aria-busy={pending}
