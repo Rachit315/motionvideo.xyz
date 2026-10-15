@@ -4,13 +4,16 @@
    (which is what caused the fallback-font flash on every hot update).
    The WOFF2 is served same-origin from `/fonts` (see `scripts/pull-fonts.mjs`);
    keep the `@font-face` URLs and the preload in `src/routes/__root.tsx` on the
-   same versioned filename. */
+   same versioned filename.
+   `swap`, not `optional`: with `optional` a first visit whose font download
+   misses the ~100 ms paint window keeps Arial for the whole page view. The
+   preload plus a year of immutable caching keep the swap to first loads. */
 @font-face {
   font-family: "Timeless Sans";
   src: url("/fonts/timeless/TimelessSansVF-1.094.woff2") format("woff2");
   font-style: normal;
   font-weight: 300 900;
-  font-display: optional;
+  font-display: swap;
   font-variation-settings: "STYL" 0;
 }
 
@@ -19,7 +22,7 @@
   src: url("/fonts/timeless/TimelessSansVF-1.094.woff2") format("woff2");
   font-style: italic;
   font-weight: 300 900;
-  font-display: optional;
+  font-display: swap;
   font-variation-settings:
     "STYL" 0,
     "ital" 1;
