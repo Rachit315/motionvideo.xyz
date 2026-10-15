@@ -55,8 +55,7 @@ type PagePath =
   | "/contact"
   | "/privacy"
   | "/terms"
-  | "/refunds"
-  | "/license";
+  | "/refunds";
 
 interface SearchData {
   videos: MotionVideo[];
@@ -264,12 +263,6 @@ export const CommandMenu = () => {
           page("/terms", content.terms.value, <Scroll aria-hidden="true" />),
           page("/privacy", content.privacy.value, <Lock aria-hidden="true" />),
           page("/refunds", content.refunds.value, <Undo aria-hidden="true" />),
-          page(
-            "/license",
-            content.license.value,
-            <Scroll aria-hidden="true" />,
-            ["license", "skill", "terms"]
-          ),
         ],
       },
       {

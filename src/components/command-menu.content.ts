@@ -59,11 +59,6 @@ export default {
       es: "Términos de servicio",
       fr: "Conditions d’utilisation",
     }),
-    license: t({
-      en: "Skill license",
-      es: "Licencia del skill",
-      fr: "Licence du skill",
-    }),
     refunds: t({
       en: "Refund policy",
       es: "Política de reembolso",

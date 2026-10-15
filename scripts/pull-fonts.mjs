@@ -1,7 +1,8 @@
 // Pulls the licensed Timeless website font into gitignored `public/fonts/`
 // so dev and the Worker serve it same-origin at `/fonts/...`.
 //
-// The font stays out of the public repo (see README "Fonts"): this script is
+// The font stays out of the public repo (its license allows embedding on the
+// website, not redistribution in a public repository): this script is
 // the only thing that materializes it. It skips when the file already exists
 // and fails loudly when the file is missing and the download fails, so a
 // deploy never silently ships the Arial fallback.

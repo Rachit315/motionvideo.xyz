@@ -32,7 +32,6 @@ import { Route as GalleryIndexRouteImport } from './routes/_gallery/index'
 import { Route as PagesAboutRouteImport } from './routes/_pages/about'
 import { Route as PagesBrandRouteImport } from './routes/_pages/brand'
 import { Route as PagesContactRouteImport } from './routes/_pages/contact'
-import { Route as PagesLicenseRouteImport } from './routes/_pages/license'
 import { Route as PagesPrivacyRouteImport } from './routes/_pages/privacy'
 import { Route as PagesRefundsRouteImport } from './routes/_pages/refunds'
 import { Route as PagesTermsRouteImport } from './routes/_pages/terms'
@@ -173,11 +172,6 @@ const PagesBrandRoute = PagesBrandRouteImport.update({
 const PagesContactRoute = PagesContactRouteImport.update({
   id: '/contact',
   path: '/contact',
-  getParentRoute: () => PagesRoute,
-} as any)
-const PagesLicenseRoute = PagesLicenseRouteImport.update({
-  id: '/license',
-  path: '/license',
   getParentRoute: () => PagesRoute,
 } as any)
 const PagesPrivacyRoute = PagesPrivacyRouteImport.update({
@@ -345,7 +339,6 @@ export interface FileRoutesByFullPath {
   '/about': typeof PagesAboutRoute
   '/brand': typeof PagesBrandRoute
   '/contact': typeof PagesContactRoute
-  '/license': typeof PagesLicenseRoute
   '/privacy': typeof PagesPrivacyRoute
   '/refunds': typeof PagesRefundsRoute
   '/terms': typeof PagesTermsRoute
@@ -392,7 +385,6 @@ export interface FileRoutesByTo {
   '/about': typeof PagesAboutRoute
   '/brand': typeof PagesBrandRoute
   '/contact': typeof PagesContactRoute
-  '/license': typeof PagesLicenseRoute
   '/privacy': typeof PagesPrivacyRoute
   '/refunds': typeof PagesRefundsRoute
   '/terms': typeof PagesTermsRoute
@@ -445,7 +437,6 @@ export interface FileRoutesById {
   '/_pages/about': typeof PagesAboutRoute
   '/_pages/brand': typeof PagesBrandRoute
   '/_pages/contact': typeof PagesContactRoute
-  '/_pages/license': typeof PagesLicenseRoute
   '/_pages/privacy': typeof PagesPrivacyRoute
   '/_pages/refunds': typeof PagesRefundsRoute
   '/_pages/terms': typeof PagesTermsRoute
@@ -500,7 +491,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/brand'
     | '/contact'
-    | '/license'
     | '/privacy'
     | '/refunds'
     | '/terms'
@@ -547,7 +537,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/brand'
     | '/contact'
-    | '/license'
     | '/privacy'
     | '/refunds'
     | '/terms'
@@ -599,7 +588,6 @@ export interface FileRouteTypes {
     | '/_pages/about'
     | '/_pages/brand'
     | '/_pages/contact'
-    | '/_pages/license'
     | '/_pages/privacy'
     | '/_pages/refunds'
     | '/_pages/terms'
@@ -822,13 +810,6 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof PagesContactRouteImport
-      parentRoute: typeof PagesRoute
-    }
-    '/_pages/license': {
-      id: '/_pages/license'
-      path: '/license'
-      fullPath: '/license'
-      preLoaderRoute: typeof PagesLicenseRouteImport
       parentRoute: typeof PagesRoute
     }
     '/_pages/privacy': {
@@ -1066,7 +1047,6 @@ interface PagesRouteChildren {
   PagesAboutRoute: typeof PagesAboutRoute
   PagesBrandRoute: typeof PagesBrandRoute
   PagesContactRoute: typeof PagesContactRoute
-  PagesLicenseRoute: typeof PagesLicenseRoute
   PagesPrivacyRoute: typeof PagesPrivacyRoute
   PagesRefundsRoute: typeof PagesRefundsRoute
   PagesTermsRoute: typeof PagesTermsRoute
@@ -1076,7 +1056,6 @@ const PagesRouteChildren: PagesRouteChildren = {
   PagesAboutRoute: PagesAboutRoute,
   PagesBrandRoute: PagesBrandRoute,
   PagesContactRoute: PagesContactRoute,
-  PagesLicenseRoute: PagesLicenseRoute,
   PagesPrivacyRoute: PagesPrivacyRoute,
   PagesRefundsRoute: PagesRefundsRoute,
   PagesTermsRoute: PagesTermsRoute,

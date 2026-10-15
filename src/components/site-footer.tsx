@@ -92,7 +92,6 @@ export const SiteFooter = () => {
     [ROUTES.TERMS, content.terms],
     [ROUTES.PRIVACY, content.privacy],
     [ROUTES.REFUNDS, content.refunds],
-    [ROUTES.LICENSE, content.license],
   ] as const;
   const company = [
     [ROUTES.ABOUT, content.about],
