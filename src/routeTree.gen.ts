@@ -24,7 +24,6 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as SkillsRouteImport } from './routes/skills'
 import { Route as SponsorRouteImport } from './routes/sponsor'
-import { Route as SponsorshipsRouteImport } from './routes/sponsorships'
 import { Route as StudiosRouteImport } from './routes/studios'
 import { Route as SubmitRouteImport } from './routes/submit'
 import { Route as ToolsRouteImport } from './routes/tools'
@@ -52,6 +51,8 @@ import { Route as JobsTypeRouteImport } from './routes/jobs/$type'
 import { Route as JobsPostRouteImport } from './routes/jobs/post'
 import { Route as SkillsIndexRouteImport } from './routes/skills/index'
 import { Route as SkillsCategoryRouteImport } from './routes/skills/$category'
+import { Route as SponsorshipsIndexRouteImport } from './routes/sponsorships/index'
+import { Route as SponsorshipsNewRouteImport } from './routes/sponsorships/new'
 import { Route as ToolsIndexRouteImport } from './routes/tools/index'
 import { Route as ToolsCategoryRouteImport } from './routes/tools/$category'
 import { Route as GalleryCategoryCategoryRouteImport } from './routes/_gallery/category.$category'
@@ -132,11 +133,6 @@ const SkillsRoute = SkillsRouteImport.update({
 const SponsorRoute = SponsorRouteImport.update({
   id: '/sponsor',
   path: '/sponsor',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SponsorshipsRoute = SponsorshipsRouteImport.update({
-  id: '/sponsorships',
-  path: '/sponsorships',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StudiosRoute = StudiosRouteImport.update({
@@ -274,6 +270,16 @@ const SkillsCategoryRoute = SkillsCategoryRouteImport.update({
   path: '/$category',
   getParentRoute: () => SkillsRoute,
 } as any)
+const SponsorshipsIndexRoute = SponsorshipsIndexRouteImport.update({
+  id: '/sponsorships/',
+  path: '/sponsorships/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SponsorshipsNewRoute = SponsorshipsNewRouteImport.update({
+  id: '/sponsorships/new',
+  path: '/sponsorships/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ToolsIndexRoute = ToolsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -332,7 +338,6 @@ export interface FileRoutesByFullPath {
   '/sign-in': typeof SignInRoute
   '/skills': typeof SkillsRouteWithChildren
   '/sponsor': typeof SponsorRoute
-  '/sponsorships': typeof SponsorshipsRoute
   '/studios': typeof StudiosRoute
   '/submit': typeof SubmitRoute
   '/tools': typeof ToolsRouteWithChildren
@@ -354,12 +359,14 @@ export interface FileRoutesByFullPath {
   '/jobs/$type': typeof JobsTypeRoute
   '/jobs/post': typeof JobsPostRoute
   '/skills/$category': typeof SkillsCategoryRoute
+  '/sponsorships/new': typeof SponsorshipsNewRoute
   '/tools/$category': typeof ToolsCategoryRoute
   '/admin/': typeof AdminIndexRoute
   '/creatives/': typeof CreativesIndexRoute
   '/extras/': typeof ExtrasIndexRoute
   '/jobs/': typeof JobsIndexRoute
   '/skills/': typeof SkillsIndexRoute
+  '/sponsorships/': typeof SponsorshipsIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/category/$category': typeof GalleryCategoryCategoryRouteWithChildren
   '/videos/$slug': typeof GalleryVideosSlugRoute
@@ -379,7 +386,6 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/sponsor': typeof SponsorRoute
-  '/sponsorships': typeof SponsorshipsRoute
   '/studios': typeof StudiosRoute
   '/submit': typeof SubmitRoute
   '/welcome': typeof WelcomeRoute
@@ -400,12 +406,14 @@ export interface FileRoutesByTo {
   '/jobs/$type': typeof JobsTypeRoute
   '/jobs/post': typeof JobsPostRoute
   '/skills/$category': typeof SkillsCategoryRoute
+  '/sponsorships/new': typeof SponsorshipsNewRoute
   '/tools/$category': typeof ToolsCategoryRoute
   '/admin': typeof AdminIndexRoute
   '/creatives': typeof CreativesIndexRoute
   '/extras': typeof ExtrasIndexRoute
   '/jobs': typeof JobsIndexRoute
   '/skills': typeof SkillsIndexRoute
+  '/sponsorships': typeof SponsorshipsIndexRoute
   '/tools': typeof ToolsIndexRoute
   '/videos/$slug': typeof GalleryVideosSlugRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -430,7 +438,6 @@ export interface FileRoutesById {
   '/sign-in': typeof SignInRoute
   '/skills': typeof SkillsRouteWithChildren
   '/sponsor': typeof SponsorRoute
-  '/sponsorships': typeof SponsorshipsRoute
   '/studios': typeof StudiosRoute
   '/submit': typeof SubmitRoute
   '/tools': typeof ToolsRouteWithChildren
@@ -452,6 +459,7 @@ export interface FileRoutesById {
   '/jobs/$type': typeof JobsTypeRoute
   '/jobs/post': typeof JobsPostRoute
   '/skills/$category': typeof SkillsCategoryRoute
+  '/sponsorships/new': typeof SponsorshipsNewRoute
   '/tools/$category': typeof ToolsCategoryRoute
   '/_gallery/': typeof GalleryIndexRoute
   '/admin/': typeof AdminIndexRoute
@@ -459,6 +467,7 @@ export interface FileRoutesById {
   '/extras/': typeof ExtrasIndexRoute
   '/jobs/': typeof JobsIndexRoute
   '/skills/': typeof SkillsIndexRoute
+  '/sponsorships/': typeof SponsorshipsIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/_gallery/category/$category': typeof GalleryCategoryCategoryRouteWithChildren
   '/_gallery/videos/$slug': typeof GalleryVideosSlugRoute
@@ -484,7 +493,6 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/skills'
     | '/sponsor'
-    | '/sponsorships'
     | '/studios'
     | '/submit'
     | '/tools'
@@ -506,12 +514,14 @@ export interface FileRouteTypes {
     | '/jobs/$type'
     | '/jobs/post'
     | '/skills/$category'
+    | '/sponsorships/new'
     | '/tools/$category'
     | '/admin/'
     | '/creatives/'
     | '/extras/'
     | '/jobs/'
     | '/skills/'
+    | '/sponsorships/'
     | '/tools/'
     | '/category/$category'
     | '/videos/$slug'
@@ -531,7 +541,6 @@ export interface FileRouteTypes {
     | '/settings'
     | '/sign-in'
     | '/sponsor'
-    | '/sponsorships'
     | '/studios'
     | '/submit'
     | '/welcome'
@@ -552,12 +561,14 @@ export interface FileRouteTypes {
     | '/jobs/$type'
     | '/jobs/post'
     | '/skills/$category'
+    | '/sponsorships/new'
     | '/tools/$category'
     | '/admin'
     | '/creatives'
     | '/extras'
     | '/jobs'
     | '/skills'
+    | '/sponsorships'
     | '/tools'
     | '/videos/$slug'
     | '/api/auth/$'
@@ -581,7 +592,6 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/skills'
     | '/sponsor'
-    | '/sponsorships'
     | '/studios'
     | '/submit'
     | '/tools'
@@ -603,6 +613,7 @@ export interface FileRouteTypes {
     | '/jobs/$type'
     | '/jobs/post'
     | '/skills/$category'
+    | '/sponsorships/new'
     | '/tools/$category'
     | '/_gallery/'
     | '/admin/'
@@ -610,6 +621,7 @@ export interface FileRouteTypes {
     | '/extras/'
     | '/jobs/'
     | '/skills/'
+    | '/sponsorships/'
     | '/tools/'
     | '/_gallery/category/$category'
     | '/_gallery/videos/$slug'
@@ -635,7 +647,6 @@ export interface RootRouteChildren {
   SignInRoute: typeof SignInRoute
   SkillsRoute: typeof SkillsRouteWithChildren
   SponsorRoute: typeof SponsorRoute
-  SponsorshipsRoute: typeof SponsorshipsRoute
   StudiosRoute: typeof StudiosRoute
   SubmitRoute: typeof SubmitRoute
   ToolsRoute: typeof ToolsRouteWithChildren
@@ -643,7 +654,9 @@ export interface RootRouteChildren {
   ApiUploadRoute: typeof ApiUploadRoute
   JobsTypeRoute: typeof JobsTypeRoute
   JobsPostRoute: typeof JobsPostRoute
+  SponsorshipsNewRoute: typeof SponsorshipsNewRoute
   JobsIndexRoute: typeof JobsIndexRoute
+  SponsorshipsIndexRoute: typeof SponsorshipsIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiWebhookDodoRoute: typeof ApiWebhookDodoRoute
 }
@@ -753,13 +766,6 @@ declare module '@tanstack/react-router' {
       path: '/sponsor'
       fullPath: '/sponsor'
       preLoaderRoute: typeof SponsorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sponsorships': {
-      id: '/sponsorships'
-      path: '/sponsorships'
-      fullPath: '/sponsorships'
-      preLoaderRoute: typeof SponsorshipsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/studios': {
@@ -950,6 +956,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/skills/$category'
       preLoaderRoute: typeof SkillsCategoryRouteImport
       parentRoute: typeof SkillsRoute
+    }
+    '/sponsorships/': {
+      id: '/sponsorships/'
+      path: '/sponsorships'
+      fullPath: '/sponsorships/'
+      preLoaderRoute: typeof SponsorshipsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sponsorships/new': {
+      id: '/sponsorships/new'
+      path: '/sponsorships/new'
+      fullPath: '/sponsorships/new'
+      preLoaderRoute: typeof SponsorshipsNewRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/tools/': {
       id: '/tools/'
@@ -1150,7 +1170,6 @@ const rootRouteChildren: RootRouteChildren = {
   SignInRoute: SignInRoute,
   SkillsRoute: SkillsRouteWithChildren,
   SponsorRoute: SponsorRoute,
-  SponsorshipsRoute: SponsorshipsRoute,
   StudiosRoute: StudiosRoute,
   SubmitRoute: SubmitRoute,
   ToolsRoute: ToolsRouteWithChildren,
@@ -1158,7 +1177,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiUploadRoute: ApiUploadRoute,
   JobsTypeRoute: JobsTypeRoute,
   JobsPostRoute: JobsPostRoute,
+  SponsorshipsNewRoute: SponsorshipsNewRoute,
   JobsIndexRoute: JobsIndexRoute,
+  SponsorshipsIndexRoute: SponsorshipsIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiWebhookDodoRoute: ApiWebhookDodoRoute,
 }

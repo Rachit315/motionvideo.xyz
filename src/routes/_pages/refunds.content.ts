@@ -16,9 +16,9 @@ const refundsContent = {
     }),
     text2: t({ en: ", sold by", es: ", vendido por", fr: ", vendu par" }),
     text3: t({
-      en: ", and monthly sponsorship subscriptions. Dodo Payments, our merchant of record, processes every payment and refund. It sits alongside our",
-      es: ", y las suscripciones mensuales de patrocinio. Dodo Payments, nuestro comerciante registrado, procesa todos los pagos y reembolsos. Complementa nuestras",
-      fr: ", ainsi que les abonnements mensuels de parrainage. Dodo Payments, notre vendeur officiel, traite tous les paiements et remboursements. Elle complète nos",
+      en: ", and sponsorships. Dodo Payments, our merchant of record, processes every payment and refund. It sits alongside our",
+      es: ", y los patrocinios. Dodo Payments, nuestro comerciante registrado, procesa todos los pagos y reembolsos. Complementa nuestras",
+      fr: ", ainsi que les parrainages. Dodo Payments, notre vendeur officiel, traite tous les paiements et remboursements. Elle complète nos",
     }),
     text4: t({
       en: "terms of service",
@@ -117,14 +117,14 @@ const refundsContent = {
       fr: "7. Parrainages",
     }),
     sponsorText1: t({
-      en: "Sponsorships are monthly subscriptions (Diamond $500, Gold $250, Silver $150 per month). You can cancel anytime from the Dodo Payments customer portal, linked in your billing emails, or by writing to us. Your placement stays up until the end of the month you paid for, and you are not charged again.",
-      es: "Los patrocinios son suscripciones mensuales (Diamond $500, Gold $250, Silver $150 al mes). Puedes cancelar en cualquier momento desde el portal de clientes de Dodo Payments, enlazado en tus correos de facturación, o escribiéndonos. Tu espacio se mantiene hasta el final del mes pagado y no se te vuelve a cobrar.",
-      fr: "Les parrainages sont des abonnements mensuels (Diamond 500 $, Gold 250 $, Silver 150 $ par mois). Vous pouvez résilier à tout moment depuis le portail client de Dodo Payments, accessible via vos e-mails de facturation, ou en nous écrivant. Votre emplacement reste en ligne jusqu’à la fin du mois payé et vous n’êtes plus facturé.",
+      en: "Sponsorships cost Diamond $250, Gold $150, or Silver $100, either per month as a subscription or once for a single 30-day run. You can cancel a subscription anytime from the Dodo Payments customer portal, linked in your billing emails, or by writing to us. Your placement stays up until the end of the month you paid for, and you are not charged again. A 30-day run never renews and ends on its own.",
+      es: "Los patrocinios cuestan Diamond $250, Gold $150 o Silver $100, al mes como suscripción o una sola vez por una campaña de 30 días. Puedes cancelar una suscripción en cualquier momento desde el portal de clientes de Dodo Payments, enlazado en tus correos de facturación, o escribiéndonos. Tu espacio se mantiene hasta el final del mes pagado y no se te vuelve a cobrar. Una campaña de 30 días nunca se renueva y termina sola.",
+      fr: "Les parrainages coûtent Diamond 250 $, Gold 150 $ ou Silver 100 $, par mois en abonnement ou une seule fois pour une diffusion de 30 jours. Vous pouvez résilier un abonnement à tout moment depuis le portail client de Dodo Payments, accessible via vos e-mails de facturation, ou en nous écrivant. Votre emplacement reste en ligne jusqu’à la fin du mois payé et vous n’êtes plus facturé. Une diffusion de 30 jours n’est jamais renouvelée et s’arrête d’elle-même.",
     }),
     sponsorText2: t({
-      en: "A month that has started is not refunded, except where you were charged twice or for something you did not buy, or where the law where you live requires it. Where a refund applies, Dodo Payments returns it to the original payment method.",
-      es: "Un mes ya iniciado no se reembolsa, salvo que se te haya cobrado dos veces o por algo que no compraste, o que la legislación del lugar donde vives lo exija. Cuando corresponde un reembolso, Dodo Payments lo devuelve al método de pago original.",
-      fr: "Un mois commencé n’est pas remboursé, sauf si vous avez été facturé deux fois ou pour quelque chose que vous n’avez pas acheté, ou si la législation de votre lieu de résidence l’exige. Lorsqu’un remboursement s’applique, Dodo Payments le restitue sur le moyen de paiement initial.",
+      en: "A month or 30-day run that has started is not refunded. If we decline your placement before it ever goes live, we refund it in full. Otherwise refunds apply only where you were charged twice or for something you did not buy, or where the law where you live requires it. Where a refund applies, Dodo Payments returns it to the original payment method.",
+      es: "Un mes o una campaña de 30 días ya iniciados no se reembolsan. Si rechazamos tu espacio antes de que se publique, te lo reembolsamos íntegramente. En otros casos solo hay reembolso si se te ha cobrado dos veces o por algo que no compraste, o que la legislación del lugar donde vives lo exija. Cuando corresponde un reembolso, Dodo Payments lo devuelve al método de pago original.",
+      fr: "Un mois ou une diffusion de 30 jours commencés ne sont pas remboursés. Si nous refusons votre emplacement avant sa mise en ligne, nous le remboursons intégralement. Sinon, un remboursement ne s’applique que si vous avez été facturé deux fois ou pour quelque chose que vous n’avez pas acheté, ou si la législation de votre lieu de résidence l’exige. Lorsqu’un remboursement s’applique, Dodo Payments le restitue sur le moyen de paiement initial.",
     }),
   },
 } satisfies Dictionary;

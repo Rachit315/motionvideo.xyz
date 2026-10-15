@@ -1,15 +1,11 @@
 // Other things Aniket builds, linked from the footer. Shadcn Labs goes last
-// because the "and more" menu below it lists the Shadcn Labs projects.
+// because the "Shadcn Labs projects" menu right below it lists its projects.
 export const OTHER_PRODUCTS = [
-  { name: "Vercel Doctor", url: "https://www.vercel-doctor.com" },
+  { name: "Heroicons Animated", url: "https://heroicons-animated.com" },
   { name: "OSS Perks", url: "https://www.ossperks.com" },
-  { name: "Shadcn Labs", url: "https://www.shadcn-labs.com" },
-] as const;
-
-// First group of the footer's "and more" menu, above the Shadcn Labs projects.
-export const MORE_PRODUCTS = [
-  { name: "heroicons-animated", url: "https://heroicons-animated.com" },
+  { name: "Vercel Doctor", url: "https://www.vercel-doctor.com" },
   { name: "Shadcn Weekly", url: "https://www.shadcnweekly.com" },
+  { name: "Shadcn Labs", url: "https://www.shadcn-labs.com" },
 ] as const;
 
 // Projects listed on shadcn-labs.com.

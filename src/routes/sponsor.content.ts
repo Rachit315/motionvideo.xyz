@@ -20,31 +20,6 @@ export default {
       es: "MotionVideo sigue siendo gratuito e independiente gracias a unos pocos espacios patrocinados y señalizados. Elige un plan para reservar uno.",
       fr: "MotionVideo reste gratuit et indépendant grâce à quelques emplacements sponsorisés et signalés. Choisissez une formule ci-dessous pour en réserver un.",
     }),
-    thanksTitle: t({
-      en: "Thank you for sponsoring MotionVideo.",
-      es: "Gracias por patrocinar MotionVideo.",
-      fr: "Merci de sponsoriser MotionVideo.",
-    }),
-    thanksBody: t({
-      en: "Your plan is active. Add your mark, name, link, and one line of copy on your Sponsorships page; the placement goes live once we have reviewed it.",
-      es: "Tu plan está activo. Añade tu logotipo, nombre, enlace y una línea de texto en tu página de Patrocinios; el espacio se publica cuando lo hayamos revisado.",
-      fr: "Votre formule est active. Ajoutez votre logo, votre nom, votre lien et une ligne de texte sur votre page Parrainages ; l’emplacement est publié dès que nous l’avons validé.",
-    }),
-    thanksLink: t({
-      en: "Set up your placement",
-      es: "Configura tu espacio",
-      fr: "Configurer votre emplacement",
-    }),
-    soldOutTitle: t({
-      en: "Diamond is sold out.",
-      es: "Diamante está agotado.",
-      fr: "Diamant est complet.",
-    }),
-    soldOutBody: t({
-      en: "Every Diamond seat is taken. Gold and Silver are open, or email me to hear when a Diamond seat frees up.",
-      es: "Todos los espacios Diamante están ocupados. Oro y Plata siguen disponibles, o escríbeme para saber cuándo se libera uno.",
-      fr: "Toutes les places Diamant sont prises. Or et Argent restent ouverts, ou écrivez-moi pour savoir quand une place se libère.",
-    }),
     soldOut: t({ en: "Sold out", es: "Agotado", fr: "Complet" }),
     sponsors: t({ en: "Sponsors", es: "Patrocinadores", fr: "Sponsors" }),
     founding: t({ en: "Founding", es: "Fundadores", fr: "Fondateurs" }),
@@ -222,9 +197,9 @@ export default {
           fr: "De quoi avez-vous besoin ?",
         }),
         answer: t({
-          en: "A square mark, a name, a link, one line of copy, a cover image, and a category for Gold and Silver. Add them on your Sponsorships page after checkout; the placement goes live once we have reviewed it.",
-          es: "Un logotipo cuadrado, un nombre, un enlace, una línea de texto, una imagen de portada y una categoría para Oro y Plata. Añádelos en tu página de Patrocinios tras el pago; el espacio se publica cuando lo hayamos revisado.",
-          fr: "Un logo carré, un nom, un lien, une ligne de texte, une image de couverture, et une catégorie pour Or et Argent. Ajoutez-les sur votre page Parrainages après le paiement ; l’emplacement est publié dès que nous l’avons validé.",
+          en: "A square mark, a name, a link, one line of copy, a cover image, and a category for Gold and Silver. You add them before checkout and can change them anytime on your Sponsorships page; the placement goes live once we have reviewed it.",
+          es: "Un logotipo cuadrado, un nombre, un enlace, una línea de texto, una imagen de portada y una categoría para Oro y Plata. Los añades antes de pagar y puedes cambiarlos cuando quieras en tu página de Patrocinios; el espacio se publica cuando lo hayamos revisado.",
+          fr: "Un logo carré, un nom, un lien, une ligne de texte, une image de couverture, et une catégorie pour Or et Argent. Vous les ajoutez avant le paiement et pouvez les modifier à tout moment sur votre page Parrainages ; l’emplacement est publié dès que nous l’avons validé.",
         }),
       },
       {
@@ -234,9 +209,9 @@ export default {
           fr: "Puis-je arrêter ?",
         }),
         answer: t({
-          en: "Whenever you want. Plans are monthly and you can cancel anytime. Billing runs through Dodo Payments, our merchant of record.",
-          es: "Cuando quieras. Los planes son mensuales y puedes cancelar en cualquier momento. La facturación la gestiona Dodo Payments, nuestro comerciante registrado.",
-          fr: "Quand vous voulez. Les formules sont mensuelles et résiliables à tout moment. La facturation passe par Dodo Payments, notre marchand officiel.",
+          en: "Whenever you want. Monthly plans cancel anytime, and a one-off run simply ends after its 30 days. Billing runs through Dodo Payments, our merchant of record.",
+          es: "Cuando quieras. Los planes mensuales se cancelan en cualquier momento y una campaña única termina sola a los 30 días. La facturación la gestiona Dodo Payments, nuestro comerciante registrado.",
+          fr: "Quand vous voulez. Les formules mensuelles sont résiliables à tout moment, et une diffusion ponctuelle s’arrête d’elle-même après 30 jours. La facturation passe par Dodo Payments, notre marchand officiel.",
         }),
       },
     ],

@@ -82,7 +82,7 @@ export const CollectionIntro = ({
       >
         {title}
       </h1>
-      <p className="text-muted-foreground mt-2 line-clamp-3 min-h-[3lh] text-sm leading-tight text-pretty">
+      <p className="text-muted-foreground mt-2 text-sm leading-tight text-pretty">
         {description}
       </p>
     </header>

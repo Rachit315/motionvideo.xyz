@@ -50,6 +50,13 @@
       "when": 1792047449186,
       "tag": "0006_job_posts",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1792083338151,
+      "tag": "0007_sponsorship_checkout",
+      "breakpoints": true
     }
   ]
 }

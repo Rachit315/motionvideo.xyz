@@ -4,9 +4,7 @@ import { ArrowRight } from "reicon-react/icons/ArrowRight";
 import { ArrowRightUp } from "reicon-react/icons/ArrowRightUp";
 import { Check } from "reicon-react/icons/Check";
 import { Envelope } from "reicon-react/icons/Envelope";
-import { HandHeart } from "reicon-react/icons/HandHeart";
 import { Plus } from "reicon-react/icons/Plus";
-import { z } from "zod";
 
 import { XIcon } from "@/components/brand-icons";
 import { HeroHeader, PageMain } from "@/components/page";
@@ -28,23 +26,17 @@ import {
 } from "@/components/ui/card";
 import { LINK } from "@/constants/links";
 import { ROUTES } from "@/constants/routes";
-import { FOUNDING_SPONSORS, SPONSOR_TIERS } from "@/constants/sponsors";
+import {
+  FOUNDING_SPONSORS,
+  SPONSOR_PRICE_USD,
+  SPONSOR_TIERS,
+} from "@/constants/sponsors";
 import type { FoundingSponsor, SponsorTier } from "@/constants/sponsors";
 import { cn } from "@/lib/utils";
 import { withUtm } from "@/lib/utm";
 import { createMetadata } from "@/seo/metadata";
 import { getLandingData } from "@/server/functions";
 import { getDiamondSoldOut } from "@/server/sponsorship-functions";
-
-// Monthly subscriptions, billed through the Dodo checkout at ROUTES.CHECKOUT.
-const TIERS: readonly { id: SponsorTier; usdPerMonth: number }[] = [
-  { id: "diamond", usdPerMonth: 500 },
-  { id: "gold", usdPerMonth: 250 },
-  { id: "silver", usdPerMonth: 150 },
-];
-
-const checkoutHref = (tier: SponsorTier) =>
-  `${ROUTES.CHECKOUT}?product=${tier}`;
 
 /**
  * A tiny wireframe of a page: the intro (with its sponsor slots) in the
@@ -82,12 +74,6 @@ const PlacementSketch = ({ tier }: { tier: SponsorTier }) => {
 
 // Matches PageSection headings on the other company pages.
 const sectionTitle = "text-xl font-semibold tracking-tight";
-
-interface SponsorSearch {
-  thanks?: SponsorTier;
-  /** Set by /checkout when every Diamond seat is taken. */
-  soldOut?: "diamond";
-}
 
 const routeApi = getRouteApi("/sponsor");
 
@@ -132,7 +118,6 @@ const SponsorLink = ({ sponsor }: { sponsor: FoundingSponsor }) => (
 const Sponsor = () => {
   const content = useIntlayer("sponsor");
   const { signedIn, sponsors, diamondSoldOut } = routeApi.useLoaderData();
-  const { thanks, soldOut } = routeApi.useSearch();
 
   return (
     <>
@@ -140,39 +125,6 @@ const Sponsor = () => {
       {/* Same shell and heading scale as the other company pages (About,
           Brand, Contact). */}
       <PageMain width="full" className="items-center gap-20">
-        {thanks && (
-          <section
-            aria-live="polite"
-            className="bg-card shadow-outline flex w-full max-w-3xl items-start gap-3 rounded-2xl p-6"
-          >
-            <HandHeart aria-hidden="true" className="mt-0.5 size-6 shrink-0" />
-            <div className="flex flex-col gap-2">
-              <h2 className="text-lg font-semibold">{content.thanksTitle}</h2>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {content.thanksBody}
-              </p>
-              <Link
-                to={ROUTES.SPONSORSHIPS}
-                className={buttonVariants({ className: "w-fit" })}
-              >
-                {content.thanksLink}
-                <ArrowRight aria-hidden="true" />
-              </Link>
-            </div>
-          </section>
-        )}
-        {soldOut && diamondSoldOut && (
-          <section
-            aria-live="polite"
-            className="bg-card shadow-outline flex w-full max-w-3xl flex-col gap-2 rounded-2xl p-6"
-          >
-            <h2 className="text-lg font-semibold">{content.soldOutTitle}</h2>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              {content.soldOutBody}
-            </p>
-          </section>
-        )}
-
         <HeroHeader
           title={content.pitch}
           intro={content.note}
@@ -195,7 +147,7 @@ const Sponsor = () => {
 
         {/* Where each tier shows, drawn as small page sketches. */}
         <ul className="grid w-full max-w-5xl gap-6 md:grid-cols-3">
-          {TIERS.map(({ id }) => (
+          {SPONSOR_TIERS.map((id) => (
             <li key={id} className="flex flex-col gap-3 text-center">
               <PlacementSketch tier={id} />
               <p className="text-sm text-balance">
@@ -231,7 +183,7 @@ const Sponsor = () => {
                 </ul>
               </li>
             )}
-            {TIERS.map(({ id }) => {
+            {SPONSOR_TIERS.map((id) => {
               const tierSponsors = sponsors.filter(
                 (sponsor) => sponsor.tier === id
               );
@@ -262,10 +214,11 @@ const Sponsor = () => {
                         <span className="text-sm">{content.soldOut}</span>
                       </div>
                     ) : (
-                      <a
-                        href={checkoutHref(id)}
-                        data-track="checkout_start"
-                        data-track-product={id}
+                      <Link
+                        to={ROUTES.SPONSORSHIPS_NEW}
+                        search={{ tier: id }}
+                        data-track="sponsor_plan_click"
+                        data-track-tier={id}
                         className="group hover:bg-muted/60 border-foreground/20 flex items-center gap-3 rounded-xl border border-dashed p-3 transition-colors"
                       >
                         <span className="bg-muted text-muted-foreground group-hover:text-foreground flex size-10 shrink-0 items-center justify-center rounded-lg transition-colors">
@@ -280,7 +233,7 @@ const Sponsor = () => {
                           {content.takeSlot}
                           <ArrowRight aria-hidden="true" className="size-4" />
                         </span>
-                      </a>
+                      </Link>
                     )}
                   </div>
                 </li>
@@ -297,7 +250,7 @@ const Sponsor = () => {
             {content.plans}
           </h2>
           <ul className="grid gap-4 md:grid-cols-3">
-            {TIERS.map(({ id, usdPerMonth }) => {
+            {SPONSOR_TIERS.map((id) => {
               const tier = content.tiers[id];
               const featured = id === "diamond";
               return (
@@ -320,7 +273,7 @@ const Sponsor = () => {
                         </h3>
                         <p className="flex items-baseline gap-1.5">
                           <span className="text-4xl font-semibold tracking-tight tabular-nums">
-                            ${usdPerMonth}
+                            ${SPONSOR_PRICE_USD[id]}
                           </span>
                           <span className="text-muted-foreground text-sm">
                             {content.perMonth}
@@ -352,10 +305,11 @@ const Sponsor = () => {
                           {content.soldOut}
                         </Button>
                       ) : (
-                        <a
-                          href={checkoutHref(id)}
-                          data-track="checkout_start"
-                          data-track-product={id}
+                        <Link
+                          to={ROUTES.SPONSORSHIPS_NEW}
+                          search={{ tier: id }}
+                          data-track="sponsor_plan_click"
+                          data-track-tier={id}
                           className={buttonVariants({
                             className: "w-full",
                             size: "lg",
@@ -364,7 +318,7 @@ const Sponsor = () => {
                         >
                           {tier.choose}
                           <ArrowRight aria-hidden="true" />
-                        </a>
+                        </Link>
                       )}
                     </CardFooter>
                   </Card>
@@ -447,15 +401,11 @@ export const Route = createFileRoute("/sponsor")({
     ]);
     return { ...landing, diamondSoldOut };
   },
-  validateSearch: (search): SponsorSearch => ({
-    thanks: z.enum(SPONSOR_TIERS).safeParse(search.thanks).data,
-    soldOut: z.literal("diamond").safeParse(search.soldOut).data,
-  }),
   head: () =>
     createMetadata({
       canonical: ROUTES.SPONSOR,
       title: "Sponsor",
       description:
-        "Sponsor MotionVideo: three monthly plans from $150 to reach people who make product films and motion design with AI and code. Labelled on the page and in the markup.",
+        "Sponsor MotionVideo: three plans from $100, monthly or a single 30-day run, to reach people who make product films and motion design with AI and code. Labelled on the page and in the markup.",
     }),
 });

@@ -5,7 +5,7 @@ import {
   useNavigate,
 } from "@tanstack/react-router";
 import { useState } from "react";
-import type { ComponentType, FormEvent, ReactNode, SVGProps } from "react";
+import type { ComponentType, FormEvent, SVGProps } from "react";
 import { useIntlayer } from "react-intlayer";
 import { Checklist } from "reicon-react/icons/Checklist";
 import { List } from "reicon-react/icons/List";
@@ -13,6 +13,7 @@ import { Widget } from "reicon-react/icons/Widget";
 import { z } from "zod";
 
 import { XIcon } from "@/components/brand-icons";
+import { ChoiceCard } from "@/components/choice-card";
 import { ImageDropzone } from "@/components/image-dropzone";
 import { FormSection, HeroHeader, PageMain } from "@/components/page";
 import { SiteFooter } from "@/components/site-footer";
@@ -40,7 +41,6 @@ import {
   JOB_TITLE_MAX,
   jobPostSchema,
 } from "@/lib/jobs";
-import { cn } from "@/lib/utils";
 import { createMetadata } from "@/seo/metadata";
 import {
   getMyJobPosts,
@@ -95,48 +95,6 @@ const fieldsOf = (post: MyJobPost | undefined, plan: JobPlan): JobFields =>
       };
 
 type FormError = "validation" | "save" | "checkout";
-
-/** A plan choice, styled like the plan cards on /sponsor. */
-const PlanCard = ({
-  checked,
-  onSelect,
-  title,
-  price,
-  priceNote,
-  body,
-}: {
-  checked: boolean;
-  onSelect: () => void;
-  title: ReactNode;
-  price: number;
-  priceNote: ReactNode;
-  body: ReactNode;
-}) => (
-  <label
-    className={cn(
-      "bg-card shadow-outline flex cursor-pointer flex-col gap-3 rounded-xl p-4 transition-shadow",
-      checked && "ring-primary ring-2"
-    )}
-  >
-    <span className="flex items-center justify-between gap-2 text-sm font-semibold">
-      {title}
-      <input
-        type="radio"
-        name="plan"
-        checked={checked}
-        onChange={onSelect}
-        className="accent-primary size-4"
-      />
-    </span>
-    <span className="flex items-baseline gap-1.5">
-      <span className="text-2xl font-semibold tracking-tight tabular-nums">
-        ${price}
-      </span>
-      <span className="text-muted-foreground text-xs">{priceNote}</span>
-    </span>
-    <span className="text-muted-foreground text-sm">{body}</span>
-  </label>
-);
 
 const FEATURES: {
   id: "board" | "widget" | "shoutout" | "review";
@@ -252,8 +210,9 @@ const PostJob = () => {
             >
               <div className="grid gap-3 sm:grid-cols-2">
                 {JOB_PLANS.map((plan) => (
-                  <PlanCard
+                  <ChoiceCard
                     key={plan}
+                    name="plan"
                     checked={fields.plan === plan}
                     onSelect={() => update({ plan })}
                     title={content.plans[plan].name}

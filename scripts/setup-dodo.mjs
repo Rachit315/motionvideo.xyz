@@ -1,6 +1,7 @@
 // Idempotent Dodo Payments setup for MotionVideo: brand, products, launch
 // discount, GitHub repository entitlement, and webhook endpoint. Re-running
-// finds what already exists by name, code, or URL and only creates the rest.
+// finds what already exists by name, code, or URL and only creates the rest
+// (and replaces a product whose price changed).
 //
 //   pnpm dodo:setup            test mode (DODO_PAYMENTS_API_KEY), writes IDs to .env
 //   pnpm dodo:setup --live     live mode (DODO_PAYMENTS_LIVE_API_KEY), writes IDs to wrangler.jsonc
@@ -53,27 +54,43 @@ const PRODUCTS = [
       type: "one_time_price",
     },
   },
+  // Sponsorships, per tier: monthly (a renewing subscription) or one 30-day
+  // run, both at the same price. Keep in sync with SPONSOR_PRICE_USD.
   ...[
-    ["DIAMOND", "Diamond", 50_000],
-    ["GOLD", "Gold", 25_000],
-    ["SILVER", "Silver", 15_000],
-  ].map(([key, tier, cents]) => ({
-    envKey: `DODO_PRODUCT_SPONSOR_${key}`,
-    name: `MotionVideo Sponsor — ${tier}`,
-    description: `${tier} sponsorship of motionvideo.xyz: a labelled sponsored placement, billed monthly. Cancel anytime.`,
-    price: {
-      currency: "USD",
-      payment_frequency_count: 1,
-      payment_frequency_interval: "Month",
-      price: cents,
-      purchasing_power_parity: false,
-      // Longer than the billing cycle so the subscription renews until cancelled.
-      subscription_period_count: 20,
-      subscription_period_interval: "Year",
-      tax_inclusive: false,
-      type: "recurring_price",
+    ["DIAMOND", "Diamond", 25_000],
+    ["GOLD", "Gold", 15_000],
+    ["SILVER", "Silver", 10_000],
+  ].flatMap(([key, tier, cents]) => [
+    {
+      envKey: `DODO_PRODUCT_SPONSOR_${key}`,
+      name: `MotionVideo Sponsor — ${tier}`,
+      description: `${tier} sponsorship of motionvideo.xyz: a labelled sponsored placement, billed monthly. Cancel anytime.`,
+      price: {
+        currency: "USD",
+        payment_frequency_count: 1,
+        payment_frequency_interval: "Month",
+        price: cents,
+        purchasing_power_parity: false,
+        // Longer than the billing cycle so the subscription renews until cancelled.
+        subscription_period_count: 20,
+        subscription_period_interval: "Year",
+        tax_inclusive: false,
+        type: "recurring_price",
+      },
     },
-  })),
+    {
+      envKey: `DODO_PRODUCT_SPONSOR_${key}_ONCE`,
+      name: `MotionVideo Sponsor — ${tier} (30 days)`,
+      description: `${tier} sponsorship of motionvideo.xyz: a labelled sponsored placement for 30 days from approval. One-time payment; nothing renews.`,
+      price: {
+        currency: "USD",
+        price: cents,
+        purchasing_power_parity: false,
+        tax_inclusive: false,
+        type: "one_time_price",
+      },
+    },
+  ]),
   ...[
     ["STANDARD", "Standard", 9900],
     ["FEATURED", "Featured", 19_900],
@@ -190,13 +207,17 @@ const productIds = Object.fromEntries(
             `${product.name} (${match.product_id}) is not in the MotionVideo brand`
           );
         }
-        if (current.price.price !== product.price.price) {
-          log(
-            `warning: ${product.name} price is ${current.price.price}, expected ${product.price.price}`
-          );
+        if (current.price.price === product.price.price) {
+          log(`product   found    ${match.product_id}  ${product.name}`);
+          return [product.envKey, match.product_id];
         }
-        log(`product   found    ${match.product_id}  ${product.name}`);
-        return [product.envKey, match.product_id];
+        // Dodo can't reprice a product: archive it (existing customers keep
+        // their terms) and create the new price below. The site only sells
+        // and recognizes the product IDs written at the end of this run.
+        await dodo.products.archive(match.product_id);
+        log(
+          `product   archived ${match.product_id}  ${product.name} (was ${current.price.price}, now ${product.price.price})`
+        );
       }
       const created = await dodo.products.create({
         brand_id: brandId,

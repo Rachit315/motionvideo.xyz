@@ -3,7 +3,7 @@ import type { UnwrapWebhookEvent } from "dodopayments/resources/webhooks";
 
 import { getDodo } from "@/server/dodo";
 import { syncJobPayment } from "@/server/jobs";
-import { syncSponsorship } from "@/server/sponsorships";
+import { syncSponsorPayment, syncSponsorship } from "@/server/sponsorships";
 
 type SubscriptionEvent = Extract<
   UnwrapWebhookEvent,
@@ -57,16 +57,20 @@ export const Route = createFileRoute("/api/webhook/dodo")({
             return Response.json({ received: false }, { status: 500 });
           }
         }
-        // Job posts: a payment moves its draft to review; a full refund pulls
-        // the listing. Same re-read-from-the-API approach as sponsorships.
+        // Job posts and one-off sponsorships: a payment moves the draft to
+        // review; a full refund pulls it. Same re-read-from-the-API approach
+        // as subscriptions; each sync ignores the other's products.
         if (
           event.type === "payment.succeeded" ||
           event.type === "refund.succeeded"
         ) {
           try {
-            await syncJobPayment(event.data.payment_id);
+            await Promise.all([
+              syncJobPayment(event.data.payment_id),
+              syncSponsorPayment(event.data.payment_id),
+            ]);
           } catch (error) {
-            console.error("Job payment sync failed", error);
+            console.error("Payment sync failed", error);
             return Response.json({ received: false }, { status: 500 });
           }
         }

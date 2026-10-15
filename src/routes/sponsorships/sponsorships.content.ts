@@ -16,9 +16,9 @@ export default {
       fr: "Confirmation de votre paiement…",
     }),
     confirmingBody: t({
-      en: "Dodo Payments is still confirming your subscription. It usually takes under a minute; refresh to check again.",
-      es: "Dodo Payments aún está confirmando tu suscripción. Suele tardar menos de un minuto; actualiza para comprobarlo.",
-      fr: "Dodo Payments confirme encore votre abonnement. Cela prend en général moins d’une minute ; actualisez pour vérifier.",
+      en: "Dodo Payments is still confirming your payment. It usually takes under a minute; refresh to check again.",
+      es: "Dodo Payments aún está confirmando tu pago. Suele tardar menos de un minuto; actualiza para comprobarlo.",
+      fr: "Dodo Payments confirme encore votre paiement. Cela prend en général moins d’une minute ; actualisez pour vérifier.",
     }),
     refresh: t({ en: "Refresh", es: "Actualizar", fr: "Actualiser" }),
     activeTitle: t({
@@ -27,9 +27,9 @@ export default {
       fr: "Merci de sponsoriser MotionVideo.",
     }),
     activeBody: t({
-      en: "Your plan is active. Set up your placement below; it goes live once we have reviewed it.",
-      es: "Tu plan está activo. Configura tu espacio abajo; se publica cuando lo hayamos revisado.",
-      fr: "Votre formule est active. Configurez votre emplacement ci-dessous ; il est publié dès que nous l’avons validé.",
+      en: "Payment received. We’re reviewing your placement; it goes live once approved, and you can still edit it below.",
+      es: "Pago recibido. Estamos revisando tu espacio; se publica al aprobarse y aún puedes editarlo abajo.",
+      fr: "Paiement reçu. Nous validons votre emplacement ; il est publié une fois approuvé, et vous pouvez encore le modifier ci-dessous.",
     }),
     emptyTitle: t({
       en: "No sponsorships yet",
@@ -47,7 +47,31 @@ export default {
       gold: t({ en: "Gold", es: "Oro", fr: "Or" }),
       silver: t({ en: "Silver", es: "Plata", fr: "Argent" }),
     },
+    newSponsorship: t({
+      en: "New sponsorship",
+      es: "Nuevo patrocinio",
+      fr: "Nouveau parrainage",
+    }),
+    billings: {
+      monthly: t({ en: "Monthly", es: "Mensual", fr: "Mensuel" }),
+      once: t({
+        en: "One-off, 30 days",
+        es: "Pago único, 30 días",
+        fr: "Ponctuel, 30 jours",
+      }),
+    },
+    priceSuffix: {
+      monthly: t({ en: "/ month", es: "/ mes", fr: "/ mois" }),
+      once: t({ en: "once", es: "una vez", fr: "une fois" }),
+    },
+    finishCheckout: t({
+      en: "Continue to checkout",
+      es: "Continuar al pago",
+      fr: "Continuer vers le paiement",
+    }),
+    deleteDraft: t({ en: "Delete", es: "Eliminar", fr: "Supprimer" }),
     statuses: {
+      unpaid: t({ en: "Unpaid", es: "Sin pagar", fr: "Non payé" }),
       pending: t({
         en: "Payment pending",
         es: "Pago pendiente",
@@ -66,9 +90,9 @@ export default {
     placement: t({ en: "Placement", es: "Espacio", fr: "Emplacement" }),
     reviews: {
       draft: t({
-        en: "Not set up yet",
-        es: "Sin configurar",
-        fr: "Pas encore configuré",
+        en: "Waiting for payment",
+        es: "Esperando el pago",
+        fr: "En attente du paiement",
       }),
       pending: t({ en: "In review", es: "En revisión", fr: "En validation" }),
       approved: t({ en: "Live", es: "Publicado", fr: "En ligne" }),
@@ -224,6 +248,115 @@ export default {
       fr: "Gérer la facturation",
     }),
     opening: t({ en: "Opening…", es: "Abriendo…", fr: "Ouverture…" }),
+    checkout: {
+      heroTitle: t({
+        en: "Put your brand in front of motion makers",
+        es: "Muestra tu marca a quienes crean motion",
+        fr: "Présentez votre marque aux créateurs de motion",
+      }),
+      heroIntro: t({
+        en: "Pick a plan, add your creative, and check out. Your placement goes live after a quick review.",
+        es: "Elige un plan, añade tu creatividad y paga. Tu espacio se publica tras una revisión rápida.",
+        fr: "Choisissez une formule, ajoutez votre visuel et payez. Votre emplacement est publié après une rapide validation.",
+      }),
+      planSection: t({ en: "Plan", es: "Plan", fr: "Formule" }),
+      planSectionBody: t({
+        en: "Where your placement shows.",
+        es: "Dónde aparece tu espacio.",
+        fr: "Où s’affiche votre emplacement.",
+      }),
+      soldOut: t({
+        en: "Sold out: every seat is taken.",
+        es: "Agotado: todos los espacios están ocupados.",
+        fr: "Complet : toutes les places sont prises.",
+      }),
+      billingSection: t({
+        en: "Billing",
+        es: "Facturación",
+        fr: "Facturation",
+      }),
+      billingSectionBody: t({
+        en: "Renew monthly to stay visible, or run once for 30 days.",
+        es: "Renueva cada mes para seguir visible, o publica una vez durante 30 días.",
+        fr: "Renouvelez chaque mois pour rester visible, ou diffusez une fois pendant 30 jours.",
+      }),
+      billingBodies: {
+        monthly: t({
+          en: "Renews every month. Cancel anytime.",
+          es: "Se renueva cada mes. Cancela cuando quieras.",
+          fr: "Renouvelé chaque mois. Résiliable à tout moment.",
+        }),
+        once: t({
+          en: "One 30-day run from approval. Never renews.",
+          es: "Una sola campaña de 30 días desde la aprobación. No se renueva.",
+          fr: "Une diffusion de 30 jours à partir de la validation. Jamais renouvelée.",
+        }),
+      },
+      reviewSection: t({ en: "Review", es: "Resumen", fr: "Récapitulatif" }),
+      reviewSectionBody: t({
+        en: "Check your order before checkout.",
+        es: "Revisa tu pedido antes de pagar.",
+        fr: "Vérifiez votre commande avant le paiement.",
+      }),
+      dueToday: t({
+        en: "Due today",
+        es: "A pagar hoy",
+        fr: "À payer aujourd’hui",
+      }),
+      signedInAs: t({
+        en: "Signed in as",
+        es: "Sesión iniciada como",
+        fr: "Connecté en tant que",
+      }),
+      note: t({
+        en: "After checkout, manage your sponsorship and update your creative anytime from Sponsorships. Payments run through Dodo Payments, our merchant of record.",
+        es: "Tras el pago, gestiona tu patrocinio y actualiza tu creatividad cuando quieras desde Patrocinios. Los pagos los gestiona Dodo Payments, nuestro comerciante registrado.",
+        fr: "Après le paiement, gérez votre parrainage et modifiez votre visuel à tout moment depuis Parrainages. Les paiements passent par Dodo Payments, notre marchand officiel.",
+      }),
+      submit: t({ en: "Checkout", es: "Pagar", fr: "Payer" }),
+      opening: t({
+        en: "Opening checkout…",
+        es: "Abriendo el pago…",
+        fr: "Ouverture du paiement…",
+      }),
+      errors: {
+        validation: t({
+          en: "Check the fields: links must be public HTTPS addresses.",
+          es: "Revisa los campos: los enlaces deben ser direcciones HTTPS públicas.",
+          fr: "Vérifiez les champs : les liens doivent être des adresses HTTPS publiques.",
+        }),
+        cover: t({
+          en: "Add a cover image for your placement.",
+          es: "Añade una imagen de portada para tu espacio.",
+          fr: "Ajoutez une image de couverture pour votre emplacement.",
+        }),
+        category: t({
+          en: "Pick the category your placement shows on.",
+          es: "Elige la categoría donde aparece tu espacio.",
+          fr: "Choisissez la catégorie où s’affiche votre emplacement.",
+        }),
+        "sold-out": t({
+          en: "Diamond just sold out. Pick another plan.",
+          es: "Diamante acaba de agotarse. Elige otro plan.",
+          fr: "Diamant vient d’être complet. Choisissez une autre formule.",
+        }),
+        drafts: t({
+          en: "You have 10 unpaid drafts. Finish or delete one on Sponsorships first.",
+          es: "Tienes 10 borradores sin pagar. Completa o elimina uno en Patrocinios primero.",
+          fr: "Vous avez 10 brouillons non payés. Finalisez-en ou supprimez-en un dans Parrainages d’abord.",
+        }),
+        save: t({
+          en: "Could not save. Try again.",
+          es: "No se pudo guardar. Inténtalo de nuevo.",
+          fr: "Enregistrement impossible. Réessayez.",
+        }),
+        checkout: t({
+          en: "Could not open checkout. Try again.",
+          es: "No se pudo abrir el pago. Inténtalo de nuevo.",
+          fr: "Impossible d’ouvrir le paiement. Réessayez.",
+        }),
+      },
+    },
     billingError: t({
       en: "Could not open billing. Try again.",
       es: "No se pudo abrir la facturación. Inténtalo de nuevo.",

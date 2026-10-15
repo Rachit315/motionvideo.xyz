@@ -12,7 +12,7 @@ import { useIntlayer } from "react-intlayer";
 
 import { LoginForm } from "@/components/login-form";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { ACCOUNT_PAGES, ROUTES } from "@/constants/routes";
+import { ACCOUNT_PAGES } from "@/constants/routes";
 import { useSession } from "@/lib/auth-client";
 import { syncBookmarks } from "@/lib/bookmarks";
 
@@ -102,9 +102,9 @@ export const SignInDialogProvider = ({ children }: { children: ReactNode }) => {
     []
   );
 
-  // Signed out, a click on any link to an account page (or a sponsor
-  // checkout, which needs an account) opens this dialog in place instead of
-  // leaving for /sign-in. Capture phase, so it runs before the link's own
+  // Signed out, a click on any link to an account page (including the
+  // sponsorship form) opens this dialog in place instead of leaving for
+  // /sign-in. Capture phase, so it runs before the link's own
   // handler; TanStack links skip navigation once the default is prevented.
   useEffect(() => {
     if (userId !== null) {
@@ -128,10 +128,7 @@ export const SignInDialogProvider = ({ children }: { children: ReactNode }) => {
       if (!url || url.origin !== location.origin) {
         return;
       }
-      const sponsorCheckout =
-        url.pathname === ROUTES.CHECKOUT &&
-        (url.searchParams.get("product") ?? "skill") !== "skill";
-      if (!ACCOUNT_PAGES.has(url.pathname) && !sponsorCheckout) {
+      if (!ACCOUNT_PAGES.has(url.pathname)) {
         return;
       }
       event.preventDefault();

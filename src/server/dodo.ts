@@ -11,8 +11,8 @@ import {
 } from "@/constants/pricing";
 import type { Offer } from "@/constants/pricing";
 import { ROUTES } from "@/constants/routes";
-import { SPONSOR_TIERS } from "@/constants/sponsors";
-import type { SponsorTier } from "@/constants/sponsors";
+import { SPONSOR_BILLINGS, SPONSOR_TIERS } from "@/constants/sponsors";
+import type { SponsorBilling, SponsorTier } from "@/constants/sponsors";
 
 let client: DodoPayments | undefined;
 
@@ -29,22 +29,38 @@ export const getDodo = (): DodoPayments => {
   return client;
 };
 
-/** Public `?product=` values for /checkout, mapped to Dodo product IDs. */
-const PRODUCT_IDS = {
-  diamond: env.DODO_PRODUCT_SPONSOR_DIAMOND,
-  gold: env.DODO_PRODUCT_SPONSOR_GOLD,
-  silver: env.DODO_PRODUCT_SPONSOR_SILVER,
-  skill: env.DODO_PRODUCT_SKILL,
-} as const;
+/** Sponsorship products, by tier and billing. */
+const SPONSOR_PRODUCT_IDS: Record<
+  SponsorTier,
+  Record<SponsorBilling, string>
+> = {
+  diamond: {
+    monthly: env.DODO_PRODUCT_SPONSOR_DIAMOND,
+    once: env.DODO_PRODUCT_SPONSOR_DIAMOND_ONCE,
+  },
+  gold: {
+    monthly: env.DODO_PRODUCT_SPONSOR_GOLD,
+    once: env.DODO_PRODUCT_SPONSOR_GOLD_ONCE,
+  },
+  silver: {
+    monthly: env.DODO_PRODUCT_SPONSOR_SILVER,
+    once: env.DODO_PRODUCT_SPONSOR_SILVER_ONCE,
+  },
+};
 
-export type CheckoutProduct = keyof typeof PRODUCT_IDS;
-
-export const isCheckoutProduct = (value: string): value is CheckoutProduct =>
-  Object.hasOwn(PRODUCT_IDS, value);
-
-/** The tier a Dodo product bills; `undefined` for any other product. */
-export const sponsorTierOf = (productId: string): SponsorTier | undefined =>
-  SPONSOR_TIERS.find((tier) => PRODUCT_IDS[tier] === productId);
+/** The sponsorship a Dodo product sells; `undefined` for any other product. */
+export const sponsorProductOf = (
+  productId: string
+): { tier: SponsorTier; billing: SponsorBilling } | undefined => {
+  for (const tier of SPONSOR_TIERS) {
+    for (const billing of SPONSOR_BILLINGS) {
+      if (SPONSOR_PRODUCT_IDS[tier][billing] === productId) {
+        return { tier, billing };
+      }
+    }
+  }
+  return undefined;
+};
 
 /** One-time job listing products, by plan. */
 const JOB_PRODUCT_IDS: Record<JobPlan, string> = {
@@ -153,27 +169,21 @@ export interface Buyer {
   userId: string;
 }
 
+/** Checkout for the skill bundle, with the launch code while it lasts. */
 export const createCheckoutUrl = async (
-  product: CheckoutProduct,
   buyer: Buyer | null
 ): Promise<string> => {
   const base = env.BETTER_AUTH_URL;
-  const skill = product === "skill";
   const params: CheckoutSessionCreateParams = {
-    cancel_url: `${base}${skill ? ROUTES.PRICING : ROUTES.SPONSOR}`,
+    cancel_url: `${base}${ROUTES.PRICING}`,
     customer: buyer ? { email: buyer.email } : undefined,
     // No code field at checkout: only the server applies the launch code.
     feature_flags: { allow_discount_code: false },
-    // `user_id` ties a sponsor subscription to the account that bought it,
-    // even when the buyer pays with a different email.
-    metadata: buyer ? { product, user_id: buyer.userId } : { product },
-    product_cart: [{ product_id: PRODUCT_IDS[product], quantity: 1 }],
-    // Dodo appends `payment_id` (one-time) or `subscription_id` and `status`.
-    return_url: `${base}${skill ? ROUTES.WELCOME : ROUTES.SPONSORSHIPS}`,
+    metadata: { product: "skill" },
+    product_cart: [{ product_id: env.DODO_PRODUCT_SKILL, quantity: 1 }],
+    // Dodo appends `payment_id`.
+    return_url: `${base}${ROUTES.WELCOME}`,
   };
-  if (!skill) {
-    return checkoutUrl(params);
-  }
   const { code, offer } = await launchDiscount();
   if (!offer.active) {
     return checkoutUrl(params);
@@ -202,6 +212,37 @@ export const createCheckoutUrl = async (
     }
     return checkoutUrl(params);
   }
+};
+
+/**
+ * Checkout for one sponsorship draft: a monthly subscription or a one-off
+ * 30-day run. `sponsorship_id` in the metadata ties the subscription or
+ * payment back to the draft; Dodo returns to /sponsorships, appending
+ * `subscription_id` or `payment_id`.
+ */
+export const createSponsorCheckoutUrl = (
+  tier: SponsorTier,
+  billing: SponsorBilling,
+  sponsorshipId: string,
+  buyer: Buyer
+): Promise<string> => {
+  const productId = SPONSOR_PRODUCT_IDS[tier][billing];
+  if (!productId) {
+    throw new Error("Sponsor products are not set up; run pnpm dodo:setup");
+  }
+  const query = `?sponsorship=${encodeURIComponent(sponsorshipId)}`;
+  return checkoutUrl({
+    cancel_url: `${env.BETTER_AUTH_URL}${ROUTES.SPONSORSHIPS_NEW}${query}`,
+    customer: { email: buyer.email },
+    feature_flags: { allow_discount_code: false },
+    metadata: {
+      product: `sponsor-${tier}-${billing}`,
+      sponsorship_id: sponsorshipId,
+      user_id: buyer.userId,
+    },
+    product_cart: [{ product_id: productId, quantity: 1 }],
+    return_url: `${env.BETTER_AUTH_URL}${ROUTES.SPONSORSHIPS}${query}`,
+  });
 };
 
 export interface CompletedCheckout {
@@ -251,7 +292,7 @@ export const customerPortalUrl = async (email: string): Promise<string> => {
   return session.link;
 };
 
-/** Dodo's billing portal for one customer, returning to /sponsorships. */
+/** Dodo's billing portal for one sponsor, returning to /sponsorships. */
 export const sponsorPortalUrl = async (customerId: string): Promise<string> => {
   const session = await getDodo().customers.customerPortal.create(customerId, {
     return_url: `${env.BETTER_AUTH_URL}${ROUTES.SPONSORSHIPS}`,

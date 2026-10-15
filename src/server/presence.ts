@@ -12,17 +12,32 @@ import type {
 // a visitor is an anonymous id and a colour for as long as the tab is open.
 // Hibernatable sockets: idle connections cost nothing between messages.
 
-/** Cursor colours, picked per connection. */
-const COLORS = [
-  "#f97316",
-  "#22c55e",
-  "#3b82f6",
-  "#a855f7",
-  "#ec4899",
-  "#eab308",
-  "#14b8a6",
-  "#ef4444",
-] as const;
+/** Random hues tried per connection; the one farthest from hues in use wins. */
+const HUE_CANDIDATES = 12;
+
+/** Distance between two hues around the colour wheel, 0–180. */
+const hueDistance = (a: number, b: number) => {
+  const d = Math.abs(a - b) % 360;
+  return Math.min(d, 360 - d);
+};
+
+/**
+ * A fresh random cursor hue for each connection, kept clear of the hues
+ * other visitors already have, so cursors stay tellable apart.
+ */
+const pickHue = (taken: number[]) => {
+  let best = Math.floor(Math.random() * 360);
+  let bestGap = -1;
+  for (let i = 0; i < HUE_CANDIDATES; i += 1) {
+    const hue = Math.floor(Math.random() * 360);
+    const gap = Math.min(180, ...taken.map((t) => hueDistance(hue, t)));
+    if (gap > bestGap) {
+      best = hue;
+      bestGap = gap;
+    }
+  }
+  return best;
+};
 
 const PATH_MAX = 200;
 /** Open sockets kept at once; more are refused (free-tier guard). */
@@ -32,6 +47,8 @@ const SILENT_LIMIT = 70_000;
 
 interface Visitor {
   id: string;
+  /** 0–359, kept so later visitors can pick a hue away from it. */
+  hue: number;
   color: string;
   /** The page the tab is on; cursors only go to tabs on the same page. */
   path: string;
@@ -122,9 +139,21 @@ export class Presence extends DurableObject<Env> {
     }
     const { 0: client, 1: server } = new WebSocketPair();
     const id = crypto.randomUUID().slice(0, 8);
+    const taken: number[] = [];
+    for (const socket of this.ctx.getWebSockets()) {
+      // SAFETY: fetch() attaches a Visitor to every socket it accepts.
+      const other = socket.deserializeAttachment() as Visitor | null;
+      // Sockets from before hues existed carry none.
+      if (other && Number.isFinite(other.hue)) {
+        taken.push(other.hue);
+      }
+    }
+    const hue = pickHue(taken);
     const visitor: Visitor = {
       id,
-      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      hue,
+      // Saturated, mid-light: reads on light and dark pages with a white edge.
+      color: `hsl(${hue} 85% 55%)`,
       path: "/",
       since: Date.now(),
     };

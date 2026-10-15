@@ -4,6 +4,21 @@ export const SPONSOR_TIERS = ["diamond", "gold", "silver"] as const;
 
 export type SponsorTier = (typeof SPONSOR_TIERS)[number];
 
+/** Monthly: a renewing subscription. Once: one paid 30-day run. */
+export const SPONSOR_BILLINGS = ["monthly", "once"] as const;
+
+export type SponsorBilling = (typeof SPONSOR_BILLINGS)[number];
+
+/** Price per month (monthly) or per 30-day run (once), in USD. */
+export const SPONSOR_PRICE_USD: Record<SponsorTier, number> = {
+  diamond: 250,
+  gold: 150,
+  silver: 100,
+};
+
+/** Days a one-off sponsorship stays live, counted from approval. */
+export const SPONSOR_ONCE_DAYS = 30;
+
 /** A section and one of its category slugs, e.g. `{ kind: "tool", slug: "ai" }`. */
 export interface SponsorCategory {
   kind: SubmissionKind;

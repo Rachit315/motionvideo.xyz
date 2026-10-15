@@ -30,6 +30,7 @@ export const ROUTES = {
   SKILLS: "/skills",
   SPONSOR: "/sponsor",
   SPONSORSHIPS: "/sponsorships",
+  SPONSORSHIPS_NEW: "/sponsorships/new",
   SUBMIT: "/submit",
   TERMS: "/terms",
   TOOLS: "/tools",
@@ -49,6 +50,7 @@ export const ACCOUNT_PAGES: ReadonlySet<string> = new Set([
   ROUTES.LISTINGS,
   ROUTES.SETTINGS,
   ROUTES.SPONSORSHIPS,
+  ROUTES.SPONSORSHIPS_NEW,
   ROUTES.SUBMIT,
 ]);
 

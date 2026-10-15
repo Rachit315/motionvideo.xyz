@@ -42,7 +42,7 @@ const SponsorshipReview = ({
     try {
       await reviewSponsorship({
         data: {
-          subscriptionId: sponsorship.subscriptionId,
+          id: sponsorship.id,
           action,
           note: note.trim() || undefined,
         },
@@ -60,11 +60,16 @@ const SponsorshipReview = ({
     <article className="bg-card shadow-outline flex flex-col gap-4 rounded-2xl p-5">
       <div className="flex flex-wrap items-center gap-2">
         <Badge className="capitalize">{sponsorship.tier}</Badge>
+        <Badge variant="outline">
+          {sponsorship.billing === "once" ? "30-day run" : "Monthly"}
+        </Badge>
         <Badge
           variant={sponsorship.status === "active" ? "secondary" : "outline"}
         >
           {sponsorship.status.replace("_", " ")}
           {sponsorship.cancelAtPeriodEnd && " · cancels at period end"}
+          {sponsorship.endsAt &&
+            ` · ends ${sponsorship.endsAt.toLocaleDateString("en", { dateStyle: "medium" })}`}
         </Badge>
         <Badge
           variant={sponsorship.review === "pending" ? "default" : "outline"}
@@ -166,7 +171,7 @@ const SponsorshipReview = ({
         {sponsorship.ownerEmail !== sponsorship.email && (
           <> · paid as {sponsorship.email}</>
         )}{" "}
-        · {sponsorship.subscriptionId}
+        · {sponsorship.id}
       </p>
       {submitted && (
         <form
@@ -220,7 +225,7 @@ const AdminSponsorships = () => {
       {sponsorships.map((sponsorship) => (
         // Keyed by review state too, so a reviewed card resets its note.
         <SponsorshipReview
-          key={`${sponsorship.subscriptionId}-${sponsorship.review}`}
+          key={`${sponsorship.id}-${sponsorship.review}`}
           sponsorship={sponsorship}
         />
       ))}

@@ -6,7 +6,7 @@ Ideas for monthly recurring revenue on MotionVideo, ranked by fit with what alre
 
 | # | Idea | Price idea | Fit | Risk / caveat |
 | --- | --- | --- | --- | --- |
-| 1 | **Sponsorships** (live) | $150–$500/mo | Already built | Diamond is capped at 2 slots, which caps revenue |
+| 1 | **Sponsorships** (live) | $100–$250/mo, or once for 30 days | Already built | Diamond is capped at 2 slots, which caps revenue |
 | 2 | **Skill Bundle updates plan**: keep the one-time $29, add a monthly plan for new skills, updated prompts and templates | $9–$15/mo | Very high: same buyers, same repo, Dodo subscriptions | Needs a steady release cadence to justify it |
 | 3 | **Pro membership**: your own original prompts, full source projects (Remotion / HyperFrames), private bookmark collections, early access | $8–$12/mo | High | Never paywall creators' freely shared prompts; it breaks trust and their goodwill |
 | 4 | **Featured listings** in Tools, Skills and Creatives, separate from sponsor tiers | $49–$99/mo | High: directories already exist | Label them "Featured" so the directory stays credible |

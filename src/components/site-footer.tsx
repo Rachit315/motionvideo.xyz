@@ -26,11 +26,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { LINK } from "@/constants/links";
-import {
-  MORE_PRODUCTS,
-  OTHER_PRODUCTS,
-  SHADCN_LABS_PROJECTS,
-} from "@/constants/products";
+import { OTHER_PRODUCTS, SHADCN_LABS_PROJECTS } from "@/constants/products";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { cn } from "@/lib/utils";
@@ -104,7 +100,6 @@ export const SiteFooter = () => {
     [ROUTES.CONTACT, content.contact],
     [ROUTES.SPONSOR, content.sponsor],
   ] as const;
-  const products = [...OTHER_PRODUCTS, ...MORE_PRODUCTS];
   const labsMenu = (
     <DropdownMenuSub>
       <DropdownMenuSubTrigger>{content.labsProjects}</DropdownMenuSubTrigger>
@@ -178,7 +173,7 @@ export const SiteFooter = () => {
             ))}
           </FooterMenu>
           <FooterMenu label={content.otherProducts}>
-            {products.map((product) => (
+            {OTHER_PRODUCTS.map((product) => (
               <DropdownMenuLinkItem
                 key={product.name}
                 href={withUtm(product.url, "footer")}
@@ -229,7 +224,7 @@ export const SiteFooter = () => {
           <div className="col-span-2 flex flex-col gap-2.5">
             <p className={mobileHeadingClass}>{content.otherProducts}</p>
             <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
-              {products.map((product) => (
+              {OTHER_PRODUCTS.map((product) => (
                 <a
                   key={product.name}
                   href={withUtm(product.url, "footer")}
