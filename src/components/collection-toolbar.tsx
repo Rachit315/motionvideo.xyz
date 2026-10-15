@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { cn } from "cn";
 import type { ReactNode } from "react";
 
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 /**
  * Sticky filter bar shell shared by the gallery and the resource directories.

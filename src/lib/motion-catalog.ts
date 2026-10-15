@@ -15,7 +15,6 @@ export interface MotionVideo {
   prompt?: string;
   skillUrl?: string;
   tweetUrl?: string;
-  sourceUrl?: string;
   description?: string;
 }
 

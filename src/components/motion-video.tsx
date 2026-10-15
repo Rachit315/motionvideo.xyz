@@ -1,9 +1,15 @@
 import { Dialog } from "@base-ui/react/dialog";
 import { Link } from "@tanstack/react-router";
-import { cn } from "cn";
 import MediaThemeSutro from "player.style/sutro/react";
-import { useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import type { ComponentPropsWithRef, ReactNode } from "react";
+import { flushSync } from "react-dom";
 import { useIntlayer, useLocale } from "react-intlayer";
 import type { IconComponent } from "reicon-react";
 import { ArrowRightUp } from "reicon-react/icons/ArrowRightUp";
@@ -22,17 +28,63 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useTransientStatus } from "@/hooks/use-transient-status";
+import { track } from "@/lib/analytics";
 import { findMotionCategory } from "@/lib/motion-catalog";
 import type {
   GallerySearch,
   MotionCategory,
   MotionVideo,
 } from "@/lib/motion-catalog";
+import { relativeDate } from "@/lib/relative-date";
+import { cn } from "@/lib/utils";
 
 // Shared-element name: the card media morphs into the overlay's player.
 // Slugs are `[a-z0-9-]` already; strip anything else so the ident stays valid.
 const videoTransitionName = (slug: string) =>
   `video-${slug.replaceAll(/[^\w-]/gu, "")}`;
+
+// Only one card carries the shared name: the one the overlay opens from and
+// closes back into. Naming every card made each visible card its own
+// view-transition layer, painted above the overlay's backdrop for the whole
+// morph, so the grid flashed over the opening player.
+let morphSlug: string | null = null;
+const morphListeners = new Set<() => void>();
+const subscribeMorph = (listener: () => void) => {
+  morphListeners.add(listener);
+  return () => {
+    morphListeners.delete(listener);
+  };
+};
+
+/**
+ * Picks the card that morphs into the overlay (`null`: none). Call it right
+ * before a view-transition navigation: the DOM updates synchronously, so the
+ * old-state snapshot already carries the name.
+ */
+export const setMorphCard = (slug: string | null) => {
+  if (morphSlug === slug) {
+    return;
+  }
+  morphSlug = slug;
+  flushSync(() => {
+    for (const listener of morphListeners) {
+      listener();
+    }
+  });
+};
+
+// The overlay's current video is the card it closes back into. Its card is
+// unnamed while open and re-renders on close, so no listeners need waking.
+const rememberMorphCard = (slug: string) => {
+  morphSlug = slug;
+};
+
+// Stepping crossfades player to player; no grid card may morph meanwhile.
+const stepPlayer = (go: () => void) => {
+  setMorphCard(null);
+  go();
+};
 
 // Opens a video's overlay route over the page it was opened from: Discover
 // (`/videos/$slug`) or a category page (`/category/$category/videos/$slug`).
@@ -187,7 +239,10 @@ const CopyPromptButton = ({
   size: "icon" | "icon-sm";
 }) => {
   const content = useIntlayer("motion-gallery");
-  const [copied, setCopied] = useState(false);
+  const [copyStatus, flashCopyStatus] = useTransientStatus<"idle" | "copied">(
+    "idle"
+  );
+  const copied = copyStatus === "copied";
   const label = copied ? content.copied.value : content.copy.value;
   return (
     <Tooltip>
@@ -197,7 +252,8 @@ const CopyPromptButton = ({
         onClick={async () => {
           try {
             await navigator.clipboard.writeText(prompt);
-            setCopied(true);
+            track("prompt_copy", { from: "card" });
+            flashCopyStatus("copied");
           } catch {
             // The detail view explains clipboard failures; keep this control quiet.
           }
@@ -231,7 +287,8 @@ const VideoActions = ({
   <div className={cn("flex shrink-0 gap-2", className)}>
     {video.prompt && <CopyPromptButton prompt={video.prompt} size={size} />}
     <BookmarkButton
-      slug={video.slug}
+      kind="video"
+      id={video.slug}
       variant="outline"
       size={size}
       className="rounded-full"
@@ -256,6 +313,11 @@ export const MotionVideoCard = ({
 }) => {
   const content = useIntlayer("motion-gallery");
   const label = `${content.watch.value}: ${video.title}, @${video.handle}`;
+  const morph = useSyncExternalStore(
+    subscribeMorph,
+    () => morphSlug === video.slug,
+    () => false
+  );
 
   return (
     <article className="group/card relative">
@@ -264,12 +326,15 @@ export const MotionVideoCard = ({
         category={category}
         search={search}
         aria-label={label}
+        onClick={() => setMorphCard(video.slug)}
         className="group focus-visible:ring-ring relative block rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
       >
         <MotionPreview
           video={video}
           paused={paused}
-          transitionName={open ? undefined : videoTransitionName(video.slug)}
+          transitionName={
+            morph && !open ? videoTransitionName(video.slug) : undefined
+          }
         />
         {/* Plain hover state: tags and title over a bottom gradient. */}
         <div className="pointer-events-none absolute inset-0 flex flex-col justify-between rounded-xl bg-linear-to-t from-black/70 via-transparent to-transparent p-2.5 opacity-0 transition-opacity duration-200 group-hover/card:opacity-100 group-focus-visible:opacity-100">
@@ -285,7 +350,7 @@ export const MotionVideoCard = ({
                 </span>
               ))}
           </div>
-          <h2 className="h-7 truncate pl-10 text-sm leading-7 font-medium tracking-tight text-white">
+          <h2 className="h-7 truncate pr-10 pl-10 text-sm leading-7 font-medium tracking-tight text-white">
             {video.title}
           </h2>
         </div>
@@ -300,19 +365,25 @@ export const MotionVideoCard = ({
           size="icon-sm"
           className="pointer-events-none absolute top-2.5 right-2.5 opacity-0 transition-opacity duration-200 group-focus-within/card:pointer-events-auto group-focus-within/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 motion-reduce:transition-none"
         />
-        {/* Source link, like the top-right actions but pinned bottom-right. */}
-        {video.sourceUrl && (
+        {/* The creator's original post, like the top-right actions but pinned
+            bottom-right; the same link as the detail view's "View source". */}
+        {video.tweetUrl && (
           <Tooltip>
             <TooltipTrigger
               delay={TOOLTIP_DELAY}
               render={
                 <a
-                  href={video.sourceUrl}
+                  href={video.tweetUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={content.viewSource.value}
+                  data-track="source_click"
+                  data-track-from="card"
+                  data-track-slug={video.slug}
                 />
               }
+              // A real CTA (the card itself opens the detail view), so it
+              // matches the copy-prompt and bookmark buttons.
               className={cn(
                 buttonVariants({ size: "icon-sm", variant: "outline" }),
                 "rounded-full",
@@ -352,25 +423,30 @@ const DetailRow = ({
   </div>
 );
 
-const RELATIVE_UNITS = [
-  ["year", 365],
-  ["month", 30],
-  ["week", 7],
-  ["day", 1],
-] as const;
+// Hosts the detail view's source button names, by registrable domain.
+const SOURCE_ACTIONS = {
+  "x.com": "openOnX",
+  "twitter.com": "openOnX",
+  "youtube.com": "watchOnYouTube",
+  "youtu.be": "watchOnYouTube",
+  "github.com": "viewOnGitHub",
+} as const;
 
-/** "3 months ago" for a `YYYY-MM-DD` date, in the reader's language. */
-const relativeDate = (date: string, locale: string) => {
-  const days = Math.round(
-    (Date.parse(date) - Date.now()) / (24 * 60 * 60 * 1000)
+type SourceAction =
+  | (typeof SOURCE_ACTIONS)[keyof typeof SOURCE_ACTIONS]
+  | "visitWebsite";
+
+/**
+ * What the detail view's source button says for this URL: "Open on X" for a
+ * post, "Watch on YouTube", "View on GitHub", else "Visit website". Cards
+ * always say "View source".
+ */
+const sourceAction = (url: string): SourceAction => {
+  const host = URL.parse(url)?.hostname.replace(/^(?:www|m|mobile)\./u, "");
+  return (
+    Object.entries(SOURCE_ACTIONS).find(([domain]) => domain === host)?.[1] ??
+    "visitWebsite"
   );
-  const format = new Intl.RelativeTimeFormat(locale, { numeric: "auto" });
-  for (const [unit, size] of RELATIVE_UNITS) {
-    if (Math.abs(days) >= size || unit === "day") {
-      return format.format(Math.round(days / size), unit);
-    }
-  }
-  return date;
 };
 
 /**
@@ -422,8 +498,8 @@ const StepButton = ({
 export const MotionVideoOverlay = ({
   video,
   onClose,
-  previous,
-  next,
+  previous: goPrevious,
+  next: goNext,
 }: {
   video: MotionVideo;
   onClose: () => void;
@@ -432,10 +508,38 @@ export const MotionVideoOverlay = ({
   next?: () => void;
 }) => {
   const content = useIntlayer("motion-gallery");
-  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">(
-    "idle"
-  );
+  const [copyStatus, setCopyStatus] = useTransientStatus<
+    "idle" | "copied" | "failed"
+  >("idle");
   const [failed, setFailed] = useState(false);
+  // Every detail video starts playing. `autoPlay` alone was inconsistent:
+  // browsers block unmuted autoplay without a recent user gesture (or, in
+  // Safari, only for videos that have sound), so some clips stayed paused.
+  // Try with sound first; if the browser refuses, play muted instead.
+  // Stable, so it runs once per mounted <video> (keyed by slug) and never
+  // restarts a clip the viewer paused.
+  const autoplay = useCallback((element: HTMLVideoElement | null) => {
+    if (!element) {
+      return;
+    }
+    const start = async () => {
+      try {
+        await element.play();
+      } catch {
+        element.muted = true;
+        try {
+          await element.play();
+        } catch {
+          // Still blocked (e.g. data saver): leave the poster and controls.
+        }
+      }
+    };
+    void start();
+  }, []);
+  // One event per video shown, however it was opened (card, arrows, link).
+  useEffect(() => {
+    track("video_open", { slug: video.slug });
+  }, [video.slug]);
   // Fades out page chrome keyed on `in-data-overlay-open` (the bottom blur).
   useEffect(() => {
     const root = document.documentElement;
@@ -444,6 +548,11 @@ export const MotionVideoOverlay = ({
       delete root.dataset.overlayOpen;
     };
   }, []);
+  useEffect(() => {
+    rememberMorphCard(video.slug);
+  }, [video.slug]);
+  const previous = goPrevious && (() => stepPlayer(goPrevious));
+  const next = goNext && (() => stepPlayer(goNext));
   // Arrow keys step through the grid, like the on-screen buttons.
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -457,17 +566,17 @@ export const MotionVideoOverlay = ({
       ) {
         return;
       }
-      if (key === "ArrowLeft" && previous) {
-        return previous();
+      if (key === "ArrowLeft" && goPrevious) {
+        return stepPlayer(goPrevious);
       }
-      if (key === "ArrowRight" && next) {
-        return next();
+      if (key === "ArrowRight" && goNext) {
+        return stepPlayer(goNext);
       }
     };
     // Capture phase: the dialog stops arrow keys before they bubble up.
     window.addEventListener("keydown", onKeyDown, true);
     return () => window.removeEventListener("keydown", onKeyDown, true);
-  }, [previous, next]);
+  }, [goPrevious, goNext]);
   const types = video.tags.filter((tag) => tag === "prompt" || tag === "skill");
   const { locale } = useLocale();
   const [primaryCategory] = video.contentTags.flatMap((tag) => {
@@ -481,6 +590,7 @@ export const MotionVideoOverlay = ({
     }
     try {
       await navigator.clipboard.writeText(video.prompt);
+      track("prompt_copy", { from: "detail", slug: video.slug });
       setCopyStatus("copied");
     } catch {
       setCopyStatus("failed");
@@ -538,7 +648,7 @@ export const MotionVideoOverlay = ({
                     slot="media"
                     src={video.video}
                     poster={video.poster}
-                    autoPlay
+                    ref={autoplay}
                     playsInline
                     preload="metadata"
                     aria-label={video.title}
@@ -574,7 +684,8 @@ export const MotionVideoOverlay = ({
                   </p>
                   <div className="flex shrink-0 gap-2">
                     <BookmarkButton
-                      slug={video.slug}
+                      kind="video"
+                      id={video.slug}
                       variant="secondary"
                       size="icon-lg"
                       className="rounded-full"
@@ -619,12 +730,15 @@ export const MotionVideoOverlay = ({
                     href={video.tweetUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-track="source_click"
+                    data-track-from="detail"
+                    data-track-slug={video.slug}
                     className={buttonVariants({
                       variant: "gradient",
                       size: "lg",
                     })}
                   >
-                    {content.originalPost}
+                    {content[sourceAction(video.tweetUrl)]}
                     <ArrowRightUp aria-hidden="true" />
                   </a>
                 )}
@@ -633,6 +747,8 @@ export const MotionVideoOverlay = ({
                     href={video.skillUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-track="skill_click"
+                    data-track-slug={video.slug}
                     className={buttonVariants({
                       variant: "outline",
                       size: "lg",

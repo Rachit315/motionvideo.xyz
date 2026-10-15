@@ -10,10 +10,43 @@ export default {
       es: "Trabajo que has enviado, acreditado a ti.",
       fr: "Les œuvres que vous avez proposées, créditées à votre nom.",
     }),
-    underReview: t({
-      en: "Under review",
-      es: "En revisión",
-      fr: "En cours d’examen",
+    featuredHeading: t({
+      en: "Featured work",
+      es: "Trabajo destacado",
+      fr: "Œuvres à l’honneur",
+    }),
+    submissionsHeading: t({
+      en: "Your submissions",
+      es: "Tus envíos",
+      fr: "Vos propositions",
+    }),
+    status: {
+      pending: t({
+        en: "Under review",
+        es: "En revisión",
+        fr: "En cours d’examen",
+      }),
+      featured: t({ en: "Featured", es: "Destacado", fr: "À l’honneur" }),
+      declined: t({
+        en: "Not selected",
+        es: "No seleccionado",
+        fr: "Non retenu",
+      }),
+    },
+    viewFeatured: t({
+      en: "View featured",
+      es: "Ver destacado",
+      fr: "Voir l’œuvre",
+    }),
+    visit: t({
+      en: "Visit website",
+      es: "Visitar sitio web",
+      fr: "Visiter le site",
+    }),
+    newTab: t({
+      en: "opens in a new tab",
+      es: "se abre en una pestaña nueva",
+      fr: "s’ouvre dans un nouvel onglet",
     }),
     emptyTitle: t({
       en: "None of your work has been featured yet",

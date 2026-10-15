@@ -1,18 +1,19 @@
 import { drizzleAdapter } from "@better-auth/drizzle-adapter";
 import { betterAuth } from "better-auth";
-import { magicLink } from "better-auth/plugins";
+import { emailOTP } from "better-auth/plugins";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
+import { WELCOME_HEADER } from "../constants/auth";
 import type * as schema from "./db/schema";
 
 export interface AuthConfig {
   baseURL: string;
   secret: string;
   /** `welcome`: requested from /welcome right after checkout. */
-  sendMagicLink: (
+  sendSignInCode: (
     email: string,
-    url: string,
+    code: string,
     options: { welcome: boolean }
   ) => Promise<void>;
 }
@@ -31,18 +32,24 @@ export const createAuth = (
       enabled: true,
       storage: "database",
       customRules: {
-        "/sign-in/magic-link": { window: 60, max: 3 },
+        "/email-otp/send-verification-otp": { window: 60, max: 3 },
+        "/sign-in/email-otp": { window: 60, max: 10 },
       },
     },
     advanced: {
       ipAddress: { ipAddressHeaders: ["cf-connecting-ip"] },
     },
     plugins: [
-      magicLink({
-        expiresIn: 60 * 15,
-        sendMagicLink: ({ email, url, metadata }) =>
-          config.sendMagicLink(email, url, {
-            welcome: metadata?.welcome === true,
+      // Six-digit email codes; the account is created on first sign-in.
+      emailOTP({
+        otpLength: 6,
+        expiresIn: 60 * 10,
+        allowedAttempts: 5,
+        storeOTP: "hashed",
+        sendVerificationOTP: ({ email, otp }, ctx) =>
+          config.sendSignInCode(email, otp, {
+            // Set by /welcome; the server still checks for a paid order.
+            welcome: ctx?.headers?.get(WELCOME_HEADER) === "1",
           }),
       }),
       // Must stay last.

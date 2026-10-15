@@ -8,6 +8,9 @@ export default defineConfig({
     "./src/server/db/schema.ts",
     "./src/server/db/community-schema.ts",
     "./src/server/db/bookmark-schema.ts",
+    "./src/server/db/sponsorship-schema.ts",
+    "./src/server/db/feedback-schema.ts",
+    "./src/server/db/job-schema.ts",
   ],
   out: "./drizzle",
 });

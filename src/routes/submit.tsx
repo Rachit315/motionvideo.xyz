@@ -6,6 +6,7 @@ import { Check } from "reicon-react/icons/Check";
 import { Send } from "reicon-react/icons/Send";
 import { z } from "zod";
 
+import { PageMain, AccountPageHeader } from "@/components/page";
 import { useSignInDialog } from "@/components/sign-in-dialog";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -340,25 +341,15 @@ const Submit = () => {
   return (
     <>
       <SiteHeader signedIn />
-      <main
-        id="main-content"
-        className="mx-auto flex w-full max-w-3xl flex-col gap-7 px-4 py-8 sm:px-6 sm:py-12"
-      >
-        <header className="flex flex-col gap-3">
-          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            {content.title}
-          </h1>
-          <p className="text-muted-foreground leading-relaxed">
-            {content.intro}
-          </p>
-        </header>
+      <PageMain width="narrow">
+        <AccountPageHeader title={content.title} intro={content.intro} />
         <SubmissionForm
           key={`${search.kind ?? "video"}:${search.category ?? ""}`}
           initialKind={search.kind ?? "video"}
           initialCategory={search.category}
           email={email}
         />
-      </main>
+      </PageMain>
       <SiteFooter />
     </>
   );

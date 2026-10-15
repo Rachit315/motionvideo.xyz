@@ -5,7 +5,6 @@ import {
   useNavigate,
   useParams,
 } from "@tanstack/react-router";
-import { cn } from "cn";
 import { useMemo, useState } from "react";
 import { useIntlayer } from "react-intlayer";
 import { ChevronDown } from "reicon-react/icons/ChevronDown";
@@ -18,16 +17,20 @@ import {
   CollectionGrid,
   CollectionEmptyState,
 } from "@/components/collection-grid";
-import { CollectionIntro } from "@/components/collection-intro";
+import {
+  CollectionIntro,
+  SurpriseAndSubmit,
+} from "@/components/collection-intro";
 import {
   CategoryChip,
   CollectionToolbar,
 } from "@/components/collection-toolbar";
 import { FadeScroller } from "@/components/fade-scroller";
-import { MotionVideoCard } from "@/components/motion-video";
+import { JobsWidget } from "@/components/jobs-widget";
+import { MotionVideoCard, setMorphCard } from "@/components/motion-video";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { SponsoredCard } from "@/components/sponsored-card";
+import { SponsoredCard, sponsoredTileIndex } from "@/components/sponsored-card";
 import { buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -38,6 +41,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import type { MasonryItem } from "@/components/virtual-masonry";
+import type { SponsorCategory } from "@/constants/sponsors";
 import catalog from "@/data/motion-catalog.json";
 import { useLaneCount } from "@/hooks/use-lane-count";
 import {
@@ -46,7 +50,9 @@ import {
   findMotionCategory,
 } from "@/lib/motion-catalog";
 import type { GallerySearch, MotionVideo } from "@/lib/motion-catalog";
+import { cn } from "@/lib/utils";
 import { getLandingData } from "@/server/functions";
+import { getJobs } from "@/server/job-functions";
 
 const routeApi = getRouteApi("/_gallery");
 const videos: MotionVideo[] = catalog.videos;
@@ -67,7 +73,7 @@ const chipClass = (active: boolean) =>
 
 const Gallery = () => {
   const content = useIntlayer("motion-gallery");
-  const { signedIn } = routeApi.useLoaderData();
+  const { signedIn, jobs } = routeApi.useLoaderData();
   const search = routeApi.useSearch();
   const navigate = useNavigate();
   const [paused, setPaused] = useState(false);
@@ -76,6 +82,11 @@ const Gallery = () => {
   const params = useParams({ strict: false });
   const openSlug = params.slug;
   const category = findMotionCategory(params.category);
+  // Gold and Silver sponsors of this category page.
+  const sponsorCategory: SponsorCategory | undefined = category && {
+    kind: "video",
+    slug: category,
+  };
   const sort = search.sort ?? "popular";
   const sortLabels = {
     popular: content.popular,
@@ -122,6 +133,8 @@ const Gallery = () => {
     if (!video) {
       return;
     }
+    // Morphs from its card when that card is rendered; fades in otherwise.
+    setMorphCard(video.slug);
     const options = {
       search,
       resetScroll: false,
@@ -145,11 +158,16 @@ const Gallery = () => {
       titleId="gallery-intro-title"
       title={category ? content.categoryTitles[category] : content.title}
       description={category ? content.categoryIntros[category] : content.intro}
-      onSurprise={surprise}
-      surpriseDisabled={filtered.length === 0}
-      surpriseLabel={content.surprise}
-      submitLabel={content.submitVideo}
-      submitSearch={{ kind: "video", category }}
+      actions={
+        <SurpriseAndSubmit
+          onSurprise={surprise}
+          surpriseDisabled={filtered.length === 0}
+          surpriseLabel={content.surprise}
+          submitLabel={content.submitVideo}
+          submitSearch={{ kind: "video", category }}
+        />
+      }
+      sponsorCategory={sponsorCategory}
     />
   );
 
@@ -167,19 +185,26 @@ const Gallery = () => {
     ),
   }));
   const items: MasonryItem[] = [{ key: "intro", node: intro }, ...cards];
-  // Sponsored tile in the first row's rightmost lane — but when the row
-  // isn't full it just follows the last tile instead of floating apart.
-  let sponsoredIndex = 1 + cards.length;
-  if (lanes < 2) {
-    sponsoredIndex = 1;
-  } else if (sponsoredIndex >= lanes) {
-    sponsoredIndex = lanes - 1;
-  }
+  const sponsoredIndex = sponsoredTileIndex(lanes, cards.length);
   items.splice(sponsoredIndex, 0, {
     key: "sponsored",
     aspectRatio: 16 / 9,
-    node: <SponsoredCard />,
+    node: <SponsoredCard category={sponsorCategory} />,
   });
+  // Open roles right after the sponsored card: in the same lane on desktop,
+  // next in the single column on phones.
+  if (lanes >= 3 && sponsoredIndex === lanes - 1) {
+    items.splice(sponsoredIndex + 1, 0, {
+      key: "jobs",
+      lane: lanes - 1,
+      node: <JobsWidget jobs={jobs} />,
+    });
+  } else if (lanes < 2) {
+    items.splice(sponsoredIndex + 1, 0, {
+      key: "jobs",
+      node: <JobsWidget jobs={jobs} />,
+    });
+  }
 
   return (
     <>
@@ -288,7 +313,7 @@ const Gallery = () => {
             type="button"
             aria-pressed={paused}
             onClick={() => setPaused(!paused)}
-            className={cn(chipClass(paused), "max-sm:px-2")}
+            className={cn(chipClass(paused), "max-sm:size-8")}
           >
             {paused ? (
               <Play aria-hidden="true" />
@@ -324,7 +349,10 @@ const Gallery = () => {
 // grid (and its scroll position) stays mounted.
 export const Route = createFileRoute("/_gallery")({
   component: Gallery,
-  loader: () => getLandingData(),
+  loader: async () => {
+    const [landing, jobs] = await Promise.all([getLandingData(), getJobs()]);
+    return { ...landing, jobs };
+  },
   validateSearch: (search): GallerySearch => ({
     type: z.enum(["prompt", "skill"]).safeParse(search.type).data,
     sort: z.enum(["newest", "oldest"]).safeParse(search.sort).data,

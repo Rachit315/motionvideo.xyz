@@ -11,17 +11,20 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as GalleryRouteImport } from './routes/_gallery'
 import { Route as PagesRouteImport } from './routes/_pages'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as BookmarksRouteImport } from './routes/bookmarks'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as CreativesRouteImport } from './routes/creatives'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ExtrasRouteImport } from './routes/extras'
 import { Route as FeaturedRouteImport } from './routes/featured'
+import { Route as ListingsRouteImport } from './routes/listings'
 import { Route as MotionvideoSkillRouteImport } from './routes/motionvideo-skill'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as SkillsRouteImport } from './routes/skills'
 import { Route as SponsorRouteImport } from './routes/sponsor'
+import { Route as SponsorshipsRouteImport } from './routes/sponsorships'
 import { Route as StudiosRouteImport } from './routes/studios'
 import { Route as SubmitRouteImport } from './routes/submit'
 import { Route as ToolsRouteImport } from './routes/tools'
@@ -30,14 +33,23 @@ import { Route as GalleryIndexRouteImport } from './routes/_gallery/index'
 import { Route as PagesAboutRouteImport } from './routes/_pages/about'
 import { Route as PagesBrandRouteImport } from './routes/_pages/brand'
 import { Route as PagesContactRouteImport } from './routes/_pages/contact'
-import { Route as PagesDpaRouteImport } from './routes/_pages/dpa'
+import { Route as PagesLicenseRouteImport } from './routes/_pages/license'
 import { Route as PagesPrivacyRouteImport } from './routes/_pages/privacy'
 import { Route as PagesRefundsRouteImport } from './routes/_pages/refunds'
 import { Route as PagesTermsRouteImport } from './routes/_pages/terms'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminFeedbackRouteImport } from './routes/admin/feedback'
+import { Route as AdminJobsRouteImport } from './routes/admin/jobs'
+import { Route as AdminSponsorshipsRouteImport } from './routes/admin/sponsorships'
+import { Route as AdminSubmissionsRouteImport } from './routes/admin/submissions'
+import { Route as ApiUploadRouteImport } from './routes/api/upload'
 import { Route as CreativesIndexRouteImport } from './routes/creatives/index'
 import { Route as CreativesCategoryRouteImport } from './routes/creatives/$category'
 import { Route as ExtrasIndexRouteImport } from './routes/extras/index'
 import { Route as ExtrasCategoryRouteImport } from './routes/extras/$category'
+import { Route as JobsIndexRouteImport } from './routes/jobs/index'
+import { Route as JobsTypeRouteImport } from './routes/jobs/$type'
+import { Route as JobsPostRouteImport } from './routes/jobs/post'
 import { Route as SkillsIndexRouteImport } from './routes/skills/index'
 import { Route as SkillsCategoryRouteImport } from './routes/skills/$category'
 import { Route as ToolsIndexRouteImport } from './routes/tools/index'
@@ -55,6 +67,11 @@ const GalleryRoute = GalleryRouteImport.update({
 } as any)
 const PagesRoute = PagesRouteImport.update({
   id: '/_pages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BookmarksRoute = BookmarksRouteImport.update({
@@ -87,6 +104,11 @@ const FeaturedRoute = FeaturedRouteImport.update({
   path: '/featured',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ListingsRoute = ListingsRouteImport.update({
+  id: '/listings',
+  path: '/listings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MotionvideoSkillRoute = MotionvideoSkillRouteImport.update({
   id: '/motionvideo-skill',
   path: '/motionvideo-skill',
@@ -110,6 +132,11 @@ const SkillsRoute = SkillsRouteImport.update({
 const SponsorRoute = SponsorRouteImport.update({
   id: '/sponsor',
   path: '/sponsor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SponsorshipsRoute = SponsorshipsRouteImport.update({
+  id: '/sponsorships',
+  path: '/sponsorships',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StudiosRoute = StudiosRouteImport.update({
@@ -152,9 +179,9 @@ const PagesContactRoute = PagesContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => PagesRoute,
 } as any)
-const PagesDpaRoute = PagesDpaRouteImport.update({
-  id: '/dpa',
-  path: '/dpa',
+const PagesLicenseRoute = PagesLicenseRouteImport.update({
+  id: '/license',
+  path: '/license',
   getParentRoute: () => PagesRoute,
 } as any)
 const PagesPrivacyRoute = PagesPrivacyRouteImport.update({
@@ -171,6 +198,36 @@ const PagesTermsRoute = PagesTermsRouteImport.update({
   id: '/terms',
   path: '/terms',
   getParentRoute: () => PagesRoute,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFeedbackRoute = AdminFeedbackRouteImport.update({
+  id: '/feedback',
+  path: '/feedback',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminJobsRoute = AdminJobsRouteImport.update({
+  id: '/jobs',
+  path: '/jobs',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSponsorshipsRoute = AdminSponsorshipsRouteImport.update({
+  id: '/sponsorships',
+  path: '/sponsorships',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSubmissionsRoute = AdminSubmissionsRouteImport.update({
+  id: '/submissions',
+  path: '/submissions',
+  getParentRoute: () => AdminRoute,
+} as any)
+const ApiUploadRoute = ApiUploadRouteImport.update({
+  id: '/api/upload',
+  path: '/api/upload',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const CreativesIndexRoute = CreativesIndexRouteImport.update({
   id: '/',
@@ -191,6 +248,21 @@ const ExtrasCategoryRoute = ExtrasCategoryRouteImport.update({
   id: '/$category',
   path: '/$category',
   getParentRoute: () => ExtrasRoute,
+} as any)
+const JobsIndexRoute = JobsIndexRouteImport.update({
+  id: '/jobs/',
+  path: '/jobs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JobsTypeRoute = JobsTypeRouteImport.update({
+  id: '/jobs/$type',
+  path: '/jobs/$type',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JobsPostRoute = JobsPostRouteImport.update({
+  id: '/jobs/post',
+  path: '/jobs/post',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const SkillsIndexRoute = SkillsIndexRouteImport.update({
   id: '/',
@@ -247,17 +319,20 @@ const GalleryCategoryCategoryVideosSlugRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof GalleryIndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/bookmarks': typeof BookmarksRoute
   '/checkout': typeof CheckoutRoute
   '/creatives': typeof CreativesRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/extras': typeof ExtrasRouteWithChildren
   '/featured': typeof FeaturedRoute
+  '/listings': typeof ListingsRoute
   '/motionvideo-skill': typeof MotionvideoSkillRoute
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/skills': typeof SkillsRouteWithChildren
   '/sponsor': typeof SponsorRoute
+  '/sponsorships': typeof SponsorshipsRoute
   '/studios': typeof StudiosRoute
   '/submit': typeof SubmitRoute
   '/tools': typeof ToolsRouteWithChildren
@@ -265,16 +340,25 @@ export interface FileRoutesByFullPath {
   '/about': typeof PagesAboutRoute
   '/brand': typeof PagesBrandRoute
   '/contact': typeof PagesContactRoute
-  '/dpa': typeof PagesDpaRoute
+  '/license': typeof PagesLicenseRoute
   '/privacy': typeof PagesPrivacyRoute
   '/refunds': typeof PagesRefundsRoute
   '/terms': typeof PagesTermsRoute
+  '/admin/feedback': typeof AdminFeedbackRoute
+  '/admin/jobs': typeof AdminJobsRoute
+  '/admin/sponsorships': typeof AdminSponsorshipsRoute
+  '/admin/submissions': typeof AdminSubmissionsRoute
+  '/api/upload': typeof ApiUploadRoute
   '/creatives/$category': typeof CreativesCategoryRoute
   '/extras/$category': typeof ExtrasCategoryRoute
+  '/jobs/$type': typeof JobsTypeRoute
+  '/jobs/post': typeof JobsPostRoute
   '/skills/$category': typeof SkillsCategoryRoute
   '/tools/$category': typeof ToolsCategoryRoute
+  '/admin/': typeof AdminIndexRoute
   '/creatives/': typeof CreativesIndexRoute
   '/extras/': typeof ExtrasIndexRoute
+  '/jobs/': typeof JobsIndexRoute
   '/skills/': typeof SkillsIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/category/$category': typeof GalleryCategoryCategoryRouteWithChildren
@@ -290,26 +374,37 @@ export interface FileRoutesByTo {
   '/checkout': typeof CheckoutRoute
   '/dashboard': typeof DashboardRoute
   '/featured': typeof FeaturedRoute
+  '/listings': typeof ListingsRoute
   '/motionvideo-skill': typeof MotionvideoSkillRoute
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/sponsor': typeof SponsorRoute
+  '/sponsorships': typeof SponsorshipsRoute
   '/studios': typeof StudiosRoute
   '/submit': typeof SubmitRoute
   '/welcome': typeof WelcomeRoute
   '/about': typeof PagesAboutRoute
   '/brand': typeof PagesBrandRoute
   '/contact': typeof PagesContactRoute
-  '/dpa': typeof PagesDpaRoute
+  '/license': typeof PagesLicenseRoute
   '/privacy': typeof PagesPrivacyRoute
   '/refunds': typeof PagesRefundsRoute
   '/terms': typeof PagesTermsRoute
+  '/admin/feedback': typeof AdminFeedbackRoute
+  '/admin/jobs': typeof AdminJobsRoute
+  '/admin/sponsorships': typeof AdminSponsorshipsRoute
+  '/admin/submissions': typeof AdminSubmissionsRoute
+  '/api/upload': typeof ApiUploadRoute
   '/creatives/$category': typeof CreativesCategoryRoute
   '/extras/$category': typeof ExtrasCategoryRoute
+  '/jobs/$type': typeof JobsTypeRoute
+  '/jobs/post': typeof JobsPostRoute
   '/skills/$category': typeof SkillsCategoryRoute
   '/tools/$category': typeof ToolsCategoryRoute
+  '/admin': typeof AdminIndexRoute
   '/creatives': typeof CreativesIndexRoute
   '/extras': typeof ExtrasIndexRoute
+  '/jobs': typeof JobsIndexRoute
   '/skills': typeof SkillsIndexRoute
   '/tools': typeof ToolsIndexRoute
   '/videos/$slug': typeof GalleryVideosSlugRoute
@@ -322,17 +417,20 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_gallery': typeof GalleryRouteWithChildren
   '/_pages': typeof PagesRouteWithChildren
+  '/admin': typeof AdminRouteWithChildren
   '/bookmarks': typeof BookmarksRoute
   '/checkout': typeof CheckoutRoute
   '/creatives': typeof CreativesRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/extras': typeof ExtrasRouteWithChildren
   '/featured': typeof FeaturedRoute
+  '/listings': typeof ListingsRoute
   '/motionvideo-skill': typeof MotionvideoSkillRoute
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/skills': typeof SkillsRouteWithChildren
   '/sponsor': typeof SponsorRoute
+  '/sponsorships': typeof SponsorshipsRoute
   '/studios': typeof StudiosRoute
   '/submit': typeof SubmitRoute
   '/tools': typeof ToolsRouteWithChildren
@@ -340,17 +438,26 @@ export interface FileRoutesById {
   '/_pages/about': typeof PagesAboutRoute
   '/_pages/brand': typeof PagesBrandRoute
   '/_pages/contact': typeof PagesContactRoute
-  '/_pages/dpa': typeof PagesDpaRoute
+  '/_pages/license': typeof PagesLicenseRoute
   '/_pages/privacy': typeof PagesPrivacyRoute
   '/_pages/refunds': typeof PagesRefundsRoute
   '/_pages/terms': typeof PagesTermsRoute
+  '/admin/feedback': typeof AdminFeedbackRoute
+  '/admin/jobs': typeof AdminJobsRoute
+  '/admin/sponsorships': typeof AdminSponsorshipsRoute
+  '/admin/submissions': typeof AdminSubmissionsRoute
+  '/api/upload': typeof ApiUploadRoute
   '/creatives/$category': typeof CreativesCategoryRoute
   '/extras/$category': typeof ExtrasCategoryRoute
+  '/jobs/$type': typeof JobsTypeRoute
+  '/jobs/post': typeof JobsPostRoute
   '/skills/$category': typeof SkillsCategoryRoute
   '/tools/$category': typeof ToolsCategoryRoute
   '/_gallery/': typeof GalleryIndexRoute
+  '/admin/': typeof AdminIndexRoute
   '/creatives/': typeof CreativesIndexRoute
   '/extras/': typeof ExtrasIndexRoute
+  '/jobs/': typeof JobsIndexRoute
   '/skills/': typeof SkillsIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/_gallery/category/$category': typeof GalleryCategoryCategoryRouteWithChildren
@@ -364,17 +471,20 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/bookmarks'
     | '/checkout'
     | '/creatives'
     | '/dashboard'
     | '/extras'
     | '/featured'
+    | '/listings'
     | '/motionvideo-skill'
     | '/settings'
     | '/sign-in'
     | '/skills'
     | '/sponsor'
+    | '/sponsorships'
     | '/studios'
     | '/submit'
     | '/tools'
@@ -382,16 +492,25 @@ export interface FileRouteTypes {
     | '/about'
     | '/brand'
     | '/contact'
-    | '/dpa'
+    | '/license'
     | '/privacy'
     | '/refunds'
     | '/terms'
+    | '/admin/feedback'
+    | '/admin/jobs'
+    | '/admin/sponsorships'
+    | '/admin/submissions'
+    | '/api/upload'
     | '/creatives/$category'
     | '/extras/$category'
+    | '/jobs/$type'
+    | '/jobs/post'
     | '/skills/$category'
     | '/tools/$category'
+    | '/admin/'
     | '/creatives/'
     | '/extras/'
+    | '/jobs/'
     | '/skills/'
     | '/tools/'
     | '/category/$category'
@@ -407,26 +526,37 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/dashboard'
     | '/featured'
+    | '/listings'
     | '/motionvideo-skill'
     | '/settings'
     | '/sign-in'
     | '/sponsor'
+    | '/sponsorships'
     | '/studios'
     | '/submit'
     | '/welcome'
     | '/about'
     | '/brand'
     | '/contact'
-    | '/dpa'
+    | '/license'
     | '/privacy'
     | '/refunds'
     | '/terms'
+    | '/admin/feedback'
+    | '/admin/jobs'
+    | '/admin/sponsorships'
+    | '/admin/submissions'
+    | '/api/upload'
     | '/creatives/$category'
     | '/extras/$category'
+    | '/jobs/$type'
+    | '/jobs/post'
     | '/skills/$category'
     | '/tools/$category'
+    | '/admin'
     | '/creatives'
     | '/extras'
+    | '/jobs'
     | '/skills'
     | '/tools'
     | '/videos/$slug'
@@ -438,17 +568,20 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_gallery'
     | '/_pages'
+    | '/admin'
     | '/bookmarks'
     | '/checkout'
     | '/creatives'
     | '/dashboard'
     | '/extras'
     | '/featured'
+    | '/listings'
     | '/motionvideo-skill'
     | '/settings'
     | '/sign-in'
     | '/skills'
     | '/sponsor'
+    | '/sponsorships'
     | '/studios'
     | '/submit'
     | '/tools'
@@ -456,17 +589,26 @@ export interface FileRouteTypes {
     | '/_pages/about'
     | '/_pages/brand'
     | '/_pages/contact'
-    | '/_pages/dpa'
+    | '/_pages/license'
     | '/_pages/privacy'
     | '/_pages/refunds'
     | '/_pages/terms'
+    | '/admin/feedback'
+    | '/admin/jobs'
+    | '/admin/sponsorships'
+    | '/admin/submissions'
+    | '/api/upload'
     | '/creatives/$category'
     | '/extras/$category'
+    | '/jobs/$type'
+    | '/jobs/post'
     | '/skills/$category'
     | '/tools/$category'
     | '/_gallery/'
+    | '/admin/'
     | '/creatives/'
     | '/extras/'
+    | '/jobs/'
     | '/skills/'
     | '/tools/'
     | '/_gallery/category/$category'
@@ -480,21 +622,28 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   GalleryRoute: typeof GalleryRouteWithChildren
   PagesRoute: typeof PagesRouteWithChildren
+  AdminRoute: typeof AdminRouteWithChildren
   BookmarksRoute: typeof BookmarksRoute
   CheckoutRoute: typeof CheckoutRoute
   CreativesRoute: typeof CreativesRouteWithChildren
   DashboardRoute: typeof DashboardRoute
   ExtrasRoute: typeof ExtrasRouteWithChildren
   FeaturedRoute: typeof FeaturedRoute
+  ListingsRoute: typeof ListingsRoute
   MotionvideoSkillRoute: typeof MotionvideoSkillRoute
   SettingsRoute: typeof SettingsRoute
   SignInRoute: typeof SignInRoute
   SkillsRoute: typeof SkillsRouteWithChildren
   SponsorRoute: typeof SponsorRoute
+  SponsorshipsRoute: typeof SponsorshipsRoute
   StudiosRoute: typeof StudiosRoute
   SubmitRoute: typeof SubmitRoute
   ToolsRoute: typeof ToolsRouteWithChildren
   WelcomeRoute: typeof WelcomeRoute
+  ApiUploadRoute: typeof ApiUploadRoute
+  JobsTypeRoute: typeof JobsTypeRoute
+  JobsPostRoute: typeof JobsPostRoute
+  JobsIndexRoute: typeof JobsIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiWebhookDodoRoute: typeof ApiWebhookDodoRoute
 }
@@ -513,6 +662,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof PagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bookmarks': {
@@ -557,6 +713,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeaturedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/listings': {
+      id: '/listings'
+      path: '/listings'
+      fullPath: '/listings'
+      preLoaderRoute: typeof ListingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/motionvideo-skill': {
       id: '/motionvideo-skill'
       path: '/motionvideo-skill'
@@ -590,6 +753,13 @@ declare module '@tanstack/react-router' {
       path: '/sponsor'
       fullPath: '/sponsor'
       preLoaderRoute: typeof SponsorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sponsorships': {
+      id: '/sponsorships'
+      path: '/sponsorships'
+      fullPath: '/sponsorships'
+      preLoaderRoute: typeof SponsorshipsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/studios': {
@@ -648,11 +818,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PagesContactRouteImport
       parentRoute: typeof PagesRoute
     }
-    '/_pages/dpa': {
-      id: '/_pages/dpa'
-      path: '/dpa'
-      fullPath: '/dpa'
-      preLoaderRoute: typeof PagesDpaRouteImport
+    '/_pages/license': {
+      id: '/_pages/license'
+      path: '/license'
+      fullPath: '/license'
+      preLoaderRoute: typeof PagesLicenseRouteImport
       parentRoute: typeof PagesRoute
     }
     '/_pages/privacy': {
@@ -675,6 +845,48 @@ declare module '@tanstack/react-router' {
       fullPath: '/terms'
       preLoaderRoute: typeof PagesTermsRouteImport
       parentRoute: typeof PagesRoute
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/feedback': {
+      id: '/admin/feedback'
+      path: '/feedback'
+      fullPath: '/admin/feedback'
+      preLoaderRoute: typeof AdminFeedbackRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/jobs': {
+      id: '/admin/jobs'
+      path: '/jobs'
+      fullPath: '/admin/jobs'
+      preLoaderRoute: typeof AdminJobsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/sponsorships': {
+      id: '/admin/sponsorships'
+      path: '/sponsorships'
+      fullPath: '/admin/sponsorships'
+      preLoaderRoute: typeof AdminSponsorshipsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/submissions': {
+      id: '/admin/submissions'
+      path: '/submissions'
+      fullPath: '/admin/submissions'
+      preLoaderRoute: typeof AdminSubmissionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/api/upload': {
+      id: '/api/upload'
+      path: '/api/upload'
+      fullPath: '/api/upload'
+      preLoaderRoute: typeof ApiUploadRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/creatives/': {
       id: '/creatives/'
@@ -703,6 +915,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/extras/$category'
       preLoaderRoute: typeof ExtrasCategoryRouteImport
       parentRoute: typeof ExtrasRoute
+    }
+    '/jobs/': {
+      id: '/jobs/'
+      path: '/jobs'
+      fullPath: '/jobs/'
+      preLoaderRoute: typeof JobsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jobs/$type': {
+      id: '/jobs/$type'
+      path: '/jobs/$type'
+      fullPath: '/jobs/$type'
+      preLoaderRoute: typeof JobsTypeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jobs/post': {
+      id: '/jobs/post'
+      path: '/jobs/post'
+      fullPath: '/jobs/post'
+      preLoaderRoute: typeof JobsPostRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/skills/': {
       id: '/skills/'
@@ -813,7 +1046,7 @@ interface PagesRouteChildren {
   PagesAboutRoute: typeof PagesAboutRoute
   PagesBrandRoute: typeof PagesBrandRoute
   PagesContactRoute: typeof PagesContactRoute
-  PagesDpaRoute: typeof PagesDpaRoute
+  PagesLicenseRoute: typeof PagesLicenseRoute
   PagesPrivacyRoute: typeof PagesPrivacyRoute
   PagesRefundsRoute: typeof PagesRefundsRoute
   PagesTermsRoute: typeof PagesTermsRoute
@@ -823,13 +1056,31 @@ const PagesRouteChildren: PagesRouteChildren = {
   PagesAboutRoute: PagesAboutRoute,
   PagesBrandRoute: PagesBrandRoute,
   PagesContactRoute: PagesContactRoute,
-  PagesDpaRoute: PagesDpaRoute,
+  PagesLicenseRoute: PagesLicenseRoute,
   PagesPrivacyRoute: PagesPrivacyRoute,
   PagesRefundsRoute: PagesRefundsRoute,
   PagesTermsRoute: PagesTermsRoute,
 }
 
 const PagesRouteWithChildren = PagesRoute._addFileChildren(PagesRouteChildren)
+
+interface AdminRouteChildren {
+  AdminFeedbackRoute: typeof AdminFeedbackRoute
+  AdminJobsRoute: typeof AdminJobsRoute
+  AdminSponsorshipsRoute: typeof AdminSponsorshipsRoute
+  AdminSubmissionsRoute: typeof AdminSubmissionsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminFeedbackRoute: AdminFeedbackRoute,
+  AdminJobsRoute: AdminJobsRoute,
+  AdminSponsorshipsRoute: AdminSponsorshipsRoute,
+  AdminSubmissionsRoute: AdminSubmissionsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface CreativesRouteChildren {
   CreativesCategoryRoute: typeof CreativesCategoryRoute
@@ -886,21 +1137,28 @@ const ToolsRouteWithChildren = ToolsRoute._addFileChildren(ToolsRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   GalleryRoute: GalleryRouteWithChildren,
   PagesRoute: PagesRouteWithChildren,
+  AdminRoute: AdminRouteWithChildren,
   BookmarksRoute: BookmarksRoute,
   CheckoutRoute: CheckoutRoute,
   CreativesRoute: CreativesRouteWithChildren,
   DashboardRoute: DashboardRoute,
   ExtrasRoute: ExtrasRouteWithChildren,
   FeaturedRoute: FeaturedRoute,
+  ListingsRoute: ListingsRoute,
   MotionvideoSkillRoute: MotionvideoSkillRoute,
   SettingsRoute: SettingsRoute,
   SignInRoute: SignInRoute,
   SkillsRoute: SkillsRouteWithChildren,
   SponsorRoute: SponsorRoute,
+  SponsorshipsRoute: SponsorshipsRoute,
   StudiosRoute: StudiosRoute,
   SubmitRoute: SubmitRoute,
   ToolsRoute: ToolsRouteWithChildren,
   WelcomeRoute: WelcomeRoute,
+  ApiUploadRoute: ApiUploadRoute,
+  JobsTypeRoute: JobsTypeRoute,
+  JobsPostRoute: JobsPostRoute,
+  JobsIndexRoute: JobsIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiWebhookDodoRoute: ApiWebhookDodoRoute,
 }

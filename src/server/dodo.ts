@@ -2,6 +2,8 @@ import { env } from "cloudflare:workers";
 import DodoPayments, { APIError, NotFoundError } from "dodopayments";
 import type { CheckoutSessionCreateParams } from "dodopayments/resources/checkout-sessions";
 
+import { JOB_PLANS } from "@/constants/jobs";
+import type { JobPlan } from "@/constants/jobs";
 import {
   BASE_PRICE_CENTS,
   LAUNCH_LIMIT,
@@ -9,6 +11,8 @@ import {
 } from "@/constants/pricing";
 import type { Offer } from "@/constants/pricing";
 import { ROUTES } from "@/constants/routes";
+import { SPONSOR_TIERS } from "@/constants/sponsors";
+import type { SponsorTier } from "@/constants/sponsors";
 
 let client: DodoPayments | undefined;
 
@@ -37,6 +41,20 @@ export type CheckoutProduct = keyof typeof PRODUCT_IDS;
 
 export const isCheckoutProduct = (value: string): value is CheckoutProduct =>
   Object.hasOwn(PRODUCT_IDS, value);
+
+/** The tier a Dodo product bills; `undefined` for any other product. */
+export const sponsorTierOf = (productId: string): SponsorTier | undefined =>
+  SPONSOR_TIERS.find((tier) => PRODUCT_IDS[tier] === productId);
+
+/** One-time job listing products, by plan. */
+const JOB_PRODUCT_IDS: Record<JobPlan, string> = {
+  featured: env.DODO_PRODUCT_JOB_FEATURED,
+  standard: env.DODO_PRODUCT_JOB_STANDARD,
+};
+
+/** The job plan a Dodo product sells; `undefined` for any other product. */
+export const jobPlanOf = (productId: string): JobPlan | undefined =>
+  JOB_PLANS.find((plan) => JOB_PRODUCT_IDS[plan] === productId);
 
 // Dodo customers for an email. Buyers check out as guests, so the email they
 // paid with is the only link between them and their payments.
@@ -129,23 +147,29 @@ const checkoutUrl = async (
   return session.checkout_url;
 };
 
+/** The signed-in account a checkout is for. */
+export interface Buyer {
+  email: string;
+  userId: string;
+}
+
 export const createCheckoutUrl = async (
   product: CheckoutProduct,
-  email: string | null
+  buyer: Buyer | null
 ): Promise<string> => {
   const base = env.BETTER_AUTH_URL;
   const skill = product === "skill";
   const params: CheckoutSessionCreateParams = {
     cancel_url: `${base}${skill ? ROUTES.PRICING : ROUTES.SPONSOR}`,
-    customer: email ? { email } : undefined,
+    customer: buyer ? { email: buyer.email } : undefined,
     // No code field at checkout: only the server applies the launch code.
     feature_flags: { allow_discount_code: false },
-    metadata: { product },
+    // `user_id` ties a sponsor subscription to the account that bought it,
+    // even when the buyer pays with a different email.
+    metadata: buyer ? { product, user_id: buyer.userId } : { product },
     product_cart: [{ product_id: PRODUCT_IDS[product], quantity: 1 }],
     // Dodo appends `payment_id` (one-time) or `subscription_id` and `status`.
-    return_url: skill
-      ? `${base}${ROUTES.WELCOME}`
-      : `${base}${ROUTES.SPONSOR}?thanks=${product}`,
+    return_url: `${base}${skill ? ROUTES.WELCOME : ROUTES.SPONSORSHIPS}`,
   };
   if (!skill) {
     return checkoutUrl(params);
@@ -225,4 +249,36 @@ export const customerPortalUrl = async (email: string): Promise<string> => {
     { return_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD}` }
   );
   return session.link;
+};
+
+/** Dodo's billing portal for one customer, returning to /sponsorships. */
+export const sponsorPortalUrl = async (customerId: string): Promise<string> => {
+  const session = await getDodo().customers.customerPortal.create(customerId, {
+    return_url: `${env.BETTER_AUTH_URL}${ROUTES.SPONSORSHIPS}`,
+  });
+  return session.link;
+};
+
+/**
+ * Checkout for one job listing. `job_id` in the metadata is what ties the
+ * payment back to the post; Dodo returns to /listings with `payment_id`.
+ */
+export const createJobCheckoutUrl = (
+  plan: JobPlan,
+  jobId: string,
+  buyer: Buyer
+): Promise<string> => {
+  const productId = JOB_PRODUCT_IDS[plan];
+  if (!productId) {
+    throw new Error("Job products are not set up; run pnpm dodo:setup");
+  }
+  const query = `?job=${encodeURIComponent(jobId)}`;
+  return checkoutUrl({
+    cancel_url: `${env.BETTER_AUTH_URL}${ROUTES.JOBS_POST}${query}`,
+    customer: { email: buyer.email },
+    feature_flags: { allow_discount_code: false },
+    metadata: { product: `job-${plan}`, job_id: jobId, user_id: buyer.userId },
+    product_cart: [{ product_id: productId, quantity: 1 }],
+    return_url: `${env.BETTER_AUTH_URL}${ROUTES.LISTINGS}${query}`,
+  });
 };

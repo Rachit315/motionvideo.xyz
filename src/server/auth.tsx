@@ -15,15 +15,15 @@ import { sendEmail } from "./email";
 export const auth = createAuth(drizzle(env.DB, { schema }), {
   baseURL: env.BETTER_AUTH_URL,
   secret: env.BETTER_AUTH_SECRET,
-  // Open sign-up: any email gets a link, and the account is created the first
-  // time the link is used. Purchases are matched by email on the dashboard.
-  // The welcome flag comes from the client, so the thank-you template is only
+  // Open sign-up: any email gets a code, and the account is created the first
+  // time it is used. Purchases are matched by email on the dashboard. The
+  // welcome flag comes from the client, so the thank-you template is only
   // used when the email really has a paid order.
-  sendMagicLink: async (email, url, { welcome }) => {
+  sendSignInCode: async (email, code, { welcome }) => {
     const purchase = welcome ? await purchaseStatus(email) : null;
     if (purchase?.purchased) {
       const firstName = purchase.name?.trim().split(/\s+/u)[0] || null;
-      const props = { firstName, url };
+      const props = { firstName, code };
       await sendEmail({
         subject: welcomeSubject(props),
         to: email,
@@ -32,9 +32,9 @@ export const auth = createAuth(drizzle(env.DB, { schema }), {
       return;
     }
     await sendEmail({
-      subject: signInSubject,
+      subject: signInSubject(code),
       to: email,
-      ...(await renderEmail(<SignInEmail url={url} />)),
+      ...(await renderEmail(<SignInEmail code={code} />)),
     });
   },
 });

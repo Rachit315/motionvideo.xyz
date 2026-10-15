@@ -30,6 +30,7 @@ const MAX_UPLOAD = 300 * 2 ** 20;
 const DOWNLOAD_TIMEOUT = 10 * 60_000;
 const catalogPath = path.join(root, "src/data/motion-catalog.json");
 const directoriesPath = path.join(root, "src/data/resource-directories.json");
+const articlesPath = path.join(root, "src/data/x-articles.json");
 const wrangler = path.join(root, "node_modules/.bin/wrangler");
 const dryRun = process.argv.includes("--dry-run");
 
@@ -44,13 +45,8 @@ const EXTENSIONS = {
   webp: "image/webp",
 };
 
-// The What Ships proxy wraps the real file URL in `?url=`.
-const innerUrl = (url) => {
-  const parsed = new URL(url);
-  return parsed.searchParams.get("url") ?? url;
-};
 const extensionOf = (url) => {
-  const match = new URL(innerUrl(url)).pathname.match(/\.(?<ext>[a-z\d]+)$/iu);
+  const match = new URL(url).pathname.match(/\.(?<ext>[a-z\d]+)$/iu);
   const ext = match?.groups.ext.toLowerCase();
   return ext && Object.hasOwn(EXTENSIONS, ext) ? ext : null;
 };
@@ -64,6 +60,7 @@ const hashOf = (url) =>
 
 const catalog = JSON.parse(await readFile(catalogPath, "utf-8"));
 const directories = JSON.parse(await readFile(directoriesPath, "utf-8"));
+const articles = JSON.parse(await readFile(articlesPath, "utf-8"));
 
 // source URL → object key (first reference names it; duplicates share it).
 const jobs = new Map();
@@ -93,6 +90,9 @@ for (const [group, { entries }] of Object.entries({
     plan(entry.cover, `directories/${group}/${slugPart(entry.id)}`);
   }
 }
+for (const entry of articles.entries) {
+  plan(entry.cover, `directories/articles/${slugPart(entry.id)}`);
+}
 
 console.log(`${jobs.size} remote files referenced.`);
 if (dryRun) {
@@ -107,7 +107,9 @@ const mirrored = new Map();
 const failures = [];
 
 const exists = async (key) => {
-  const response = await fetch(`${ORIGIN}/${key}`, {
+  // A unique query string skips Cloudflare's edge cache: a plain HEAD for a
+  // not-yet-uploaded key gets its 404 cached, hiding the file for a while.
+  const response = await fetch(`${ORIGIN}/${key}?check=${Date.now()}`, {
     method: "HEAD",
     signal: AbortSignal.timeout(15_000),
   });
@@ -202,13 +204,14 @@ for (const video of catalog.videos) {
   video.poster = swap(video.poster);
   video.avatar = swap(video.avatar);
 }
-for (const group of [directories.tools, directories.studios]) {
+for (const group of [directories.tools, directories.studios, articles]) {
   for (const entry of group.entries) {
     entry.cover = entry.cover ? swap(entry.cover) : entry.cover;
   }
 }
 await writeFile(catalogPath, `${JSON.stringify(catalog, null, 2)}\n`);
 await writeFile(directoriesPath, `${JSON.stringify(directories, null, 2)}\n`);
+await writeFile(articlesPath, `${JSON.stringify(articles, null, 2)}\n`);
 
 console.log(
   `Mirrored ${mirrored.size}/${jobs.size}. Failed ${failures.length}.`

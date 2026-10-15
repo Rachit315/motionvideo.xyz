@@ -11,9 +11,9 @@ export default {
       fr: "Retirer des favoris",
     }),
     signInReason: t({
-      en: "Sign in or create a free account to bookmark videos.",
-      es: "Inicia sesión o crea una cuenta gratuita para guardar vídeos.",
-      fr: "Connectez-vous ou créez un compte gratuit pour enregistrer des vidéos.",
+      en: "Sign in or create a free account to save bookmarks.",
+      es: "Inicia sesión o crea una cuenta gratuita para guardar favoritos.",
+      fr: "Connectez-vous ou créez un compte gratuit pour enregistrer des favoris.",
     }),
   },
 } satisfies Dictionary;

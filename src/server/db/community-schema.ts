@@ -26,7 +26,11 @@ export const communitySubmissions = sqliteTable("community_submission", {
     mode: "timestamp_ms",
   }).notNull(),
   createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
-  status: text("status", { enum: ["pending"] })
+  // "featured": accepted into the catalog as `featuredItemId` (a video slug
+  // or directory entry id of the same kind). Set from /admin.
+  status: text("status", { enum: ["pending", "featured", "declined"] })
     .notNull()
     .default("pending"),
+  featuredItemId: text("featured_item_id"),
+  reviewedAt: integer("reviewed_at", { mode: "timestamp_ms" }),
 });

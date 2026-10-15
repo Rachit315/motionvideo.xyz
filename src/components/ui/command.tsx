@@ -1,5 +1,4 @@
 import { Command as CommandPrimitive } from "cmdk";
-import { cn } from "cn";
 import * as React from "react";
 import { Check } from "reicon-react/icons/Check";
 import { Search } from "reicon-react/icons/Search";
@@ -12,6 +11,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { InputGroup, InputGroupAddon } from "@/components/ui/input-group";
+import { cn } from "@/lib/utils";
 
 const Command = ({
   className,

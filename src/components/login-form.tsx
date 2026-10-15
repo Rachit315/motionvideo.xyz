@@ -1,7 +1,6 @@
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
-import { EnvelopeCheck } from "reicon-react/icons/EnvelopeCheck";
 
 import { Brand } from "@/components/brand";
 import { LocaleSwitcher } from "@/components/locale-switcher";
@@ -14,32 +13,33 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
+import { WELCOME_HEADER } from "@/constants/auth";
 import { ROUTES } from "@/constants/routes";
+import { track } from "@/lib/analytics";
 import { authClient } from "@/lib/auth-client";
 
-type LoginStatus = "idle" | "sending" | "sent";
-type LoginError = "invalid" | "sending" | "rate-limit";
+const CODE_LENGTH = 6;
+const textButtonClass =
+  "hover:text-foreground cursor-pointer underline underline-offset-4 transition-colors disabled:opacity-50";
 
-interface SignInPanelProps {
-  email: string;
-  error: string | null;
-  onEmailChange: (email: string) => void;
-  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
-  status: LoginStatus;
-  /** Replaces the default line under the title, e.g. why sign-in is needed. */
-  description?: ReactNode;
-}
+type LoginError = "sending" | "rate-limit" | "invalid-code" | "attempts";
 
-// Brand, a stacked content area, and the legal footer. Children share one grid
-// cell, so the area is as tall as the tallest child and never shifts.
+// Brand, the form, and the legal footer. It fills its container (the
+// /sign-in column or the dialog) and sets its own base text size, so both
+// render the same.
 export const AuthCard = ({ children }: { children: ReactNode }) => {
   const content = useIntlayer("account");
   return (
-    <div className="flex w-full max-w-sm flex-col gap-6">
+    <div className="flex w-full flex-col gap-6 text-base">
       <div className="flex justify-center">
         <Brand />
       </div>
-      <div className="grid">{children}</div>
+      {children}
       <FieldDescription className="flex items-center justify-center gap-2 text-center">
         <a href={ROUTES.TERMS}>{content.terms}</a>
         <span aria-hidden>·</span>
@@ -52,156 +52,244 @@ export const AuthCard = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const SignInPanel = ({
-  description,
-  email,
-  error,
-  hidden = false,
-  onEmailChange,
-  onSubmit,
-  status,
-}: SignInPanelProps & { hidden?: boolean }) => {
-  const content = useIntlayer("account");
-  const emailId = useId();
-  return (
-    <div
-      className={`col-start-1 row-start-1 flex flex-col gap-6 ${hidden ? "invisible **:transition-none" : ""}`}
-      aria-hidden={hidden}
-      inert={hidden}
-    >
-      <div className="flex flex-col items-center gap-3 text-center">
-        <h1 className="text-xl font-semibold">{content.signInTitle}</h1>
-        <FieldDescription className="text-center">
-          {description ?? content.signInDescription}
-        </FieldDescription>
-      </div>
-      <form onSubmit={onSubmit}>
-        <FieldGroup>
-          <Field>
-            <FieldLabel htmlFor={emailId}>{content.email}</FieldLabel>
-            <Input
-              className="h-9"
-              id={emailId}
-              type="email"
-              autoComplete="email"
-              required
-              placeholder={content.emailPlaceholder.value}
-              value={email}
-              onChange={(event) => onEmailChange(event.target.value)}
-            />
-          </Field>
-          {error && <FieldError>{error}</FieldError>}
-          <Field>
-            <Button type="submit" size="lg" disabled={status === "sending"}>
-              {status === "sending" ? content.sending : content.sendLink}
-            </Button>
-          </Field>
-        </FieldGroup>
-      </form>
-    </div>
-  );
-};
-
-// Title on top, icon and message centered in the remaining height.
-export const StatusPanel = ({
-  action,
-  children,
-  hidden = false,
-  icon,
+/** Title and one line, centred, at the top of each step. */
+export const AuthHeading = ({
   title,
+  children,
 }: {
-  action?: ReactNode;
-  children: ReactNode;
-  hidden?: boolean;
-  icon: ReactNode;
   title: ReactNode;
+  children: ReactNode;
 }) => (
-  <div
-    className={`col-start-1 row-start-1 flex flex-col items-center gap-6 text-center ${hidden ? "invisible **:transition-none" : ""}`}
-    aria-hidden={hidden}
-    inert={hidden}
-  >
+  <div className="flex flex-col items-center gap-3 text-center">
     <h1 className="text-xl font-semibold">{title}</h1>
-    <div className="flex flex-1 flex-col items-center justify-center gap-3">
-      {icon}
-      <FieldDescription className="text-center">{children}</FieldDescription>
-    </div>
-    {action}
+    <FieldDescription className="text-center">{children}</FieldDescription>
   </div>
 );
 
-export const LinkSentMessage = ({ email }: { email: string }) => {
-  const content = useIntlayer("account");
-  return (
-    <>
-      <span className="block">
-        {content.sentLink} <strong>{email}</strong>.
-      </span>
-      <span className="block">{content.expires}</span>
-    </>
-  );
-};
-
 /**
- * Email magic-link sign-in, used by `/sign-in` and the sign-in dialog. Any
- * email works: the account is created the first time its link is opened.
+ * Email-code sign-in, used by `/sign-in`, the sign-in dialog and `/welcome`:
+ * enter an email, receive a six-digit code, enter it. Any email works; the
+ * account is created on first sign-in. Once signed in it goes to
+ * `callbackURL` when given (the dialog closes itself instead).
  */
 export const LoginForm = ({
   callbackURL,
   description,
-  initialError = null,
+  presetEmail,
+  welcome = false,
+  title,
 }: {
-  /** Same-origin path the emailed link returns to once signed in. */
-  callbackURL: string;
+  callbackURL?: string;
+  /** Replaces the line under the first step's title. */
   description?: ReactNode;
-  initialError?: LoginError | null;
+  /** Skip the email step: send a code to this address straight away. */
+  presetEmail?: string;
+  /** Send the code in the post-checkout welcome email (/welcome). */
+  welcome?: boolean;
+  /** Replaces the code step's title. */
+  title?: ReactNode;
 }) => {
   const content = useIntlayer("account");
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<LoginStatus>("idle");
-  const [error, setError] = useState<LoginError | null>(initialError);
+  const emailId = useId();
+  const codeId = useId();
+  const [email, setEmail] = useState(presetEmail ?? "");
+  const [code, setCode] = useState("");
+  const [step, setStep] = useState<"email" | "code">(
+    presetEmail ? "code" : "email"
+  );
+  const [busy, setBusy] = useState(false);
+  const [resent, setResent] = useState(false);
+  const [error, setError] = useState<LoginError | null>(null);
+  const [verified, setVerified] = useState(false);
+  const codeForm = useRef<HTMLFormElement>(null);
 
-  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setStatus("sending");
+  const sendCode = async (address: string) => {
+    setBusy(true);
     setError(null);
-    const { error: sendError } = await authClient.signIn.magicLink({
-      email,
-      callbackURL,
-      errorCallbackURL: `${ROUTES.SIGN_IN}?redirect=${encodeURIComponent(callbackURL)}`,
+    const { error: sendError } = await authClient.emailOtp.sendVerificationOtp({
+      email: address,
+      type: "sign-in",
+      fetchOptions: welcome
+        ? { headers: { [WELCOME_HEADER]: "1" } }
+        : undefined,
     });
+    setBusy(false);
     if (sendError) {
-      setStatus("idle");
       setError(sendError.status === 429 ? "rate-limit" : "sending");
+      return false;
+    }
+    track("sign_in_code_sent", { welcome });
+    return true;
+  };
+
+  // /welcome: the buyer's email is known, so the code goes out on arrival.
+  const autoSent = useRef(false);
+  useEffect(() => {
+    if (presetEmail && !autoSent.current) {
+      autoSent.current = true;
+      void sendCode(presetEmail);
+    }
+  });
+
+  const onEmailSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (await sendCode(email)) {
+      setCode("");
+      setResent(false);
+      setStep("code");
+    }
+  };
+
+  const onCodeSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (busy || code.length !== CODE_LENGTH) {
       return;
     }
-    setStatus("sent");
+    setBusy(true);
+    setError(null);
+    const { error: verifyError } = await authClient.signIn.emailOtp({
+      email,
+      otp: code,
+    });
+    if (verifyError) {
+      setBusy(false);
+      if (verifyError.status === 429) {
+        setError("rate-limit");
+      } else if (verifyError.code === "TOO_MANY_ATTEMPTS") {
+        setError("attempts");
+      } else {
+        setError("invalid-code");
+      }
+      return;
+    }
+    setVerified(true);
+    track("sign_in");
+    if (callbackURL) {
+      // A full load, so every loader sees the new session.
+      window.location.assign(callbackURL);
+    }
+  };
+
+  const resend = async () => {
+    if (await sendCode(email)) {
+      setCode("");
+      setResent(true);
+    }
   };
 
   const errorMessages = {
-    invalid: content.invalidLink.value,
-    "rate-limit": content.rateLimited.value,
-    sending: content.sendError.value,
+    sending: content.sendError,
+    "rate-limit": content.rateLimited,
+    "invalid-code": content.invalidCode,
+    attempts: content.tooManyAttempts,
   };
 
   return (
     <AuthCard>
-      <SignInPanel
-        description={description}
-        email={email}
-        error={error && errorMessages[error]}
-        hidden={status === "sent"}
-        onEmailChange={setEmail}
-        onSubmit={onSubmit}
-        status={status}
-      />
-      <StatusPanel
-        hidden={status !== "sent"}
-        icon={<EnvelopeCheck aria-hidden className="size-8 text-black" />}
-        title={content.checkEmail}
-      >
-        <LinkSentMessage email={email} />
-      </StatusPanel>
+      {step === "email" ? (
+        <div className="flex flex-col gap-6">
+          <AuthHeading title={content.signInTitle}>
+            {description ?? content.signInDescription}
+          </AuthHeading>
+          <form onSubmit={onEmailSubmit}>
+            <FieldGroup>
+              <Field>
+                <FieldLabel htmlFor={emailId}>{content.email}</FieldLabel>
+                <Input
+                  className="h-9"
+                  id={emailId}
+                  type="email"
+                  autoComplete="email"
+                  required
+                  placeholder={content.emailPlaceholder.value}
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                />
+              </Field>
+              {error && <FieldError>{errorMessages[error]}</FieldError>}
+              <Field>
+                <Button type="submit" size="lg" disabled={busy}>
+                  {busy ? content.sending : content.sendCode}
+                </Button>
+              </Field>
+            </FieldGroup>
+          </form>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-6">
+          <AuthHeading title={title ?? content.checkEmail}>
+            {content.sentCode} <strong>{email}</strong>. {content.expires}
+          </AuthHeading>
+          <form ref={codeForm} onSubmit={onCodeSubmit}>
+            <FieldGroup>
+              <Field>
+                <FieldLabel htmlFor={codeId} className="sr-only">
+                  {content.code}
+                </FieldLabel>
+                <InputOTP
+                  id={codeId}
+                  maxLength={CODE_LENGTH}
+                  value={code}
+                  onChange={setCode}
+                  // Submits as soon as the last digit lands (typed or pasted).
+                  onComplete={() => codeForm.current?.requestSubmit()}
+                  aria-invalid={
+                    error === "invalid-code" || error === "attempts"
+                  }
+                  success={verified}
+                  // oxlint-disable-next-line jsx-a11y/no-autofocus -- the only field of this step
+                  autoFocus
+                  containerClassName="justify-center"
+                >
+                  <InputOTPGroup>
+                    {Array.from({ length: CODE_LENGTH }, (_, index) => (
+                      <InputOTPSlot key={index} index={index} />
+                    ))}
+                  </InputOTPGroup>
+                </InputOTP>
+              </Field>
+              {error && <FieldError>{errorMessages[error]}</FieldError>}
+              {resent && !error && (
+                <FieldDescription>{content.resent}</FieldDescription>
+              )}
+              <Field>
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={busy || code.length !== CODE_LENGTH}
+                >
+                  {busy ? content.signingIn : content.signIn}
+                </Button>
+              </Field>
+            </FieldGroup>
+          </form>
+          <FieldDescription className="flex items-center justify-center gap-2 text-center">
+            {!presetEmail && (
+              <>
+                <button
+                  type="button"
+                  className={textButtonClass}
+                  onClick={() => {
+                    setError(null);
+                    setStep("email");
+                  }}
+                >
+                  {content.changeEmail}
+                </button>
+                <span aria-hidden>·</span>
+              </>
+            )}
+            <button
+              type="button"
+              className={textButtonClass}
+              onClick={resend}
+              disabled={busy}
+            >
+              {content.resend}
+            </button>
+          </FieldDescription>
+        </div>
+      )}
     </AuthCard>
   );
 };

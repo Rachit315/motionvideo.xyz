@@ -36,9 +36,9 @@ const privacyContent = {
       fr: "Adresse e-mail",
     }),
     text7: t({
-      en: ": you give it to Dodo Payments at checkout, and to us when you sign in. We use it to find your orders at Dodo Payments, to send you a sign-in link, and to email you about delivery of your purchase. Sign-in remains limited to paid customers. Buying, sponsoring, or submitting work does not subscribe you to our newsletter; only submitting the newsletter signup form does.",
-      es: ": la facilitas a Dodo Payments al pagar y a nosotros al iniciar sesión. La utilizamos para encontrar tus pedidos en Dodo Payments, enviarte un enlace de inicio de sesión y escribirte sobre la entrega de tu compra. El acceso sigue limitado a clientes con una compra pagada. Comprar, patrocinar o enviar trabajo no te suscribe a nuestra newsletter; solo lo hace enviar el formulario de inscripción a la newsletter.",
-      fr: ": vous la communiquez à Dodo Payments lors du paiement et à nous lors de la connexion. Nous l’utilisons pour retrouver vos commandes chez Dodo Payments, vous envoyer un lien de connexion et vous informer de la livraison de votre achat. La connexion reste réservée aux clients ayant payé. Un achat, un parrainage ou une proposition ne vous inscrit pas à notre newsletter ; seul l’envoi du formulaire d’inscription à la newsletter le fait.",
+      en: ": you give it to Dodo Payments at checkout, and to us when you sign in. We use it to find your orders at Dodo Payments, to send you a sign-in code, and to email you about delivery of your purchase. Sign-in remains limited to paid customers. Buying, sponsoring, or submitting work does not subscribe you to our newsletter; only submitting the newsletter signup form does.",
+      es: ": la facilitas a Dodo Payments al pagar y a nosotros al iniciar sesión. La utilizamos para encontrar tus pedidos en Dodo Payments, enviarte un código de inicio de sesión y escribirte sobre la entrega de tu compra. El acceso sigue limitado a clientes con una compra pagada. Comprar, patrocinar o enviar trabajo no te suscribe a nuestra newsletter; solo lo hace enviar el formulario de inscripción a la newsletter.",
+      fr: ": vous la communiquez à Dodo Payments lors du paiement et à nous lors de la connexion. Nous l’utilisons pour retrouver vos commandes chez Dodo Payments, vous envoyer un code de connexion et vous informer de la livraison de votre achat. La connexion reste réservée aux clients ayant payé. Un achat, un parrainage ou une proposition ne vous inscrit pas à notre newsletter ; seul l’envoi du formulaire d’inscription à la newsletter le fait.",
     }),
     text8: t({
       en: "Order details",
@@ -46,9 +46,9 @@ const privacyContent = {
       fr: "Détails de la commande",
     }),
     text9: t({
-      en: ": Dodo Payments holds your orders and sponsorship subscriptions: what you bought, when, the amount, and your billing details. We read them from Dodo Payments when needed rather than storing our own copy.",
-      es: ": Dodo Payments conserva tus pedidos y suscripciones de patrocinio: qué compraste, cuándo, el importe y tus datos de facturación. Los consultamos en Dodo Payments cuando hace falta en lugar de almacenar una copia propia.",
-      fr: ": Dodo Payments conserve vos commandes et abonnements de parrainage : vos achats, leur date, leur montant et vos informations de facturation. Nous les consultons chez Dodo Payments au besoin plutôt que d’en stocker une copie.",
+      en: ": Dodo Payments holds your orders and sponsorship subscriptions: what you bought, when, the amount, and your billing details. Orders stay with Dodo Payments; we read them when needed. For sponsorships we keep a copy of the subscription's status, tier, renewal date, and the Dodo customer email and ID, plus the placement details you submit (name, link, tagline, logo and cover URLs, category) and our review decision.",
+      es: ": Dodo Payments conserva tus pedidos y suscripciones de patrocinio: qué compraste, cuándo, el importe y tus datos de facturación. Los pedidos se quedan en Dodo Payments y los consultamos cuando hace falta. De los patrocinios guardamos una copia del estado de la suscripción, el nivel, la fecha de renovación y el correo e ID de cliente de Dodo, además de los datos de la ubicación que envías (nombre, enlace, eslogan, URL del logotipo y de la portada, categoría) y nuestra decisión de revisión.",
+      fr: ": Dodo Payments conserve vos commandes et abonnements de parrainage : vos achats, leur date, leur montant et vos informations de facturation. Les commandes restent chez Dodo Payments et nous les consultons au besoin. Pour les parrainages, nous gardons une copie du statut de l’abonnement, de la formule, de la date de renouvellement, ainsi que de l’e-mail et de l’identifiant client Dodo, plus les informations d’emplacement que vous envoyez (nom, lien, accroche, URL du logo et de la couverture, catégorie) et notre décision de validation.",
     }),
     text10: t({
       en: "User record",
@@ -61,14 +61,14 @@ const privacyContent = {
       fr: ": lors de votre première connexion, nous enregistrons votre adresse e-mail et la date de création du compte.",
     }),
     text12: t({
-      en: "Sign-in links and sessions",
-      es: "Enlaces de inicio de sesión y sesiones",
-      fr: "Liens de connexion et sessions",
+      en: "Sign-in codes and sessions",
+      es: "Códigos de inicio de sesión y sesiones",
+      fr: "Codes de connexion et sessions",
     }),
     text13: t({
-      en: ": each emailed link carries a single-use token that works for 15 minutes. Once you sign in, a session cookie keeps you signed in for 7 days. It is HttpOnly and Secure, so page scripts can’t read it and it only travels over HTTPS. Alongside the session we store the IP address and user agent it was opened from. Signing out ends the session.",
-      es: ": cada enlace enviado por correo contiene un token de un solo uso válido durante 15 minutos. Una vez que inicias sesión, una cookie de sesión te mantiene conectado durante 7 días. Es HttpOnly y Secure, por lo que los scripts de la página no pueden leerla y solo se transmite por HTTPS. Junto con la sesión guardamos la dirección IP y el agente de usuario desde los que se abrió. Cerrar sesión pone fin a la sesión.",
-      fr: ": chaque lien envoyé par e-mail contient un jeton à usage unique valable 15 minutes. Une fois connecté, un cookie de session vous maintient connecté pendant 7 jours. Il est HttpOnly et Secure : les scripts de la page ne peuvent donc pas le lire et il ne transite que par HTTPS. Nous enregistrons avec la session l’adresse IP et l’agent utilisateur à partir desquels elle a été ouverte. La déconnexion met fin à la session.",
+      en: ": each emailed code is single-use, works for 10 minutes and allows 5 tries; we store only a hash of it. Once you sign in, a session cookie keeps you signed in for 7 days. It is HttpOnly and Secure, so page scripts can’t read it and it only travels over HTTPS. Alongside the session we store the IP address and user agent it was opened from. Signing out ends the session.",
+      es: ": cada código enviado por correo es de un solo uso, vale 10 minutos y admite 5 intentos; solo guardamos un hash del código. Una vez que inicias sesión, una cookie de sesión te mantiene conectado durante 7 días. Es HttpOnly y Secure, por lo que los scripts de la página no pueden leerla y solo se transmite por HTTPS. Junto con la sesión guardamos la dirección IP y el agente de usuario desde los que se abrió. Cerrar sesión pone fin a la sesión.",
+      fr: ": chaque code envoyé par e-mail est à usage unique, valable 10 minutes et limité à 5 essais ; nous n’en conservons qu’un hachage. Une fois connecté, un cookie de session vous maintient connecté pendant 7 jours. Il est HttpOnly et Secure : les scripts de la page ne peuvent donc pas le lire et il ne transite que par HTTPS. Nous enregistrons avec la session l’adresse IP et l’agent utilisateur à partir desquels elle a été ouverte. La déconnexion met fin à la session.",
     }),
     text14: t({
       en: "GitHub username",
@@ -102,9 +102,9 @@ const privacyContent = {
     }),
     text20: t({ en: "Analytics", es: "Analítica", fr: "Statistiques" }),
     text21: t({
-      en: ": we use Cloudflare Web Analytics to see how the site is used. When a page loads, a script sends the page address, the referring page, your browser’s user agent, and page load timings to Cloudflare, which reports them to us only as aggregate counts, such as visits per page, top referrers, and countries. It sets no cookies, uses no local storage, and does not fingerprint you or follow you across sites.",
-      es: ": utilizamos Cloudflare Web Analytics para saber cómo se utiliza el sitio. Al cargar una página, un script envía a Cloudflare la dirección de la página, la página de origen, el agente de usuario de tu navegador y los tiempos de carga. Cloudflare solo nos los comunica como recuentos agregados, como visitas por página, principales fuentes y países. No establece cookies, no usa almacenamiento local, no crea una huella digital ni te sigue entre sitios.",
-      fr: ": nous utilisons Cloudflare Web Analytics pour comprendre l’utilisation du site. Au chargement d’une page, un script envoie à Cloudflare l’adresse de la page, la page d’origine, l’agent utilisateur de votre navigateur et les temps de chargement. Cloudflare nous les communique uniquement sous forme de statistiques agrégées, telles que les visites par page, les principales sources et les pays. Ce service ne dépose aucun cookie, n’utilise pas de stockage local, ne crée pas d’empreinte numérique et ne vous suit pas d’un site à l’autre.",
+      en: ": we use PostHog to see which pages and features are used. It records page views and actions such as opening a video, copying a prompt, searching, or starting a checkout, with your browser, device type, approximate location from your IP address, and a random id stored in your browser. Inputs are never recorded. It is not used for advertising, and we don’t sell it.",
+      es: ": usamos PostHog para saber qué páginas y funciones se usan. Registra visitas y acciones como abrir un video, copiar un prompt, buscar o iniciar un pago, junto con tu navegador, tipo de dispositivo, ubicación aproximada según tu IP y un identificador aleatorio guardado en tu navegador. Nunca registra lo que escribes. No se usa para publicidad ni lo vendemos.",
+      fr: ": nous utilisons PostHog pour savoir quelles pages et fonctions sont utilisées. Il enregistre les pages vues et des actions comme ouvrir une vidéo, copier un prompt, chercher ou lancer un paiement, avec votre navigateur, le type d’appareil, une localisation approximative tirée de votre IP et un identifiant aléatoire stocké dans votre navigateur. Il n’enregistre jamais ce que vous saisissez. Rien n’est utilisé pour la publicité ni vendu.",
     }),
     text22: t({
       en: "We use this data to carry out the purchase or sponsorship you asked for, reply when you write to us, maintain the newsletter list you opted into, review community submissions and attribute accepted work, keep the site secure, understand which pages are read, and meet tax and accounting obligations through Dodo Payments. We do not use it for advertising tracking or marketing profiles.",
@@ -133,9 +133,9 @@ const privacyContent = {
     }),
     text27: t({ en: "Cloudflare", es: "Cloudflare", fr: "Cloudflare" }),
     text28: t({
-      en: ": hosts the site, our database (D1), the media storage (R2) behind assets.motionvideo.xyz, DNS, and email forwarding, and sees the IP address of every request, as any host does. It also runs the analytics described above, under",
-      es: ": aloja el sitio, nuestra base de datos (D1), el almacenamiento multimedia (R2) de assets.motionvideo.xyz, DNS y reenvío de correo, y ve la dirección IP de cada solicitud, como cualquier proveedor de alojamiento. También ofrece la analítica descrita anteriormente, conforme a",
-      fr: ": héberge le site, notre base de données (D1), le stockage des médias (R2) derrière assets.motionvideo.xyz, le DNS et le transfert d’e-mails, et voit l’adresse IP de chaque requête, comme tout hébergeur. Il fournit aussi les statistiques décrites ci-dessus, conformément à",
+      en: ": hosts the site, our database (D1), the media storage (R2) behind assets.motionvideo.xyz, DNS, and email forwarding, and sees the IP address of every request, as any host does. PostHog runs the analytics described above. Both act under",
+      es: ": aloja el sitio, nuestra base de datos (D1), el almacenamiento multimedia (R2) de assets.motionvideo.xyz, DNS y reenvío de correo, y ve la dirección IP de cada solicitud, como cualquier proveedor de alojamiento. PostHog ofrece la analítica descrita anteriormente. Ambos actúan conforme a",
+      fr: ": héberge le site, notre base de données (D1), le stockage des médias (R2) derrière assets.motionvideo.xyz, le DNS et le transfert d’e-mails, et voit l’adresse IP de chaque requête, comme tout hébergeur. PostHog fournit les statistiques décrites ci-dessus. Tous deux agissent conformément à",
     }),
     text29: t({
       en: "Cloudflare’s privacy policy",
@@ -144,9 +144,9 @@ const privacyContent = {
     }),
     text30: t({ en: "Resend", es: "Resend", fr: "Resend" }),
     text31: t({
-      en: ": delivers our emails, such as sign-in links, purchase delivery emails, and contact form messages.",
-      es: ": entrega nuestros correos, como enlaces de inicio de sesión, correos de entrega de compras y mensajes del formulario de contacto.",
-      fr: ": distribue nos e-mails, notamment les liens de connexion, les e-mails de livraison des achats et les messages du formulaire de contact.",
+      en: ": delivers our emails, such as sign-in codes, purchase delivery emails, and contact form messages.",
+      es: ": entrega nuestros correos, como códigos de inicio de sesión, correos de entrega de compras y mensajes del formulario de contacto.",
+      fr: ": distribue nos e-mails, notamment les codes de connexion, les e-mails de livraison des achats et les messages du formulaire de contact.",
     }),
     text32: t({ en: "GitHub", es: "GitHub", fr: "GitHub" }),
     text33: t({
@@ -155,19 +155,14 @@ const privacyContent = {
       fr: ": héberge le dépôt privé contenant le pack.",
     }),
     text34: t({
-      en: "Apart from the providers above, we share no personal data unless the law requires it or you have consented to public attribution of an accepted submission. Submission email addresses are never published. Business customers can read our",
-      es: "Aparte de los proveedores anteriores, no compartimos datos personales salvo que la ley lo exija o hayas consentido la atribución pública de una propuesta aceptada. Los correos de las propuestas nunca se publican. Los clientes empresariales pueden consultar nuestra",
-      fr: "En dehors des prestataires ci-dessus, nous ne partageons aucune donnée personnelle sauf si la loi l’exige ou si vous avez consenti à l’attribution publique d’une proposition acceptée. Les e-mails des propositions ne sont jamais publiés. Les clients professionnels peuvent consulter notre",
-    }),
-    text35: t({
-      en: "data processing addendum",
-      es: "adenda de tratamiento de datos",
-      fr: "avenant relatif au traitement des données",
+      en: "Apart from the providers above, we share no personal data unless the law requires it or you have consented to public attribution of an accepted submission. Submission email addresses are never published.",
+      es: "Aparte de los proveedores anteriores, no compartimos datos personales salvo que la ley lo exija o hayas consentido la atribución pública de una propuesta aceptada. Los correos de las propuestas nunca se publican.",
+      fr: "En dehors des prestataires ci-dessus, nous ne partageons aucune donnée personnelle sauf si la loi l’exige ou si vous avez consenti à l’attribution publique d’une proposition acceptée. Les e-mails des propositions ne sont jamais publiés.",
     }),
     text36: t({
-      en: "for more detail. These providers run infrastructure in several countries, so your data may be processed outside the country you live in; we rely on the transfer safeguards they offer.",
-      es: "para obtener más detalles. Estos proveedores operan infraestructura en varios países, por lo que tus datos pueden tratarse fuera del país donde vives; nos basamos en las garantías de transferencia que ofrecen.",
-      fr: "pour plus de détails. Ces prestataires exploitent des infrastructures dans plusieurs pays ; vos données peuvent donc être traitées hors de votre pays de résidence. Nous nous appuyons sur les garanties de transfert qu’ils proposent.",
+      en: "These providers run infrastructure in several countries, so your data may be processed outside the country you live in; we rely on the transfer safeguards they offer.",
+      es: "Estos proveedores operan infraestructura en varios países, por lo que tus datos pueden tratarse fuera del país donde vives; nos basamos en las garantías de transferencia que ofrecen.",
+      fr: "Ces prestataires exploitent des infrastructures dans plusieurs pays ; vos données peuvent donc être traitées hors de votre pays de résidence. Nous nous appuyons sur les garanties de transfert qu’ils proposent.",
     }),
     heading37: t({
       en: "3. How long",
@@ -175,9 +170,9 @@ const privacyContent = {
       fr: "3. Durées de conservation",
     }),
     text38: t({
-      en: "Sign-in links: 15 minutes.",
-      es: "Enlaces de inicio de sesión: 15 minutos.",
-      fr: "Liens de connexion : 15 minutes.",
+      en: "Sign-in codes: 10 minutes.",
+      es: "Códigos de inicio de sesión: 10 minutos.",
+      fr: "Codes de connexion : 10 minutes.",
     }),
     text39: t({
       en: "Sessions: 7 days, or until you sign out.",
@@ -200,9 +195,9 @@ const privacyContent = {
       fr: "Messages de contact : dans notre boîte de réception tant qu’ils nous aident à vous assister, et supprimés sur demande.",
     }),
     text43: t({
-      en: "Orders, subscriptions, and invoices: under Dodo Payments’ retention rules. Analytics: under Cloudflare’s.",
-      es: "Pedidos, suscripciones y facturas: según las reglas de conservación de Dodo Payments. Analítica: según las de Cloudflare.",
-      fr: "Commandes, abonnements et factures : selon les règles de conservation de Dodo Payments. Statistiques : selon celles de Cloudflare.",
+      en: "Orders, subscriptions, and invoices: under Dodo Payments’ retention rules. Analytics: under PostHog’s.",
+      es: "Pedidos, suscripciones y facturas: según las reglas de conservación de Dodo Payments. Analítica: según las de PostHog.",
+      fr: "Commandes, abonnements et factures : selon les règles de conservation de Dodo Payments. Statistiques : selon celles de PostHog.",
     }),
     heading44: t({
       en: "4. Your rights",
@@ -220,14 +215,24 @@ const privacyContent = {
       fr: "depuis l’adresse utilisée pour votre achat, votre parrainage, votre inscription à la newsletter ou votre proposition afin de retrouver le dossier concerné. Vous pouvez retirer votre consentement à la newsletter ou demander la suppression de votre proposition de la même manière. Pour les achats, nous transmettons aussi les demandes de suppression à Dodo Payments, qui conserve vos commandes. Vous pouvez déposer une plainte auprès de votre autorité locale de protection des données. Pour exclure vos visites de nos statistiques, bloquez",
     }),
     text47: t({
-      en: "static.cloudflareinsights.com",
-      es: "static.cloudflareinsights.com",
-      fr: "static.cloudflareinsights.com",
+      en: "us.i.posthog.com",
+      es: "us.i.posthog.com",
+      fr: "us.i.posthog.com",
     }),
     text48: t({
       en: "in your browser or with a content blocker.",
       es: "en tu navegador o con un bloqueador de contenido.",
       fr: "dans votre navigateur ou avec un bloqueur de contenu.",
+    }),
+    presenceHeading: t({
+      en: "Live presence",
+      es: "Presencia en vivo",
+      fr: "Présence en direct",
+    }),
+    presenceText: t({
+      en: "While a page is open, your browser keeps an anonymous connection to count how many people are online. With Live cursors on (the default; switch it off in the account menu or with L), your pointer position on the current page is shared with other visitors on that page, shown as an unlabelled coloured cursor. It is tied to a random id that lasts only as long as the tab, and nothing is stored.",
+      es: "Mientras una página está abierta, tu navegador mantiene una conexión anónima para contar cuántas personas hay en línea. Con Cursores en vivo activado (por defecto; desactívalo en el menú de cuenta o con L), la posición de tu puntero en la página actual se comparte con otros visitantes de esa página como un cursor de color sin nombre. Va ligada a un identificador aleatorio que dura lo que la pestaña, y no se guarda nada.",
+      fr: "Tant qu’une page est ouverte, votre navigateur garde une connexion anonyme pour compter les personnes en ligne. Avec Curseurs en direct activé (par défaut ; désactivez-le dans le menu du compte ou avec L), la position de votre pointeur sur la page est partagée avec les autres visiteurs de cette page, sous forme de curseur coloré sans nom. Elle est liée à un identifiant aléatoire qui ne dure que le temps de l’onglet, et rien n’est conservé.",
     }),
     heading49: t({ en: "5. Children", es: "5. Menores", fr: "5. Enfants" }),
     text50: t({
@@ -280,6 +285,21 @@ const privacyContent = {
       en: "Community submissions and attribution consent: while needed for moderation and attribution of accepted work, or until you request deletion using the contact address below.",
       es: "Propuestas y consentimiento de atribución: mientras sean necesarios para la moderación y atribución del trabajo aceptado, o hasta que solicites su eliminación en la dirección de contacto indicada abajo.",
       fr: "Propositions et consentement à l’attribution : tant que nécessaires à la modération et à l’attribution des travaux acceptés, ou jusqu’à votre demande de suppression à l’adresse de contact ci-dessous.",
+    }),
+    feedbackHeading: t({
+      en: "Site feedback",
+      es: "Comentarios sobre el sitio",
+      fr: "Avis sur le site",
+    }),
+    feedbackData: t({
+      en: ": when you send feedback, we store your message, the optional rating you picked, the page you sent it from, the time, and either your account email (if signed in) or the email you chose to add, in Cloudflare D1, and email a copy to our inbox. We use it only to improve the site and to reply if you asked.",
+      es: ": cuando envías comentarios, guardamos tu mensaje, la valoración opcional que elegiste, la página desde la que lo enviaste, la fecha y el correo de tu cuenta (si iniciaste sesión) o el correo que decidiste añadir, en Cloudflare D1, y enviamos una copia a nuestro buzón. Solo los usamos para mejorar el sitio y responderte si lo pediste.",
+      fr: ": lorsque vous envoyez un avis, nous enregistrons votre message, la note facultative choisie, la page d’envoi, la date et l’e-mail de votre compte (si vous êtes connecté) ou celui que vous avez choisi d’ajouter, dans Cloudflare D1, et en envoyons une copie à notre boîte. Nous l’utilisons uniquement pour améliorer le site et vous répondre si vous l’avez demandé.",
+    }),
+    feedbackRetention: t({
+      en: "Site feedback: while it helps us improve the site, or until you request deletion using the contact address below.",
+      es: "Comentarios sobre el sitio: mientras nos ayuden a mejorarlo, o hasta que solicites su eliminación en la dirección de contacto indicada abajo.",
+      fr: "Avis sur le site : tant qu’ils nous aident à l’améliorer, ou jusqu’à votre demande de suppression à l’adresse de contact ci-dessous.",
     }),
   },
 } satisfies Dictionary;

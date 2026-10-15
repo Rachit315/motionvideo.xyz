@@ -1,6 +1,7 @@
-import { cn } from "cn";
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
+
+import { cn } from "@/lib/utils";
 
 /**
  * A horizontally scrolling `<nav>` whose edges fade out only where more

@@ -1,7 +1,6 @@
 {
   "importedAt": "2026-10-09T09:35:15.947Z",
   "tools": {
-    "source": "https://whatships.com/tools/",
     "entries": [
       {
         "id": "osmo",
@@ -748,6 +747,126 @@
         "cover": "https://assets.motionvideo.xyz/directories/tools/minimax-h3-video-reverse-676e0a4c3c.webp"
       },
       {
+        "id": "huashu-art-motion",
+        "name": "Huashu Art Motion",
+        "description": "Make paintings move in 35 art styles",
+        "category": "Skills",
+        "url": "https://github.com/alchaincyf/huashu-art-motion",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/huashu-art-motion-15735abaf5.webp"
+      },
+      {
+        "id": "motionmaxxing",
+        "name": "motionmaxxing",
+        "description": "Turns AI slop into designer-level films",
+        "category": "Skills",
+        "url": "https://github.com/Tejashmakwana/motionmaxxing",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/motionmaxxing-ccef9c42ca.webp"
+      },
+      {
+        "id": "product-launch-motion",
+        "name": "Product Launch Motion",
+        "description": "Dribbble-level launch videos from code",
+        "category": "Skills",
+        "url": "https://github.com/AbubakrChan/product-launch-motion",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/product-launch-motion-4e131e171a.webp"
+      },
+      {
+        "id": "motion-graphics-skills",
+        "name": "Motion Graphics Skills",
+        "description": "13 skills for launch-grade motion graphics",
+        "category": "Skills",
+        "url": "https://github.com/charlie947/motion-graphics-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/motion-graphics-skills-94d56b2eb8.webp"
+      },
+      {
+        "id": "claude-motion-design",
+        "name": "Claude Motion Design",
+        "description": "Motion videos in HTML, Playwright and ffmpeg",
+        "category": "Skills",
+        "url": "https://github.com/howseen-ai/claude-motion-design",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/claude-motion-design-c83492e60e.webp"
+      },
+      {
+        "id": "herk-edit-kit",
+        "name": "Herk Edit Kit",
+        "description": "Edit reels and Shorts with your agent",
+        "category": "Skills",
+        "url": "https://github.com/nateherkai/herk-edit-kit",
+        "cover": null
+      },
+      {
+        "id": "barty-motion-graphics",
+        "name": "Motion Graphics",
+        "description": "Motion-graphics skills for Claude Code and Codex",
+        "category": "Skills",
+        "url": "https://github.com/Barty-Bart/motion-graphics",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/barty-motion-graphics-eb77b248a5.webp"
+      },
+      {
+        "id": "animate",
+        "name": "animate",
+        "description": "Procedural canvas animation in any style",
+        "category": "Skills",
+        "url": "https://github.com/cth9191/animate",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/animate-6bb8ef4cfb.webp"
+      },
+      {
+        "id": "claude-motion",
+        "name": "claude-motion",
+        "description": "A motion design toolkit for coding agents",
+        "category": "Skills",
+        "url": "https://github.com/whaleyxbt/claude-motion",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/claude-motion-d7bb2a9ae4.webp"
+      },
+      {
+        "id": "claude-remotion-skill",
+        "name": "Claude Remotion Skill",
+        "description": "Edit and create videos with Remotion",
+        "category": "Skills",
+        "url": "https://github.com/haidrrrry/claude-remotion-skill",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/claude-remotion-skill-c89560bb5b.webp"
+      },
+      {
+        "id": "lottie-motion-design-skill",
+        "name": "Motion Design Skill",
+        "description": "Timing, easing and choreography for agents",
+        "category": "Skills",
+        "url": "https://github.com/LottieFiles/motion-design-skill",
+        "cover": null
+      },
+      {
+        "id": "gsap-skills",
+        "name": "GSAP Skills",
+        "description": "Official GSAP skills for coding agents",
+        "category": "Skills",
+        "url": "https://github.com/greensock/gsap-skills",
+        "cover": null
+      },
+      {
+        "id": "hyperframes-community-skills",
+        "name": "HyperFrames Community Skills",
+        "description": "Community skills for HyperFrames workflows",
+        "category": "Skills",
+        "url": "https://github.com/heygen-com/hyperframes-community-skills",
+        "cover": null
+      },
+      {
+        "id": "awesome-ai-motion",
+        "name": "Awesome AI Motion",
+        "description": "637 motion techniques with an agent skill",
+        "category": "Skills",
+        "url": "https://github.com/gongnyang/awesome-ai-motion",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/awesome-ai-motion-890a9ee704.webp"
+      },
+      {
+        "id": "video-skills",
+        "name": "Video Skills",
+        "description": "Storyboard-first product videos, narrated by you",
+        "category": "Skills",
+        "url": "https://github.com/every-app/video-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/video-skills-ad41b5c459.webp"
+      },
+      {
         "id": "hyperframes",
         "name": "HyperFrames",
         "description": "The video editor built for agents",
@@ -766,7 +885,6 @@
     ]
   },
   "studios": {
-    "source": "https://whatships.com/studios/",
     "entries": [
       {
         "id": "pixelframe",

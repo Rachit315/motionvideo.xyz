@@ -1,9 +1,10 @@
-import { cn } from "cn";
 import MediaThemeSutro from "player.style/sutro/react";
 import { useEffect, useRef } from "react";
 import { useIntlayer } from "react-intlayer";
 import { Cursor } from "reicon-react/icons/Cursor";
 import { Play } from "reicon-react/icons/Play";
+
+import { cn } from "@/lib/utils";
 
 interface DemoFrameProps {
   /** Rendered video URL. Empty shows the animated placeholder. */

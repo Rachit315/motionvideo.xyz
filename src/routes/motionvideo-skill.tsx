@@ -1,5 +1,4 @@
 import { createFileRoute, getRouteApi } from "@tanstack/react-router";
-import { cn } from "cn";
 import { useIntlayer } from "react-intlayer";
 
 import { DemoFrame } from "@/components/demo-frame";
@@ -19,6 +18,7 @@ import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { AGENTS, RENDERERS } from "@/constants/stack";
 import { VIDEOS } from "@/constants/videos";
+import { cn } from "@/lib/utils";
 import { faqJsonLd, productJsonLd } from "@/seo/json-ld";
 import { createMetadata } from "@/seo/metadata";
 import { getLandingData, getOffer } from "@/server/functions";
@@ -62,7 +62,7 @@ const Landing = () => {
                 <a
                   href="#pricing"
                   className={buttonVariants({
-                    size: "cta",
+                    size: "xl",
                     variant: "gradient",
                   })}
                 >

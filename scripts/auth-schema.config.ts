@@ -8,7 +8,7 @@ import { createAuth } from "../src/server/auth-config";
 export const auth = createAuth(drizzle({} as D1Database), {
   baseURL: "http://localhost:3000",
   secret: "cli-only-secret-cli-only-secret-00",
-  sendMagicLink: async () => {
+  sendSignInCode: async () => {
     /* empty */
   },
 });

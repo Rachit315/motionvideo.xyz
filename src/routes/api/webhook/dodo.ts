@@ -1,6 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
+import type { UnwrapWebhookEvent } from "dodopayments/resources/webhooks";
 
 import { getDodo } from "@/server/dodo";
+import { syncJobPayment } from "@/server/jobs";
+import { syncSponsorship } from "@/server/sponsorships";
+
+type SubscriptionEvent = Extract<
+  UnwrapWebhookEvent,
+  { type: `subscription.${string}` }
+>;
+
+const isSubscriptionEvent = (
+  event: UnwrapWebhookEvent
+): event is SubscriptionEvent => event.type.startsWith("subscription.");
 
 // Registered in Dodo as `https://motionvideo.xyz/api/webhook/dodo` by
 // `pnpm dodo:setup --live`. Endpoints are business-wide, so deliveries for the
@@ -13,10 +25,11 @@ export const Route = createFileRoute("/api/webhook/dodo")({
         // The signature covers the raw body; never re-serialize JSON.
         const body = await request.text();
 
+        let event: UnwrapWebhookEvent;
         try {
           // Passing `headers` is what makes `unwrap` verify the signature
           // (Standard Webhooks: id, timestamp, HMAC) before parsing.
-          getDodo().webhooks.unwrap(body, {
+          event = getDodo().webhooks.unwrap(body, {
             headers: {
               "webhook-id": request.headers.get("webhook-id") ?? "",
               "webhook-signature":
@@ -29,10 +42,34 @@ export const Route = createFileRoute("/api/webhook/dodo")({
           return Response.json({ received: false }, { status: 401 });
         }
 
-        // Verified events need no fulfillment here: Dodo's GitHub entitlement
-        // sends the repository invite on `payment.succeeded` and removes it on
-        // refund, sign-in reads paid orders from Dodo, and sponsor placements
-        // are curated by hand from `subscription.*` events in the dashboard.
+        // Sponsor subscriptions are mirrored into D1 for /sponsorships and the
+        // live placements. The sync re-reads the subscription from the API, so
+        // redeliveries and out-of-order events are harmless, and a failure
+        // returns 500 for Dodo to retry. Everything else needs no fulfillment
+        // here: Dodo's GitHub entitlement sends the repository invite on
+        // `payment.succeeded` and removes it on refund, and sign-in reads paid
+        // orders from Dodo.
+        if (isSubscriptionEvent(event)) {
+          try {
+            await syncSponsorship(event.data.subscription_id);
+          } catch (error) {
+            console.error("Sponsorship sync failed", error);
+            return Response.json({ received: false }, { status: 500 });
+          }
+        }
+        // Job posts: a payment moves its draft to review; a full refund pulls
+        // the listing. Same re-read-from-the-API approach as sponsorships.
+        if (
+          event.type === "payment.succeeded" ||
+          event.type === "refund.succeeded"
+        ) {
+          try {
+            await syncJobPayment(event.data.payment_id);
+          } catch (error) {
+            console.error("Job payment sync failed", error);
+            return Response.json({ received: false }, { status: 500 });
+          }
+        }
         return Response.json({ received: true });
       },
     },

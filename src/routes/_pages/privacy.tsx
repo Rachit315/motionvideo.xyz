@@ -1,4 +1,4 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
 
 import {
@@ -74,6 +74,10 @@ const Privacy = () => {
             </strong>
             {copy.submissionData}
           </li>
+          <li>
+            <strong className="text-foreground">{copy.feedbackHeading}</strong>
+            {copy.feedbackData}
+          </li>
         </PageList>
         <p>{copy.text22}</p>
       </PageSection>
@@ -109,11 +113,7 @@ const Privacy = () => {
           </li>
         </PageList>
         <p>
-          {copy.text34}{" "}
-          <Link to="/dpa" className={linkClass}>
-            {copy.text35}
-          </Link>{" "}
-          {copy.text36}
+          {copy.text34} {copy.text36}
         </p>
       </PageSection>
 
@@ -127,6 +127,7 @@ const Privacy = () => {
           <li>{copy.text43}</li>
           <li>{copy.newsletterRetention}</li>
           <li>{copy.submissionRetention}</li>
+          <li>{copy.feedbackRetention}</li>
         </PageList>
       </PageSection>
 
@@ -135,6 +136,10 @@ const Privacy = () => {
           {copy.text45} <SupportEmail /> {copy.text46}{" "}
           <code>{copy.text47}</code> {copy.text48}
         </p>
+      </PageSection>
+
+      <PageSection title={copy.presenceHeading.value}>
+        <p>{copy.presenceText}</p>
       </PageSection>
 
       <PageSection title={copy.heading49.value}>

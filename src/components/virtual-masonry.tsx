@@ -16,6 +16,8 @@ export interface MasonryItem {
   key: string;
   /** width / height of fixed-ratio media; omit to measure the rendered item. */
   aspectRatio?: number;
+  /** Place in this lane (0-based) instead of the shortest one. */
+  lane?: number;
   node: ReactNode;
 }
 
@@ -47,7 +49,7 @@ const initialLayoutScript = (items: MasonryItem[]) => `
 (() => {
   ${layoutSource.replace("export default ", "")}
   const grid = document.currentScript.previousElementSibling;
-  const items = ${JSON.stringify(items.map(({ key, aspectRatio }) => ({ key, aspectRatio }))).replaceAll("<", "\\u003c")};
+  const items = ${JSON.stringify(items.map(({ key, aspectRatio, lane }) => ({ key, aspectRatio, lane }))).replaceAll("<", "\\u003c")};
   const width = grid.clientWidth;
   const heights = {};
   const cards = [...grid.children];

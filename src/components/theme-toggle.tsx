@@ -7,52 +7,50 @@ import { Kbd } from "@/components/ui/kbd";
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useHotkey } from "@/hooks/use-hotkey";
+import { SHORTCUT_KEYS, keyLabel } from "@/constants/shortcuts";
+import { track } from "@/lib/analytics";
 import { THEME_KEY, setThemeColor } from "@/lib/theme";
-
-const HOTKEY = "d";
 
 export const toggleTheme = () => {
   const dark = !document.documentElement.classList.contains("dark");
   document.documentElement.classList.toggle("dark", dark);
   setThemeColor(dark);
   localStorage.setItem(THEME_KEY, dark ? "dark" : "light");
+  track("theme_toggle", { theme: dark ? "dark" : "light" });
 };
 
-export const ThemeToggle = ({ hotkey = false }: { hotkey?: boolean }) => {
+// Renders a tooltip; place it inside a TooltipProvider (the footer's).
+export const ThemeToggle = () => {
   const content = useIntlayer("theme-toggle");
-  useHotkey(HOTKEY, toggleTheme, { enabled: hotkey });
+  const shortcut = keyLabel(SHORTCUT_KEYS.theme);
 
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger
-          render={
-            <button
-              type="button"
-              aria-label={content.toggleTheme.value}
-              aria-keyshortcuts={HOTKEY.toUpperCase()}
-              className={buttonVariants({ size: "icon", variant: "subtle" })}
-            />
-          }
-          onClick={toggleTheme}
-        >
-          <Sun
-            aria-hidden="true"
-            className="size-[18px] transition-transform duration-500 motion-reduce:transition-none dark:hidden"
+    <Tooltip>
+      <TooltipTrigger
+        render={
+          <button
+            type="button"
+            aria-label={content.toggleTheme.value}
+            aria-keyshortcuts={shortcut}
+            className={buttonVariants({ size: "icon", variant: "subtle" })}
           />
-          <Moon
-            aria-hidden="true"
-            className="hidden size-[18px] transition-transform duration-500 motion-reduce:transition-none dark:block"
-          />
-        </TooltipTrigger>
-        <TooltipContent side="top">
-          {content.toggleTheme} <Kbd>{HOTKEY.toUpperCase()}</Kbd>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+        }
+        onClick={toggleTheme}
+      >
+        <Sun
+          aria-hidden="true"
+          className="size-[18px] transition-transform duration-500 motion-reduce:transition-none dark:hidden"
+        />
+        <Moon
+          aria-hidden="true"
+          className="hidden size-[18px] transition-transform duration-500 motion-reduce:transition-none dark:block"
+        />
+      </TooltipTrigger>
+      <TooltipContent side="top">
+        {content.toggleTheme} <Kbd>{shortcut}</Kbd>
+      </TooltipContent>
+    </Tooltip>
   );
 };

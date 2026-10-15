@@ -74,6 +74,21 @@ const PRODUCTS = [
       type: "recurring_price",
     },
   })),
+  ...[
+    ["STANDARD", "Standard", 9900],
+    ["FEATURED", "Featured", 19_900],
+  ].map(([key, plan, cents]) => ({
+    envKey: `DODO_PRODUCT_JOB_${key}`,
+    name: `MotionVideo Job Post — ${plan}`,
+    description: `${plan} job listing on motionvideo.xyz/jobs for 30 days from approval. One-time payment; nothing renews.`,
+    price: {
+      currency: "USD",
+      price: cents,
+      purchasing_power_parity: false,
+      tax_inclusive: false,
+      type: "one_time_price",
+    },
+  })),
 ];
 
 const WEBHOOK_EVENTS = [
@@ -86,6 +101,9 @@ const WEBHOOK_EVENTS = [
   "subscription.on_hold",
   "subscription.cancelled",
   "subscription.expired",
+  "subscription.failed",
+  "subscription.plan_changed",
+  "subscription.updated",
   "entitlement_grant.delivered",
   "entitlement_grant.failed",
   "entitlement_grant.revoked",
@@ -280,7 +298,18 @@ let webhookSecret = null;
 if (webhookUrl) {
   let hook = await findWebhook(webhookUrl);
   if (hook) {
-    log(`webhook   found    ${hook.id}  ${hook.url}`);
+    // Existing endpoints keep their filter; add events introduced since. An
+    // empty filter already receives every event.
+    const filter = hook.filter_types ?? [];
+    const missing = WEBHOOK_EVENTS.filter((type) => !filter.includes(type));
+    if (filter.length > 0 && missing.length > 0) {
+      hook = await dodo.webhooks.update(hook.id, {
+        filter_types: [...filter, ...missing],
+      });
+      log(`webhook   updated  ${hook.id}  +${missing.join(" +")}`);
+    } else {
+      log(`webhook   found    ${hook.id}  ${hook.url}`);
+    }
   } else {
     hook = await dodo.webhooks.create({
       description: "MotionVideo",

@@ -16,7 +16,7 @@
       "/about",
       "/brand",
       "/contact",
-      "/dpa",
+      "/license",
       "/privacy",
       "/refunds",
       "/terms",
@@ -36,11 +36,15 @@
   "vars": {
     "BETTER_AUTH_URL": "https://motionvideo.xyz",
     "EMAIL_FROM": "\"Aniket @ MotionVideo\" <hello@motionvideo.xyz>",
+    "ADMIN_EMAILS": "hello@motionvideo.xyz,pawaraniket508@gmail.com",
     "DODO_PAYMENTS_ENVIRONMENT": "live_mode",
     "DODO_PRODUCT_SKILL": "pdt_0NpNXaPWFYUJrFMSsud2d",
     "DODO_PRODUCT_SPONSOR_DIAMOND": "pdt_0NpNXaRMKrltVcSg5Fp4u",
     "DODO_PRODUCT_SPONSOR_GOLD": "pdt_0NpNXaSJzUiH9v10l0QNb",
     "DODO_PRODUCT_SPONSOR_SILVER": "pdt_0NpNXaTf7ZtRfRYuqmg9v",
+    // Empty until `pnpm dodo:setup --live` creates the job products.
+    "DODO_PRODUCT_JOB_STANDARD": "",
+    "DODO_PRODUCT_JOB_FEATURED": "",
     "DODO_LAUNCH_DISCOUNT_ID": "dsc_0NpNXaUrA1aatsq1xXVwH",
   },
   // Contact form: 3 messages per minute per IP.
@@ -51,6 +55,15 @@
       "simple": { "limit": 3, "period": 60 },
     },
   ],
+  // Live presence (online count and cursors): one Durable Object instance
+  // holds every visitor's WebSocket (src/server/presence.ts).
+  "durable_objects": {
+    "bindings": [{ "name": "PRESENCE", "class_name": "Presence" }],
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Presence"] }],
+  // Logos and covers uploaded on /jobs/post and /sponsorships, under the
+  // `uploads/` prefix of the media bucket, served by the Worker at /uploads/.
+  "r2_buckets": [{ "binding": "UPLOADS", "bucket_name": "motionvideo-assets" }],
   "d1_databases": [
     {
       "binding": "DB",
@@ -64,11 +77,14 @@
     "vars": {
       "BETTER_AUTH_URL": "https://feat-motionvideo-v2-motionvideo.pawaraniket508.workers.dev",
       "EMAIL_FROM": "\"MotionVideo Preview\" <hello@motionvideo.xyz>",
+      "ADMIN_EMAILS": "hello@motionvideo.xyz,pawaraniket508@gmail.com",
       "DODO_PAYMENTS_ENVIRONMENT": "test_mode",
       "DODO_PRODUCT_SKILL": "pdt_0NpNXXE9rdItzg65RmPaw",
       "DODO_PRODUCT_SPONSOR_DIAMOND": "pdt_0NpNXXG0iRvbK4qeG5UeR",
       "DODO_PRODUCT_SPONSOR_GOLD": "pdt_0NpNXXHq1i7yhGCTgtVnW",
       "DODO_PRODUCT_SPONSOR_SILVER": "pdt_0NpNXXIhhKRcIWkr9Fc9U",
+      "DODO_PRODUCT_JOB_STANDARD": "pdt_0Npm8wZZC70CtLPJI3lSL",
+      "DODO_PRODUCT_JOB_FEATURED": "pdt_0Npm8wx91Hhgl33rDpqUH",
       "DODO_LAUNCH_DISCOUNT_ID": "dsc_0NpNXXKp7dDOvjem1ATIH",
     },
     "ratelimits": [
@@ -77,6 +93,13 @@
         "namespace_id": "1002",
         "simple": { "limit": 3, "period": 60 },
       },
+    ],
+    "durable_objects": {
+      "bindings": [{ "name": "PRESENCE", "class_name": "Presence" }],
+    },
+    // Create once: `wrangler r2 bucket create motionvideo-assets-preview`.
+    "r2_buckets": [
+      { "binding": "UPLOADS", "bucket_name": "motionvideo-assets-preview" },
     ],
     "d1_databases": [
       {
@@ -91,6 +114,12 @@
   "env": {
     "preview": {
       "routes": [],
+      "durable_objects": {
+        "bindings": [{ "name": "PRESENCE", "class_name": "Presence" }],
+      },
+      "r2_buckets": [
+        { "binding": "UPLOADS", "bucket_name": "motionvideo-assets-preview" },
+      ],
       "d1_databases": [
         {
           "binding": "DB",

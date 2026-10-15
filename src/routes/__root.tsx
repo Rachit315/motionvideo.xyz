@@ -2,6 +2,10 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
+import { ClickTracking } from "@/components/click-tracking";
+import { FeedbackDialogProvider } from "@/components/feedback-dialog";
+import { KeyboardShortcutsProvider } from "@/components/keyboard-shortcuts";
+import { LivePresenceProvider } from "@/components/live-presence";
 import { LocaleProvider } from "@/components/locale-provider";
 import { NotFound } from "@/components/not-found";
 import { ProgressiveBlur } from "@/components/progressive-blur";
@@ -22,10 +26,17 @@ const RootDocument = ({ children }: { children: React.ReactNode }) => (
     <body className="flex min-h-svh flex-col antialiased">
       <LocaleProvider>
         <SignInDialogProvider>
-          <SoundEffects>{children}</SoundEffects>
+          <FeedbackDialogProvider>
+            <KeyboardShortcutsProvider>
+              <LivePresenceProvider>
+                <SoundEffects>{children}</SoundEffects>
+              </LivePresenceProvider>
+            </KeyboardShortcutsProvider>
+          </FeedbackDialogProvider>
         </SignInDialogProvider>
       </LocaleProvider>
       <ProgressiveBlur />
+      <ClickTracking />
       <TanStackDevtools
         config={{
           position: "bottom-right",

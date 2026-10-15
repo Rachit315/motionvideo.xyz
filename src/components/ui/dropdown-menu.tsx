@@ -1,8 +1,9 @@
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
-import { cn } from "cn";
 import * as React from "react";
 import { Check } from "reicon-react/icons/Check";
 import { ChevronRight } from "reicon-react/icons/ChevronRight";
+
+import { cn } from "@/lib/utils";
 
 const DropdownMenu = ({ ...props }: MenuPrimitive.Root.Props) => (
   <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />

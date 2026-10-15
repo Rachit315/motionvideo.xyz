@@ -1,14 +1,15 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { cn } from "cn";
 import { useState } from "react";
 import { useIntlayer } from "react-intlayer";
 
 import { DeleteAccountDialog } from "@/components/delete-account-dialog";
+import { PageMain, AccountPageHeader } from "@/components/page";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
 import { useEmailUpdates } from "@/hooks/use-email-updates";
+import { cn } from "@/lib/utils";
 import { createMetadata } from "@/seo/metadata";
 import { getSubmitter } from "@/server/community-functions";
 
@@ -20,16 +21,8 @@ const Settings = () => {
   return (
     <>
       <SiteHeader signedIn />
-      <main
-        id="main-content"
-        className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 px-4 pt-6 pb-16 sm:px-6"
-      >
-        <header className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            {content.title}
-          </h1>
-          <p className="text-muted-foreground text-sm">{content.intro}</p>
-        </header>
+      <PageMain width="narrow">
+        <AccountPageHeader title={content.title} intro={content.intro} />
         <section
           aria-label={content.general.value}
           className="bg-card shadow-outline flex flex-col gap-1 rounded-2xl p-5"
@@ -87,7 +80,7 @@ const Settings = () => {
             {emailUpdates ? content.on : content.off}
           </p>
         </section>
-      </main>
+      </PageMain>
       <SiteFooter />
       <DeleteAccountDialog open={deleteOpen} onOpenChange={setDeleteOpen} />
     </>

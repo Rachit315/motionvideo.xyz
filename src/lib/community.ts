@@ -40,13 +40,17 @@ const honeypotSchema = z.string().max(0).optional();
 
 // Only public HTTPS website addresses, without embedded credentials. Submitted
 // URLs are stored for moderation, never fetched by the server.
-const publicUrlSchema = z
+export const publicUrlSchema = z
   .string()
   .trim()
   .max(2048)
   .pipe(z.url())
   .refine((value) => {
-    const url = new URL(value);
+    // Zod still runs this refinement after z.url() has rejected the value.
+    const url = URL.parse(value);
+    if (!url) {
+      return false;
+    }
     const hostname = url.hostname.toLowerCase().replace(/\.$/u, "");
     return (
       url.protocol === "https:" &&
@@ -81,6 +85,11 @@ export const communitySubmissionSchema = z
   );
 
 export type SubmissionKind = (typeof SUBMISSION_KINDS)[number];
+
+// Moderation outcome, set from /admin/submissions.
+export const SUBMISSION_STATUSES = ["pending", "featured", "declined"] as const;
+export type SubmissionStatus = (typeof SUBMISSION_STATUSES)[number];
+
 export type CommunityResult =
   | { ok: true }
   | { ok: false; error: "rate-limit" | "storage" };

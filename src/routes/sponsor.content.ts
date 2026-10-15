@@ -4,7 +4,12 @@ import type { Dictionary } from "intlayer";
 export default {
   key: "sponsor",
   content: {
-    title: t({ en: "Sponsor", es: "Patrocinar", fr: "Sponsoriser" }),
+    seePlans: t({ en: "See plans", es: "Ver planes", fr: "Voir les formules" }),
+    limited: t({
+      en: "Limited availability",
+      es: "Disponibilidad limitada",
+      fr: "Places limitées",
+    }),
     pitch: t({
       en: "Reach the people who make product films and motion design with AI and code.",
       es: "Llega a quienes crean vídeos de producto y motion design con IA y código.",
@@ -21,43 +26,37 @@ export default {
       fr: "Merci de sponsoriser MotionVideo.",
     }),
     thanksBody: t({
-      en: "Your plan is active. Send a square mark, a name, one line of copy, and a link to",
-      es: "Tu plan está activo. Envía un logotipo cuadrado, un nombre, una línea de texto y un enlace a",
-      fr: "Votre formule est active. Envoyez un logo carré, un nom, une ligne de texte et un lien à",
+      en: "Your plan is active. Add your mark, name, link, and one line of copy on your Sponsorships page; the placement goes live once we have reviewed it.",
+      es: "Tu plan está activo. Añade tu logotipo, nombre, enlace y una línea de texto en tu página de Patrocinios; el espacio se publica cuando lo hayamos revisado.",
+      fr: "Votre formule est active. Ajoutez votre logo, votre nom, votre lien et une ligne de texte sur votre page Parrainages ; l’emplacement est publié dès que nous l’avons validé.",
     }),
-    reach: t({ en: "Reach", es: "Alcance", fr: "Audience" }),
-    reachNote: t({
-      en: "Counted from the live catalogue.",
-      es: "Contado a partir del catálogo publicado.",
-      fr: "Compté à partir du catalogue en ligne.",
+    thanksLink: t({
+      en: "Set up your placement",
+      es: "Configura tu espacio",
+      fr: "Configurer votre emplacement",
     }),
-    stats: {
-      videos: t({
-        en: "Motion videos in Discover",
-        es: "Vídeos en Descubrir",
-        fr: "Vidéos dans Découvrir",
-      }),
-      creators: t({
-        en: "Creators credited and linked",
-        es: "Creadores citados y enlazados",
-        fr: "Créateurs crédités et liés",
-      }),
-      tools: t({
-        en: "Tools in the directory",
-        es: "Herramientas en el directorio",
-        fr: "Outils dans l’annuaire",
-      }),
-      categories: t({
-        en: "Discover categories",
-        es: "Categorías en Descubrir",
-        fr: "Catégories dans Découvrir",
-      }),
-    },
+    soldOutTitle: t({
+      en: "Diamond is sold out.",
+      es: "Diamante está agotado.",
+      fr: "Diamant est complet.",
+    }),
+    soldOutBody: t({
+      en: "Every Diamond seat is taken. Gold and Silver are open, or email me to hear when a Diamond seat frees up.",
+      es: "Todos los espacios Diamante están ocupados. Oro y Plata siguen disponibles, o escríbeme para saber cuándo se libera uno.",
+      fr: "Toutes les places Diamant sont prises. Or et Argent restent ouverts, ou écrivez-moi pour savoir quand une place se libère.",
+    }),
+    soldOut: t({ en: "Sold out", es: "Agotado", fr: "Complet" }),
     sponsors: t({ en: "Sponsors", es: "Patrocinadores", fr: "Sponsors" }),
+    founding: t({ en: "Founding", es: "Fundadores", fr: "Fondateurs" }),
     takeSlot: t({
       en: "Take this slot",
       es: "Ocupa este espacio",
       fr: "Prendre cette place",
+    }),
+    sponsorsSeats: t({
+      en: "All seats are taken",
+      es: "Todos los espacios están ocupados",
+      fr: "Toutes les places sont prises",
     }),
     plans: t({ en: "Plans", es: "Planes", fr: "Formules" }),
     perMonth: t({ en: "/ month", es: "/ mes", fr: "/ mois" }),
@@ -68,6 +67,11 @@ export default {
           en: "Be the first Diamond sponsor",
           es: "Sé el primer patrocinador Diamante",
           fr: "Devenez le premier sponsor Diamant",
+        }),
+        join: t({
+          en: "Become a Diamond sponsor",
+          es: "Hazte patrocinador Diamante",
+          fr: "Devenez sponsor Diamant",
         }),
         choose: t({
           en: "Choose Diamond",
@@ -81,19 +85,19 @@ export default {
             fr: "Votre logo sur la page des sponsors",
           }),
           t({
-            en: "A sponsored card in the Discover grid, on every page view",
-            es: "Una tarjeta patrocinada en la cuadrícula de Descubrir, en cada visita",
-            fr: "Une carte sponsorisée dans la grille Découvrir, à chaque affichage",
+            en: "The sponsored card on every page, shown first",
+            es: "La tarjeta patrocinada en cada página, en primer lugar",
+            fr: "La carte sponsorisée sur chaque page, en premier",
+          }),
+          t({
+            en: "Your logo in the sponsor slots on every page",
+            es: "Tu logotipo en los espacios de patrocinio de cada página",
+            fr: "Votre logo dans les emplacements sponsors de chaque page",
           }),
           t({
             en: "A shoutout on X",
             es: "Una mención en X",
             fr: "Une mention sur X",
-          }),
-          t({
-            en: "A shoutout in the newsletter",
-            es: "Una mención en la newsletter",
-            fr: "Une mention dans la newsletter",
           }),
         ],
       },
@@ -104,6 +108,11 @@ export default {
           es: "Sé el primer patrocinador Oro",
           fr: "Devenez le premier sponsor Or",
         }),
+        join: t({
+          en: "Become a Gold sponsor",
+          es: "Hazte patrocinador Oro",
+          fr: "Devenez sponsor Or",
+        }),
         choose: t({ en: "Choose Gold", es: "Elegir Oro", fr: "Choisir Or" }),
         perks: [
           t({
@@ -112,9 +121,14 @@ export default {
             fr: "Votre logo sur la page des sponsors",
           }),
           t({
-            en: "Top placement on your category’s page",
-            es: "Primera posición en la página de tu categoría",
-            fr: "Première place sur la page de votre catégorie",
+            en: "The sponsored card on your category’s page, after Diamond",
+            es: "La tarjeta patrocinada en la página de tu categoría, tras Diamante",
+            fr: "La carte sponsorisée sur la page de votre catégorie, après Diamant",
+          }),
+          t({
+            en: "Your logo in that page’s sponsor slots",
+            es: "Tu logotipo en los espacios de patrocinio de esa página",
+            fr: "Votre logo dans les emplacements sponsors de cette page",
           }),
           t({
             en: "A shoutout on X",
@@ -130,6 +144,11 @@ export default {
           es: "Sé el primer patrocinador Plata",
           fr: "Devenez le premier sponsor Argent",
         }),
+        join: t({
+          en: "Become a Silver sponsor",
+          es: "Hazte patrocinador Plata",
+          fr: "Devenez sponsor Argent",
+        }),
         choose: t({
           en: "Choose Silver",
           es: "Elegir Plata",
@@ -142,9 +161,9 @@ export default {
             fr: "Votre logo sur la page des sponsors",
           }),
           t({
-            en: "Highlighted on your category’s page",
-            es: "Destacado en la página de tu categoría",
-            fr: "Mis en avant sur la page de votre catégorie",
+            en: "The sponsored card on your category’s page, after Diamond and Gold",
+            es: "La tarjeta patrocinada en la página de tu categoría, tras Diamante y Oro",
+            fr: "La carte sponsorisée sur la page de votre catégorie, après Diamant et Or",
           }),
         ],
       },
@@ -203,9 +222,9 @@ export default {
           fr: "De quoi avez-vous besoin ?",
         }),
         answer: t({
-          en: "A square mark, a name, one line of copy, and a link.",
-          es: "Un logotipo cuadrado, un nombre, una línea de texto y un enlace.",
-          fr: "Un logo carré, un nom, une ligne de texte et un lien.",
+          en: "A square mark, a name, a link, one line of copy, a cover image, and a category for Gold and Silver. Add them on your Sponsorships page after checkout; the placement goes live once we have reviewed it.",
+          es: "Un logotipo cuadrado, un nombre, un enlace, una línea de texto, una imagen de portada y una categoría para Oro y Plata. Añádelos en tu página de Patrocinios tras el pago; el espacio se publica cuando lo hayamos revisado.",
+          fr: "Un logo carré, un nom, un lien, une ligne de texte, une image de couverture, et une catégorie pour Or et Argent. Ajoutez-les sur votre page Parrainages après le paiement ; l’emplacement est publié dès que nous l’avons validé.",
         }),
       },
       {

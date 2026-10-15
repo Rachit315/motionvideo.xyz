@@ -2,11 +2,11 @@ import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer, useLocale } from "react-intlayer";
+import { Briefcase } from "reicon-react/icons/Briefcase";
 import { Compass } from "reicon-react/icons/Compass";
 import { Designtools } from "reicon-react/icons/Designtools";
 import { Envelope } from "reicon-react/icons/Envelope";
 import { File } from "reicon-react/icons/File";
-import { Global } from "reicon-react/icons/Global";
 import { HandHeart } from "reicon-react/icons/HandHeart";
 import { Information } from "reicon-react/icons/Information";
 import { Lock } from "reicon-react/icons/Lock";
@@ -16,8 +16,6 @@ import { Play } from "reicon-react/icons/Play";
 import { Plus } from "reicon-react/icons/Plus";
 import { Scroll } from "reicon-react/icons/Scroll";
 import { Search } from "reicon-react/icons/Search";
-import { Settings } from "reicon-react/icons/Settings";
-import { Shield } from "reicon-react/icons/Shield";
 import { Sparkles } from "reicon-react/icons/Sparkles";
 import { Sun } from "reicon-react/icons/Sun";
 import { Undo } from "reicon-react/icons/Undo";
@@ -37,20 +35,19 @@ import {
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { LINK } from "@/constants/links";
 import { useHotkey } from "@/hooks/use-hotkey";
+import { track } from "@/lib/analytics";
 import type { DirectoryEntry, DirectoryKind } from "@/lib/directories";
 import type { MotionVideo } from "@/lib/motion-catalog";
 import { setTheme } from "@/lib/theme";
 
+// Public pages only: account pages need sign-in and live in the account menu.
 type PagePath =
   | "/"
   | "/tools"
   | "/creatives"
   | "/skills"
   | "/extras"
-  | "/featured"
-  | "/settings"
-  | "/submit"
-  | "/bookmarks"
+  | "/jobs"
   | "/sponsor"
   | "/motionvideo-skill"
   | "/about"
@@ -59,8 +56,7 @@ type PagePath =
   | "/privacy"
   | "/terms"
   | "/refunds"
-  | "/dpa"
-  | "/dashboard";
+  | "/license";
 
 interface SearchData {
   videos: MotionVideo[];
@@ -143,6 +139,13 @@ export const CommandMenu = () => {
   const ensureData = async () => {
     setData(await loadSearchData());
   };
+
+  // One event per opening, however it was opened (click, ⌘K, /).
+  useEffect(() => {
+    if (open) {
+      track("search_open");
+    }
+  }, [open]);
 
   useHotkey("/", () => {
     void ensureData();
@@ -233,16 +236,11 @@ export const CommandMenu = () => {
             <Sparkles aria-hidden="true" />
           ),
           page("/extras", content.extras.value, <Plus aria-hidden="true" />),
-          page(
-            "/featured",
-            content.featured.value,
-            <Sparkles aria-hidden="true" />
-          ),
-          page(
-            "/settings",
-            content.settings.value,
-            <Settings aria-hidden="true" />
-          ),
+          page("/jobs", content.jobs.value, <Briefcase aria-hidden="true" />, [
+            "hiring",
+            "career",
+            "work",
+          ]),
           page("/motionvideo-skill", "SKILL.md", <File aria-hidden="true" />, [
             "skill",
             "skill.md",
@@ -266,7 +264,12 @@ export const CommandMenu = () => {
           page("/terms", content.terms.value, <Scroll aria-hidden="true" />),
           page("/privacy", content.privacy.value, <Lock aria-hidden="true" />),
           page("/refunds", content.refunds.value, <Undo aria-hidden="true" />),
-          page("/dpa", content.dpa.value, <Shield aria-hidden="true" />),
+          page(
+            "/license",
+            content.license.value,
+            <Scroll aria-hidden="true" />,
+            ["license", "skill", "terms"]
+          ),
         ],
       },
       {
@@ -309,7 +312,14 @@ export const CommandMenu = () => {
           id: `language:${language.code}`,
           label: language.label,
           keywords: ["language", "locale", "translate", language.keywords],
-          icon: <Global aria-hidden="true" />,
+          icon: (
+            <span
+              aria-hidden="true"
+              className="text-muted-foreground w-4 shrink-0 text-center text-[11px] font-semibold tracking-wide"
+            >
+              {language.code.toUpperCase()}
+            </span>
+          ),
           action: () => setLocale(language.code),
         })),
       },
@@ -409,7 +419,7 @@ export const CommandMenu = () => {
           void ensureData();
           setOpen(true);
         }}
-        className="bg-secondary text-muted-foreground hover:text-foreground focus-visible:ring-ring/50 flex h-8 w-full min-w-0 items-center gap-2 rounded-lg px-3 text-sm transition-colors outline-none hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] focus-visible:ring-3 max-lg:size-9 max-lg:justify-center max-lg:px-0 lg:w-56 xl:w-64"
+        className="bg-secondary text-muted-foreground hover:text-foreground focus-visible:ring-ring/50 flex h-8 w-full min-w-0 items-center gap-2 rounded-lg px-3 text-sm transition-colors outline-none hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] focus-visible:ring-3 max-lg:size-9 max-lg:justify-center max-lg:rounded-full max-lg:px-0 lg:w-56 xl:w-64"
       >
         <Search aria-hidden="true" className="size-4" />
         <span className="hidden flex-1 truncate text-left lg:inline">
@@ -449,6 +459,7 @@ export const CommandMenu = () => {
                     value={`${entry.label} ${entry.id}`}
                     keywords={entry.keywords}
                     onSelect={() => {
+                      track("search_select", { id: entry.id });
                       entry.action();
                       setOpen(false);
                     }}

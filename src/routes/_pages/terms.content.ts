@@ -77,9 +77,9 @@ const termsContent = {
       fr: "Le pack se trouve dans un dépôt GitHub privé. Après le paiement, vous ouvrez le portail client de Dodo Payments (lien dans l’e-mail de paiement de Dodo, ou depuis votre tableau de bord après connexion avec l’adresse utilisée pour payer), connectez votre compte GitHub, et Dodo Payments l’invite au dépôt avec un accès en lecture seule. Vous avez besoin d’un compte GitHub pour recevoir les fichiers.",
     }),
     text14: t({
-      en: "There are no passwords. Checkout works as a guest, and to come back you request a sign-in link at the",
-      es: "No hay contraseñas. Puedes pagar como invitado y, para volver, solicitas un enlace de acceso en la",
-      fr: "Il n’y a pas de mot de passe. Vous pouvez payer en tant qu’invité et, pour revenir, demander un lien de connexion sur la",
+      en: "There are no passwords. Checkout works as a guest, and to come back you request a sign-in code at the",
+      es: "No hay contraseñas. Puedes pagar como invitado y, para volver, solicitas un código de acceso en la",
+      fr: "Il n’y a pas de mot de passe. Vous pouvez payer en tant qu’invité et, pour revenir, demander un code de connexion sur la",
     }),
     text15: t({
       en: "sign-in page",
@@ -163,9 +163,9 @@ const termsContent = {
       fr: "Contourner ou tenter de contourner la vérification confirmant un achat.",
     }),
     text32: t({
-      en: "Share your sign-in links or repository access with others. A sign-in link opens your purchase for whoever holds it until it expires.",
-      es: "Compartir tus enlaces de inicio de sesión o tu acceso al repositorio con otras personas. Un enlace de inicio de sesión permite acceder a tu compra a quien lo tenga hasta que caduque.",
-      fr: "Partager vos liens de connexion ou votre accès au dépôt avec d’autres personnes. Un lien de connexion permet à quiconque le détient d’accéder à votre achat jusqu’à son expiration.",
+      en: "Share your sign-in codes or repository access with others. A sign-in code opens your account for whoever holds it until it expires.",
+      es: "Compartir tus códigos de inicio de sesión o tu acceso al repositorio con otras personas. Un código de inicio de sesión permite acceder a tu cuenta a quien lo tenga hasta que caduque.",
+      fr: "Partager vos codes de connexion ou votre accès au dépôt avec d’autres personnes. Un code de connexion permet à quiconque le détient d’accéder à votre compte jusqu’à son expiration.",
     }),
     text33: t({
       en: "Scrape, overload, or otherwise interfere with",

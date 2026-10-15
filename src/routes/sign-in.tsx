@@ -6,7 +6,6 @@ import { ROUTES } from "@/constants/routes";
 import { createMetadata } from "@/seo/metadata";
 
 interface SignInSearch {
-  error?: string;
   redirect?: string;
 }
 
@@ -24,10 +23,9 @@ const SignIn = () => {
   const search = routeApi.useSearch();
   return (
     <main className="flex min-h-svh items-center justify-center p-6">
-      <LoginForm
-        callbackURL={search.redirect ?? ROUTES.DASHBOARD}
-        initialError={search.error ? "invalid" : null}
-      />
+      <div className="w-full max-w-sm">
+        <LoginForm callbackURL={search.redirect ?? ROUTES.DASHBOARD} />
+      </div>
     </main>
   );
 };
@@ -41,7 +39,6 @@ export const Route = createFileRoute("/sign-in")({
       title: "Sign in",
     }),
   validateSearch: (search): SignInSearch => ({
-    error: z.string().safeParse(search.error).data,
     redirect: safeRedirect.safeParse(search.redirect).data,
   }),
 });

@@ -1,5 +1,5 @@
 export default function layoutMasonry<
-  T extends { key: string; aspectRatio?: number },
+  T extends { key: string; aspectRatio?: number; lane?: number },
 >(
   items: T[],
   width: number,

@@ -4,10 +4,17 @@ export default function layoutMasonry(items, width, heights, gap = 12) {
   const laneWidth = (width - gap * (lanes - 1)) / lanes;
   const ends = Array.from({ length: lanes }, () => 0);
   const placements = items.map((item) => {
+    // `item.lane` pins an item under a specific lane (e.g. the jobs widget
+    // under the sponsored card); otherwise the shortest lane wins.
+    const { lane: pinned } = item;
     let lane = 0;
-    for (let candidate = 1; candidate < lanes; candidate += 1) {
-      if (ends[candidate] < ends[lane]) {
-        lane = candidate;
+    if (pinned !== undefined && pinned < lanes) {
+      lane = pinned;
+    } else {
+      for (let candidate = 1; candidate < lanes; candidate += 1) {
+        if (ends[candidate] < ends[lane]) {
+          lane = candidate;
+        }
       }
     }
     const height = item.aspectRatio

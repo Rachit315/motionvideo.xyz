@@ -14,8 +14,8 @@ export interface DirectoryEntry {
 // (studios and designers), `skill` lists /skills, and `extra` lists /extras.
 export type DirectoryKind = "tool" | "studio" | "skill" | "extra";
 
-// The import files skills and resources under tools; they get their own
-// sections here so a re-import keeps the split.
+// The data file lists skills and resources under tools; they get their own
+// sections here.
 const KIND_BY_TOOL_CATEGORY = {
   Skills: "skill",
   Resources: "extra",
@@ -29,7 +29,7 @@ const toolsOfKind = (kind: DirectoryKind) =>
       )?.[1] ?? "tool") === kind
   );
 
-// The import files every skill under "Skills"; their sub-category is picked
+// The data file lists every skill under "Skills"; their sub-category is picked
 // here by id. A skill missing from this list stays under "All" only.
 const SKILL_CATEGORY_BY_ID = {
   "oil-motion": "Motion graphics",
@@ -46,6 +46,21 @@ const SKILL_CATEGORY_BY_ID = {
   director: "AI video",
   "one-prompt-video": "AI video",
   "minimax-h3-video-reverse": "AI video",
+  "huashu-art-motion": "Motion graphics",
+  motionmaxxing: "Motion graphics",
+  "product-launch-motion": "Product films",
+  "motion-graphics-skills": "Motion graphics",
+  "claude-motion-design": "Motion graphics",
+  "herk-edit-kit": "AI video",
+  "barty-motion-graphics": "Motion graphics",
+  animate: "Motion graphics",
+  "claude-motion": "Motion graphics",
+  "claude-remotion-skill": "Motion graphics",
+  "lottie-motion-design-skill": "Motion graphics",
+  "gsap-skills": "Motion graphics",
+  "hyperframes-community-skills": "Motion graphics",
+  "awesome-ai-motion": "Motion graphics",
+  "video-skills": "Product films",
 } as const satisfies Record<string, string>;
 
 const skillCategoryOf = (id: string): string | undefined =>
@@ -63,7 +78,7 @@ export const DIRECTORY_ENTRIES: Record<DirectoryKind, DirectoryEntry[]> = {
 };
 
 // URL slugs for each section's category names; they match the chip labels.
-// A newly imported category stays under "All" until it gets a slug here.
+// A new category stays under "All" until it gets a slug here.
 const SLUG_BY_CATEGORY = {
   tool: { AI: "ai", Editor: "editors", Mockup: "mockups", Motion: "motion" },
   studio: { Studio: "studios", Designers: "designers" },
@@ -92,12 +107,14 @@ export interface DirectoryCategory<Kind extends DirectoryKind = DirectoryKind> {
 const toCategories = <Kind extends DirectoryKind>(
   kind: Kind
 ): DirectoryCategory<Kind>[] => {
-  const slugs: Record<string, DirectorySlug<Kind>> = SLUG_BY_CATEGORY[kind];
+  const slugs = new Map<string, string>(Object.entries(SLUG_BY_CATEGORY[kind]));
   return [
     ...new Set(DIRECTORY_ENTRIES[kind].map((entry) => entry.category)),
   ].flatMap((id) => {
-    const slug = Object.hasOwn(slugs, id) ? slugs[id] : undefined;
-    return slug ? [{ id, slug }] : [];
+    const slug = slugs.get(id);
+    // SAFETY: `slugs` holds exactly SLUG_BY_CATEGORY[kind]'s values, which are
+    // DirectorySlug<Kind> by definition.
+    return slug ? [{ id, slug: slug as DirectorySlug<Kind> }] : [];
   });
 };
 

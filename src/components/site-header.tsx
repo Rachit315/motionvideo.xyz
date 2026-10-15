@@ -10,6 +10,7 @@ import { Xmark } from "reicon-react/icons/Xmark";
 import { AccountMenu } from "@/components/account-avatar";
 import { Brand } from "@/components/brand";
 import { CommandMenu } from "@/components/command-menu";
+import { OnlineCount } from "@/components/live-presence";
 import { buttonVariants } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
 
@@ -71,6 +72,10 @@ const DiscoverLink = ({
   );
 };
 
+/**
+ * Below lg: the section links, with the skill CTA at the bottom. Account
+ * items and preferences stay in the avatar popover, as on desktop.
+ */
 const MobileMenu = () => {
   const content = useIntlayer("site-header");
   const [open, setOpen] = useState(false);
@@ -86,7 +91,7 @@ const MobileMenu = () => {
       <Dialog.Portal>
         <Dialog.Popup
           aria-label={content.navigation.value}
-          className="bg-background text-foreground fixed inset-0 z-50 flex flex-col px-4 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))] transition-opacity duration-200 outline-none data-ending-style:opacity-0 data-starting-style:opacity-0"
+          className="bg-background text-foreground fixed inset-0 z-50 flex flex-col overflow-y-auto px-4 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))] transition-opacity duration-200 outline-none data-ending-style:opacity-0 data-starting-style:opacity-0"
         >
           <div className="flex items-center justify-between">
             <Brand />
@@ -99,36 +104,30 @@ const MobileMenu = () => {
           </div>
           <nav
             aria-label={content.navigation.value}
-            className="mt-10 flex flex-col"
+            className="mt-8 flex flex-col"
           >
             <DiscoverLink onClick={close} className={mobileLinkClass} />
-            <Link to={ROUTES.TOOLS} onClick={close} className={mobileLinkClass}>
-              {content.tools}
-            </Link>
-            <Link
-              to={ROUTES.CREATIVES}
-              onClick={close}
-              className={mobileLinkClass}
-            >
-              {content.creatives}
-            </Link>
-            <Link
-              to={ROUTES.SKILLS}
-              onClick={close}
-              className={mobileLinkClass}
-            >
-              {content.skills}
-            </Link>
-            <Link
-              to={ROUTES.EXTRAS}
-              onClick={close}
-              className={mobileLinkClass}
-            >
-              {content.extras}
-            </Link>
+            {(
+              [
+                [ROUTES.TOOLS, content.tools],
+                [ROUTES.CREATIVES, content.creatives],
+                [ROUTES.SKILLS, content.skills],
+                [ROUTES.EXTRAS, content.extras],
+                [ROUTES.JOBS, content.jobs],
+              ] as const
+            ).map(([to, label]) => (
+              <Link
+                key={to}
+                to={to}
+                onClick={close}
+                className={mobileLinkClass}
+              >
+                {label}
+              </Link>
+            ))}
           </nav>
-          <div className="mt-auto flex flex-col gap-3">
-            <SkillLink onClick={close} variant="gradient" size="cta" />
+          <div className="mt-auto flex flex-col pt-8">
+            <SkillLink onClick={close} variant="gradient" size="xl" />
           </div>
         </Dialog.Popup>
       </Dialog.Portal>
@@ -137,14 +136,15 @@ const MobileMenu = () => {
 };
 
 // One header for every page. Left: brand + section links. Right: search,
-// skill CTA, and account. Mobile: brand left; search, menu, avatar right.
+// skill CTA, and account. Mobile: brand left; search, avatar, menu right.
+// The online count sits before search (number only on phones).
 // `signedIn` (from the page loader) only covers the first render; the account
 // menu follows the client session after that.
 export const SiteHeader = ({ signedIn }: { signedIn?: boolean }) => {
   const content = useIntlayer("site-header");
   return (
     <header className="mx-auto grid w-full max-w-[1800px] grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2 px-4 py-3 sm:px-6 md:gap-x-3">
-      <div className="flex min-w-0 items-center gap-x-4">
+      <div className="flex min-w-0 items-center gap-x-3 lg:gap-x-4">
         <Brand />
         <nav
           aria-label={content.navigation.value}
@@ -163,17 +163,22 @@ export const SiteHeader = ({ signedIn }: { signedIn?: boolean }) => {
           <Link to={ROUTES.EXTRAS} className={linkClass}>
             {content.extras}
           </Link>
+          <Link to={ROUTES.JOBS} className={linkClass}>
+            {content.jobs}
+          </Link>
         </nav>
       </div>
       <div className="flex items-center gap-2 justify-self-end">
+        <OnlineCount className="sm:mr-1" />
         <CommandMenu />
         <div className="max-md:hidden">
           <SkillLink variant="gradient" />
         </div>
+        <AccountMenu signedIn={signedIn} />
+        {/* Below lg one menu holds sections, account, and preferences. */}
         <div className="lg:hidden">
           <MobileMenu />
         </div>
-        <AccountMenu signedIn={signedIn} />
       </div>
     </header>
   );

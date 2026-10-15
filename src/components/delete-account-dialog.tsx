@@ -1,4 +1,3 @@
-import { cn } from "cn";
 import { useIntlayer } from "react-intlayer";
 
 import { buttonVariants } from "@/components/ui/button";
@@ -12,6 +11,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { LINK } from "@/constants/links";
+import { cn } from "@/lib/utils";
 
 // Stub until the account backend lands: explains the manual path instead of
 // deleting anything.

@@ -2,6 +2,7 @@ import type { SoundPatch } from "@web-kits/audio";
 import { SoundProvider, usePatch } from "@web-kits/audio/react";
 import { useEffect, useId, useRef, useSyncExternalStore } from "react";
 
+import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 const STORAGE_KEY = "kobra-sound-muted";
@@ -468,6 +469,7 @@ const notify = () => {
 
 export const setSoundMuted = (muted: boolean) => {
   localStorage.setItem(STORAGE_KEY, muted ? "1" : "0");
+  track("sounds_toggle", { muted });
   notify();
 };
 

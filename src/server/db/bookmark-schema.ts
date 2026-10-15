@@ -7,16 +7,22 @@ import {
 
 import { user } from "./schema";
 
-// One row per saved video. Slugs come from the static catalog
-// (`src/data/motion-catalog.json`), so there is no videos table to reference.
+// One row per saved item. Items come from the static catalogs (gallery
+// videos in `src/data/motion-catalog.json`, directory entries in
+// `src/lib/directories.ts`), so there is no items table to reference.
 export const bookmarks = sqliteTable(
   "bookmarks",
   {
     userId: text("user_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
-    videoSlug: text("video_slug").notNull(),
+    // Matches BOOKMARK_KINDS in src/lib/bookmark-items.ts.
+    kind: text("kind", {
+      enum: ["video", "tool", "studio", "skill", "extra"],
+    }).notNull(),
+    // Video slug or directory entry id.
+    itemId: text("item_id").notNull(),
     createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
   },
-  (table) => [primaryKey({ columns: [table.userId, table.videoSlug] })]
+  (table) => [primaryKey({ columns: [table.userId, table.kind, table.itemId] })]
 );

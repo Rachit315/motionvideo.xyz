@@ -9,6 +9,7 @@ import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
 import { CheckCircle } from "reicon-react/icons/CheckCircle";
 
+import { PageMain, AccountPageHeader } from "@/components/page";
 import { BuyButton } from "@/components/pricing";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -111,26 +112,24 @@ const Dashboard = () => {
   return (
     <>
       <SiteHeader signedIn />
-      <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 px-6 py-16">
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-semibold tracking-tight">
-              {content.dashboard}
-            </h1>
-            <p className="text-muted-foreground text-sm">{email}</p>
-          </div>
-          {preview ? (
-            <span className="text-muted-foreground text-sm">
-              {content.localPreview}
-            </span>
-          ) : (
-            <Button variant="outline" onClick={signOut}>
-              {content.signOut}
-            </Button>
-          )}
-        </div>
+      <PageMain width="narrow">
+        <AccountPageHeader
+          title={content.dashboard}
+          intro={email}
+          actions={
+            preview ? (
+              <span className="text-muted-foreground text-sm">
+                {content.localPreview}
+              </span>
+            ) : (
+              <Button variant="outline" onClick={signOut}>
+                {content.signOut}
+              </Button>
+            )
+          }
+        />
         <PurchaseCard />
-      </main>
+      </PageMain>
       <SiteFooter />
     </>
   );

@@ -37,15 +37,15 @@ export default {
       es: "Política de privacidad",
       fr: "Politique de confidentialité",
     }),
+    license: t({
+      en: "Skill license",
+      es: "Licencia del skill",
+      fr: "Licence du skill",
+    }),
     refunds: t({
       en: "Refund policy",
       es: "Política de reembolso",
       fr: "Politique de remboursement",
-    }),
-    dpa: t({
-      en: "DPA",
-      es: "Acuerdo de tratamiento de datos",
-      fr: "Accord de traitement des données",
     }),
     otherProducts: t({
       en: "Other products",

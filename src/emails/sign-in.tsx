@@ -1,17 +1,18 @@
 import { SITE } from "../constants/site";
 import { EmailLayout, Paragraph } from "./_layout";
 
-export const signInSubject = `Sign in to ${SITE.NAME}`;
+export const signInSubject = (code: string) =>
+  `${code} is your ${SITE.NAME} sign-in code`;
 
-const SignInEmail = ({ url }: { url: string }) => (
+const SignInEmail = ({ code }: { code: string }) => (
   <EmailLayout
-    action={{ label: `Sign in to ${SITE.NAME}`, url }}
-    heading={signInSubject}
-    preview="Your sign-in link expires in 15 minutes."
+    code={code}
+    heading={`Sign in to ${SITE.NAME}`}
+    preview="Your sign-in code expires in 10 minutes."
     reason="You received this because this address was used to sign in on"
   >
     <Paragraph>
-      Use the button below to sign in. The link expires in 15 minutes.
+      Enter this code on {SITE.NAME} to sign in. It expires in 10 minutes.
     </Paragraph>
     <Paragraph>
       If you didn’t ask to sign in, you can ignore this email.
@@ -19,8 +20,6 @@ const SignInEmail = ({ url }: { url: string }) => (
   </EmailLayout>
 );
 
-SignInEmail.PreviewProps = {
-  url: "https://motionvideo.xyz/api/auth/magic-link/verify?token=preview",
-};
+SignInEmail.PreviewProps = { code: "482913" };
 
 export default SignInEmail;

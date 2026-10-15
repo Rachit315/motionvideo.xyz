@@ -15,11 +15,16 @@ import {
   purchaseStatus,
 } from "./dodo";
 import { sendEmail } from "./email";
+import { liveSponsors } from "./sponsorships";
 
+// Every page with sponsor placements loads this; `useSponsors` reads it.
 export const getLandingData = createServerFn({ method: "GET" }).handler(
   async () => {
-    const session = await getCurrentSession();
-    return { signedIn: session !== null };
+    const [session, sponsors] = await Promise.all([
+      getCurrentSession(),
+      liveSponsors(),
+    ]);
+    return { signedIn: session !== null, sponsors };
   }
 );
 
@@ -49,7 +54,7 @@ export const getPortalUrl = createServerFn({ method: "POST" }).handler(
 );
 
 // Dodo's return redirect lands on /welcome with the payment id; the email on
-// that payment is where the buyer's sign-in link goes.
+// that payment is where the buyer's sign-in code goes.
 export const getCheckoutResult = createServerFn({ method: "GET" })
   .validator(z.object({ paymentId: z.string().min(1) }))
   .handler(({ data }) => completedCheckout(data.paymentId));

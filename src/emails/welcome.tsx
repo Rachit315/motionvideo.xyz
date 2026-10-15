@@ -2,7 +2,7 @@ import { SITE } from "../constants/site";
 import { EmailLayout, Paragraph } from "./_layout";
 
 export interface WelcomeEmailProps {
-  url: string;
+  code: string;
   /** From the Dodo Payments customer; null when the buyer left it blank. */
   firstName: string | null;
 }
@@ -12,13 +12,13 @@ export const welcomeSubject = ({
 }: Pick<WelcomeEmailProps, "firstName">) =>
   `${firstName ? `${firstName}, thanks` : "Thanks"} for buying ${SITE.NAME}`;
 
-// Sent instead of the plain sign-in email when the link is requested from
+// Sent instead of the plain sign-in email when the code is requested from
 // /welcome, right after checkout.
-const WelcomeEmail = ({ url, firstName }: WelcomeEmailProps) => (
+const WelcomeEmail = ({ code, firstName }: WelcomeEmailProps) => (
   <EmailLayout
-    action={{ label: "Open your dashboard", url }}
+    code={code}
     heading={`${firstName ? `Welcome aboard, ${firstName}` : "Welcome aboard"}!`}
-    preview="Your purchase is confirmed. Here’s your sign-in link."
+    preview="Your purchase is confirmed. Here’s your sign-in code."
     reason={`You received this because you bought ${SITE.NAME} on`}
   >
     <Paragraph>
@@ -29,8 +29,8 @@ const WelcomeEmail = ({ url, firstName }: WelcomeEmailProps) => (
       connect your GitHub account, and accept the private repository invite.
     </Paragraph>
     <Paragraph>
-      The button below signs you in and expires in 15 minutes. Questions or
-      ideas? Just reply, it comes straight to me.
+      Enter the code below on the page you just paid on; it expires in 10
+      minutes. Questions or ideas? Just reply, it comes straight to me.
     </Paragraph>
     <Paragraph>— Aniket</Paragraph>
   </EmailLayout>
@@ -38,7 +38,7 @@ const WelcomeEmail = ({ url, firstName }: WelcomeEmailProps) => (
 
 WelcomeEmail.PreviewProps = {
   firstName: "Aniket",
-  url: "https://motionvideo.xyz/api/auth/magic-link/verify?token=preview",
+  code: "482913",
 } satisfies WelcomeEmailProps;
 
 export default WelcomeEmail;

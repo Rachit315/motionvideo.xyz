@@ -1,5 +1,6 @@
 import { Outlet, createFileRoute } from "@tanstack/react-router";
 
+import { PageMain } from "@/components/page";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -8,12 +9,9 @@ import { SiteHeader } from "@/components/site-header";
 const PagesLayout = () => (
   <>
     <SiteHeader signedIn={false} />
-    <main
-      id="main-content"
-      className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-10 px-6 py-16 sm:py-24"
-    >
+    <PageMain width="narrow" className="gap-10">
       <Outlet />
-    </main>
+    </PageMain>
     <SiteFooter />
   </>
 );

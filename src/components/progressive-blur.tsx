@@ -16,11 +16,15 @@ const layerStyle = (index: number): CSSProperties => {
   };
 };
 
-/** A fixed blur that softens content as it scrolls under the bottom edge. */
+/**
+ * A fixed blur that softens content as it scrolls under the bottom edge.
+ * Half height on mobile, where the footer wordmark is only ~45px tall and
+ * the full ramp would blur it away entirely.
+ */
 export const ProgressiveBlur = () => (
   <div
     aria-hidden="true"
-    className="pointer-events-none fixed inset-x-0 bottom-0 z-35 h-24 transition-opacity duration-200 in-data-overlay-open:opacity-0"
+    className="pointer-events-none fixed inset-x-0 bottom-0 z-35 h-12 transition-opacity duration-200 in-data-overlay-open:opacity-0 md:h-24"
   >
     {Array.from({ length: LAYERS }, (_, index) => (
       <div

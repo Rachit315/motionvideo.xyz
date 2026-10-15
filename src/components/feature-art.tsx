@@ -1,6 +1,5 @@
-import { cn } from "cn";
-
 import { RENDERERS } from "@/constants/stack";
+import { cn } from "@/lib/utils";
 
 type Kind = "skills" | "scenes" | "motion" | "renderers";
 

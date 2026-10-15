@@ -1,4 +1,3 @@
-import { Dialog } from "@base-ui/react/dialog";
 import { useRouter } from "@tanstack/react-router";
 import {
   createContext,
@@ -10,16 +9,19 @@ import {
 } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
-import { Xmark } from "reicon-react/icons/Xmark";
 
 import { LoginForm } from "@/components/login-form";
-import { buttonVariants } from "@/components/ui/button";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { ACCOUNT_PAGES, ROUTES } from "@/constants/routes";
 import { useSession } from "@/lib/auth-client";
 import { syncBookmarks } from "@/lib/bookmarks";
 
 interface SignInDialogApi {
-  /** Opens the sign-in form; `reason` replaces its subtitle. */
-  open: (reason?: string) => void;
+  /**
+   * Opens the sign-in form; `reason` replaces its subtitle. `next` is the
+   * page to go to once signed in (default: stay on this one).
+   */
+  open: (reason?: string, next?: string) => void;
 }
 
 const SignInDialogContext = createContext<SignInDialogApi | null>(null);
@@ -35,15 +37,15 @@ export const useSignInDialog = () => {
 interface DialogState {
   open: boolean;
   reason?: string;
-  /** Path the emailed link returns to: the page the dialog was opened on. */
-  callbackURL: string;
+  /** Set when the dialog stands in for an account page: go there on sign-in. */
+  next?: string;
   /** Remounts the form, so each opening starts from an empty email field. */
   key: number;
 }
 
 /**
  * Global sign-in dialog, plus the client's view of the session: when the
- * session changes (the emailed link signs in from another tab, or a sign-out),
+ * session changes (a sign-in here or in another tab, or a sign-out),
  * the dialog closes, bookmarks follow the new user, and route loaders rerun.
  */
 export const SignInDialogProvider = ({ children }: { children: ReactNode }) => {
@@ -51,7 +53,6 @@ export const SignInDialogProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const [state, setState] = useState<DialogState>({
     open: false,
-    callbackURL: "/",
     key: 0,
   });
   const session = useSession();
@@ -60,13 +61,16 @@ export const SignInDialogProvider = ({ children }: { children: ReactNode }) => {
     ? undefined
     : (session.data?.user.id ?? null);
 
-  // Signing in (usually from the emailed link, in another tab) closes the
+  // Signing in (with the emailed code, here or in another tab) closes the
   // dialog. Adjusted during render, as React recommends for derived resets.
   const [knownUserId, setKnownUserId] = useState(userId);
   if (userId !== undefined && userId !== knownUserId) {
     setKnownUserId(userId);
     if (userId) {
-      setState((current) => ({ ...current, open: false }));
+      setState((current) => ({ ...current, open: false, next: undefined }));
+      if (state.open && state.next) {
+        void router.navigate({ to: state.next });
+      }
     }
   }
 
@@ -87,50 +91,69 @@ export const SignInDialogProvider = ({ children }: { children: ReactNode }) => {
 
   const api = useMemo<SignInDialogApi>(
     () => ({
-      open: (reason) =>
+      open: (reason, next) =>
         setState((current) => ({
           open: true,
           reason,
-          callbackURL: `${window.location.pathname}${window.location.search}`,
+          next,
           key: current.key + 1,
         })),
     }),
     []
   );
 
+  // Signed out, a click on any link to an account page (or a sponsor
+  // checkout, which needs an account) opens this dialog in place instead of
+  // leaving for /sign-in. Capture phase, so it runs before the link's own
+  // handler; TanStack links skip navigation once the default is prevented.
+  useEffect(() => {
+    if (userId !== null) {
+      return;
+    }
+    const onClick = (event: MouseEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey ||
+        !(event.target instanceof Element)
+      ) {
+        return;
+      }
+      const anchor = event.target.closest("a[href]");
+      const url =
+        anchor && new URL(anchor.getAttribute("href") ?? "", location.href);
+      if (!url || url.origin !== location.origin) {
+        return;
+      }
+      const sponsorCheckout =
+        url.pathname === ROUTES.CHECKOUT &&
+        (url.searchParams.get("product") ?? "skill") !== "skill";
+      if (!ACCOUNT_PAGES.has(url.pathname) && !sponsorCheckout) {
+        return;
+      }
+      event.preventDefault();
+      api.open(undefined, `${url.pathname}${url.search}`);
+    };
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, [userId, api]);
+
   return (
     <SignInDialogContext value={api}>
       {children}
-      <Dialog.Root
+      <Dialog
         open={state.open}
         onOpenChange={(open) => setState((current) => ({ ...current, open }))}
       >
-        <Dialog.Portal>
-          <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0" />
-          <Dialog.Viewport className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-3">
-            <Dialog.Popup
-              aria-label={content.signInTitle.value}
-              className="bg-popover text-popover-foreground shadow-popover relative flex w-full max-w-md justify-center rounded-2xl px-6 py-8 transition-[translate,scale,opacity] duration-150 outline-none data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0"
-            >
-              <Dialog.Close
-                aria-label={content.close.value}
-                className={buttonVariants({
-                  variant: "ghost",
-                  size: "icon",
-                  className: "absolute top-3 right-3",
-                })}
-              >
-                <Xmark aria-hidden="true" />
-              </Dialog.Close>
-              <LoginForm
-                key={state.key}
-                callbackURL={state.callbackURL}
-                description={state.reason}
-              />
-            </Dialog.Popup>
-          </Dialog.Viewport>
-        </Dialog.Portal>
-      </Dialog.Root>
+        <DialogContent aria-label={content.signInTitle.value}>
+          {/* Signing in closes the dialog (and goes to `next`) via the
+              session change above. */}
+          <LoginForm key={state.key} description={state.reason} />
+        </DialogContent>
+      </Dialog>
     </SignInDialogContext>
   );
 };

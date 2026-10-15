@@ -4,25 +4,30 @@ import type { Dictionary } from "intlayer";
 export default {
   key: "brand-menu",
   content: {
-    openBrand: t({
-      en: "Open brand page",
-      es: "Abrir página de marca",
-      fr: "Ouvrir la page de la marque",
+    copyLogomark: t({
+      en: "Copy logomark as SVG",
+      es: "Copiar símbolo como SVG",
+      fr: "Copier le symbole en SVG",
     }),
-    logomarkSvg: t({
-      en: "Logomark (SVG)",
-      es: "Logotipo (SVG)",
-      fr: "Logotype (SVG)",
+    copyLogotype: t({
+      en: "Copy logotype as SVG",
+      es: "Copiar logotipo como SVG",
+      fr: "Copier le logotype en SVG",
     }),
-    logomarkPng: t({
-      en: "Logomark (PNG)",
-      es: "Logotipo (PNG)",
-      fr: "Logotype (PNG)",
+    copyAppIcon: t({
+      en: "Copy app icon as SVG",
+      es: "Copiar icono de app como SVG",
+      fr: "Copier l’icône d’app en SVG",
     }),
-    appIconPng: t({
-      en: "App icon (PNG)",
-      es: "Icono de app (PNG)",
-      fr: "Icône d’app (PNG)",
+    guidelines: t({
+      en: "Brand guidelines",
+      es: "Guía de marca",
+      fr: "Charte de marque",
+    }),
+    download: t({
+      en: "Download brand assets",
+      es: "Descargar recursos de marca",
+      fr: "Télécharger les ressources de marque",
     }),
   },
 } satisfies Dictionary;

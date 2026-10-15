@@ -4,36 +4,36 @@ import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 import { z } from "zod";
 
-import catalog from "@/data/motion-catalog.json";
+import { findBookmarkItem } from "@/lib/bookmark-catalog";
+import { BOOKMARK_KINDS } from "@/lib/bookmark-items";
+import type { BookmarkRef } from "@/lib/bookmark-items";
 
 import { getCurrentSession } from "./auth";
 import { bookmarks } from "./db/bookmark-schema";
 
-const catalogSlugs = new Set(catalog.videos.map((video) => video.slug));
+const bookmarkInput = z
+  .object({
+    kind: z.enum(BOOKMARK_KINDS),
+    id: z.string().max(200),
+    saved: z.boolean(),
+  })
+  .refine(({ kind, id }) => findBookmarkItem(kind, id), "Unknown item");
 
-const bookmarkInput = z.object({
-  slug: z
-    .string()
-    .max(200)
-    .refine((slug) => catalogSlugs.has(slug), "Unknown video"),
-  saved: z.boolean(),
-});
-
-/** The signed-in user's bookmarked slugs, newest first; `null` when signed out. */
+/** The signed-in user's bookmarks, newest first; `null` when signed out. */
 export const getBookmarks = createServerFn({ method: "GET" }).handler(
-  async () => {
+  async (): Promise<BookmarkRef[] | null> => {
     const session = await getCurrentSession();
     if (!session) {
       return null;
     }
     const rows = await drizzle(env.DB)
-      .select({ slug: bookmarks.videoSlug })
+      .select({ kind: bookmarks.kind, id: bookmarks.itemId })
       .from(bookmarks)
       .where(eq(bookmarks.userId, session.user.id))
       .orderBy(desc(bookmarks.createdAt))
       .all();
-    // Videos removed from the catalog keep their rows but are not shown.
-    return rows.map((row) => row.slug).filter((slug) => catalogSlugs.has(slug));
+    // Items removed from the catalogs keep their rows but are not shown.
+    return rows.filter((row) => findBookmarkItem(row.kind, row.id));
   }
 );
 
@@ -50,7 +50,12 @@ export const setBookmark = createServerFn({ method: "POST" })
     await (data.saved
       ? db
           .insert(bookmarks)
-          .values({ userId, videoSlug: data.slug, createdAt: new Date() })
+          .values({
+            userId,
+            kind: data.kind,
+            itemId: data.id,
+            createdAt: new Date(),
+          })
           .onConflictDoNothing()
           .run()
       : db
@@ -58,7 +63,8 @@ export const setBookmark = createServerFn({ method: "POST" })
           .where(
             and(
               eq(bookmarks.userId, userId),
-              eq(bookmarks.videoSlug, data.slug)
+              eq(bookmarks.kind, data.kind),
+              eq(bookmarks.itemId, data.id)
             )
           )
           .run());

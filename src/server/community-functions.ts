@@ -5,7 +5,11 @@ import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 
 import { communitySubmissionSchema } from "@/lib/community";
-import type { SubmissionResult } from "@/lib/community";
+import type {
+  SubmissionKind,
+  SubmissionResult,
+  SubmissionStatus,
+} from "@/lib/community";
 
 import { getCurrentSession } from "./auth";
 import { communitySubmissions } from "./db/community-schema";
@@ -27,13 +31,16 @@ export const getSubmitter = createServerFn({ method: "GET" }).handler(
 /** A submission filed by the signed-in account, newest first. */
 export interface MySubmission {
   id: string;
-  kind: "video" | "tool" | "studio" | "skill" | "extra";
+  kind: SubmissionKind;
   category: string | null;
   title: string;
   url: string;
   description: string;
-  status: string;
+  status: SubmissionStatus;
+  /** The catalog item it became: a video slug or a directory entry id. */
+  featuredItemId: string | null;
   createdAt: Date;
+  reviewedAt: Date | null;
 }
 
 /** The signed-in user's own submissions; `null` when signed out. */
@@ -52,7 +59,9 @@ export const getMySubmissions = createServerFn({ method: "GET" }).handler(
         url: communitySubmissions.url,
         description: communitySubmissions.description,
         status: communitySubmissions.status,
+        featuredItemId: communitySubmissions.featuredItemId,
         createdAt: communitySubmissions.createdAt,
+        reviewedAt: communitySubmissions.reviewedAt,
       })
       .from(communitySubmissions)
       .where(eq(communitySubmissions.email, session.user.email))

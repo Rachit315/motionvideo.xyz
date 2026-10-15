@@ -25,6 +25,8 @@ export const BuyButton = ({ offer }: { offer: Offer }) => {
     <div className="flex flex-wrap items-center gap-4">
       <a
         href="/checkout"
+        data-track="checkout_start"
+        data-track-product="skill"
         className={buttonVariants({ size: "lg", variant: "gradient" })}
       >
         <span>
@@ -126,9 +128,11 @@ export const PriceCard = ({ offer }: { offer: Offer }) => {
       <CardFooter className="border-t-0 bg-transparent pt-0">
         <a
           href="/checkout"
+          data-track="checkout_start"
+          data-track-product="skill"
           className={buttonVariants({
             className: "w-full",
-            size: "cta",
+            size: "xl",
             variant: "gradient",
           })}
         >

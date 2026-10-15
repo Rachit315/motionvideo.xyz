@@ -1,7 +1,8 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
-import { cn } from "cn";
 import { ChevronDown } from "reicon-react/icons/ChevronDown";
 import { ChevronUp } from "reicon-react/icons/ChevronUp";
+
+import { cn } from "@/lib/utils";
 
 const Accordion = ({ className, ...props }: AccordionPrimitive.Root.Props) => (
   <AccordionPrimitive.Root

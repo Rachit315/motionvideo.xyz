@@ -33,7 +33,6 @@ export default {
     videos: t({ en: "Videos", es: "Vídeos", fr: "Vidéos" }),
     categories: t({ en: "Categories", es: "Categorías", fr: "Catégories" }),
     discover: t({ en: "Discover", es: "Descubrir", fr: "Découvrir" }),
-    featured: t({ en: "Featured", es: "Destacados", fr: "À l’honneur" }),
     tools: t({ en: "Tools", es: "Herramientas", fr: "Outils" }),
     creatives: t({ en: "Creatives", es: "Creativos", fr: "Créatifs" }),
     skills: t({ en: "Skills", es: "Habilidades", fr: "Compétences" }),
@@ -41,6 +40,7 @@ export default {
     submit: t({ en: "Submit", es: "Enviar", fr: "Proposer" }),
     bookmarks: t({ en: "Bookmarks", es: "Guardados", fr: "Favoris" }),
     sponsor: t({ en: "Sponsor", es: "Patrocinar", fr: "Sponsoriser" }),
+    jobs: t({ en: "Jobs", es: "Empleos", fr: "Emplois" }),
     skill: t({
       en: "MotionVideo agent skill",
       es: "Habilidad de agente MotionVideo",
@@ -59,15 +59,15 @@ export default {
       es: "Términos de servicio",
       fr: "Conditions d’utilisation",
     }),
+    license: t({
+      en: "Skill license",
+      es: "Licencia del skill",
+      fr: "Licence du skill",
+    }),
     refunds: t({
       en: "Refund policy",
       es: "Política de reembolso",
       fr: "Politique de remboursement",
-    }),
-    dpa: t({
-      en: "DPA",
-      es: "Acuerdo de tratamiento de datos",
-      fr: "Accord de traitement des données",
     }),
     dashboard: t({ en: "Dashboard", es: "Panel", fr: "Tableau de bord" }),
     search: t({ en: "Search", es: "Buscar", fr: "Rechercher" }),
@@ -84,7 +84,6 @@ export default {
       es: "Proyectos de Shadcn Labs",
       fr: "Projets Shadcn Labs",
     }),
-    settings: t({ en: "Settings", es: "Ajustes", fr: "Réglages" }),
     language: t({ en: "Language", es: "Idioma", fr: "Langue" }),
     muteSounds: t({
       en: "Mute sounds",

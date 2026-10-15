@@ -1,4 +1,4 @@
-import { createFileRoute, getRouteApi } from "@tanstack/react-router";
+import { Link, createFileRoute, getRouteApi } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
 import { ArrowRight } from "reicon-react/icons/ArrowRight";
 import { ArrowRightUp } from "reicon-react/icons/ArrowRightUp";
@@ -9,6 +9,7 @@ import { Plus } from "reicon-react/icons/Plus";
 import { z } from "zod";
 
 import { XIcon } from "@/components/brand-icons";
+import { HeroHeader, PageMain } from "@/components/page";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import {
@@ -18,7 +19,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -27,145 +28,272 @@ import {
 } from "@/components/ui/card";
 import { LINK } from "@/constants/links";
 import { ROUTES } from "@/constants/routes";
-import catalog from "@/data/motion-catalog.json";
-import directories from "@/data/resource-directories.json";
-import { MOTION_CATEGORIES } from "@/lib/motion-catalog";
+import { FOUNDING_SPONSORS, SPONSOR_TIERS } from "@/constants/sponsors";
+import type { FoundingSponsor, SponsorTier } from "@/constants/sponsors";
+import { cn } from "@/lib/utils";
+import { withUtm } from "@/lib/utm";
 import { createMetadata } from "@/seo/metadata";
 import { getLandingData } from "@/server/functions";
-
-const TIER_IDS = ["diamond", "gold", "silver"] as const;
-type TierId = (typeof TIER_IDS)[number];
+import { getDiamondSoldOut } from "@/server/sponsorship-functions";
 
 // Monthly subscriptions, billed through the Dodo checkout at ROUTES.CHECKOUT.
-const TIERS: readonly { id: TierId; usdPerMonth: number }[] = [
+const TIERS: readonly { id: SponsorTier; usdPerMonth: number }[] = [
   { id: "diamond", usdPerMonth: 500 },
   { id: "gold", usdPerMonth: 250 },
   { id: "silver", usdPerMonth: 150 },
 ];
 
-const checkoutHref = (tier: TierId) => `${ROUTES.CHECKOUT}?product=${tier}`;
+const checkoutHref = (tier: SponsorTier) =>
+  `${ROUTES.CHECKOUT}?product=${tier}`;
 
-// Reach is counted from the catalogue that ships with the site, never from
-// traffic estimates.
-const STATS = [
-  { id: "videos", value: catalog.videos.length },
-  {
-    id: "creators",
-    value: new Set(catalog.videos.map(({ handle }) => handle)).size,
-  },
-  { id: "tools", value: directories.tools.entries.length },
-  { id: "categories", value: MOTION_CATEGORIES.length },
-] as const;
+/**
+ * A tiny wireframe of a page: the intro (with its sponsor slots) in the
+ * first column's first row, a card under it, and the grid with the sponsored
+ * card top right. Diamond and Gold light up a slot and the card; Silver only
+ * the card.
+ */
+const PlacementSketch = ({ tier }: { tier: SponsorTier }) => {
+  const tile = "bg-muted rounded-sm";
+  const accent = "bg-primary rounded-sm";
+  return (
+    <div
+      aria-hidden="true"
+      className="bg-card shadow-outline grid aspect-video grid-cols-4 grid-rows-2 gap-1.5 overflow-hidden rounded-xl p-3"
+    >
+      <div className="flex flex-col justify-end gap-1">
+        <span className={cn(tile, "h-1.5 w-3/4")} />
+        <span className={cn(tile, "h-1 w-full")} />
+        <span className="mt-1 flex gap-0.5">
+          <span className={cn(tier === "silver" ? tile : accent, "size-2")} />
+          <span className="border-foreground/30 size-2 rounded-sm border border-dashed" />
+          <span className="border-foreground/30 size-2 rounded-sm border border-dashed" />
+        </span>
+      </div>
+      <span className={tile} />
+      <span className={tile} />
+      <span className={accent} />
+      <span className={tile} />
+      <span className={tile} />
+      <span className={tile} />
+      <span className={tile} />
+    </div>
+  );
+};
 
-const sectionTitle = "text-2xl font-semibold tracking-tight";
+// Matches PageSection headings on the other company pages.
+const sectionTitle = "text-xl font-semibold tracking-tight";
 
 interface SponsorSearch {
-  thanks?: TierId;
+  thanks?: SponsorTier;
+  /** Set by /checkout when every Diamond seat is taken. */
+  soldOut?: "diamond";
 }
 
 const routeApi = getRouteApi("/sponsor");
 
+/** A sponsor's mark, name and tagline, linking out (labelled sponsored). */
+const SponsorLink = ({ sponsor }: { sponsor: FoundingSponsor }) => (
+  <a
+    href={withUtm(sponsor.url, "sponsor-page")}
+    target="_blank"
+    rel="sponsored noopener"
+    className="group bg-card shadow-outline hover:bg-muted/60 flex items-center gap-3 rounded-xl p-3 transition-colors"
+  >
+    <span className="bg-background shadow-outline dark:bg-popover flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-lg p-1.5">
+      <img
+        src={sponsor.logo}
+        alt=""
+        width={40}
+        height={40}
+        loading="lazy"
+        decoding="async"
+        referrerPolicy="no-referrer"
+        className={cn(
+          "size-full object-contain",
+          sponsor.darkInvert && "dark:invert"
+        )}
+      />
+    </span>
+    <span className="flex min-w-0 flex-1 flex-col">
+      <span className="truncate text-sm font-medium">{sponsor.name}</span>
+      {sponsor.tagline && (
+        <span className="text-muted-foreground truncate text-xs">
+          {sponsor.tagline}
+        </span>
+      )}
+    </span>
+    <ArrowRightUp
+      aria-hidden="true"
+      className="text-muted-foreground group-hover:text-foreground size-4 shrink-0 transition-colors"
+    />
+  </a>
+);
+
 const Sponsor = () => {
   const content = useIntlayer("sponsor");
-  const { signedIn } = routeApi.useLoaderData();
-  const { thanks } = routeApi.useSearch();
+  const { signedIn, sponsors, diamondSoldOut } = routeApi.useLoaderData();
+  const { thanks, soldOut } = routeApi.useSearch();
 
   return (
     <>
       <SiteHeader signedIn={signedIn} />
-      <main
-        id="main-content"
-        className="mx-auto flex w-full max-w-5xl flex-col gap-20 px-4 pt-12 pb-8 sm:px-6 sm:pt-20"
-      >
+      {/* Same shell and heading scale as the other company pages (About,
+          Brand, Contact). */}
+      <PageMain width="full" className="items-center gap-20">
         {thanks && (
           <section
             aria-live="polite"
-            className="bg-card shadow-outline flex items-start gap-3 rounded-2xl p-6"
+            className="bg-card shadow-outline flex w-full max-w-3xl items-start gap-3 rounded-2xl p-6"
           >
             <HandHeart aria-hidden="true" className="mt-0.5 size-6 shrink-0" />
             <div className="flex flex-col gap-2">
               <h2 className="text-lg font-semibold">{content.thanksTitle}</h2>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                {content.thanksBody}{" "}
-                <a
-                  href={`mailto:${LINK.EMAIL}`}
-                  className="text-foreground underline underline-offset-4"
-                >
-                  {LINK.EMAIL}
-                </a>
-                .
+                {content.thanksBody}
               </p>
+              <Link
+                to={ROUTES.SPONSORSHIPS}
+                className={buttonVariants({ className: "w-fit" })}
+              >
+                {content.thanksLink}
+                <ArrowRight aria-hidden="true" />
+              </Link>
             </div>
           </section>
         )}
+        {soldOut && diamondSoldOut && (
+          <section
+            aria-live="polite"
+            className="bg-card shadow-outline flex w-full max-w-3xl flex-col gap-2 rounded-2xl p-6"
+          >
+            <h2 className="text-lg font-semibold">{content.soldOutTitle}</h2>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              {content.soldOutBody}
+            </p>
+          </section>
+        )}
 
-        <header className="flex max-w-2xl flex-col gap-4">
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-            {content.title}
-          </h1>
-          <p className="text-lg text-pretty">{content.pitch}</p>
-          <p className="text-muted-foreground text-pretty">{content.note}</p>
-        </header>
-
-        <section aria-labelledby="reach" className="flex flex-col gap-6">
-          <div className="flex flex-col gap-2">
-            <h2 id="reach" className={sectionTitle}>
-              {content.reach}
-            </h2>
-            <p className="text-muted-foreground text-sm">{content.reachNote}</p>
-          </div>
-          <dl className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {STATS.map((stat) => (
-              <div
-                key={stat.id}
-                className="bg-card shadow-outline flex flex-col-reverse gap-1 rounded-xl p-4"
+        <HeroHeader
+          title={content.pitch}
+          intro={content.note}
+          actions={
+            // The note hangs off the button's right edge, so the button
+            // itself stays centred.
+            <div className="relative">
+              <a
+                href="#plans"
+                className={buttonVariants({ variant: "gradient", size: "xl" })}
               >
-                <dt className="text-muted-foreground text-sm">
-                  {content.stats[stat.id]}
-                </dt>
-                <dd className="text-3xl font-semibold tracking-tight tabular-nums">
-                  {stat.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </section>
+                {content.seePlans}
+              </a>
+              <span className="text-muted-foreground absolute top-1/2 left-full ml-4 -translate-y-1/2 text-sm whitespace-nowrap">
+                {content.limited}
+              </span>
+            </div>
+          }
+        />
 
-        <section aria-labelledby="sponsors" className="flex flex-col gap-6">
-          <h2 id="sponsors" className={sectionTitle}>
+        {/* Where each tier shows, drawn as small page sketches. */}
+        <ul className="grid w-full max-w-5xl gap-6 md:grid-cols-3">
+          {TIERS.map(({ id }) => (
+            <li key={id} className="flex flex-col gap-3 text-center">
+              <PlacementSketch tier={id} />
+              <p className="text-sm text-balance">
+                <span className="font-medium">{content.tiers[id].name}</span>
+                {" · "}
+                {content.tiers[id].perks[1]}
+              </p>
+            </li>
+          ))}
+        </ul>
+
+        <section
+          aria-labelledby="sponsors"
+          className="flex w-full max-w-3xl flex-col gap-6"
+        >
+          <h2 id="sponsors" className={cn(sectionTitle, "text-center")}>
             {content.sponsors}
           </h2>
           <ul className="flex flex-col gap-3">
-            {TIERS.map(({ id }) => (
-              <li
-                key={id}
-                className="grid gap-2 sm:grid-cols-[6rem_minmax(0,1fr)] sm:items-center"
-              >
-                <span className="text-muted-foreground text-sm">
-                  {content.tiers[id].name}
+            {/* Curated partners from the start: listed on their own, not in
+                a paid tier. */}
+            {FOUNDING_SPONSORS.length > 0 && (
+              <li className="grid gap-2 sm:grid-cols-[6rem_minmax(0,1fr)] sm:items-start">
+                <span className="text-muted-foreground text-sm sm:py-5">
+                  {content.founding}
                 </span>
-                <a
-                  href={checkoutHref(id)}
-                  className="group hover:bg-muted/60 border-foreground/20 flex items-center gap-3 rounded-xl border border-dashed p-3 transition-colors"
-                >
-                  <span className="bg-muted text-muted-foreground group-hover:text-foreground flex size-10 shrink-0 items-center justify-center rounded-lg transition-colors">
-                    <Plus aria-hidden="true" className="size-4" />
-                  </span>
-                  <span className="min-w-0 flex-1 text-sm font-medium">
-                    {content.tiers[id].firstSponsor}
-                  </span>
-                  <span className="text-muted-foreground group-hover:text-foreground hidden items-center gap-1.5 text-sm transition-colors sm:inline-flex">
-                    {content.takeSlot}
-                    <ArrowRight aria-hidden="true" className="size-4" />
-                  </span>
-                </a>
+                <ul className="grid gap-2 sm:grid-cols-2">
+                  {FOUNDING_SPONSORS.map((sponsor) => (
+                    <li key={`${sponsor.name}:${sponsor.url}`}>
+                      <SponsorLink sponsor={sponsor} />
+                    </li>
+                  ))}
+                </ul>
               </li>
-            ))}
+            )}
+            {TIERS.map(({ id }) => {
+              const tierSponsors = sponsors.filter(
+                (sponsor) => sponsor.tier === id
+              );
+              const full = id === "diamond" && diamondSoldOut;
+              return (
+                <li
+                  key={id}
+                  className="grid gap-2 sm:grid-cols-[6rem_minmax(0,1fr)] sm:items-start"
+                >
+                  <span className="text-muted-foreground text-sm sm:py-5">
+                    {content.tiers[id].name}
+                  </span>
+                  <div className="flex flex-col gap-2">
+                    {tierSponsors.length > 0 && (
+                      <ul className="grid gap-2 sm:grid-cols-2">
+                        {tierSponsors.map((sponsor) => (
+                          <li key={`${sponsor.name}:${sponsor.url}`}>
+                            <SponsorLink sponsor={sponsor} />
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {full ? (
+                      <div className="border-foreground/20 text-muted-foreground flex items-center gap-3 rounded-xl border border-dashed p-3">
+                        <span className="min-w-0 flex-1 text-sm font-medium">
+                          {content.sponsorsSeats}
+                        </span>
+                        <span className="text-sm">{content.soldOut}</span>
+                      </div>
+                    ) : (
+                      <a
+                        href={checkoutHref(id)}
+                        data-track="checkout_start"
+                        data-track-product={id}
+                        className="group hover:bg-muted/60 border-foreground/20 flex items-center gap-3 rounded-xl border border-dashed p-3 transition-colors"
+                      >
+                        <span className="bg-muted text-muted-foreground group-hover:text-foreground flex size-10 shrink-0 items-center justify-center rounded-lg transition-colors">
+                          <Plus aria-hidden="true" className="size-4" />
+                        </span>
+                        <span className="min-w-0 flex-1 text-sm font-medium">
+                          {tierSponsors.length > 0
+                            ? content.tiers[id].join
+                            : content.tiers[id].firstSponsor}
+                        </span>
+                        <span className="text-muted-foreground group-hover:text-foreground hidden items-center gap-1.5 text-sm transition-colors sm:inline-flex">
+                          {content.takeSlot}
+                          <ArrowRight aria-hidden="true" className="size-4" />
+                        </span>
+                      </a>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </section>
 
-        <section aria-labelledby="plans" className="flex flex-col gap-6">
-          <h2 id="plans" className={sectionTitle}>
+        <section
+          aria-labelledby="plans"
+          className="flex w-full max-w-4xl scroll-mt-24 flex-col gap-6"
+        >
+          <h2 id="plans" className={cn(sectionTitle, "text-center")}>
             {content.plans}
           </h2>
           <ul className="grid gap-4 md:grid-cols-3">
@@ -173,13 +301,22 @@ const Sponsor = () => {
               const tier = content.tiers[id];
               const featured = id === "diamond";
               return (
-                <li key={id} className="flex">
-                  <Card size="lg" className="w-full">
+                <li key={id} className="relative flex">
+                  {/* Diamond: primary border with the badge centred on its
+                      top edge (outside the card, which clips overflow). */}
+                  {featured && (
+                    <Badge className="absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
+                      {content.mostImpact}
+                    </Badge>
+                  )}
+                  <Card
+                    size="lg"
+                    className={cn("w-full", featured && "ring-primary ring-2")}
+                  >
                     <CardHeader>
                       <div className="flex flex-col gap-3">
                         <h3 className="flex items-center justify-between gap-2 text-base font-semibold">
                           {tier.name}
-                          {featured && <Badge>{content.mostImpact}</Badge>}
                         </h3>
                         <p className="flex items-baseline gap-1.5">
                           <span className="text-4xl font-semibold tracking-tight tabular-nums">
@@ -205,17 +342,30 @@ const Sponsor = () => {
                       </ul>
                     </CardContent>
                     <CardFooter className="border-t-0 bg-transparent pt-0">
-                      <a
-                        href={checkoutHref(id)}
-                        className={buttonVariants({
-                          className: "w-full",
-                          size: "lg",
-                          variant: featured ? "gradient" : "outline",
-                        })}
-                      >
-                        {tier.choose}
-                        <ArrowRight aria-hidden="true" />
-                      </a>
+                      {featured && diamondSoldOut ? (
+                        <Button
+                          size="lg"
+                          variant="outline"
+                          disabled
+                          className="w-full"
+                        >
+                          {content.soldOut}
+                        </Button>
+                      ) : (
+                        <a
+                          href={checkoutHref(id)}
+                          data-track="checkout_start"
+                          data-track-product={id}
+                          className={buttonVariants({
+                            className: "w-full",
+                            size: "lg",
+                            variant: featured ? "gradient" : "secondary",
+                          })}
+                        >
+                          {tier.choose}
+                          <ArrowRight aria-hidden="true" />
+                        </a>
+                      )}
                     </CardFooter>
                   </Card>
                 </li>
@@ -226,7 +376,7 @@ const Sponsor = () => {
 
         <section
           aria-labelledby="custom"
-          className="bg-card shadow-outline flex flex-col gap-5 rounded-2xl p-6 sm:flex-row sm:items-center sm:justify-between"
+          className="bg-card shadow-outline flex w-full max-w-4xl flex-col gap-5 rounded-2xl p-6 sm:flex-row sm:items-center sm:justify-between"
         >
           <div className="flex flex-col gap-2">
             <h2 id="custom" className="text-lg font-semibold">
@@ -239,16 +389,16 @@ const Sponsor = () => {
           <div className="flex shrink-0 flex-wrap gap-2">
             <a
               href={`mailto:${LINK.EMAIL}`}
-              className={buttonVariants({ variant: "outline", size: "lg" })}
+              className={buttonVariants({ variant: "secondary", size: "lg" })}
             >
               <Envelope aria-hidden="true" />
               {content.email}
             </a>
             <a
-              href={LINK.X}
+              href={LINK.X_DM}
               target="_blank"
               rel="noreferrer"
-              className={buttonVariants({ variant: "outline", size: "lg" })}
+              className={buttonVariants({ variant: "secondary", size: "lg" })}
             >
               <XIcon aria-hidden="true" />
               {content.dmX}
@@ -257,7 +407,10 @@ const Sponsor = () => {
           </div>
         </section>
 
-        <section aria-labelledby="faq" className="flex flex-col gap-6">
+        <section
+          aria-labelledby="faq"
+          className="flex w-full max-w-3xl flex-col gap-6"
+        >
           <h2 id="faq" className={sectionTitle}>
             {content.faq}
           </h2>
@@ -279,7 +432,7 @@ const Sponsor = () => {
             ))}
           </Accordion>
         </section>
-      </main>
+      </PageMain>
       <SiteFooter />
     </>
   );
@@ -287,9 +440,16 @@ const Sponsor = () => {
 
 export const Route = createFileRoute("/sponsor")({
   component: Sponsor,
-  loader: () => getLandingData(),
+  loader: async () => {
+    const [landing, diamondSoldOut] = await Promise.all([
+      getLandingData(),
+      getDiamondSoldOut(),
+    ]);
+    return { ...landing, diamondSoldOut };
+  },
   validateSearch: (search): SponsorSearch => ({
-    thanks: z.enum(TIER_IDS).safeParse(search.thanks).data,
+    thanks: z.enum(SPONSOR_TIERS).safeParse(search.thanks).data,
+    soldOut: z.literal("diamond").safeParse(search.soldOut).data,
   }),
   head: () =>
     createMetadata({

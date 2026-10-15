@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { cn } from "cn";
 import { useIntlayer } from "react-intlayer";
 import { Download } from "reicon-react/icons/Download";
 
@@ -12,6 +11,7 @@ import {
 } from "@/components/page";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
+import { cn } from "@/lib/utils";
 import { breadcrumbJsonLd } from "@/seo/json-ld";
 import { createMetadata } from "@/seo/metadata";
 

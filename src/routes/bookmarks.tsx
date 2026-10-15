@@ -5,9 +5,21 @@ import {
   redirect,
 } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
+import type { IntlayerNode } from "react-intlayer";
 import { Bookmark } from "reicon-react/icons/Bookmark";
+import { z } from "zod";
 
+import {
+  CategoryChip,
+  CollectionToolbar,
+} from "@/components/collection-toolbar";
+import {
+  DIRECTORY_COVER_RATIO,
+  DirectoryCard,
+} from "@/components/directory-card";
+import { FadeScroller } from "@/components/fade-scroller";
 import { MotionVideoCard } from "@/components/motion-video";
+import { AccountPageHeader, pageContainerClass } from "@/components/page";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { buttonVariants } from "@/components/ui/button";
@@ -22,81 +34,142 @@ import {
 import { VirtualMasonry } from "@/components/virtual-masonry";
 import type { MasonryItem } from "@/components/virtual-masonry";
 import { ROUTES } from "@/constants/routes";
-import catalog from "@/data/motion-catalog.json";
+import { findBookmarkItem } from "@/lib/bookmark-catalog";
+import { BOOKMARK_KINDS, bookmarkKey } from "@/lib/bookmark-items";
+import type { BookmarkKind } from "@/lib/bookmark-items";
 import { useBookmarks } from "@/lib/bookmarks";
-import type { MotionVideo } from "@/lib/motion-catalog";
+import { DIRECTORY_CATEGORIES } from "@/lib/directories";
+import type { DirectoryCategory } from "@/lib/directories";
+import { cn } from "@/lib/utils";
 import { createMetadata } from "@/seo/metadata";
 import { getBookmarks } from "@/server/bookmark-functions";
 
+interface BookmarksSearch {
+  kind?: BookmarkKind;
+}
+
 const routeApi = getRouteApi("/bookmarks");
-const videosBySlug = new Map<string, MotionVideo>(
-  catalog.videos.map((video) => [video.slug, video])
-);
 
 const Bookmarks = () => {
   const content = useIntlayer("bookmarks-page");
-  const slugs = routeApi.useLoaderData();
+  const directory = useIntlayer("resource-directory");
+  const saved = routeApi.useLoaderData();
+  const search = routeApi.useSearch();
   const bookmarks = useBookmarks();
   // Cards leave as soon as they are unbookmarked; the loader keeps the order.
-  const visible = bookmarks.loaded
-    ? slugs.filter((slug) => bookmarks.slugs.has(slug))
-    : slugs;
-  const items: MasonryItem[] = visible.flatMap((slug) => {
-    const video = videosBySlug.get(slug);
-    return video
-      ? [
-          {
-            key: video.slug,
-            aspectRatio: video.width / video.height,
-            // Opens the video overlay on Discover.
-            node: (
-              <MotionVideoCard
-                video={video}
-                paused={false}
-                open={false}
-                category={undefined}
-                search={{}}
-              />
-            ),
-          },
-        ]
+  const visible = saved.flatMap(({ kind, id }) => {
+    const key = bookmarkKey(kind, id);
+    const item = findBookmarkItem(kind, id);
+    return item && (!bookmarks.loaded || bookmarks.keys.has(key))
+      ? [{ key, item }]
       : [];
+  });
+  const counts = new Map<BookmarkKind, number>();
+  for (const { item } of visible) {
+    counts.set(item.kind, (counts.get(item.kind) ?? 0) + 1);
+  }
+  // A kind whose last bookmark was just removed loses its chip, so fall back
+  // to "All" rather than an empty filter.
+  const kind = search.kind && counts.has(search.kind) ? search.kind : undefined;
+  const shown = kind
+    ? visible.filter(({ item }) => item.kind === kind)
+    : visible;
+
+  const items: MasonryItem[] = shown.map(({ key, item }) => {
+    if (item.kind === "video") {
+      return {
+        key,
+        aspectRatio: item.video.width / item.video.height,
+        // Opens the video overlay on Discover.
+        node: (
+          <MotionVideoCard
+            video={item.video}
+            paused={false}
+            open={false}
+            category={undefined}
+            search={{}}
+          />
+        ),
+      };
+    }
+    const { entry } = item;
+    const categories: DirectoryCategory[] = DIRECTORY_CATEGORIES[item.kind];
+    const labels: Partial<Record<string, IntlayerNode<string>>> =
+      directory.labels[item.kind];
+    const category = categories.find(({ id }) => id === entry.category);
+    return {
+      key,
+      aspectRatio: DIRECTORY_COVER_RATIO,
+      node: (
+        <DirectoryCard
+          kind={item.kind}
+          entry={entry}
+          // Sections without chips show no badge, as in the directories.
+          categoryLabel={
+            categories.length > 0
+              ? ((category && labels[category.slug]?.value) ?? entry.category)
+              : undefined
+          }
+          label={`${entry.name}: ${directory.visit.value} (${directory.newTab.value})`}
+        />
+      ),
+    };
   });
 
   return (
     <>
       <SiteHeader signedIn />
-      <main
-        id="main-content"
-        className="mx-auto flex w-full max-w-[1800px] flex-1 flex-col gap-6 px-4 pt-6 pb-16 sm:px-6"
-      >
-        <header className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            {content.title}
-          </h1>
-          <p className="text-muted-foreground text-sm">{content.intro}</p>
-        </header>
-        {items.length > 0 ? (
-          <VirtualMasonry items={items} />
-        ) : (
-          <Empty className="bg-muted/40 rounded-2xl">
-            <EmptyHeader>
-              <EmptyMedia>
-                <Bookmark
-                  aria-hidden="true"
-                  className="text-muted-foreground size-7"
-                />
-              </EmptyMedia>
-              <EmptyTitle>{content.emptyTitle}</EmptyTitle>
-              <EmptyDescription>{content.emptyDescription}</EmptyDescription>
-            </EmptyHeader>
-            <EmptyContent>
-              <Link to={ROUTES.HOME} className={buttonVariants()}>
-                {content.discover}
-              </Link>
-            </EmptyContent>
-          </Empty>
+      <main id="main-content" className="flex flex-1 flex-col">
+        <AccountPageHeader
+          title={content.title}
+          intro={content.intro}
+          className={cn(pageContainerClass("full"), "pt-6 pb-3.5")}
+        />
+        {visible.length > 0 && (
+          <CollectionToolbar>
+            <FadeScroller
+              label={content.filterKind.value}
+              className="-mx-1 -my-1 min-w-0 basis-full px-1 py-1"
+            >
+              {[undefined, ...BOOKMARK_KINDS.filter((k) => counts.has(k))].map(
+                (value) => (
+                  <CategoryChip
+                    key={value ?? "all"}
+                    to={ROUTES.BOOKMARKS}
+                    search={{ kind: value }}
+                    active={value === kind}
+                    activeVariant={value ? "default" : "outline"}
+                    label={value ? content.kinds[value] : content.all}
+                    count={value ? counts.get(value) : visible.length}
+                  />
+                )
+              )}
+            </FadeScroller>
+          </CollectionToolbar>
         )}
+        <div className="mx-auto flex w-full max-w-[1800px] flex-1 flex-col px-4 pt-2.5 pb-16 sm:px-6">
+          {items.length > 0 ? (
+            <VirtualMasonry items={items} />
+          ) : (
+            <Empty className="bg-muted/40 rounded-2xl">
+              <EmptyHeader>
+                <EmptyMedia>
+                  <Bookmark
+                    aria-hidden="true"
+                    className="text-muted-foreground size-7"
+                  />
+                </EmptyMedia>
+                <EmptyTitle>{content.emptyTitle}</EmptyTitle>
+                <EmptyDescription>{content.emptyDescription}</EmptyDescription>
+              </EmptyHeader>
+              <EmptyContent>
+                <Link to={ROUTES.HOME} className={buttonVariants()}>
+                  {content.discover}
+                </Link>
+              </EmptyContent>
+            </Empty>
+          )}
+        </div>
       </main>
       <SiteFooter />
     </>
@@ -111,14 +184,17 @@ export const Route = createFileRoute("/bookmarks")({
       noIndex: true,
       title: "Bookmarks",
     }),
+  validateSearch: (search): BookmarksSearch => ({
+    kind: z.enum(BOOKMARK_KINDS).safeParse(search.kind).data,
+  }),
   loader: async () => {
-    const slugs = await getBookmarks();
-    if (!slugs) {
+    const saved = await getBookmarks();
+    if (!saved) {
       throw redirect({
         search: { redirect: ROUTES.BOOKMARKS },
         to: ROUTES.SIGN_IN,
       });
     }
-    return slugs;
+    return saved;
   },
 });
