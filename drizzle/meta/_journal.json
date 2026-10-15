@@ -8,6 +8,55 @@
       "when": 1790577345071,
       "tag": "0000_workable_victor_mancha",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1791537092063,
+      "tag": "0001_equal_wither",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1791568378855,
+      "tag": "0002_bookmarks",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1791617555777,
+      "tag": "0003_submission_category",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1791973299843,
+      "tag": "0004_featured_bookmarks_sponsorships",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1791987680432,
+      "tag": "0005_feedback",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1792047449186,
+      "tag": "0006_job_posts",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1792083338151,
+      "tag": "0007_sponsorship_checkout",
+      "breakpoints": true
     }
   ]
 }

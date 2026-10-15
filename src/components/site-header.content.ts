@@ -1,0 +1,107 @@
+import { t } from "intlayer";
+import type { Dictionary } from "intlayer";
+
+export default {
+  key: "site-header",
+  content: {
+    navigation: t({
+      en: "Main navigation",
+      es: "Navegación principal",
+      fr: "Navigation principale",
+    }),
+    discover: t({ en: "Discover", es: "Descubrir", fr: "Découvrir" }),
+    tools: t({ en: "Tools", es: "Herramientas", fr: "Outils" }),
+    creatives: t({ en: "Creatives", es: "Creativos", fr: "Créatifs" }),
+    skills: t({ en: "Skills", es: "Habilidades", fr: "Compétences" }),
+    extras: t({ en: "Extras", es: "Extras", fr: "Extras" }),
+    more: t({ en: "More", es: "Más", fr: "Plus" }),
+    sponsorSlot: t({
+      en: "Your logo here: sponsor MotionVideo",
+      es: "Tu logo aquí: patrocina MotionVideo",
+      fr: "Votre logo ici : sponsorisez MotionVideo",
+    }),
+    sponsored: t({ en: "Sponsored", es: "Patrocinado", fr: "Sponsorisé" }),
+    openMenu: t({ en: "Open menu", es: "Abrir menú", fr: "Ouvrir le menu" }),
+    closeMenu: t({ en: "Close menu", es: "Cerrar menú", fr: "Fermer le menu" }),
+    skill: t({ en: "SKILL.md", es: "SKILL.md", fr: "SKILL.md" }),
+    skillLabel: t({
+      en: "Get the MotionVideo agent skill (SKILL.md)",
+      es: "Obtén la habilidad de agente MotionVideo (SKILL.md)",
+      fr: "Obtenir la compétence d’agent MotionVideo (SKILL.md)",
+    }),
+    accountMenu: t({
+      en: "Account menu",
+      es: "Menú de la cuenta",
+      fr: "Menu du compte",
+    }),
+    bookmarks: t({ en: "Bookmarks", es: "Guardados", fr: "Favoris" }),
+    featured: t({ en: "Featured", es: "Destacados", fr: "À l’honneur" }),
+    dashboard: t({ en: "Dashboard", es: "Panel", fr: "Tableau de bord" }),
+    submit: t({
+      en: "Submit a video",
+      es: "Enviar un vídeo",
+      fr: "Proposer une vidéo",
+    }),
+    sponsorships: t({
+      en: "Sponsorships",
+      es: "Patrocinios",
+      fr: "Parrainages",
+    }),
+    settings: t({ en: "Settings", es: "Ajustes", fr: "Réglages" }),
+    general: t({ en: "General", es: "General", fr: "Général" }),
+    emails: t({ en: "Emails", es: "Correos", fr: "E-mails" }),
+    emailUpdates: t({
+      en: "MotionVideo updates",
+      es: "Novedades de MotionVideo",
+      fr: "Actualités de MotionVideo",
+    }),
+    deleteAccount: t({
+      en: "Delete account",
+      es: "Eliminar cuenta",
+      fr: "Supprimer le compte",
+    }),
+    deleteTitle: t({
+      en: "Delete your account?",
+      es: "¿Eliminar tu cuenta?",
+      fr: "Supprimer votre compte ?",
+    }),
+    deleteDescription: t({
+      en: "Account deletion isn't automated yet. Write to us from your account email and we'll delete your account, submissions, and bookmarks.",
+      es: "La eliminación de cuentas aún no es automática. Escríbenos desde tu correo y eliminaremos tu cuenta, propuestas y guardados.",
+      fr: "La suppression de compte n’est pas encore automatisée. Écrivez-nous depuis votre adresse e-mail et nous supprimerons votre compte, vos propositions et vos favoris.",
+    }),
+    deleteContact: t({
+      en: "Email us to delete",
+      es: "Escríbenos para eliminar",
+      fr: "Écrivez-nous pour supprimer",
+    }),
+    cancel: t({ en: "Cancel", es: "Cancelar", fr: "Annuler" }),
+    language: t({ en: "Language", es: "Idioma", fr: "Langue" }),
+    socials: t({ en: "Socials", es: "Redes", fr: "Réseaux" }),
+    theme: t({ en: "Theme", es: "Tema", fr: "Thème" }),
+    sounds: t({ en: "Sounds", es: "Sonidos", fr: "Sons" }),
+    liveCursors: t({
+      en: "Live cursors",
+      es: "Cursores en vivo",
+      fr: "Curseurs en direct",
+    }),
+    online: t({ en: "online", es: "en línea", fr: "en ligne" }),
+    jobs: t({ en: "Jobs", es: "Empleos", fr: "Emplois" }),
+    listings: t({ en: "Listings", es: "Ofertas", fr: "Annonces" }),
+    keyboard: t({ en: "Keyboard", es: "Teclado", fr: "Clavier" }),
+    light: t({ en: "Light", es: "Claro", fr: "Clair" }),
+    dark: t({ en: "Dark", es: "Oscuro", fr: "Sombre" }),
+    system: t({ en: "System", es: "Sistema", fr: "Système" }),
+    signOut: t({ en: "Log out", es: "Cerrar sesión", fr: "Se déconnecter" }),
+    signedInAs: t({
+      en: "Signed in as",
+      es: "Sesión iniciada como",
+      fr: "Connecté en tant que",
+    }),
+    signIn: t({
+      en: "Sign in",
+      es: "Inicia sesión",
+      fr: "Se connecter",
+    }),
+  },
+} satisfies Dictionary;

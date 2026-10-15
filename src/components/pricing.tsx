@@ -1,6 +1,5 @@
-import { cn } from "cn";
-import { CheckIcon } from "lucide-react";
 import { useIntlayer } from "react-intlayer";
+import { Check } from "reicon-react/icons/Check";
 
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -24,7 +23,12 @@ export const BuyButton = ({ offer }: { offer: Offer }) => {
   const content = useIntlayer("pricing");
   return (
     <div className="flex flex-wrap items-center gap-4">
-      <a href="/checkout" className={buttonVariants({ size: "lg" })}>
+      <a
+        href="/checkout"
+        data-track="checkout_start"
+        data-track-product="skill"
+        className={buttonVariants({ size: "lg", variant: "gradient" })}
+      >
         <span>
           {content.buyNow}{" "}
           {formatUsd(offer.active ? LAUNCH_PRICE_CENTS : BASE_PRICE_CENTS)}
@@ -112,7 +116,7 @@ export const PriceCard = ({ offer }: { offer: Offer }) => {
         <ul className="flex flex-col gap-3 text-sm">
           {content.perks.map((perk) => (
             <li key={perk.value} className="flex gap-2">
-              <CheckIcon
+              <Check
                 aria-hidden
                 className="text-primary mt-0.5 size-4 shrink-0"
               />
@@ -124,7 +128,13 @@ export const PriceCard = ({ offer }: { offer: Offer }) => {
       <CardFooter className="border-t-0 bg-transparent pt-0">
         <a
           href="/checkout"
-          className={cn(buttonVariants({ className: "w-full", size: "cta" }))}
+          data-track="checkout_start"
+          data-track-product="skill"
+          className={buttonVariants({
+            className: "w-full",
+            size: "xl",
+            variant: "gradient",
+          })}
         >
           <span>
             {content.buyNow}{" "}

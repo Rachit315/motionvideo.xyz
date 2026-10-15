@@ -1,0 +1,130 @@
+import { t } from "intlayer";
+import type { Dictionary } from "intlayer";
+
+export default {
+  key: "command-menu",
+  content: {
+    open: t({
+      en: "Search MotionVideo",
+      es: "Buscar en MotionVideo",
+      fr: "Rechercher sur MotionVideo",
+    }),
+    placeholder: t({
+      en: "Search videos, creators, tools, creatives…",
+      es: "Buscar vídeos, creadores, herramientas, creativos…",
+      fr: "Rechercher vidéos, créateurs, outils, créatifs…",
+    }),
+    close: t({
+      en: "Close search",
+      es: "Cerrar búsqueda",
+      fr: "Fermer la recherche",
+    }),
+    empty: t({
+      en: "Nothing matches that search.",
+      es: "Nada coincide con esa búsqueda.",
+      fr: "Aucun résultat pour cette recherche.",
+    }),
+    pages: t({ en: "Pages", es: "Páginas", fr: "Pages" }),
+    popular: t({
+      en: "Popular videos",
+      es: "Vídeos populares",
+      fr: "Vidéos populaires",
+    }),
+    videos: t({ en: "Videos", es: "Vídeos", fr: "Vidéos" }),
+    categories: t({ en: "Categories", es: "Categorías", fr: "Catégories" }),
+    discover: t({ en: "Discover", es: "Descubrir", fr: "Découvrir" }),
+    tools: t({ en: "Tools", es: "Herramientas", fr: "Outils" }),
+    creatives: t({ en: "Creatives", es: "Creativos", fr: "Créatifs" }),
+    skills: t({ en: "Skills", es: "Habilidades", fr: "Compétences" }),
+    extras: t({ en: "Extras", es: "Extras", fr: "Extras" }),
+    submit: t({ en: "Submit", es: "Enviar", fr: "Proposer" }),
+    bookmarks: t({ en: "Bookmarks", es: "Guardados", fr: "Favoris" }),
+    sponsor: t({ en: "Sponsor", es: "Patrocinar", fr: "Sponsoriser" }),
+    jobs: t({ en: "Jobs", es: "Empleos", fr: "Emplois" }),
+    skill: t({
+      en: "MotionVideo agent skill",
+      es: "Habilidad de agente MotionVideo",
+      fr: "Compétence d’agent MotionVideo",
+    }),
+    about: t({ en: "About", es: "Acerca de", fr: "À propos" }),
+    contact: t({ en: "Contact", es: "Contacto", fr: "Contact" }),
+    brand: t({ en: "Brand", es: "Marca", fr: "Marque" }),
+    privacy: t({
+      en: "Privacy policy",
+      es: "Política de privacidad",
+      fr: "Politique de confidentialité",
+    }),
+    terms: t({
+      en: "Terms of service",
+      es: "Términos de servicio",
+      fr: "Conditions d’utilisation",
+    }),
+    refunds: t({
+      en: "Refund policy",
+      es: "Política de reembolso",
+      fr: "Politique de remboursement",
+    }),
+    dashboard: t({ en: "Dashboard", es: "Panel", fr: "Tableau de bord" }),
+    search: t({ en: "Search", es: "Buscar", fr: "Rechercher" }),
+    legal: t({ en: "Legal", es: "Legal", fr: "Mentions légales" }),
+    company: t({ en: "Company", es: "Empresa", fr: "Entreprise" }),
+    otherProducts: t({
+      en: "Other products",
+      es: "Otros productos",
+      fr: "Autres produits",
+    }),
+    misc: t({ en: "Misc.", es: "Varios", fr: "Divers" }),
+    labsProjects: t({
+      en: "Shadcn Labs projects",
+      es: "Proyectos de Shadcn Labs",
+      fr: "Projets Shadcn Labs",
+    }),
+    language: t({ en: "Language", es: "Idioma", fr: "Langue" }),
+    muteSounds: t({
+      en: "Mute sounds",
+      es: "Silenciar sonidos",
+      fr: "Couper les sons",
+    }),
+    unmuteSounds: t({
+      en: "Unmute sounds",
+      es: "Activar sonidos",
+      fr: "Activer les sons",
+    }),
+    others: t({ en: "More", es: "Más", fr: "Plus" }),
+    socials: t({ en: "Socials", es: "Redes", fr: "Réseaux" }),
+    theme: t({ en: "Theme", es: "Tema", fr: "Thème" }),
+    copyLogomark: t({
+      en: "Copy logomark as SVG",
+      es: "Copiar logomark como SVG",
+      fr: "Copier le logomark en SVG",
+    }),
+    copyWordmark: t({
+      en: "Copy wordmark as SVG",
+      es: "Copiar wordmark como SVG",
+      fr: "Copier le wordmark en SVG",
+    }),
+    copyAppIcon: t({
+      en: "Copy app icon as SVG",
+      es: "Copiar icono de app como SVG",
+      fr: "Copier l’icône d’app en SVG",
+    }),
+    guidelines: t({
+      en: "Brand guidelines",
+      es: "Guía de marca",
+      fr: "Guide de la marque",
+    }),
+    downloadAssets: t({
+      en: "Download brand assets",
+      es: "Descargar recursos de marca",
+      fr: "Télécharger les éléments de marque",
+    }),
+    light: t({ en: "Light", es: "Claro", fr: "Clair" }),
+    dark: t({ en: "Dark", es: "Oscuro", fr: "Sombre" }),
+    system: t({ en: "System", es: "Sistema", fr: "Système" }),
+    brandAssets: t({
+      en: "Brand assets",
+      es: "Recursos de marca",
+      fr: "Éléments de marque",
+    }),
+  },
+} satisfies Dictionary;

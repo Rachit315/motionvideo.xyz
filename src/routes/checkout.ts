@@ -1,23 +1,31 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { ROUTES } from "@/constants/routes";
 import { auth } from "@/server/auth";
-import { createCheckoutUrl, hasPurchased } from "@/server/polar";
+import { createCheckoutUrl, hasPurchased } from "@/server/dodo";
 
 const redirect = (location: string): Response =>
   new Response(null, { headers: { Location: location }, status: 303 });
 
-// Always sells the configured product; query parameters cannot select a cheaper
-// product or override its launch discount. Existing buyers keep their access.
+// Checkout for the skill bundle. Sponsorships check out from their form on
+// /sponsorships/new, so any other `?product=` goes to the sponsor plans
+// instead of silently selling the bundle. Existing buyers keep their access.
 export const Route = createFileRoute("/checkout")({
   server: {
     handlers: {
       GET: async ({ request }) => {
-        const session = await auth.api.getSession({ headers: request.headers });
-        const email = session?.user.email ?? null;
-        if (email && (await hasPurchased(email))) {
-          return redirect("/dashboard");
+        const product = new URL(request.url).searchParams.get("product");
+        if (product !== null && product !== "skill") {
+          return redirect(ROUTES.SPONSOR);
         }
-        return redirect(await createCheckoutUrl(request, email));
+        const session = await auth.api.getSession({ headers: request.headers });
+        const buyer = session
+          ? { email: session.user.email, userId: session.user.id }
+          : null;
+        if (buyer && (await hasPurchased(buyer.email))) {
+          return redirect(ROUTES.DASHBOARD);
+        }
+        return redirect(await createCheckoutUrl(buyer));
       },
     },
   },

@@ -1,7 +1,11 @@
 import { FAQS } from "@/constants/faqs";
 import { LINK } from "@/constants/links";
-import { BASE_PRICE_CENTS, LAUNCH_PRICE_CENTS, PRODUCT_NAME } from '@/constants/pricing';
-import type { Offer } from '@/constants/pricing';
+import {
+  BASE_PRICE_CENTS,
+  LAUNCH_PRICE_CENTS,
+  PRODUCT_NAME,
+} from "@/constants/pricing";
+import type { Offer } from "@/constants/pricing";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { absoluteUrl } from "@/constants/url";
@@ -62,12 +66,15 @@ export const productJsonLd = (offer?: Offer) =>
     "@type": "Product",
     brand: { "@type": "Brand", name: SITE.NAME },
     description: SITE.DESCRIPTION.LONG,
-    image: absoluteUrl("/og.png"),
+    image: absoluteUrl("/og.jpg"),
     name: PRODUCT_NAME,
+    url: absoluteUrl(ROUTES.MOTIONVIDEO_SKILL),
     offers: {
       "@type": "Offer",
       availability: "https://schema.org/InStock",
-      price: ((offer?.active ? LAUNCH_PRICE_CENTS : BASE_PRICE_CENTS) / 100).toFixed(2),
+      price: (
+        (offer?.active ? LAUNCH_PRICE_CENTS : BASE_PRICE_CENTS) / 100
+      ).toFixed(2),
       priceCurrency: "USD",
       url: absoluteUrl(ROUTES.PRICING),
     },

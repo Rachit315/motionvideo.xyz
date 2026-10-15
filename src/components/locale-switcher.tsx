@@ -1,5 +1,6 @@
-import { ChevronDownIcon, LanguagesIcon } from "lucide-react";
 import { useIntlayer, useLocale } from "react-intlayer";
+import { ChevronDown } from "reicon-react/icons/ChevronDown";
+import { Global } from "reicon-react/icons/Global";
 
 import { SUPPORTED_LOCALES } from "@/components/locale-provider";
 import { buttonVariants } from "@/components/ui/button";
@@ -15,17 +16,17 @@ const localeNames = { en: "English", es: "Español", fr: "Français" } as const;
 
 export const LocaleSwitcher = () => {
   const { locale, setLocale } = useLocale();
-  const content = useIntlayer("chrome");
+  const content = useIntlayer("locale-switcher");
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
         aria-label={`${content.language.value}: ${locale.toUpperCase()}`}
-        className={buttonVariants({ variant: "ghost" })}
+        className={buttonVariants({ variant: "subtle" })}
       >
-        <LanguagesIcon aria-hidden className="size-4" />
+        <Global aria-hidden className="size-4" />
         <span className="uppercase">{locale}</span>
-        <ChevronDownIcon aria-hidden className="size-3.5" />
+        <ChevronDown aria-hidden className="size-3.5" />
       </DropdownMenuTrigger>
       <DropdownMenuContent side="top">
         <DropdownMenuRadioGroup

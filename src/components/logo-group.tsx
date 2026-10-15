@@ -1,6 +1,5 @@
-import { cn } from "cn";
-
 import type { Logo } from "@/constants/stack";
+import { cn } from "@/lib/utils";
 
 // Overlapping round logos followed by a short label, e.g. "Works with any agent".
 export const LogoGroup = ({

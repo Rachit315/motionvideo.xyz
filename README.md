@@ -1,14 +1,14 @@
 <div align="center">
 
 <a href="https://motionvideo.xyz">
-  <img src="public/og.png" alt="MotionVideo: Motion design, written in code." width="800" />
+  <img src="public/og.jpg" alt="MotionVideo: motion videos made with AI and code." width="800" />
 </a>
 
 # MotionVideo
 
 **Motion design, written in code.**
 
-Agent skills that teach your coding agent motion design: timing, easing, and choreography.<br /> Showreels, intros, and launch films, rendered from a prompt.
+A directory of motion videos made with AI and code, with the prompts and skills behind them.<br /> Plus agent skills that teach your coding agent timing, easing, and choreography.
 
 [Website](https://motionvideo.xyz) · [About](https://motionvideo.xyz/about) · [Contact](https://motionvideo.xyz/contact)
 
@@ -23,12 +23,13 @@ Agent skills that teach your coding agent motion design: timing, easing, and cho
 | Area | Tools |
 | --- | --- |
 | Framework | [TanStack Start](https://tanstack.com/start) (React 19, file-based routing, server functions) |
-| UI | [shadcn/ui](https://ui.shadcn.com) on [Base UI](https://base-ui.com), [Tailwind CSS v4](https://tailwindcss.com), [Lucide](https://lucide.dev) icons, [player.style](https://player.style) (Sutro) video player |
-| Hosting | [Cloudflare Workers](https://workers.cloudflare.com), deployed with [Wrangler](https://developers.cloudflare.com/workers/wrangler/) and Workers Builds |
-| Data | [Cloudflare D1](https://developers.cloudflare.com/d1/) (SQLite) with [Drizzle ORM](https://orm.drizzle.team), [R2](https://developers.cloudflare.com/r2/) for video assets |
-| Auth | [Better Auth](https://www.better-auth.com) (email magic links) |
-| Email | [Resend](https://resend.com) (sign-in and contact messages), Cloudflare Email Routing (inbound) |
-| Payments | [Polar](https://polar.sh) as merchant of record, with GitHub repository access delivery |
+| UI | [shadcn/ui](https://ui.shadcn.com) on [Base UI](https://base-ui.com), [Tailwind CSS v4](https://tailwindcss.com), [intlayer](https://intlayer.org) (en, es, fr) |
+| Hosting | [Cloudflare Workers](https://workers.cloudflare.com) with Durable Objects (live presence), deployed with [Wrangler](https://developers.cloudflare.com/workers/wrangler/) and Workers Builds |
+| Data | [Cloudflare D1](https://developers.cloudflare.com/d1/) (SQLite) with [Drizzle ORM](https://orm.drizzle.team), [R2](https://developers.cloudflare.com/r2/) for video assets and uploads |
+| Auth | [Better Auth](https://www.better-auth.com) (email sign-in codes), [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/) |
+| Email | [Resend](https://resend.com), Cloudflare Email Routing (inbound) |
+| Payments | [Dodo Payments](https://dodopayments.com) as merchant of record (skill bundle, sponsorships, job posts) |
+| Analytics | [PostHog](https://posthog.com) |
 | Tooling | [pnpm](https://pnpm.io), [Vite](https://vite.dev), [Oxlint](https://oxc.rs) + [Oxfmt](https://oxc.rs) via [Ultracite](https://www.ultracite.ai), [Lefthook](https://lefthook.dev) |
 
 ## Getting started

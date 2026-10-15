@@ -5,14 +5,18 @@ export const GITHUB = {
 
 export const LINK = {
   AUTHOR_WEBSITE: "https://www.aniketpawar.com",
+  DODO_PAYMENTS: "https://dodopayments.com",
+  DODO_PAYMENTS_PRIVACY: "https://dodopayments.com/legal/privacy-policy",
   EMAIL: "hello@motionvideo.xyz",
   GITHUB: `https://github.com/${GITHUB.org}`,
   GITHUB_REPO: `https://github.com/${GITHUB.org}/${GITHUB.repo}`,
-  POLAR: "https://polar.sh",
-  POLAR_PRIVACY: "https://polar.sh/legal/privacy",
   SHADCN_LABS: "https://www.shadcn-labs.com",
   // Personal account: MotionVideo has no X account of its own yet.
   X: "https://x.com/alaymanguy",
+  // Opens a DM to that account (X needs the numeric user id) and the
+  // follow prompt.
+  X_DM: "https://x.com/messages/compose?recipient_id=1444537408431673345",
+  X_FOLLOW: "https://x.com/intent/follow?screen_name=alaymanguy",
 } as const;
 
 // Large media lives in the R2 bucket `motionvideo-assets`, served from its

@@ -1,23 +1,17 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/inter";
-
-/* Arial scaled to Inter's metrics, so swapping in Inter moves no text. */
-@font-face {
-  font-family: "Inter Fallback";
-  src: local("Arial");
-  size-adjust: 107.27%;
-  ascent-override: 90.31%;
-  descent-override: 22.49%;
-  line-gap-override: 0%;
-}
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* Hairline edges drawn as shadows (no border box): outline buttons, cards,
+     menus and popovers. Dark mode swaps in a 1px light ring, which reads as
+     the border the soft shadow can't draw on a dark ground. */
+  --shadow-outline: var(--surface-outline);
+  --shadow-popover: var(--surface-outline), var(--surface-lift);
   --font-heading: var(--font-sans);
-  --font-sans: "Inter Variable", "Inter Fallback", sans-serif;
+  --font-sans: "Timeless Sans", Arial, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -56,6 +50,87 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --color-badge-blue-fg: var(--badge-blue-fg);
+  --color-badge-blue-bg: var(--badge-blue-bg);
+  --ease-exit: cubic-bezier(0.4, 0, 0.6, 1);
+  /* Stronger than Tailwind's defaults: UI motion starts fast and settles
+     (ease-out) or accelerates and decelerates on screen (ease-in-out). */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --color-shell-fg-muted: var(--shell-fg-muted);
+  --color-shell-fg-faint: var(--shell-fg-faint);
+  --otp-wave-duration: 1150ms;
+  --otp-wave-stagger: 70ms;
+  --otp-wave-dim: 0.28;
+  --otp-wave-ease: ease-in-out;
+  --otp-trail-duration: 400ms;
+  --otp-trail-stagger: 45ms;
+  --otp-trail-width: 3px;
+  --otp-trail-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --otp-success-duration: 340ms;
+  --otp-success-stagger: 48ms;
+  --otp-success-width: 3px;
+  --otp-success-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --otp-bounce-duration: 420ms;
+  --otp-bounce-lift: 8px;
+  --color-otp-success-color: var(----otp-success-color);
+  --color-otp-trail-color: var(----otp-trail-color);
+  @keyframes otp-trail {
+    from {
+      box-shadow: 0 0 0 var(--otp-trail-width) var(--otp-trail-color);
+    }
+    to {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+  @keyframes otp-trail-success {
+    0%,
+    24% {
+      box-shadow: 0 0 0 var(--otp-success-width) var(--otp-success-color);
+    }
+    100% {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+  @keyframes otp-bounce {
+    0% {
+      transform: translateY(0);
+      animation-timing-function: var(--otp-trail-ease);
+    }
+    22% {
+      transform: translateY(calc(var(--otp-bounce-lift) * -1));
+      animation-timing-function: linear;
+    }
+    38% {
+      transform: translateY(calc(var(--otp-bounce-lift) * -1));
+      animation-timing-function: cubic-bezier(0.4, 0, 0.5, 1);
+    }
+    60% {
+      transform: translateY(calc(var(--otp-bounce-lift) * 0.3));
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
+    }
+    78% {
+      transform: translateY(calc(var(--otp-bounce-lift) * -0.15));
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
+    }
+    92% {
+      transform: translateY(calc(var(--otp-bounce-lift) * 0.06));
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  @keyframes otp-processing {
+    0%,
+    40%,
+    100% {
+      opacity: 1;
+    }
+    16% {
+      opacity: var(--otp-wave-dim);
+    }
+  }
 }
 
 :root {
@@ -76,7 +151,11 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: oklch(0.852 0.199 91.936);
+  --surface-outline:
+    oklch(0 0 0 / 0.08) 0 0 0 0.5px, oklch(0 0 0 / 0.2) 0 1px 1px -1px,
+    oklch(0 0 0 / 0.08) 0 1px 2px;
+  --surface-lift: 0 12px 32px -8px oklch(0 0 0 / 0.18);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -91,6 +170,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --badge-blue-bg: oklch(0.62 0.19 258 / 0.12);
+  --badge-blue-fg: oklch(0.48 0.17 258);
+  --shell-fg-muted: #333333;
+  --shell-fg-faint: #6d6d6d;
+  --otp-trail-color: rgb(0 0 0 / 45%);
+  --otp-success-color: oklch(0.68 0.16 240);
 }
 
 .dark {
@@ -111,7 +196,10 @@
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --ring: oklch(0.795 0.184 86.047);
+  --surface-outline:
+    oklch(1 0 0 / 0.12) 0 0 0 1px, oklch(0 0 0 / 0.4) 0 1px 2px;
+  --surface-lift: 0 12px 32px -8px oklch(0 0 0 / 0.6);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -125,6 +213,38 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --badge-blue-bg: oklch(0.62 0.19 258 / 0.2);
+  --badge-blue-fg: oklch(0.72 0.145 258);
+  --shell-fg-muted: #d4d4d4;
+  --shell-fg-faint: #8e8e8e;
+  --otp-trail-color: rgb(255 255 255 / 55%);
+  --otp-success-color: oklch(0.75 0.15 240);
+}
+
+/* Site cursor: the kibo-ui pointer arrow (black, white keyline so it reads on
+   light and dark), hotspot at the tip. Mouse/trackpad only; touch and coarse
+   pointers keep native behavior because the variables stay undefined. */
+@media (pointer: fine) {
+  :root {
+    --cursor-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='-2 -2 24 24'%3E%3Cpath d='M19.438 6.716 1.115.05A.832.832 0 0 0 .05 1.116L6.712 19.45a.834.834 0 0 0 1.557.025l3.198-8 7.995-3.2a.833.833 0 0 0 0-1.559h-.024Z' fill='black' stroke='white' stroke-width='3' stroke-linejoin='round' paint-order='stroke'/%3E%3C/svg%3E")
+      2 2;
+    --cursor-default: var(--cursor-arrow), default;
+    --cursor-pointer: var(--cursor-arrow), pointer;
+  }
+  /* Crisp on HiDPI where cursor image-set() is supported. */
+  @supports (cursor:
+    image-set(url("data:,") 1x) 0 0,
+    auto) {
+    :root {
+      --cursor-arrow: image-set(
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='-2 -2 24 24'%3E%3Cpath d='M19.438 6.716 1.115.05A.832.832 0 0 0 .05 1.116L6.712 19.45a.834.834 0 0 0 1.557.025l3.198-8 7.995-3.2a.833.833 0 0 0 0-1.559h-.024Z' fill='black' stroke='white' stroke-width='3' stroke-linejoin='round' paint-order='stroke'/%3E%3C/svg%3E")
+            1x,
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='-2 -2 24 24'%3E%3Cpath d='M19.438 6.716 1.115.05A.832.832 0 0 0 .05 1.116L6.712 19.45a.834.834 0 0 0 1.557.025l3.198-8 7.995-3.2a.833.833 0 0 0 0-1.559h-.024Z' fill='black' stroke='white' stroke-width='3' stroke-linejoin='round' paint-order='stroke'/%3E%3C/svg%3E")
+            2x
+        )
+        2 2;
+    }
+  }
 }
 
 @layer base {
@@ -134,20 +254,64 @@
   body {
     @apply bg-background text-foreground;
   }
-  button:not(:disabled),
-  [role="button"]:not(:disabled) {
-    cursor: pointer;
+  a:any-link,
+  button,
+  [role="button"],
+  summary,
+  select,
+  input:is(
+    [type="button"],
+    [type="checkbox"],
+    [type="color"],
+    [type="file"],
+    [type="image"],
+    [type="radio"],
+    [type="range"],
+    [type="reset"],
+    [type="submit"]
+  ) {
+    cursor: var(--cursor-pointer, pointer);
+  }
+  /* `cursor` inherits, so text entry restores the native I-beam explicitly. */
+  input:not(
+    [type="button"],
+    [type="checkbox"],
+    [type="color"],
+    [type="file"],
+    [type="image"],
+    [type="radio"],
+    [type="range"],
+    [type="reset"],
+    [type="submit"]
+  ),
+  textarea,
+  [contenteditable]:not([contenteditable="false"]) {
+    cursor: text;
+  }
+  :is(button, input, select, textarea):disabled {
+    cursor: var(--cursor-default, default);
   }
   html {
     @apply font-sans;
+    cursor: var(--cursor-default, auto);
     /* No rubber-band bounce past the page edges. */
     overscroll-behavior: none;
     scroll-behavior: smooth;
   }
 }
+/* Same layer as Tailwind's cursor-default/cursor-pointer, declared later, so the
+   keywords map to the site cursor while variants (disabled:…) still win. */
+@layer utilities {
+  .cursor-default {
+    cursor: var(--cursor-default, default);
+  }
+  .cursor-pointer {
+    cursor: var(--cursor-pointer, pointer);
+  }
+}
 /* Demo frame and feature art animations */
 @theme {
-  /* Default button fill (`<Button>`); `size="cta"` makes it the large CTA. */
+  /* `variant="gradient"` button fill, reserved for special CTAs. */
   --color-cta-from: #ffdd73;
   --color-cta-to: #ffbe25;
   --color-cta-foreground: oklch(0.145 0 0);
@@ -163,9 +327,10 @@
   --animate-mv-strip: mv-strip 4s linear infinite;
   --animate-mv-follow-path: mv-follow-path 2.4s linear infinite;
   --animate-mv-cycle: mv-cycle 6s ease-in-out infinite both;
-  --animate-mv-drop: mv-drop 700ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  --animate-mv-scrub: mv-scrub 3.2s cubic-bezier(0.65, 0, 0.35, 1) infinite
-    alternate;
+  /* A short no-go shake (the overlay's end-of-list step button). */
+  --animate-mv-shake: mv-shake 420ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  /* Sponsored card timer hairline: fills once per rotation. */
+  --animate-mv-rotate: mv-rotate 6s linear forwards;
 }
 
 /* `mv-delay-<ms>`: staggers the looping demo animations. */
@@ -251,22 +416,6 @@
   }
 }
 
-@keyframes mv-drop {
-  from {
-    opacity: 0;
-    transform: translateY(16px) scale(0.94);
-  }
-}
-
-@keyframes mv-scrub {
-  from {
-    left: 0%;
-  }
-  to {
-    left: 100%;
-  }
-}
-
 @keyframes mv-cursor {
   0%,
   20% {
@@ -308,9 +457,169 @@
   transform-box: fill-box;
 }
 
-/* Sutro video player (player.style) in the site's colors. */
+/* Sutro video player (player.style → Media Chrome). Its controls render in the
+   theme's shadow root, so from the outside they are themed with the custom
+   properties Media Chrome inherits across that boundary (see the Media Chrome
+   "Styling" docs): primary = icon/text color, secondary = control hover
+   background, accent = range bars and scrub thumb. */
 media-theme-sutro {
-  --media-primary-color: #ffffff;
-  --media-secondary-color: rgb(0 0 0 / 0.55);
-  --media-accent-color: #ffbe25;
+  /* Icons, time text and menu labels sit on the video's bottom gradient. */
+  --media-primary-color: oklch(1 0 0);
+  /* Hover chip behind the control buttons. */
+  --media-secondary-color: oklch(0 0 0 / 0.5);
+  /* Progress + volume bars and the scrub thumb follow the brand accent,
+     tracking `--primary` in light and dark instead of a hardcoded swatch. */
+  --media-accent-color: var(--primary);
+  /* Letterbox / pre-load area behind the video, instead of the default black. */
+  --media-background-color: var(--background);
+  /* Scrub thumb depth, in place of media-chrome's default hairline shadow. */
+  --media-range-thumb-box-shadow: 0 1px 2px oklch(0 0 0 / 0.4);
+}
+
+/* Route view transitions (`viewTransition` on gallery ↔ /videos/$slug links):
+   the root crossfades while the named card media morphs into the player. */
+::view-transition-group(*) {
+  animation-duration: 380ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+  .sound-slash,
+  .sound-wave,
+  .sound-speaker {
+    transition: none;
+  }
+  .otp-processing,
+  .otp-trail,
+  .otp-trail-success,
+  .otp-bounce {
+    animation: none;
+  }
+}
+
+/* Fade widths for `FadeScroller`; registered so they can transition. */
+@property --fade-start {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --fade-end {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@keyframes mv-shake {
+  20%,
+  60% {
+    transform: translateX(-5px);
+  }
+  40%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes mv-rotate {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .dark [data-slot="tooltip-content"] {
+    background: var(--popover);
+    backdrop-filter: none;
+  }
+}
+.sound-slash {
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1.02;
+  --slash-ms: 200ms;
+  transition: stroke-dashoffset var(--slash-ms) var(--ease-out);
+}
+[data-muted="true"] .sound-slash {
+  stroke-dashoffset: 0;
+  --slash-ms: 260ms;
+}
+.sound-wave {
+  transform-box: view-box;
+  transform-origin: 11px 12px;
+  transition:
+    opacity 130ms var(--ease-out) var(--wave-delay),
+    transform 130ms var(--ease-out) var(--wave-delay),
+    filter 130ms var(--ease-out) var(--wave-delay);
+}
+[data-muted="true"] .sound-wave {
+  opacity: 0;
+  transform: scale(0.25);
+  filter: blur(1px);
+}
+.sound-wave-inner {
+  --wave-delay: 45ms;
+}
+.sound-wave-outer {
+  --wave-delay: 20ms;
+}
+[data-muted="true"] .sound-wave-inner {
+  --wave-delay: 50ms;
+}
+[data-muted="true"] .sound-wave-outer {
+  --wave-delay: 75ms;
+}
+.sound-speaker {
+  --speaker-ms: 220ms;
+  --speaker-delay: 0ms;
+  transition: transform var(--speaker-ms) var(--ease-out) var(--speaker-delay);
+}
+[data-muted="true"] .sound-speaker {
+  transform: translateX(5.5px);
+  --speaker-ms: 260ms;
+  --speaker-delay: 80ms;
+}
+
+@supports (-moz-appearance: none) {
+  .video-player > [data-slot="loomix-glass"],
+  .video-player > [data-slot="loomix-glass-scrim"],
+  .video-player > [data-slot="video-glass"],
+  .video-player > [data-slot="video-glass-scrim"] {
+    display: none;
+  }
+  .video-player > div > button {
+    visibility: visible;
+    background-color: rgb(0 0 0 / 0.24);
+    border-color: rgb(255 255 255 / 0.2);
+    backdrop-filter: blur(16px) saturate(1.2);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.08),
+      0 4px 16px rgb(0 0 0 / 0.12);
+  }
+}
+.otp-processing {
+  animation: otp-processing var(--otp-wave-duration) var(--otp-wave-ease)
+    calc(var(--otp-wave-index) * var(--otp-wave-stagger)) infinite both;
+  will-change: opacity;
+}
+.otp-trail {
+  animation: otp-trail var(--otp-trail-duration) var(--otp-trail-ease)
+    calc(var(--otp-trail-index) * var(--otp-trail-stagger)) forwards;
+}
+.otp-trail-success {
+  animation: otp-trail-success var(--otp-success-duration)
+    cubic-bezier(0.33, 0, 0.67, 1)
+    calc(var(--otp-trail-index) * var(--otp-success-stagger)) forwards;
+}
+.otp-bounce {
+  animation: otp-bounce var(--otp-bounce-duration) linear
+    calc(var(--otp-trail-index) * var(--otp-success-stagger)) forwards;
+  will-change: transform;
 }

@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import {
   Body,
-  Button,
   Container,
   Head,
   Heading,
@@ -18,7 +17,7 @@ import { SITE } from "../constants/site";
 import { SITE_ORIGIN } from "../constants/url";
 
 const FONT =
-  "-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Helvetica,Arial,sans-serif";
+  "-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif";
 const INK = "#111111";
 const MUTED = "#6b6b6b";
 const DOMAIN = new URL(SITE_ORIGIN).host;
@@ -36,17 +35,18 @@ export const Paragraph = ({ children }: { children: ReactNode }) => (
   </Text>
 );
 
-// Logo, heading, copy, pill button, fallback link, and a footer explaining
+// Logo, heading, copy, the sign-in code in a large box, and a footer explaining
 // why the email was sent. Email clients ignore web fonts and <style> blocks,
 // so everything is inline with a system font stack.
 export const EmailLayout = ({
-  action,
+  code,
   children,
   heading,
   preview,
   reason,
 }: {
-  action: { label: string; url: string };
+  /** One-time sign-in code, shown large and easy to copy. */
+  code: string;
   children: ReactNode;
   heading: string;
   preview: string;
@@ -101,41 +101,24 @@ export const EmailLayout = ({
           {heading}
         </Heading>
         {children}
-        <Section style={{ padding: "16px 0 32px" }}>
-          <Button
-            href={action.url}
+        <Section style={{ padding: "8px 0 24px" }}>
+          <Text
             style={{
-              // Landing CTA (`--color-cta-from/to` in styles.css). Clients
-              // without gradient support fall back to the solid color.
-              backgroundColor: "#ffc933",
-              backgroundImage: "linear-gradient(180deg,#ffdd73,#ffbe25)",
-              border: "1px solid #fac83e",
+              backgroundColor: "#f5f5f5",
               borderRadius: 16,
-              color: "#0a0a0a",
-              fontSize: 16,
-              fontWeight: 600,
-              padding: "16px 28px",
-            }}
-          >
-            {action.label}
-          </Button>
-        </Section>
-        <Text
-          style={{ color: MUTED, fontSize: 14, lineHeight: "1.6", margin: 0 }}
-        >
-          If the button doesn’t work, open this link:
-          <br />
-          <Link
-            href={action.url}
-            style={{
               color: INK,
-              textDecoration: "underline",
-              wordBreak: "break-all",
+              fontFamily: "ui-monospace,SFMono-Regular,Menlo,monospace",
+              fontSize: 36,
+              fontWeight: 600,
+              letterSpacing: "0.3em",
+              margin: 0,
+              padding: "20px 0",
+              textAlign: "center",
             }}
           >
-            {action.url}
-          </Link>
-        </Text>
+            {code}
+          </Text>
+        </Section>
         <Hr style={{ borderColor: "#e5e5e5", margin: "40px 0 24px" }} />
         <Text
           style={{ color: MUTED, fontSize: 13, lineHeight: "1.6", margin: 0 }}

@@ -1,22 +1,33 @@
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { cva } from "class-variance-authority";
 import type { VariantProps } from "class-variance-authority";
-import { cn } from "cn";
 
-const buttonVariants = cva(
-  "group/button focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:ring-3 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+import { cn } from "@/lib/utils";
+
+// Fills cover the border box (`bg-clip-border`), so every variant is exactly
+// the same size as any other (all keep the 1px transparent border) and
+// toggling between variants never resizes a button.
+const buttonCva = cva(
+  "group/button focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-border text-sm font-medium whitespace-nowrap transition-[color,background-color,box-shadow,transform,filter,opacity] duration-150 ease-out outline-none select-none focus-visible:ring-3 active:not-aria-[haspopup]:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 aria-invalid:ring-3 motion-reduce:transition-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        // Yellow gradient from the landing CTA (`--color-cta-*` in styles.css).
+        // Plain yellow fill (`--primary`) with black text.
         default:
+          "bg-primary text-primary-foreground hover:bg-primary/85 aria-expanded:bg-primary/85",
+        // Yellow gradient from the landing CTA (`--color-cta-*` in styles.css).
+        // Reserved for special calls to action such as checkout.
+        gradient:
           "from-cta-from to-cta-to shadow-cta text-cta-foreground border-0 bg-linear-to-b bg-clip-border duration-200 hover:brightness-105",
         outline:
-          "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+          "bg-background shadow-outline hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:bg-popover dark:hover:bg-muted",
         secondary:
           "bg-secondary text-secondary-foreground aria-expanded:bg-secondary aria-expanded:text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]",
         ghost:
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
+        // Ghost with muted text at rest, for secondary chrome (footer, nav extras).
+        subtle:
+          "text-muted-foreground hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
@@ -33,7 +44,8 @@ const buttonVariants = cva(
         "icon-sm":
           "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
         "icon-lg": "size-9",
-        cta: "h-12 gap-2 rounded-[16px] px-4 py-1.5 text-base",
+        xl: "h-12 gap-2 rounded-[16px] px-4 py-1.5 text-base",
+        "icon-xl": "size-12 [&_svg:not([class*='size-'])]:size-5",
       },
     },
     defaultVariants: {
@@ -43,15 +55,20 @@ const buttonVariants = cva(
   }
 );
 
+// Merged, so a size's text class (e.g. xl's text-base) beats the base
+// text-sm for callers that use `buttonVariants` directly on links.
+const buttonVariants = (props?: Parameters<typeof buttonCva>[0]) =>
+  cn(buttonCva(props));
+
 const Button = ({
   className,
   variant = "default",
   size = "default",
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) => (
+}: ButtonPrimitive.Props & VariantProps<typeof buttonCva>) => (
   <ButtonPrimitive
     data-slot="button"
-    className={cn(buttonVariants({ variant, size, className }))}
+    className={buttonVariants({ variant, size, className })}
     {...props}
   />
 );

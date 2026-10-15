@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 
+import { track } from "@/lib/analytics";
+
 const EDITABLE_TAGS = {
   INPUT: true,
   SELECT: true,
@@ -44,6 +46,10 @@ export const useHotkey = (
         return;
       }
 
+      // Handled: keep the key from also typing into whatever the handler
+      // focuses (e.g. F opens feedback, whose field autofocuses).
+      event.preventDefault();
+      track("shortcut", { key });
       handlerRef.current(event);
     };
 
