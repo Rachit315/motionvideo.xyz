@@ -202,7 +202,7 @@ const InputOTPRing = () => {
       }}
       className={cn(
         "pointer-events-none absolute top-0 left-0 z-20 rounded-(--otp-radius) ring-[3px]",
-        invalid ? "ring-destructive" : "ring-foreground/75"
+        invalid ? "ring-destructive" : "ring-ring"
       )}
     />
   );

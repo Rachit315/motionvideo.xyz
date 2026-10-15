@@ -104,17 +104,37 @@ export const LoginForm = ({
   const [verified, setVerified] = useState(false);
   const codeForm = useRef<HTMLFormElement>(null);
   // Turnstile: a token is needed to send a code, and each one is single-use.
-  const [captcha, setCaptcha] = useState<string | null>(null);
+  // The buttons never wait for it: a send before the first token arrives
+  // shows "Sending…" until it does.
+  const captcha = useRef<string | null>(null);
+  const captchaWaiters = useRef<((token: string) => void)[]>([]);
+  const [captchaReady, setCaptchaReady] = useState(false);
   const [captchaReset, setCaptchaReset] = useState(0);
+  const onCaptcha = (token: string | null) => {
+    captcha.current = token;
+    setCaptchaReady(token !== null);
+    if (token) {
+      for (const resolve of captchaWaiters.current.splice(0)) {
+        resolve(token);
+      }
+    }
+  };
+  const nextCaptcha = () =>
+    captcha.current ??
+    // Settled by onCaptcha, a callback with no promise of its own.
+    // oxlint-disable-next-line promise/avoid-new
+    new Promise<string>((resolve) => {
+      captchaWaiters.current.push(resolve);
+    });
 
   const sendCode = async (address: string) => {
-    if (!captcha) {
-      return false;
-    }
     setBusy(true);
     setError(null);
+    const token = await nextCaptcha();
+    // Spent: the next send waits for the fresh token the reset brings.
+    captcha.current = null;
     const headers = {
-      [CAPTCHA_HEADER]: captcha,
+      [CAPTCHA_HEADER]: token,
       [WELCOME_HEADER]: welcome ? "1" : "0",
     };
     const { error: sendError } = await authClient.emailOtp.sendVerificationOtp({
@@ -136,7 +156,7 @@ export const LoginForm = ({
   // Turnstile hands over its first token.
   const autoSent = useRef(false);
   useEffect(() => {
-    if (presetEmail && captcha && !autoSent.current) {
+    if (presetEmail && captchaReady && !autoSent.current) {
       autoSent.current = true;
       void sendCode(presetEmail);
     }
@@ -144,6 +164,9 @@ export const LoginForm = ({
 
   const onEmailSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (busy) {
+      return;
+    }
     if (await sendCode(email)) {
       setCode("");
       setResent(false);
@@ -213,13 +236,15 @@ export const LoginForm = ({
                   autoComplete="email"
                   required
                   placeholder={content.emailPlaceholder.value}
+                  // oxlint-disable-next-line jsx-a11y/no-autofocus -- the only field of this step
+                  autoFocus
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                 />
               </Field>
               {error && <FieldError>{errorMessages[error]}</FieldError>}
               <Field>
-                <Button type="submit" size="lg" disabled={busy || !captcha}>
+                <Button type="submit" size="lg" disabled={busy}>
                   {busy ? content.sending : content.sendCode}
                 </Button>
               </Field>
@@ -294,7 +319,7 @@ export const LoginForm = ({
               type="button"
               className={textButtonClass}
               onClick={resend}
-              disabled={busy || !captcha}
+              disabled={busy}
             >
               {content.resend}
             </button>
@@ -303,7 +328,7 @@ export const LoginForm = ({
       )}
       {/* One widget for both steps (kept mounted), so a fresh token is
           ready for "Send a new code" too. */}
-      <Turnstile onToken={setCaptcha} resetKey={captchaReset} />
+      <Turnstile onToken={onCaptcha} resetKey={captchaReset} />
     </AuthCard>
   );
 };

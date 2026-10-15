@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { TURNSTILE_SITE_KEY } from "@/constants/auth";
 
@@ -17,6 +17,8 @@ interface TurnstileApi {
       callback: (token: string) => void;
       "expired-callback": () => void;
       "error-callback": () => void;
+      "before-interactive-callback": () => void;
+      "after-interactive-callback": () => void;
     }
   ) => string;
   reset: (id: string) => void;
@@ -76,6 +78,9 @@ export const Turnstile = ({
 }) => {
   const container = useRef<HTMLDivElement>(null);
   const widget = useRef<string | null>(null);
+  // Out of the layout (no empty row, no stray gap) unless Cloudflare asks the
+  // visitor to interact.
+  const [interactive, setInteractive] = useState(false);
   const report = useRef(onToken);
   useEffect(() => {
     report.current = onToken;
@@ -95,6 +100,8 @@ export const Turnstile = ({
         callback: (token) => report.current(token),
         "expired-callback": () => report.current(null),
         "error-callback": () => report.current(null),
+        "before-interactive-callback": () => setInteractive(true),
+        "after-interactive-callback": () => setInteractive(false),
       });
     };
     void mount();
@@ -115,5 +122,5 @@ export const Turnstile = ({
     }
   }, [resetKey]);
 
-  return <div ref={container} />;
+  return <div ref={container} hidden={!interactive} />;
 };

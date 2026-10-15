@@ -18,7 +18,7 @@ const buttonCva = cva(
         // Yellow gradient from the landing CTA (`--color-cta-*` in styles.css).
         // Reserved for special calls to action such as checkout.
         gradient:
-          "from-cta-from to-cta-to shadow-cta text-cta-foreground bg-linear-to-b duration-200 hover:brightness-105",
+          "from-cta-from to-cta-to shadow-cta text-cta-foreground border-0 bg-linear-to-b bg-clip-border duration-200 hover:brightness-105",
         outline:
           "bg-background shadow-outline hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:bg-popover dark:hover:bg-muted",
         secondary:
