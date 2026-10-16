@@ -33,11 +33,19 @@ export const createAuth = (
     secret: config.secret,
     database: drizzleAdapter(db, { provider: "sqlite" }),
     // Email and profile only: no extra scopes, so Google needs no review.
-    socialProviders: config.google ? { google: config.google } : {},
+    // Each Google sign-in refreshes the name and photo shown in the header,
+    // including on accounts first made with an email code.
+    socialProviders: config.google
+      ? { google: { ...config.google, overrideUserInfoOnSignIn: true } }
+      : {},
     // Google only hands out verified emails, so signing in with Google
     // reaches the same account as an email code for that address.
     account: {
-      accountLinking: { enabled: true, trustedProviders: ["google"] },
+      accountLinking: {
+        enabled: true,
+        trustedProviders: ["google"],
+        updateUserInfoOnLink: true,
+      },
     },
     rateLimit: {
       enabled: true,

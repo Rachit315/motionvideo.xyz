@@ -5,12 +5,10 @@ import {
   useRouter,
 } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { useIntlayer, useLocale } from "react-intlayer";
+import { useIntlayer } from "react-intlayer";
 import { Bookmark } from "reicon-react/icons/Bookmark";
 import { Briefcase } from "reicon-react/icons/Briefcase";
 import { ChatRoundDots } from "reicon-react/icons/ChatRoundDots";
-import { ChevronRight } from "reicon-react/icons/ChevronRight";
-import { Cursor } from "reicon-react/icons/Cursor";
 import { Exit } from "reicon-react/icons/Exit";
 import { HandHeart } from "reicon-react/icons/HandHeart";
 import { Keyboard } from "reicon-react/icons/Keyboard";
@@ -23,24 +21,16 @@ import { User } from "reicon-react/icons/User";
 import { GitHubIcon, XIcon } from "@/components/brand-icons";
 import { useFeedbackDialog } from "@/components/feedback-dialog";
 import { useKeyboardShortcuts } from "@/components/keyboard-shortcuts";
-import {
-  setLiveCursorsEnabled,
-  useLiveCursorsEnabled,
-} from "@/components/live-presence";
 import { useSignInDialog } from "@/components/sign-in-dialog";
 import { SoundSwitch } from "@/components/sound-switch";
 import { toggleTheme } from "@/components/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLinkItem,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LINK } from "@/constants/links";
@@ -83,16 +73,26 @@ const avatarPlaceholder = (
   <User aria-hidden="true" className="bg-muted size-full p-1.5" />
 );
 
-// Seeded anonymously so no account details reach the avatar service.
-const AvatarImage = () => {
+// The account's photo (from Google) when it has one; otherwise a generated
+// avatar seeded anonymously, so no account details reach the avatar service.
+export const AvatarImage = ({
+  photo,
+}: {
+  photo: string | null | undefined;
+}) => {
   const seed = useMemo(() => getVisitorSeed(), []);
-  const [failed, setFailed] = useState(false);
+  const [failed, setFailed] = useState<string | null>(null);
+  const src =
+    photo && failed !== photo
+      ? photo
+      : `https://avatars.reicon.dev/v1/svg/${encodeURIComponent(seed)}?shape=circle&size=64`;
 
-  return failed ? (
+  return failed === src ? (
     avatarPlaceholder
   ) : (
     <img
-      src={`https://avatars.reicon.dev/v1/svg/${encodeURIComponent(seed)}?shape=circle&size=64`}
+      key={src}
+      src={src}
       alt=""
       aria-hidden="true"
       width={32}
@@ -100,27 +100,20 @@ const AvatarImage = () => {
       decoding="async"
       referrerPolicy="no-referrer"
       className="size-full object-cover"
-      onError={() => setFailed(true)}
+      onError={() => setFailed(src)}
     />
   );
 };
-
-export const LANGUAGE_OPTIONS = [
-  { code: "en", label: "English" },
-  { code: "es", label: "Español" },
-  { code: "fr", label: "Français" },
-] as const;
 
 const iconButtonClass =
   "text-muted-foreground flex size-8 items-center justify-center transition-colors outline-none hover:text-foreground";
 
 /**
- * Session, theme, language, and sign-out shared by the desktop account
+ * Session, theme, and sign-out shared by the desktop account
  * popover and the mobile site menu. `initialSignedIn` (from the page loader)
  * is only used until the client session has loaded.
  */
 export const useAccount = (initialSignedIn = false) => {
-  const { locale, setLocale } = useLocale();
   const session = useSession();
   const router = useRouter();
   const navigate = useNavigate();
@@ -146,12 +139,12 @@ export const useAccount = (initialSignedIn = false) => {
     }
   };
 
-  return { locale, setLocale, signedIn, user, dark, onToggleTheme, signOut };
+  return { signedIn, user, dark, onToggleTheme, signOut };
 };
 
 /**
  * Header avatar. Always opens the account popover: featured + bookmarks,
- * sponsorships, a settings page link, theme, language, and socials in labeled
+ * sponsorships, a settings page link, theme, sounds, and socials in labeled
  * rows; a gradient sign-in button (log out at the same spot when signed in)
  * closes the menu. `signedIn` from the page loader is only used until the
  * client session has loaded.
@@ -162,16 +155,15 @@ export const AccountMenu = ({
   signedIn?: boolean;
 }) => {
   const content = useIntlayer("site-header");
-  const { locale, setLocale, signedIn, user, dark, onToggleTheme, signOut } =
+  const { signedIn, user, dark, onToggleTheme, signOut } =
     useAccount(initialSignedIn);
   const signInDialog = useSignInDialog();
   const feedbackDialog = useFeedbackDialog();
   const feedbackContent = useIntlayer("feedback-dialog");
   const keyboardShortcuts = useKeyboardShortcuts();
-  const cursorsEnabled = useLiveCursorsEnabled();
   const avatar = (
     <ClientOnly fallback={avatarPlaceholder}>
-      <AvatarImage />
+      <AvatarImage photo={user?.image} />
     </ClientOnly>
   );
 
@@ -195,11 +187,13 @@ export const AccountMenu = ({
           {/* Who is signed in, set apart from the item groups below. */}
           {signedIn && user && (
             <>
-              <div className="flex flex-col px-1.5 py-1">
-                <span className="text-muted-foreground text-xs">
-                  {content.signedInAs}
-                </span>
-                <span className="truncate text-sm font-medium">
+              <div className="flex flex-col px-1.5 py-1 text-sm">
+                {user.name && (
+                  <span className="text-foreground truncate font-medium">
+                    {user.name}
+                  </span>
+                )}
+                <span className="text-muted-foreground truncate">
                   {user.email}
                 </span>
               </div>
@@ -297,62 +291,11 @@ export const AccountMenu = ({
               )}
             </button>
           </div>
-          {/* Other visitors' cursors on this page (and sharing ours). */}
-          <div className="flex h-8 items-center gap-2 px-1.5">
-            <span className="text-sm">{content.liveCursors}</span>
-            <button
-              type="button"
-              aria-label={content.liveCursors.value}
-              aria-pressed={cursorsEnabled}
-              title={content.liveCursors.value}
-              onClick={() => setLiveCursorsEnabled(!cursorsEnabled)}
-              className={cn(
-                iconButtonClass,
-                "-mr-2 ml-auto",
-                cursorsEnabled && "text-foreground"
-              )}
-            >
-              <Cursor
-                aria-hidden="true"
-                weight={cursorsEnabled ? "Filled" : "Outline"}
-                className="size-4"
-              />
-            </button>
-          </div>
           {/* Interface sounds, toggled like the theme. */}
           <div className="flex h-8 items-center gap-2 px-1.5">
             <span className="text-sm">{content.sounds}</span>
             <SoundSwitch className={cn(iconButtonClass, "-mr-2 ml-auto")} />
           </div>
-          <DropdownMenuSub>
-            {/* No leading icon. ml-auto sits on EN (not the chevron), so EN
-              rides right and centers exactly above the GitHub glyph, with
-              the chevron flush after it above X. */}
-            <DropdownMenuSubTrigger className="group h-8 gap-0 py-0 [&>svg:last-child]:hidden">
-              {content.language}
-              <span className="text-muted-foreground ml-auto w-8 shrink-0 text-center text-sm">
-                {locale.toUpperCase()}
-              </span>
-              <span
-                aria-hidden="true"
-                className="-mr-2 flex size-8 shrink-0 items-center justify-center"
-              >
-                <ChevronRight className="text-muted-foreground group-hover:text-foreground size-4 transition-colors" />
-              </span>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuSubContent>
-              {LANGUAGE_OPTIONS.map((language) => (
-                <DropdownMenuCheckboxItem
-                  key={language.code}
-                  checked={locale === language.code}
-                  onCheckedChange={() => setLocale(language.code)}
-                  className="py-1.5"
-                >
-                  {language.label}
-                </DropdownMenuCheckboxItem>
-              ))}
-            </DropdownMenuSubContent>
-          </DropdownMenuSub>
           {/* Label left, GitHub then X right-aligned with the theme toggle. */}
           <div className="flex h-8 items-center gap-1 px-1.5">
             <span className="text-sm">{content.socials}</span>

@@ -76,15 +76,9 @@ export default {
       fr: "Écrivez-nous pour supprimer",
     }),
     cancel: t({ en: "Cancel", es: "Cancelar", fr: "Annuler" }),
-    language: t({ en: "Language", es: "Idioma", fr: "Langue" }),
     socials: t({ en: "Socials", es: "Redes", fr: "Réseaux" }),
     theme: t({ en: "Theme", es: "Tema", fr: "Thème" }),
     sounds: t({ en: "Sounds", es: "Sonidos", fr: "Sons" }),
-    liveCursors: t({
-      en: "Live cursors",
-      es: "Cursores en vivo",
-      fr: "Curseurs en direct",
-    }),
     online: t({ en: "online", es: "en línea", fr: "en ligne" }),
     jobs: t({ en: "Jobs", es: "Empleos", fr: "Emplois" }),
     listings: t({ en: "Listings", es: "Ofertas", fr: "Annonces" }),
@@ -93,11 +87,6 @@ export default {
     dark: t({ en: "Dark", es: "Oscuro", fr: "Sombre" }),
     system: t({ en: "System", es: "Sistema", fr: "Système" }),
     signOut: t({ en: "Log out", es: "Cerrar sesión", fr: "Se déconnecter" }),
-    signedInAs: t({
-      en: "Signed in as",
-      es: "Sesión iniciada como",
-      fr: "Connecté en tant que",
-    }),
     signIn: t({
       en: "Sign in",
       es: "Inicia sesión",

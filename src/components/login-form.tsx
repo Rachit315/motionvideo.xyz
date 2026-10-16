@@ -251,7 +251,6 @@ export const LoginForm = ({
               <Field>
                 <FieldLabel htmlFor={emailId}>{content.email}</FieldLabel>
                 <Input
-                  className="h-9"
                   id={emailId}
                   type="email"
                   autoComplete="email"
@@ -271,7 +270,9 @@ export const LoginForm = ({
               </Field>
             </FieldGroup>
           </form>
-          <div className="flex flex-col gap-4">
+          {/* gap-6 like the card's other blocks, so the divider sits evenly
+              between the email form and Google. */}
+          <div className="flex flex-col gap-6">
             <div className="text-muted-foreground flex items-center gap-3 text-xs">
               <span className="bg-border h-px flex-1" />
               {content.orContinueWith}

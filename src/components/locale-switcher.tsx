@@ -12,7 +12,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const localeNames = { en: "English", es: "Español", fr: "Français" } as const;
+/** Each language in its own name. */
+export const LOCALE_NAMES = {
+  en: "English",
+  es: "Español",
+  fr: "Français",
+} as const;
 
 export const LocaleSwitcher = () => {
   const { locale, setLocale } = useLocale();
@@ -42,7 +47,7 @@ export const LocaleSwitcher = () => {
         >
           {SUPPORTED_LOCALES.map((value) => (
             <DropdownMenuRadioItem key={value} value={value} lang={value}>
-              {localeNames[value]}
+              {LOCALE_NAMES[value]}
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>
