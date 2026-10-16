@@ -1,6 +1,6 @@
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 import { useLayoutEffect, useRef } from "react";
-import type { RefObject } from "react";
+import type { ReactNode, RefObject } from "react";
 import { TextMorph } from "torph/react";
 
 import { joinsLetters } from "@/lib/joined-script";
@@ -23,7 +23,9 @@ const TooltipProvider = ({
   />
 );
 
-const Tooltip = ({ ...props }: TooltipPrimitive.Root.Props) => (
+const Tooltip = <Payload,>({
+  ...props
+}: TooltipPrimitive.Root.Props<Payload>) => (
   <TooltipPrimitive.Root data-slot="tooltip" {...props} />
 );
 
@@ -32,6 +34,13 @@ const TooltipTrigger = ({ ...props }: TooltipPrimitive.Trigger.Props) => (
 );
 
 const createTooltipHandle = TooltipPrimitive.createHandle;
+
+/**
+ * One tooltip shared by several detached triggers (`handle` + `payload` on
+ * each trigger): it slides between them and morphs its label instead of
+ * closing and reopening.
+ */
+type TooltipHandle<Payload> = TooltipPrimitive.Handle<Payload>;
 
 const TooltipContent = ({
   className,
@@ -268,8 +277,31 @@ const TooltipViewport = ({
   />
 );
 
+/**
+ * The one popup of a shared tooltip: renders whatever label the active
+ * trigger passes as its `payload`, sliding and morphing between them.
+ */
+const SharedTooltip = ({
+  handle,
+  side = "top",
+}: {
+  handle: TooltipHandle<ReactNode>;
+  side?: TooltipPrimitive.Positioner.Props["side"];
+}) => (
+  <Tooltip handle={handle}>
+    {({ payload }) => (
+      <TooltipContent side={side}>
+        <TooltipViewport>{payload}</TooltipViewport>
+      </TooltipContent>
+    )}
+  </Tooltip>
+);
+
+export type { TooltipHandle };
+
 export {
   createTooltipHandle,
+  SharedTooltip,
   Tooltip,
   TooltipArrow,
   TooltipTrigger,

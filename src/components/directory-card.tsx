@@ -87,7 +87,7 @@ export const DirectoryCard = ({
         id={entry.id}
         variant="outline"
         size="icon-sm"
-        className="pointer-events-none absolute top-2.5 right-2.5 rounded-full opacity-0 transition-opacity duration-200 group-focus-within/card:pointer-events-auto group-focus-within/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 aria-pressed:pointer-events-auto aria-pressed:opacity-100 motion-reduce:transition-none"
+        className="pointer-events-none absolute top-2.5 right-2.5 rounded-full opacity-0 transition-opacity duration-200 group-focus-within/card:pointer-events-auto group-focus-within/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 aria-pressed:pointer-events-auto aria-pressed:opacity-100 motion-reduce:transition-none [@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100"
       />
     </div>
   );

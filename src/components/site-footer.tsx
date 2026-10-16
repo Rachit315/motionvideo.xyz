@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { useMemo } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
 import { ChevronDown } from "reicon-react/icons/ChevronDown";
@@ -20,11 +21,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  Tooltip,
-  TooltipContent,
+  SharedTooltip,
   TooltipProvider,
   TooltipTrigger,
+  createTooltipHandle,
 } from "@/components/ui/tooltip";
+import type { TooltipHandle } from "@/components/ui/tooltip";
 import { LINK } from "@/constants/links";
 import { OTHER_PRODUCTS, SHADCN_LABS_PROJECTS } from "@/constants/products";
 import { ROUTES } from "@/constants/routes";
@@ -56,31 +58,77 @@ const FooterMenu = ({
 const IconLink = ({
   href,
   label,
+  hint,
   tooltip,
   children,
 }: {
   href: string;
   label: string;
-  tooltip: ReactNode;
+  hint: ReactNode;
+  tooltip: TooltipHandle<ReactNode>;
   children: ReactNode;
 }) => (
-  <Tooltip>
-    <TooltipTrigger
-      render={
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={label}
-          className={buttonVariants({ size: "icon", variant: "subtle" })}
-        />
-      }
-    >
-      {children}
-    </TooltipTrigger>
-    <TooltipContent side="top">{tooltip}</TooltipContent>
-  </Tooltip>
+  <TooltipTrigger
+    handle={tooltip}
+    payload={hint}
+    render={
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={label}
+        className={buttonVariants({ size: "icon", variant: "subtle" })}
+      />
+    }
+  >
+    {children}
+  </TooltipTrigger>
 );
+
+// The footer's icon button groups each share one tooltip that slides and
+// morphs between their buttons. Desktop and mobile each mount their own
+// copy, so each instance makes its own handle.
+
+const Socials = () => {
+  const content = useIntlayer("site-footer");
+  const tooltip = useMemo(() => createTooltipHandle<ReactNode>(), []);
+  return (
+    <TooltipProvider>
+      <IconLink
+        href={LINK.GITHUB_REPO}
+        label={content.githubRepository.value}
+        hint={content.starGithub}
+        tooltip={tooltip}
+      >
+        <GitHubIcon className="size-4" />
+      </IconLink>
+      <IconLink
+        href={LINK.X_FOLLOW}
+        label={`${content.followX.value}: ${SITE.AUTHOR.TWITTER}`}
+        hint={content.followX}
+        tooltip={tooltip}
+      >
+        <XIcon className="size-4" />
+      </IconLink>
+      <SharedTooltip handle={tooltip} />
+    </TooltipProvider>
+  );
+};
+
+const ThemeAndSound = () => {
+  const tooltip = useMemo(() => createTooltipHandle<ReactNode>(), []);
+  return (
+    <TooltipProvider>
+      <ThemeToggle tooltip={tooltip} />
+      <SoundSwitch
+        tooltip={tooltip}
+        className={buttonVariants({ size: "icon", variant: "subtle" })}
+        iconClassName="size-[18px]"
+      />
+      <SharedTooltip handle={tooltip} />
+    </TooltipProvider>
+  );
+};
 
 const mobileHeadingClass = "text-foreground font-medium";
 const mobileLinkClass =
@@ -113,24 +161,6 @@ export const SiteFooter = () => {
         ))}
       </DropdownMenuSubContent>
     </DropdownMenuSub>
-  );
-  const socials = (
-    <TooltipProvider>
-      <IconLink
-        href={LINK.GITHUB_REPO}
-        label={content.githubRepository.value}
-        tooltip={content.starGithub}
-      >
-        <GitHubIcon className="size-4" />
-      </IconLink>
-      <IconLink
-        href={LINK.X_FOLLOW}
-        label={`${content.followX.value}: ${SITE.AUTHOR.TWITTER}`}
-        tooltip={content.followX}
-      >
-        <XIcon className="size-4" />
-      </IconLink>
-    </TooltipProvider>
   );
   const credit = (
     <p className="text-muted-foreground">
@@ -184,18 +214,10 @@ export const SiteFooter = () => {
             {labsMenu}
           </FooterMenu>
           <span className="bg-border mx-1.5 h-4 w-px" aria-hidden="true" />
-          {socials}
+          <Socials />
           <span className="bg-border mx-1.5 h-4 w-px" aria-hidden="true" />
           <LocaleSwitcher />
-          {/* Theme and sound share one tooltip group. */}
-          <TooltipProvider>
-            <ThemeToggle />
-            <SoundSwitch
-              tooltip
-              className={buttonVariants({ size: "icon", variant: "subtle" })}
-              iconClassName="size-[18px]"
-            />
-          </TooltipProvider>
+          <ThemeAndSound />
         </nav>
       </div>
       {/* Mobile: link groups as a two-column grid, products spanning both,
@@ -261,18 +283,12 @@ export const SiteFooter = () => {
           </div>
         </nav>
         <div className="-mx-2 flex items-center justify-between">
-          <div className="flex items-center">{socials}</div>
+          <div className="flex items-center">
+            <Socials />
+          </div>
           <div className="flex items-center">
             <LocaleSwitcher />
-            {/* Theme and sound share one tooltip group. */}
-            <TooltipProvider>
-              <ThemeToggle />
-              <SoundSwitch
-                tooltip
-                className={buttonVariants({ size: "icon", variant: "subtle" })}
-                iconClassName="size-[18px]"
-              />
-            </TooltipProvider>
+            <ThemeAndSound />
           </div>
         </div>
         {credit}

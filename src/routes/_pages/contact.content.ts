@@ -83,7 +83,6 @@ export default {
       es: "Enviar mensaje",
       fr: "Envoyer le message",
     }),
-    or: t({ en: "or", es: "o", fr: "ou" }),
     enter: t({ en: "Enter", es: "Intro", fr: "Entrée" }),
     toSend: t({ en: "to send", es: "para enviar", fr: "pour envoyer" }),
     prefer: t({

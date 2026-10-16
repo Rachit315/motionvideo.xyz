@@ -6,7 +6,9 @@ import { CheckCircle } from "reicon-react/icons/CheckCircle";
 import { EmojiHappy } from "reicon-react/icons/EmojiHappy";
 import { EmojiNormal } from "reicon-react/icons/EmojiNormal";
 import { EmojiSad } from "reicon-react/icons/EmojiSad";
+import { Send } from "reicon-react/icons/Send";
 
+import { SendShortcut } from "@/components/send-shortcut";
 import { Button } from "@/components/ui/button";
 import {
   Dialog as ShadDialog,
@@ -197,14 +199,16 @@ const FeedbackForm = ({ page }: { page: string }) => {
         </p>
       )}
       <div className="flex items-center justify-between gap-3">
-        <span className="text-muted-foreground hidden text-xs sm:inline">
-          {content.shortcut}
+        <span className="text-muted-foreground hidden items-center gap-1.5 text-xs sm:flex">
+          <SendShortcut enter={content.enter.value} />
+          {content.toSend}
         </span>
         <Button
           type="submit"
           disabled={status === "sending"}
           className="ml-auto"
         >
+          <Send aria-hidden="true" />
           {status === "sending" ? content.sending : content.send}
         </Button>
       </div>

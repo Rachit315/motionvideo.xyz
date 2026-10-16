@@ -184,9 +184,12 @@ export const AccountMenu = ({
             signedIn ? content.accountMenu.value : content.signIn.value
           }
           title={signedIn ? undefined : content.signIn.value}
+          data-bookmark-fly-target="account"
           className={avatarButtonClass}
         >
-          <span className={avatarFaceClass}>{avatar}</span>
+          <span className={avatarFaceClass} data-bookmark-fly-pulse="">
+            {avatar}
+          </span>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" sideOffset={8} className="w-64">
           {/* Who is signed in, set apart from the item groups below. */}
@@ -215,6 +218,7 @@ export const AccountMenu = ({
           </DropdownMenuLinkItem>
           <DropdownMenuLinkItem
             render={<Link to={ROUTES.BOOKMARKS} />}
+            data-bookmark-fly-target="bookmarks-item"
             className="group py-1.5"
           >
             {content.bookmarks}

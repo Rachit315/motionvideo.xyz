@@ -1,5 +1,5 @@
 import { useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer, useLocale } from "react-intlayer";
 import { Briefcase } from "reicon-react/icons/Briefcase";
@@ -35,6 +35,7 @@ import {
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { LINK } from "@/constants/links";
 import { useHotkey } from "@/hooks/use-hotkey";
+import { useIsMac } from "@/hooks/use-mac";
 import { track } from "@/lib/analytics";
 import type { DirectoryEntry, DirectoryKind } from "@/lib/directories";
 import type { MotionVideo } from "@/lib/motion-catalog";
@@ -91,10 +92,6 @@ const loadSearchData = async (): Promise<SearchData> => {
   }
 };
 
-const subscribeNever = () => () => {
-  // The platform never changes while the page is open.
-};
-
 const LANGUAGE_OPTIONS: {
   code: "en" | "es" | "fr";
   label: string;
@@ -129,11 +126,7 @@ export const CommandMenu = () => {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [data, setData] = useState(EMPTY_DATA);
-  const modifier = useSyncExternalStore(
-    subscribeNever,
-    () => (/mac|iphone|ipad/iu.test(navigator.userAgent) ? "⌘" : "Ctrl"),
-    () => "⌘"
-  );
+  const modifier = useIsMac() ? "⌘" : "Ctrl";
 
   const ensureData = async () => {
     setData(await loadSearchData());

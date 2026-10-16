@@ -148,7 +148,11 @@ export const SignInDialogProvider = ({ children }: { children: ReactNode }) => {
         <DialogContent aria-label={content.signInTitle.value}>
           {/* Signing in closes the dialog (and goes to `next`) via the
               session change above. */}
-          <LoginForm key={state.key} description={state.reason} />
+          <LoginForm
+            key={state.key}
+            description={state.reason}
+            returnTo={state.next}
+          />
         </DialogContent>
       </Dialog>
     </SignInDialogContext>

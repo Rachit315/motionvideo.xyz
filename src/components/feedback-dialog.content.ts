@@ -52,11 +52,8 @@ export default {
     }),
     send: t({ en: "Send feedback", es: "Enviar", fr: "Envoyer" }),
     sending: t({ en: "Sending…", es: "Enviando…", fr: "Envoi…" }),
-    shortcut: t({
-      en: "⌘ Enter to send",
-      es: "⌘ Intro para enviar",
-      fr: "⌘ Entrée pour envoyer",
-    }),
+    enter: t({ en: "Enter", es: "Intro", fr: "Entrée" }),
+    toSend: t({ en: "to send", es: "para enviar", fr: "pour envoyer" }),
     validationError: t({
       en: "Write a few words, and check the email address if you added one.",
       es: "Escribe unas palabras y revisa el correo si lo añadiste.",

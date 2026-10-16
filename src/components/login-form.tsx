@@ -3,6 +3,7 @@ import type { FormEvent, ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
 
 import { Brand } from "@/components/brand";
+import { GoogleIcon } from "@/components/brand-icons";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Turnstile } from "@/components/turnstile";
 import { Button } from "@/components/ui/button";
@@ -75,12 +76,15 @@ export const AuthHeading = ({
  */
 export const LoginForm = ({
   callbackURL,
+  returnTo,
   description,
   presetEmail,
   welcome = false,
   title,
 }: {
   callbackURL?: string;
+  /** Where Google sign-in lands when there is no `callbackURL` (the dialog's next page). */
+  returnTo?: string;
   /** Replaces the line under the first step's title. */
   description?: ReactNode;
   /** Skip the email step: send a code to this address straight away. */
@@ -161,6 +165,23 @@ export const LoginForm = ({
       void sendCode(presetEmail);
     }
   });
+
+  // Google returns to `callbackURL` (or this page) with the session set.
+  const signInWithGoogle = async () => {
+    setBusy(true);
+    setError(null);
+    const { error: googleError } = await authClient.signIn.social({
+      provider: "google",
+      callbackURL:
+        callbackURL ??
+        returnTo ??
+        `${window.location.pathname}${window.location.search}`,
+    });
+    if (googleError) {
+      setBusy(false);
+      setError("sending");
+    }
+  };
 
   const onEmailSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -250,6 +271,23 @@ export const LoginForm = ({
               </Field>
             </FieldGroup>
           </form>
+          <div className="flex flex-col gap-4">
+            <div className="text-muted-foreground flex items-center gap-3 text-xs">
+              <span className="bg-border h-px flex-1" />
+              {content.orContinueWith}
+              <span className="bg-border h-px flex-1" />
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              size="lg"
+              disabled={busy}
+              onClick={signInWithGoogle}
+            >
+              <GoogleIcon />
+              {content.continueWithGoogle}
+            </Button>
+          </div>
         </div>
       ) : (
         <div className="flex flex-col gap-6">

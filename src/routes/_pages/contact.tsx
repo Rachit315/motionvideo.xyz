@@ -3,13 +3,12 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { FormEvent, KeyboardEvent } from "react";
 import { useIntlayer } from "react-intlayer";
 import { Check } from "reicon-react/icons/Check";
-import { Keyboard } from "reicon-react/icons/Keyboard";
 import { Send } from "reicon-react/icons/Send";
 
 import { PageHeader } from "@/components/page";
+import { SendShortcut } from "@/components/send-shortcut";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Kbd } from "@/components/ui/kbd";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -23,6 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { LINK } from "@/constants/links";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
+import { useSession } from "@/lib/auth-client";
 import { publicUrlSchema } from "@/lib/community";
 import { INQUIRY_TYPES, contactSchema } from "@/lib/contact";
 import type { ContactInput } from "@/lib/contact";
@@ -82,6 +82,22 @@ const Contact = () => {
       message.value = `${search.ref}\n\n`;
     }
   }, [search.inquiry, search.ref]);
+
+  // Signed in: the account's name and email, unless already typed. The page
+  // is prerendered, so this fills in once the session loads.
+  const session = useSession();
+  const user = session.data?.user;
+  useEffect(() => {
+    const form = formRef.current;
+    const name = form?.elements.namedItem("name");
+    const email = form?.elements.namedItem("email");
+    if (user?.name && name instanceof HTMLInputElement && !name.value) {
+      name.value = user.name;
+    }
+    if (user?.email && email instanceof HTMLInputElement && !email.value) {
+      email.value = user.email;
+    }
+  }, [user?.name, user?.email]);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -218,19 +234,20 @@ const Contact = () => {
                 : content.sendError}
             </p>
           )}
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <Button type="submit" size="lg" disabled={status === "sending"}>
-              <Send data-icon="inline-start" aria-hidden />
-              {status === "sending" ? content.sending : content.send}
-            </Button>
-            <span className="text-muted-foreground flex items-center gap-1.5 text-sm">
-              {content.or}
-              <Kbd>
-                <Keyboard aria-hidden />
-                {content.enter}
-              </Kbd>
+          <div className="flex items-center justify-between gap-4">
+            <span className="text-muted-foreground hidden items-center gap-1.5 text-sm sm:flex">
+              <SendShortcut enter={content.enter.value} />
               {content.toSend}
             </span>
+            <Button
+              type="submit"
+              size="lg"
+              disabled={status === "sending"}
+              className="ml-auto"
+            >
+              <Send aria-hidden="true" />
+              {status === "sending" ? content.sending : content.send}
+            </Button>
           </div>
         </form>
       )}

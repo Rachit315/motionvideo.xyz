@@ -1,11 +1,5 @@
 import { useNavigate } from "@tanstack/react-router";
-import {
-  createContext,
-  use,
-  useMemo,
-  useState,
-  useSyncExternalStore,
-} from "react";
+import { createContext, use, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -28,6 +22,7 @@ import { setSoundMuted, useSoundMuted } from "@/components/ui/sound";
 import { ACCOUNT_PAGES, ROUTES } from "@/constants/routes";
 import { SHORTCUT_KEYS, keyLabel } from "@/constants/shortcuts";
 import { useHotkey } from "@/hooks/use-hotkey";
+import { useIsMac } from "@/hooks/use-mac";
 import { useSession } from "@/lib/auth-client";
 
 interface KeyboardShortcutsApi {
@@ -53,10 +48,6 @@ const inVideoPlayer = (event: KeyboardEvent) =>
   event.target instanceof Element &&
   Boolean(event.target.closest("media-theme-sutro"));
 
-const subscribeNever = () => () => {
-  // The platform never changes while the page is open.
-};
-
 /**
  * Registers the site-wide single-key shortcuts and renders the dialog that
  * lists them (opened with ? or from the account menu). Account pages still
@@ -77,11 +68,7 @@ export const KeyboardShortcutsProvider = ({
   const muted = useSoundMuted();
   const cursorsEnabled = useLiveCursorsEnabled();
   const [open, setOpen] = useState(false);
-  const modifier = useSyncExternalStore(
-    subscribeNever,
-    () => (/mac|iphone|ipad/iu.test(navigator.userAgent) ? "⌘" : "Ctrl"),
-    () => "⌘"
-  );
+  const modifier = useIsMac() ? "⌘" : "Ctrl";
 
   const routes = [
     [SHORTCUT_KEYS.discover, ROUTES.HOME, header.discover],

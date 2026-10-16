@@ -1,14 +1,12 @@
+import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
 import { VolumeCross } from "reicon-react/icons/VolumeCross";
 import { VolumeHigh } from "reicon-react/icons/VolumeHigh";
 
 import { Kbd } from "@/components/ui/kbd";
 import { setSoundMuted, useSoundMuted } from "@/components/ui/sound";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { TooltipTrigger } from "@/components/ui/tooltip";
+import type { TooltipHandle } from "@/components/ui/tooltip";
 import { SHORTCUT_KEYS, keyLabel } from "@/constants/shortcuts";
 
 /**
@@ -20,12 +18,12 @@ import { SHORTCUT_KEYS, keyLabel } from "@/constants/shortcuts";
 export const SoundSwitch = ({
   className,
   iconClassName = "size-4",
-  tooltip = false,
+  tooltip,
 }: {
   className: string;
   iconClassName?: string;
-  /** Shows a tooltip with the shortcut; needs a TooltipProvider above. */
-  tooltip?: boolean;
+  /** The shared tooltip of its button group; without one, a native title. */
+  tooltip?: TooltipHandle<ReactNode>;
 }) => {
   const content = useIntlayer("command-menu");
   const muted = useSoundMuted();
@@ -49,11 +47,16 @@ export const SoundSwitch = ({
     return button;
   }
   return (
-    <Tooltip>
-      <TooltipTrigger render={button} />
-      <TooltipContent side="top">
-        {label} <Kbd>{shortcut}</Kbd>
-      </TooltipContent>
-    </Tooltip>
+    <TooltipTrigger
+      handle={tooltip}
+      // Its label changes on click (Copied, Remove bookmark…): stay open.
+      closeOnClick={false}
+      payload={
+        <>
+          {label} <Kbd>{shortcut}</Kbd>
+        </>
+      }
+      render={button}
+    />
   );
 };

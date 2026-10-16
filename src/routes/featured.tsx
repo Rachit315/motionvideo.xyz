@@ -7,12 +7,13 @@ import {
 import { useIntlayer, useLocale } from "react-intlayer";
 import { ArrowRightUp } from "reicon-react/icons/ArrowRightUp";
 import { Sparkles } from "reicon-react/icons/Sparkles";
+import { z } from "zod";
 
 import {
   DIRECTORY_COVER_RATIO,
   DirectoryCard,
 } from "@/components/directory-card";
-import { MotionVideoCard } from "@/components/motion-video";
+import { MotionVideoCard, MotionVideoOverlay } from "@/components/motion-video";
 import { PageMain, AccountPageHeader } from "@/components/page";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -70,6 +71,11 @@ const relativeDate = (date: Date, locale: string) =>
 
 const linkClass = `${buttonVariants({ variant: "outline", size: "sm" })} mt-1 self-start`;
 
+interface FeaturedSearch {
+  /** A featured video open in the overlay, over this page. */
+  video?: string;
+}
+
 const SubmissionCard = ({
   submission,
   locale,
@@ -103,9 +109,9 @@ const SubmissionCard = ({
       </p>
       {item?.kind === "video" ? (
         <Link
-          to="/videos/$slug"
-          params={{ slug: item.video.slug }}
-          search={{}}
+          to={ROUTES.FEATURED}
+          search={{ video: item.video.slug }}
+          resetScroll={false}
           className={linkClass}
         >
           {content.viewFeatured}
@@ -131,6 +137,16 @@ const Featured = () => {
   const content = useIntlayer("featured-page");
   const { locale } = useLocale();
   const submissions = routeApi.useLoaderData();
+  const search = routeApi.useSearch();
+  const navigate = routeApi.useNavigate();
+  // Videos open over this page, stepping through the featured videos.
+  const videos = submissions.flatMap((submission) => {
+    const item = findFeaturedItem(submission);
+    return item?.kind === "video" ? [item.video] : [];
+  });
+  const openIndex = videos.findIndex((video) => video.slug === search.video);
+  const openVideo = (slug?: string, replace = false) =>
+    navigate({ search: { video: slug }, replace, resetScroll: false });
   const featured: MasonryItem[] = submissions.flatMap((submission) => {
     const item = findFeaturedItem(submission);
     if (!item) {
@@ -141,14 +157,14 @@ const Featured = () => {
           {
             key: submission.id,
             aspectRatio: item.video.width / item.video.height,
-            // Opens the video overlay on Discover.
             node: (
               <MotionVideoCard
                 video={item.video}
-                paused={false}
+                paused={openIndex !== -1}
                 open={false}
                 category={undefined}
                 search={{}}
+                onOpen={() => openVideo(item.video.slug)}
               />
             ),
           },
@@ -239,12 +255,31 @@ const Featured = () => {
         )}
       </PageMain>
       <SiteFooter />
+      {openIndex !== -1 && (
+        <MotionVideoOverlay
+          video={videos[openIndex]}
+          previous={
+            openIndex > 0
+              ? () => openVideo(videos[openIndex - 1].slug, true)
+              : undefined
+          }
+          next={
+            openIndex < videos.length - 1
+              ? () => openVideo(videos[openIndex + 1].slug, true)
+              : undefined
+          }
+          onClose={() => openVideo()}
+        />
+      )}
     </>
   );
 };
 
 export const Route = createFileRoute("/featured")({
   component: Featured,
+  validateSearch: (search): FeaturedSearch => ({
+    video: z.string().min(1).max(200).safeParse(search.video).data,
+  }),
   head: () =>
     createMetadata({
       canonical: ROUTES.FEATURED,

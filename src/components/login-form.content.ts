@@ -6,6 +6,16 @@ const account = {
   content: {
     terms: t({ en: "Terms", es: "Términos", fr: "Conditions" }),
     privacy: t({ en: "Privacy", es: "Privacidad", fr: "Confidentialité" }),
+    continueWithGoogle: t({
+      en: "Log in with Google",
+      es: "Iniciar sesión con Google",
+      fr: "Se connecter avec Google",
+    }),
+    orContinueWith: t({
+      en: "Or continue with",
+      es: "O continúa con",
+      fr: "Ou continuez avec",
+    }),
     signInTitle: t({
       en: "Sign in or create an account",
       es: "Inicia sesión o crea una cuenta",

@@ -16,6 +16,13 @@ export const auth = createAuth(drizzle(env.DB, { schema }), {
   baseURL: env.BETTER_AUTH_URL,
   secret: env.BETTER_AUTH_SECRET,
   turnstileSecret: env.TURNSTILE_SECRET_KEY || undefined,
+  google:
+    env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET
+      ? {
+          clientId: env.GOOGLE_CLIENT_ID,
+          clientSecret: env.GOOGLE_CLIENT_SECRET,
+        }
+      : undefined,
   // Open sign-up: any email gets a code, and the account is created the first
   // time it is used. Purchases are matched by email on the dashboard. The
   // welcome flag comes from the client, so the thank-you template is only

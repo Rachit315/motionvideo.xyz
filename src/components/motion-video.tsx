@@ -5,6 +5,7 @@ import {
   useCallback,
   useEffect,
   useRef,
+  useMemo,
   useState,
   useSyncExternalStore,
 } from "react";
@@ -13,21 +14,23 @@ import { flushSync } from "react-dom";
 import { useIntlayer, useLocale } from "react-intlayer";
 import type { IconComponent } from "reicon-react";
 import { ArrowRightUp } from "reicon-react/icons/ArrowRightUp";
-import { Check } from "reicon-react/icons/Check";
 import { ChevronLeft } from "reicon-react/icons/ChevronLeft";
 import { ChevronRight } from "reicon-react/icons/ChevronRight";
-import { Copy } from "reicon-react/icons/Copy";
 import { User } from "reicon-react/icons/User";
 import { Xmark } from "reicon-react/icons/Xmark";
 
 import { BookmarkButton } from "@/components/bookmark-button";
+import { CopyIcon } from "@/components/copy-icon";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
+  SharedTooltip,
+  createTooltipHandle,
 } from "@/components/ui/tooltip";
+import type { TooltipHandle } from "@/components/ui/tooltip";
 import { ROUTES } from "@/constants/routes";
 import { absoluteUrl } from "@/constants/url";
 import { useTransientStatus } from "@/hooks/use-transient-status";
@@ -236,9 +239,11 @@ const TOOLTIP_DELAY = 200;
 const CopyPromptButton = ({
   prompt,
   size,
+  tooltip,
 }: {
   prompt: string;
   size: "icon" | "icon-sm";
+  tooltip: TooltipHandle<ReactNode>;
 }) => {
   const content = useIntlayer("motion-gallery");
   const [copyStatus, flashCopyStatus] = useTransientStatus<"idle" | "copied">(
@@ -247,28 +252,29 @@ const CopyPromptButton = ({
   const copied = copyStatus === "copied";
   const label = copied ? content.copied.value : content.copy.value;
   return (
-    <Tooltip>
-      <TooltipTrigger
-        delay={TOOLTIP_DELAY}
-        render={<button type="button" aria-label={label} />}
-        onClick={async () => {
-          try {
-            await navigator.clipboard.writeText(prompt);
-            track("prompt_copy", { from: "card" });
-            flashCopyStatus("copied");
-          } catch {
-            // The detail view explains clipboard failures; keep this control quiet.
-          }
-        }}
-        className={cn(
-          buttonVariants({ size, variant: "outline" }),
-          "rounded-full"
-        )}
-      >
-        {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
-      </TooltipTrigger>
-      <TooltipContent>{label}</TooltipContent>
-    </Tooltip>
+    <TooltipTrigger
+      delay={TOOLTIP_DELAY}
+      handle={tooltip}
+      // Its label changes on click (Copied, Remove bookmark…): stay open.
+      closeOnClick={false}
+      payload={label}
+      render={<button type="button" aria-label={label} />}
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(prompt);
+          track("prompt_copy", { from: "card" });
+          flashCopyStatus("copied");
+        } catch {
+          // The detail view explains clipboard failures; keep this control quiet.
+        }
+      }}
+      className={cn(
+        buttonVariants({ size, variant: "outline" }),
+        "rounded-full"
+      )}
+    >
+      <CopyIcon copied={copied} />
+    </TooltipTrigger>
   );
 };
 
@@ -285,18 +291,27 @@ const VideoActions = ({
   className?: string;
   /** `icon-sm` (28px) on the card. */
   size?: "icon" | "icon-sm";
-}) => (
-  <div className={cn("flex shrink-0 gap-2", className)}>
-    {video.prompt && <CopyPromptButton prompt={video.prompt} size={size} />}
-    <BookmarkButton
-      kind="video"
-      id={video.slug}
-      variant="outline"
-      size={size}
-      className="rounded-full"
-    />
-  </div>
-);
+}) => {
+  // One tooltip for both buttons: moving between them slides it across and
+  // morphs the label instead of closing one and opening another.
+  const tooltip = useMemo(() => createTooltipHandle<ReactNode>(), []);
+  return (
+    <div className={cn("flex shrink-0 gap-2", className)}>
+      {video.prompt && (
+        <CopyPromptButton prompt={video.prompt} size={size} tooltip={tooltip} />
+      )}
+      <BookmarkButton
+        kind="video"
+        id={video.slug}
+        variant="outline"
+        size={size}
+        className="rounded-full"
+        tooltip={tooltip}
+      />
+      <SharedTooltip handle={tooltip} />
+    </div>
+  );
+};
 
 export const MotionVideoCard = ({
   video,
@@ -304,6 +319,7 @@ export const MotionVideoCard = ({
   open,
   category,
   search,
+  onOpen,
 }: {
   video: MotionVideo;
   paused: boolean;
@@ -312,6 +328,12 @@ export const MotionVideoCard = ({
   /** The category page the grid shows, if any; the overlay opens over it. */
   category: MotionCategory | undefined;
   search: GallerySearch;
+  /**
+   * Opens the overlay over the current page (Bookmarks, Featured) instead of
+   * Discover. The link still points at the video's own page, so a new tab
+   * or a copied link works.
+   */
+  onOpen?: () => void;
 }) => {
   const content = useIntlayer("motion-gallery");
   const label = `${content.watch.value}: ${video.title}, @${video.handle}`;
@@ -328,7 +350,20 @@ export const MotionVideoCard = ({
         category={category}
         search={search}
         aria-label={label}
-        onClick={() => setMorphCard(video.slug)}
+        onClick={(event) => {
+          if (
+            onOpen &&
+            !event.metaKey &&
+            !event.ctrlKey &&
+            !event.shiftKey &&
+            event.button === 0
+          ) {
+            event.preventDefault();
+            onOpen();
+            return;
+          }
+          setMorphCard(video.slug);
+        }}
         className="group focus-visible:ring-ring relative block rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
       >
         <MotionPreview
@@ -365,7 +400,7 @@ export const MotionVideoCard = ({
         <VideoActions
           video={video}
           size="icon-sm"
-          className="pointer-events-none absolute top-2.5 right-2.5 opacity-0 transition-opacity duration-200 group-focus-within/card:pointer-events-auto group-focus-within/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 motion-reduce:transition-none"
+          className="pointer-events-none absolute top-2.5 right-2.5 opacity-0 transition-opacity duration-200 group-focus-within/card:pointer-events-auto group-focus-within/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 motion-reduce:transition-none [@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100"
         />
         {/* The creator's original post, like the top-right actions but pinned
             bottom-right; the same link as the detail view's "View source". */}
@@ -389,7 +424,7 @@ export const MotionVideoCard = ({
               className={cn(
                 buttonVariants({ size: "icon-sm", variant: "outline" }),
                 "rounded-full",
-                "pointer-events-none absolute right-2.5 bottom-2.5 opacity-0 transition-opacity duration-200 group-focus-within/card:pointer-events-auto group-focus-within/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 motion-reduce:transition-none"
+                "pointer-events-none absolute right-2.5 bottom-2.5 opacity-0 transition-opacity duration-200 group-focus-within/card:pointer-events-auto group-focus-within/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 motion-reduce:transition-none [@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100"
               )}
             >
               <ArrowRightUp aria-hidden="true" />
@@ -807,11 +842,7 @@ export const MotionVideoOverlay = ({
                   <h2 className="text-sm font-medium">{content.prompt}</h2>
                   {video.prompt && (
                     <Button variant="outline" size="sm" onClick={copyPrompt}>
-                      {copyStatus === "copied" ? (
-                        <Check aria-hidden="true" />
-                      ) : (
-                        <Copy aria-hidden="true" />
-                      )}
+                      <CopyIcon copied={copyStatus === "copied"} />
                       {copyStatus === "copied" ? content.copied : content.copy}
                     </Button>
                   )}

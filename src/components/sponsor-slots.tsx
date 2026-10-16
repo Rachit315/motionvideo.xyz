@@ -1,11 +1,13 @@
 import { Link } from "@tanstack/react-router";
+import { useMemo } from "react";
+import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
 
 import {
-  Tooltip,
-  TooltipContent,
+  SharedTooltip,
   TooltipProvider,
   TooltipTrigger,
+  createTooltipHandle,
 } from "@/components/ui/tooltip";
 import { ROUTES } from "@/constants/routes";
 import { SPONSOR_SLOTS } from "@/constants/sponsors";
@@ -49,78 +51,78 @@ export const SponsorSlots = ({
   ];
   // Always SPONSOR_SLOTS places; more only when more sponsors fill them.
   const open = Math.max(0, SPONSOR_SLOTS - taken.length);
+  const tooltip = useMemo(() => createTooltipHandle<ReactNode>(), []);
   return (
     <div className="flex flex-wrap items-center gap-2">
-      {/* One provider, so the slots' tooltips morph between labels. */}
+      {/* One shared tooltip slides and morphs between the slots. */}
       <TooltipProvider>
         {[
           ...taken.map((sponsor) => {
             const label = `${sponsor.name} · ${content.sponsored.value}`;
             return (
-              <Tooltip key={`${sponsor.name}:${sponsor.url}`}>
-                <TooltipTrigger
-                  delay={TOOLTIP_DELAY}
-                  render={
-                    <a
-                      href={withUtm(sponsor.url, "slots")}
-                      target="_blank"
-                      rel="sponsored noopener"
-                      data-track="sponsor_click"
-                      data-track-placement="slot"
-                      data-track-name={sponsor.name}
-                      aria-label={`${sponsor.name} (${content.sponsored.value})`}
-                    />
-                  }
-                  className={cn(
-                    slotClass,
-                    // Outline-button surface: white chip in light, inverse in dark.
-                    "bg-background shadow-outline dark:bg-popover p-1"
-                  )}
-                >
-                  <img
-                    src={sponsor.logo}
-                    alt=""
-                    width={32}
-                    height={32}
-                    loading="lazy"
-                    decoding="async"
-                    referrerPolicy="no-referrer"
-                    className={cn(
-                      "size-full object-contain",
-                      // Black artwork: as-is on the white chip, inverted for dark.
-                      sponsor.darkInvert && "dark:invert"
-                    )}
+              <TooltipTrigger
+                key={`${sponsor.name}:${sponsor.url}`}
+                delay={TOOLTIP_DELAY}
+                handle={tooltip}
+                payload={label}
+                render={
+                  <a
+                    href={withUtm(sponsor.url, "slots")}
+                    target="_blank"
+                    rel="sponsored noopener"
+                    data-track="sponsor_click"
+                    data-track-placement="slot"
+                    data-track-name={sponsor.name}
+                    aria-label={`${sponsor.name} (${content.sponsored.value})`}
                   />
-                </TooltipTrigger>
-                <TooltipContent side="bottom">{label}</TooltipContent>
-              </Tooltip>
+                }
+                className={cn(
+                  slotClass,
+                  // Outline-button surface: white chip in light, inverse in dark.
+                  "bg-background shadow-outline dark:bg-popover p-1"
+                )}
+              >
+                <img
+                  src={sponsor.logo}
+                  alt=""
+                  width={32}
+                  height={32}
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                  className={cn(
+                    "size-full object-contain",
+                    // Black artwork: as-is on the white chip, inverted for dark.
+                    sponsor.darkInvert && "dark:invert"
+                  )}
+                />
+              </TooltipTrigger>
             );
           }),
           ...Array.from({ length: open }, (_, index) => (
-            <Tooltip key={`open-${index}`}>
-              <TooltipTrigger
-                delay={TOOLTIP_DELAY}
-                render={
-                  <Link
-                    to={ROUTES.SPONSOR}
-                    data-track="sponsor_slot_open"
-                    aria-label={content.sponsorSlot.value}
-                  />
-                }
-                className={`${slotClass} text-muted-foreground hover:text-foreground border border-dashed border-current/40 transition-colors hover:border-current/70`}
-              >
-                {/* A thin drawn "+", like an empty app-icon slot. */}
-                <span aria-hidden="true" className="relative size-3.5">
-                  <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-current" />
-                  <span className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-current" />
-                </span>
-              </TooltipTrigger>
-              <TooltipContent side="bottom">
-                {content.sponsorSlot.value}
-              </TooltipContent>
-            </Tooltip>
+            <TooltipTrigger
+              key={`open-${index}`}
+              delay={TOOLTIP_DELAY}
+              handle={tooltip}
+              payload={content.sponsorSlot.value}
+              render={
+                <Link
+                  to={ROUTES.SPONSOR}
+                  data-track="sponsor_slot_open"
+                  aria-label={content.sponsorSlot.value}
+                />
+              }
+              className={`${slotClass} text-muted-foreground hover:text-foreground border border-dashed border-current/40 transition-colors hover:border-current/70`}
+            >
+              {/* A thin drawn "+", like an empty app-icon slot. */}
+              <span aria-hidden="true" className="relative size-3.5">
+                <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-current" />
+                <span className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-current" />
+              </span>
+            </TooltipTrigger>
           )),
         ]}
+        <SharedTooltip handle={tooltip} side="bottom" />
       </TooltipProvider>
     </div>
   );

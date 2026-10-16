@@ -18,7 +18,7 @@ import {
   DirectoryCard,
 } from "@/components/directory-card";
 import { FadeScroller } from "@/components/fade-scroller";
-import { MotionVideoCard } from "@/components/motion-video";
+import { MotionVideoCard, MotionVideoOverlay } from "@/components/motion-video";
 import { AccountPageHeader, pageContainerClass } from "@/components/page";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -46,6 +46,8 @@ import { getBookmarks } from "@/server/bookmark-functions";
 
 interface BookmarksSearch {
   kind?: BookmarkKind;
+  /** A saved video open in the overlay, over this page. */
+  video?: string;
 }
 
 const routeApi = getRouteApi("/bookmarks");
@@ -56,6 +58,7 @@ const Bookmarks = () => {
   const saved = routeApi.useLoaderData();
   const search = routeApi.useSearch();
   const bookmarks = useBookmarks();
+  const navigate = routeApi.useNavigate();
   // Cards leave as soon as they are unbookmarked; the loader keeps the order.
   const visible = saved.flatMap(({ kind, id }) => {
     const key = bookmarkKey(kind, id);
@@ -75,19 +78,31 @@ const Bookmarks = () => {
     ? visible.filter(({ item }) => item.kind === kind)
     : visible;
 
+  // Videos open over this page, stepping through the saved videos shown.
+  const videos = shown.flatMap(({ item }) =>
+    item.kind === "video" ? [item.video] : []
+  );
+  const openIndex = videos.findIndex((video) => video.slug === search.video);
+  const openVideo = (slug?: string, replace = false) =>
+    navigate({
+      search: (previous) => ({ ...previous, video: slug }),
+      replace,
+      resetScroll: false,
+    });
+
   const items: MasonryItem[] = shown.map(({ key, item }) => {
     if (item.kind === "video") {
       return {
         key,
         aspectRatio: item.video.width / item.video.height,
-        // Opens the video overlay on Discover.
         node: (
           <MotionVideoCard
             video={item.video}
-            paused={false}
+            paused={openIndex !== -1}
             open={false}
             category={undefined}
             search={{}}
+            onOpen={() => openVideo(item.video.slug)}
           />
         ),
       };
@@ -172,6 +187,22 @@ const Bookmarks = () => {
         </div>
       </main>
       <SiteFooter />
+      {openIndex !== -1 && (
+        <MotionVideoOverlay
+          video={videos[openIndex]}
+          previous={
+            openIndex > 0
+              ? () => openVideo(videos[openIndex - 1].slug, true)
+              : undefined
+          }
+          next={
+            openIndex < videos.length - 1
+              ? () => openVideo(videos[openIndex + 1].slug, true)
+              : undefined
+          }
+          onClose={() => openVideo()}
+        />
+      )}
     </>
   );
 };
@@ -186,6 +217,7 @@ export const Route = createFileRoute("/bookmarks")({
     }),
   validateSearch: (search): BookmarksSearch => ({
     kind: z.enum(BOOKMARK_KINDS).safeParse(search.kind).data,
+    video: z.string().min(1).max(200).safeParse(search.video).data,
   }),
   loader: async () => {
     const saved = await getBookmarks();

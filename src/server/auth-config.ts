@@ -12,6 +12,8 @@ export interface AuthConfig {
   secret: string;
   /** Turnstile secret; when unset, sending codes needs no captcha. */
   turnstileSecret?: string;
+  /** Google OAuth client; when unset, Google sign-in is off. */
+  google?: { clientId: string; clientSecret: string };
   /** `welcome`: requested from /welcome right after checkout. */
   sendSignInCode: (
     email: string,
@@ -30,6 +32,13 @@ export const createAuth = (
     baseURL: config.baseURL,
     secret: config.secret,
     database: drizzleAdapter(db, { provider: "sqlite" }),
+    // Email and profile only: no extra scopes, so Google needs no review.
+    socialProviders: config.google ? { google: config.google } : {},
+    // Google only hands out verified emails, so signing in with Google
+    // reaches the same account as an email code for that address.
+    account: {
+      accountLinking: { enabled: true, trustedProviders: ["google"] },
+    },
     rateLimit: {
       enabled: true,
       storage: "database",
