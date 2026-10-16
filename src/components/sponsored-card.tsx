@@ -87,7 +87,7 @@ export const SponsoredCard = ({
       ))}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/75 via-transparent to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+        className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/75 via-transparent to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none [@media(hover:none)]:opacity-100"
       />
       <span className="absolute inset-x-0 top-0 flex items-start p-2.5">
         <span className="rounded-full bg-black/55 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
@@ -120,7 +120,7 @@ export const SponsoredCard = ({
             </span>
           )}
         </span>
-        <ExternalLinkChip className="opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none" />
+        <ExternalLinkChip className="opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none [@media(hover:none)]:opacity-100" />
       </span>
       {sponsors.length > 1 && (
         <span

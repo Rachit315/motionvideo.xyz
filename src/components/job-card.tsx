@@ -1,11 +1,9 @@
-import { Link } from "@tanstack/react-router";
 import { useIntlayer, useLocale } from "react-intlayer";
-import { Plus } from "reicon-react/icons/Plus";
+import { Briefcase } from "reicon-react/icons/Briefcase";
 
 import { CompanyLogo } from "@/components/company-logo";
 import { ExternalLinkChip } from "@/components/external-link-chip";
 import { Badge } from "@/components/ui/badge";
-import { ROUTES } from "@/constants/routes";
 import { relativeDate } from "@/lib/relative-date";
 import { cn } from "@/lib/utils";
 import type { JobListing } from "@/server/job-functions";
@@ -45,7 +43,7 @@ export const JobCard = ({ job }: { job: JobListing }) => {
         <CompanyLogo job={job} className="size-10 rounded-lg" />
         <span className="flex items-center gap-2">
           {job.plan === "featured" && <Badge>{content.featured}</Badge>}
-          <ExternalLinkChip className="opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100" />
+          <ExternalLinkChip className="opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:opacity-100" />
         </span>
       </span>
       <span className="flex min-w-0 flex-col gap-0.5">
@@ -64,28 +62,20 @@ export const JobCard = ({ job }: { job: JobListing }) => {
   );
 };
 
-/** The same tile, dashed: an open slot that leads to Post a job. */
-export const PostJobCard = () => {
+/** The same tile, quiet: shown in the grid while there are no open roles. */
+export const NoJobsCard = () => {
   const content = useIntlayer("jobs-page");
   return (
-    <Link
-      to={ROUTES.JOBS_POST}
-      data-track="job_post_start"
-      data-track-from="board-slot"
-      className={cn(
-        tileClass,
-        "border-foreground/20 hover:bg-muted/60 border border-dashed shadow-none"
-      )}
-    >
-      <span className="bg-muted text-muted-foreground group-hover:text-foreground flex size-10 items-center justify-center rounded-lg transition-colors">
-        <Plus aria-hidden="true" className="size-4" />
+    <div className={cn(tileClass, "bg-muted/40 shadow-none")}>
+      <span className="bg-muted text-muted-foreground flex size-10 items-center justify-center rounded-lg">
+        <Briefcase aria-hidden="true" className="size-4" />
       </span>
       <span className="flex flex-col gap-0.5">
-        <span className="font-medium">{content.yourRole}</span>
+        <span className="font-medium">{content.emptyTitle}</span>
         <span className="text-muted-foreground text-sm">
-          {content.heroNote}
+          {content.emptyBody}
         </span>
       </span>
-    </Link>
+    </div>
   );
 };

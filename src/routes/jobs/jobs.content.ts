@@ -14,11 +14,6 @@ export default {
       es: "Puestos para motion designers, desarrolladores creativos e ingenieros de video que crean con IA.",
       fr: "Postes pour motion designers, développeurs créatifs et ingénieurs vidéo qui créent avec l’IA.",
     }),
-    heroNote: t({
-      en: "One payment, listed for 30 days. Nothing renews.",
-      es: "Un solo pago, publicado 30 días. Nada se renueva.",
-      fr: "Un seul paiement, en ligne 30 jours. Rien ne se renouvelle.",
-    }),
     typeHeadings: {
       "full-time": t({
         en: "Full-time roles.",
@@ -69,10 +64,15 @@ export default {
       es: "Filtrar por tipo",
       fr: "Filtrer par type",
     }),
-    yourRole: t({
-      en: "Your role here",
-      es: "Tu puesto aquí",
-      fr: "Votre poste ici",
+    emptyTitle: t({
+      en: "No jobs yet",
+      es: "Aún no hay empleos",
+      fr: "Aucune offre pour le moment",
+    }),
+    emptyBody: t({
+      en: "New roles show up here as soon as they’re approved.",
+      es: "Los nuevos puestos aparecen aquí en cuanto se aprueban.",
+      fr: "Les nouveaux postes apparaissent ici dès leur validation.",
     }),
     widgetTitle: t({
       en: "Motion jobs",

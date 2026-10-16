@@ -10,7 +10,7 @@ import {
 } from "@/components/collection-toolbar";
 import { DIRECTORY_COVER_RATIO } from "@/components/directory-card";
 import { FadeScroller } from "@/components/fade-scroller";
-import { JobCard, PostJobCard } from "@/components/job-card";
+import { JobCard, NoJobsCard } from "@/components/job-card";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SponsoredCard, sponsoredTileIndex } from "@/components/sponsored-card";
@@ -63,12 +63,17 @@ export const JobsBoard = ({
       aspectRatio: DIRECTORY_COVER_RATIO,
       node: <JobCard job={job} />,
     })),
-    // Always one open slot at the end, so an empty board is one small tile.
-    {
-      key: "post-a-job",
-      aspectRatio: DIRECTORY_COVER_RATIO,
-      node: <PostJobCard />,
-    },
+    // No roles: a quiet tile in the grid says so (the intro already offers
+    // Post a job), and the sponsored tile still sits beside it.
+    ...(filtered.length === 0
+      ? [
+          {
+            key: "no-jobs",
+            aspectRatio: DIRECTORY_COVER_RATIO,
+            node: <NoJobsCard />,
+          },
+        ]
+      : []),
   ];
   const items: MasonryItem[] = [{ key: "intro", node: intro }, ...cards];
   const sponsoredIndex = sponsoredTileIndex(lanes, cards.length);

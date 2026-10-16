@@ -374,7 +374,7 @@ export const MotionVideoCard = ({
           }
         />
         {/* Plain hover state: tags and title over a bottom gradient. */}
-        <div className="pointer-events-none absolute inset-0 flex flex-col justify-between rounded-xl bg-linear-to-t from-black/70 via-transparent to-transparent p-2.5 opacity-0 transition-opacity duration-200 group-hover/card:opacity-100 group-focus-visible:opacity-100">
+        <div className="pointer-events-none absolute inset-0 flex flex-col justify-between rounded-xl bg-linear-to-t from-black/70 via-transparent to-transparent p-2.5 opacity-0 transition-opacity duration-200 group-hover/card:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:opacity-100">
           <div className="flex gap-1">
             {video.tags
               .filter((tag) => tag === "prompt" || tag === "skill")

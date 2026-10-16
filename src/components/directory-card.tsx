@@ -59,7 +59,7 @@ export const DirectoryCard = ({
             </span>
           </span>
         )}
-        <span className="pointer-events-none absolute inset-0 flex flex-col justify-between bg-linear-to-t from-black/75 via-transparent to-transparent p-2.5 opacity-0 transition-opacity duration-200 group-hover/card:opacity-100 group-focus-visible:opacity-100">
+        <span className="pointer-events-none absolute inset-0 flex flex-col justify-between bg-linear-to-t from-black/75 via-transparent to-transparent p-2.5 opacity-0 transition-opacity duration-200 group-hover/card:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:opacity-100">
           <span className="flex items-start">
             {categoryLabel && (
               <span className="rounded-full bg-black/55 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
