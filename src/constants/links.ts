@@ -24,7 +24,8 @@ export const LINK = {
 const ASSETS_URL = "https://assets.motionvideo.xyz";
 
 export const ASSETS = {
-  VIDEO_HERO: `${ASSETS_URL}/videos/motionvideo-hero.mp4`,
+  // Content-hashed key: R2 serves these immutable, so a new cut gets a new name.
+  VIDEO_HERO: `${ASSETS_URL}/videos/motionvideo-launch-4ccff6ecea.mp4`,
   VIDEO_LAUNCH: `${ASSETS_URL}/videos/shadercn-launch.mp4`,
   VIDEO_SHOWREEL: `${ASSETS_URL}/videos/aniketpawar-reel.mp4`,
 } as const;

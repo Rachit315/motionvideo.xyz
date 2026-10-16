@@ -96,35 +96,21 @@ const Sponsor = () => {
           title={content.pitch}
           intro={content.note}
           actions={
-            // The note hangs off the button's right edge, so the button
-            // itself stays centred.
-            <div className="relative">
+            // From sm up the note hangs off the button's right edge, so the
+            // button itself stays centred; on mobile it sits below it.
+            <div className="flex flex-col items-center gap-3 sm:relative sm:block">
               <a
                 href="#plans"
                 className={buttonVariants({ variant: "gradient", size: "xl" })}
               >
                 {content.seePlans}
               </a>
-              <span className="text-muted-foreground absolute top-1/2 left-full ml-4 -translate-y-1/2 text-sm whitespace-nowrap">
+              <span className="text-muted-foreground text-sm whitespace-nowrap sm:absolute sm:top-1/2 sm:left-full sm:ml-4 sm:-translate-y-1/2">
                 {content.limited}
               </span>
             </div>
           }
         />
-
-        {/* Where each tier shows, drawn as small page sketches. */}
-        <ul className="grid w-full max-w-5xl gap-6 md:grid-cols-3">
-          {SPONSOR_TIERS.map((id) => (
-            <li key={id} className="flex flex-col gap-3 text-center">
-              <PlacementSketch tier={id} />
-              <p className="text-sm text-balance">
-                <span className="font-medium">{content.tiers[id].name}</span>
-                {" · "}
-                {content.tiers[id].perks[1]}
-              </p>
-            </li>
-          ))}
-        </ul>
 
         <section
           aria-labelledby="sponsors"
@@ -235,6 +221,8 @@ const Sponsor = () => {
                   >
                     <CardHeader>
                       <div className="flex flex-col gap-3">
+                        {/* Where this tier shows, drawn as a small page sketch. */}
+                        <PlacementSketch tier={id} />
                         <h3 className="flex items-center justify-between gap-2 text-base font-semibold">
                           {tier.name}
                         </h3>
