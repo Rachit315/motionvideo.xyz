@@ -1,0 +1,36 @@
+[
+ {
+  "id": "mk-474",
+  "category": "music",
+  "file": "audio/assets/music/mk-474.mp3",
+  "title": "What About Action?",
+  "author": "Diego Nava",
+  "source": "mixkit",
+  "page_url": "https://mixkit.co/free-stock-music/tag/corporate/",
+  "download_url": "https://assets.mixkit.co/music/474/474.mp3",
+  "license": "Mixkit Stock Music Free License",
+  "license_url": "https://mixkit.co/license/#musicFree",
+  "attribution": null,
+  "need": "music",
+  "rank": 1,
+  "best_segment": [
+   59.4883,
+   88.0
+  ],
+  "notes": "Dance-pop / tech house, 120.993 BPM, Ab minor, full bandwidth (20.5 kHz), side/mid -10 dB. An 8-bar breakdown (-8..-13 dB) builds into a drop whose downbeat transient sits at 63.455 s (+17 dB in 20 ms); bars run 1.9836 s from it. Chosen from 259 Mixkit tracks: earshot rank (3 launch-music descriptions) put it #3 overall, earshot describe reads its drop as 'energetic and driving', 'celebratory and joyful', techno / tech house; the previous pick (Kraft Twerk) read as minimal techno, near-mono (side/mid -25 dB). Runner-ups: mk-740 'Dance Zero' (Lily J), mk-555 'South Waves' (Eugenio Mininni).",
+  "analysis": {
+   "duration": 117.039,
+   "codec": "mp3",
+   "kbps": 256,
+   "src_rate": 44100,
+   "channels": 2,
+   "peak_dbfs": 0.37,
+   "lufs": -12.28,
+   "noise_floor_dbfs": -27.9,
+   "clipped_samples": 105,
+   "tempo": 123.05,
+   "centroid_hz": 2546,
+   "rolloff95_hz": 9528
+  }
+ }
+]

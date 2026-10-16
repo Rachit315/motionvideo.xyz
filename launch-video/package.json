@@ -1,0 +1,35 @@
+{
+  "name": "motionvideo-launch-video",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fonts": "mkdir -p public/fonts && cp -R ../public/fonts/timeless public/fonts/",
+    "prestudio": "npm run fonts",
+    "studio": "remotion studio",
+    "prerender": "npm run fonts",
+    "render": "remotion render MotionVideoLaunch out/picture.mp4 --scale=1.5 --crf=16 --muted",
+    "audio:cues": "node --experimental-strip-types --no-warnings audio/write-cues.ts",
+    "audio:forge": "${EARSHOT:-$HOME/.local/share/earshot}/.venv/bin/python audio/forge_sfx.py",
+    "audio:mix": "${EARSHOT:-$HOME/.local/share/earshot}/.venv/bin/python -I ${EARSHOT:-$HOME/.local/share/earshot}/skills/real-sound/scripts/mix.py --root . --design audio/sounddesign.json --trace out/qa/adds.json",
+    "audio:mux": "node ${EARSHOT:-$HOME/.local/share/earshot}/skills/real-sound/scripts/mux.mjs --video out/picture.mp4 --audio out/audio/soundtrack.wav --out out/motionvideo-launch.mp4",
+    "build": "npm run render && npm run audio:cues && npm run audio:mix && npm run audio:mux",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.536",
+    "@remotion/fonts": "4.0.536",
+    "@remotion/google-fonts": "4.0.536",
+    "@remotion/tailwind-v4": "4.0.536",
+    "@remotion/transitions": "4.0.536",
+    "culori": "^4.0.2",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.536",
+    "tailwindcss": "^4"
+  },
+  "devDependencies": {
+    "@types/culori": "^4.0.1",
+    "@types/react": "^19",
+    "typescript": "^5.9"
+  }
+}

@@ -13,5 +13,7 @@ export default defineConfig({
     ...(core.ignorePatterns ?? []),
     "src/server/db/schema.ts",
     "src/components/hairline/*.js",
+    // Standalone Remotion project with its own tsconfig and vendored snapcn source.
+    "launch-video/**",
   ],
 });

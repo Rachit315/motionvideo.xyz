@@ -1,0 +1,19 @@
+node_modules
+out
+# Timeless Sans is licensed for website embedding only; never commit it.
+public/fonts
+# Captured inputs: screen recordings of motionvideo.xyz, directory page
+# screenshots and stills pulled from gallery videos.
+public/rec
+public/shots
+public/frames
+# The Mixkit licence forbids redistributing the raw track; the CC0 references
+# only steer earshot forge (audio/forge_sfx.py) and are re-fetchable via Openverse.
+audio/assets/music
+audio/refs
+# snapcn Pro components: licensed to us, not redistributable in this public
+# repo. Reinstall with `SNAPCN_API_KEY=… npx shadcn@latest add @snapcn/manifesto
+# @snapcn/lockup-reveal`; manifesto.tsx carries one local edit (a `fontFamily`
+# prop resolved through resolveFont) that must be re-applied.
+src/components/snap-cn/manifesto.tsx
+src/components/snap-cn/lockup-reveal.tsx

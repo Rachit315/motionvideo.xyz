@@ -8,5 +8,7 @@ export default defineConfig({
   ignorePatterns: [
     ...(ultracite.ignorePatterns ?? []),
     "src/components/hairline/*.js",
+    // Standalone Remotion project; snapcn components are vendored as shipped.
+    "launch-video/**",
   ],
 });
