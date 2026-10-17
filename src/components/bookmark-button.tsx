@@ -57,6 +57,7 @@ export const BookmarkButton = ({
   className,
   style,
   tooltip,
+  inDialog = false,
 }: {
   kind: BookmarkKind;
   /** Video slug or directory entry id. */
@@ -67,6 +68,11 @@ export const BookmarkButton = ({
   style?: CSSProperties;
   /** A tooltip shared with neighbouring buttons; else it gets its own. */
   tooltip?: TooltipHandle<ReactNode>;
+  /**
+   * Inside a full-screen dialog (the video detail view): no tooltip, and
+   * saving doesn't fly to the account menu, which the dialog covers.
+   */
+  inDialog?: boolean;
 }) => {
   const content = useIntlayer("bookmark-button");
   const session = useSession();
@@ -86,7 +92,9 @@ export const BookmarkButton = ({
     if (signedIn) {
       // Only saving flies somewhere: removing has no destination.
       if (!saved) {
-        flyBookmarkToMenu(event.currentTarget);
+        if (!inDialog) {
+          flyBookmarkToMenu(event.currentTarget);
+        }
         popIcon(event.currentTarget.querySelector("svg"));
       }
       track("bookmark_toggle", { kind, id, saved: !saved });
@@ -96,6 +104,20 @@ export const BookmarkButton = ({
     }
   };
 
+  if (inDialog) {
+    return (
+      <button
+        type="button"
+        aria-label={label}
+        aria-pressed={saved}
+        onClick={onClick}
+        className={cn(buttonVariants({ variant, size }), className)}
+        style={style}
+      >
+        <Bookmark aria-hidden="true" weight={saved ? "Filled" : "Outline"} />
+      </button>
+    );
+  }
   const trigger = (
     <TooltipTrigger
       delay={200}

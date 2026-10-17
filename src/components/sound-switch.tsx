@@ -10,10 +10,11 @@ import type { TooltipHandle } from "@/components/ui/tooltip";
 import { SHORTCUT_KEYS, keyLabel } from "@/constants/shortcuts";
 
 /**
- * Mutes or unmutes the interface sounds (shortcut registered by KeyboardShortcutsProvider). Unstyled beyond the
- * icon: the footer renders it as a subtle icon button with a tooltip (inside
- * the footer's shared TooltipProvider), the account popover like its theme
- * toggle with a native title.
+ * Mutes or unmutes the interface sounds (shortcut registered by
+ * KeyboardShortcutsProvider). Unstyled beyond the icon: the footer renders it
+ * as a subtle icon button with a tooltip (inside the footer's shared
+ * TooltipProvider); without a tooltip it falls back to a native title. The
+ * account popover uses a whole-row menu item instead.
  */
 export const SoundSwitch = ({
   className,

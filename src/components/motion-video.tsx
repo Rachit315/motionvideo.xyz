@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import MediaThemeSutro from "player.style/sutro/react";
 import {
   useCallback,
+  useId,
   useEffect,
   useRef,
   useMemo,
@@ -14,6 +15,7 @@ import { flushSync } from "react-dom";
 import { useIntlayer, useLocale } from "react-intlayer";
 import type { IconComponent } from "reicon-react";
 import { ArrowRightUp } from "reicon-react/icons/ArrowRightUp";
+import { ChevronDown } from "reicon-react/icons/ChevronDown";
 import { ChevronLeft } from "reicon-react/icons/ChevronLeft";
 import { ChevronRight } from "reicon-react/icons/ChevronRight";
 import { User } from "reicon-react/icons/User";
@@ -35,7 +37,11 @@ import { ROUTES } from "@/constants/routes";
 import { absoluteUrl } from "@/constants/url";
 import { useTransientStatus } from "@/hooks/use-transient-status";
 import { track } from "@/lib/analytics";
-import { findMotionCategory } from "@/lib/motion-catalog";
+import {
+  findEffort,
+  findIterations,
+  findMotionCategory,
+} from "@/lib/motion-catalog";
 import type {
   GallerySearch,
   MotionCategory,
@@ -460,6 +466,92 @@ const DetailRow = ({
   </div>
 );
 
+/** How the video was made (model, stack, effort, rounds), when reported. */
+const MakingRows = ({ video }: { video: MotionVideo }) => {
+  const content = useIntlayer("motion-gallery");
+  const effort = findEffort(video.effort);
+  const iterations = findIterations(video.iterations);
+  return (
+    <>
+      {video.model && (
+        <DetailRow label={content.model}>{video.model}</DetailRow>
+      )}
+      {video.stack && (
+        <DetailRow label={content.stack}>{video.stack}</DetailRow>
+      )}
+      {effort && (
+        <DetailRow label={content.effort}>{content.efforts[effort]}</DetailRow>
+      )}
+      {iterations && (
+        <DetailRow label={content.iterations}>
+          {content.iterationCounts[iterations]}
+        </DetailRow>
+      )}
+    </>
+  );
+};
+
+/**
+ * The detail view's prompt. Long prompts fold to a fixed height with a fade
+ * and a Show all toggle, so the details below stay in reach without a
+ * scroll box inside the scrolling panel. Key it by video: each prompt starts
+ * folded and is measured once.
+ */
+const PromptText = ({ prompt }: { prompt: string }) => {
+  const content = useIntlayer("motion-gallery");
+  const id = useId();
+  const [expanded, setExpanded] = useState(false);
+  // Measured after mount (the server cannot know): until then the prompt
+  // renders folded without the toggle.
+  const [overflows, setOverflows] = useState(false);
+  const measure = useCallback((element: HTMLPreElement | null) => {
+    if (element) {
+      setOverflows(element.scrollHeight > element.clientHeight + 1);
+    }
+  }, []);
+  return (
+    <div className="flex flex-col items-start gap-1">
+      <div className="relative w-full">
+        <pre
+          id={id}
+          ref={measure}
+          className={cn(
+            "bg-muted rounded-xl p-4 font-serif text-sm leading-relaxed whitespace-pre-wrap",
+            !expanded && "max-h-72 overflow-hidden"
+          )}
+        >
+          {prompt}
+        </pre>
+        {overflows && !expanded && (
+          <div
+            aria-hidden="true"
+            className="from-muted pointer-events-none absolute inset-x-0 bottom-0 h-20 rounded-b-xl bg-linear-to-t to-transparent"
+          />
+        )}
+      </div>
+      {overflows && (
+        <Button
+          variant="ghost"
+          size="sm"
+          aria-expanded={expanded}
+          aria-controls={id}
+          onClick={() => setExpanded(!expanded)}
+          className="-ml-2"
+        >
+          {expanded ? content.showLess : content.showAll}
+          <ChevronDown
+            aria-hidden="true"
+            className={cn(
+              "transition-transform motion-reduce:transition-none",
+              expanded && "rotate-180"
+            )}
+          />
+        </Button>
+      )}
+    </div>
+  );
+};
+
 // Hosts the detail view's source button names, by registrable domain.
 const SOURCE_ACTIONS = {
   "x.com": "openOnX",
@@ -487,8 +579,8 @@ const sourceAction = (url: string): SourceAction => {
 };
 
 /**
- * Previous/next in the player's control row. At either end of the grid it
- * becomes a dot that shakes when pressed: there is nothing that way.
+ * Previous/next beside Bookmark in the panel's top row. At either end of the
+ * grid the arrow stays, disabled: there is nothing that way.
  */
 const StepButton = ({
   onStep,
@@ -500,32 +592,18 @@ const StepButton = ({
   icon: IconComponent;
   label: string;
   endLabel: string;
-}) => {
-  const [shaking, setShaking] = useState(false);
-  return onStep ? (
-    <Button
-      variant="secondary"
-      size="icon-xl"
-      aria-label={label}
-      onClick={onStep}
-      className="rounded-full"
-    >
-      <Icon aria-hidden="true" />
-    </Button>
-  ) : (
-    <Button
-      variant="secondary"
-      size="icon-xl"
-      aria-label={endLabel}
-      data-shaking={shaking || undefined}
-      onClick={() => setShaking(true)}
-      onAnimationEnd={() => setShaking(false)}
-      className="data-shaking:animate-mv-shake rounded-full motion-reduce:animate-none"
-    >
-      <span aria-hidden="true" className="size-2 rounded-full bg-current" />
-    </Button>
-  );
-};
+}) => (
+  <Button
+    variant="secondary"
+    size="icon-lg"
+    aria-label={onStep ? label : endLabel}
+    disabled={!onStep}
+    onClick={onStep}
+    className="rounded-full"
+  >
+    <Icon aria-hidden="true" />
+  </Button>
+);
 
 /**
  * Route overlay for `/videos/$slug`: the player floats over the blurred
@@ -616,10 +694,6 @@ export const MotionVideoOverlay = ({
   }, [goPrevious, goNext]);
   const types = video.tags.filter((tag) => tag === "prompt" || tag === "skill");
   const { locale } = useLocale();
-  const [primaryCategory] = video.contentTags.flatMap((tag) => {
-    const category = findMotionCategory(tag);
-    return category ? [category] : [];
-  });
 
   const copyPrompt = async () => {
     if (!video.prompt) {
@@ -663,12 +737,10 @@ export const MotionVideoOverlay = ({
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-[8%] size-[84%] scale-110 object-cover opacity-60 blur-3xl saturate-150 dark:opacity-45"
               />
-              {/* The stage is the column minus the step row (3rem buttons +
-                  1rem gap) plus the inner breathing room, so the video never
-                  touches the viewport top and the buttons never touch the
-                  bottom. As a size container it lets the player fit both
-                  ways and stay centred, whatever the video's shape. */}
-              <div className="[container-type:size] pointer-events-none absolute inset-x-5 top-5 bottom-20 flex items-center justify-center">
+              {/* Inset so the video never touches the viewport edges. As a
+                  size container it lets the player fit both ways and stay
+                  centred, whatever the video's shape. */}
+              <div className="[container-type:size] pointer-events-none absolute inset-5 flex items-center justify-center">
                 {/* Sutro (player.style) frame, as on the skill page. */}
                 <MediaThemeSutro
                   className="pointer-events-auto relative block overflow-hidden rounded-xl shadow-2xl"
@@ -694,31 +766,24 @@ export const MotionVideoOverlay = ({
                   />
                 </MediaThemeSutro>
               </div>
-              {/* Pinned to the bottom centre, clear of the viewport edge,
-                  independent of the video's size. */}
-              <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-3">
-                <StepButton
-                  onStep={previous}
-                  icon={ChevronLeft}
-                  label={content.previous.value}
-                  endLabel={content.noPrevious.value}
-                />
-                <StepButton
-                  onStep={next}
-                  icon={ChevronRight}
-                  label={content.next.value}
-                  endLabel={content.noNext.value}
-                />
-              </div>
             </div>
             <aside className="bg-background flex min-h-0 flex-col gap-5 border-t p-5 lg:h-full lg:overflow-y-auto lg:border-t-0 lg:border-l">
-              <div className="flex flex-col gap-0.5">
-                {/* Category on the left, Bookmark and Close side by side on
-                    the right of the same row; the title sits below. */}
-                <div className="flex items-center justify-between gap-4">
-                  <p className="text-muted-foreground min-w-0 truncate text-xl leading-tight font-semibold tracking-tight">
-                    {primaryCategory && content.categories[primaryCategory]}
-                  </p>
+              <div className="flex flex-col gap-3">
+                {/* Close on the left; Bookmark, then previous/next, on the
+                    right; the title below. */}
+                <div className="flex items-center justify-between gap-2">
+                  <Dialog.Close
+                    aria-label={content.close.value}
+                    className={cn(
+                      buttonVariants({
+                        variant: "secondary",
+                        size: "icon-lg",
+                      }),
+                      "rounded-full"
+                    )}
+                  >
+                    <Xmark aria-hidden="true" />
+                  </Dialog.Close>
                   <div className="flex shrink-0 gap-2">
                     <BookmarkButton
                       kind="video"
@@ -726,19 +791,20 @@ export const MotionVideoOverlay = ({
                       variant="secondary"
                       size="icon-lg"
                       className="rounded-full"
+                      inDialog
                     />
-                    <Dialog.Close
-                      aria-label={content.close.value}
-                      className={cn(
-                        buttonVariants({
-                          variant: "secondary",
-                          size: "icon-lg",
-                        }),
-                        "rounded-full"
-                      )}
-                    >
-                      <Xmark aria-hidden="true" />
-                    </Dialog.Close>
+                    <StepButton
+                      onStep={previous}
+                      icon={ChevronLeft}
+                      label={content.previous.value}
+                      endLabel={content.noPrevious.value}
+                    />
+                    <StepButton
+                      onStep={next}
+                      icon={ChevronRight}
+                      label={content.next.value}
+                      endLabel={content.noNext.value}
+                    />
                   </div>
                 </div>
                 <Dialog.Title className="text-xl leading-tight font-semibold tracking-tight text-balance">
@@ -816,10 +882,17 @@ export const MotionVideoOverlay = ({
                   <DetailRow label={content.category}>
                     {video.contentTags.map((tag) => {
                       const category = findMotionCategory(tag);
-                      return (
-                        <span key={tag}>
-                          {category ? content.categories[category] : tag}
-                        </span>
+                      return category ? (
+                        <Link
+                          key={tag}
+                          to="/category/$category"
+                          params={{ category }}
+                          className="hover:underline"
+                        >
+                          {content.categories[category]}
+                        </Link>
+                      ) : (
+                        <span key={tag}>{tag}</span>
                       );
                     })}
                   </DetailRow>
@@ -833,6 +906,7 @@ export const MotionVideoOverlay = ({
                     ))}
                   </DetailRow>
                 )}
+                <MakingRows video={video} />
               </dl>
               <section
                 className="flex flex-col gap-3 border-t border-dashed pt-4"
@@ -843,14 +917,14 @@ export const MotionVideoOverlay = ({
                   {video.prompt && (
                     <Button variant="outline" size="sm" onClick={copyPrompt}>
                       <CopyIcon copied={copyStatus === "copied"} />
-                      {copyStatus === "copied" ? content.copied : content.copy}
+                      {copyStatus === "copied"
+                        ? content.copied
+                        : content.copyShort}
                     </Button>
                   )}
                 </div>
                 {video.prompt ? (
-                  <pre className="bg-muted max-h-72 overflow-auto rounded-xl p-4 font-serif text-sm leading-relaxed whitespace-pre-wrap">
-                    {video.prompt}
-                  </pre>
+                  <PromptText key={video.slug} prompt={video.prompt} />
                 ) : (
                   <p className="text-muted-foreground text-sm">
                     {content.unavailablePrompt}

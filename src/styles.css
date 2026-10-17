@@ -343,8 +343,6 @@
   --animate-mv-strip: mv-strip 4s linear infinite;
   --animate-mv-follow-path: mv-follow-path 2.4s linear infinite;
   --animate-mv-cycle: mv-cycle 6s ease-in-out infinite both;
-  /* A short no-go shake (the overlay's end-of-list step button). */
-  --animate-mv-shake: mv-shake 420ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   /* Sponsored card timer hairline: fills once per rotation. */
   --animate-mv-rotate: mv-rotate 6s linear forwards;
 }
@@ -529,17 +527,6 @@ media-theme-sutro {
   syntax: "<length>";
   inherits: false;
   initial-value: 0px;
-}
-
-@keyframes mv-shake {
-  20%,
-  60% {
-    transform: translateX(-5px);
-  }
-  40%,
-  80% {
-    transform: translateX(5px);
-  }
 }
 
 @keyframes mv-rotate {

@@ -5,6 +5,7 @@ import {
   useRouter,
 } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
 import { Bookmark } from "reicon-react/icons/Bookmark";
 import { Briefcase } from "reicon-react/icons/Briefcase";
@@ -17,12 +18,13 @@ import { Settings } from "reicon-react/icons/Settings";
 import { Sparkles } from "reicon-react/icons/Sparkles";
 import { Sun } from "reicon-react/icons/Sun";
 import { User } from "reicon-react/icons/User";
+import { VolumeCross } from "reicon-react/icons/VolumeCross";
+import { VolumeHigh } from "reicon-react/icons/VolumeHigh";
 
 import { GitHubIcon, XIcon } from "@/components/brand-icons";
 import { useFeedbackDialog } from "@/components/feedback-dialog";
 import { useKeyboardShortcuts } from "@/components/keyboard-shortcuts";
 import { useSignInDialog } from "@/components/sign-in-dialog";
-import { SoundSwitch } from "@/components/sound-switch";
 import { toggleTheme } from "@/components/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -33,8 +35,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { setSoundMuted, useSoundMuted } from "@/components/ui/sound";
 import { LINK } from "@/constants/links";
 import { ACCOUNT_PAGES, ROUTES } from "@/constants/routes";
+import { SHORTCUT_KEYS, keyLabel } from "@/constants/shortcuts";
 import { authClient, useSession } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 
@@ -107,6 +111,34 @@ export const AvatarImage = ({
 
 const iconButtonClass =
   "text-muted-foreground flex size-8 items-center justify-center transition-colors outline-none hover:text-foreground";
+
+// The state icon at the right of a toggle row, coloured like the other rows'.
+const rowIconClass =
+  "text-muted-foreground group-hover:text-foreground group-focus:text-accent-foreground ml-auto transition-colors";
+
+/** Interface sounds as a whole-row toggle; the icon shows the current state. */
+const SoundItem = ({ label }: { label: ReactNode }) => {
+  const content = useIntlayer("command-menu");
+  const muted = useSoundMuted();
+  const action = muted ? content.unmuteSounds.value : content.muteSounds.value;
+  const shortcut = keyLabel(SHORTCUT_KEYS.sounds);
+  return (
+    <DropdownMenuItem
+      closeOnClick={false}
+      onClick={() => setSoundMuted(!muted)}
+      title={`${action} (${shortcut})`}
+      aria-keyshortcuts={shortcut}
+      className="group py-1.5"
+    >
+      {label}
+      {muted ? (
+        <VolumeCross aria-hidden="true" className={rowIconClass} />
+      ) : (
+        <VolumeHigh aria-hidden="true" className={rowIconClass} />
+      )}
+    </DropdownMenuItem>
+  );
+};
 
 /**
  * Session, theme, and sign-out shared by the desktop account
@@ -274,28 +306,21 @@ export const AccountMenu = ({
             />
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          {/* Label left, single ghost toggle right-aligned. */}
-          <div className="flex h-8 items-center gap-2 px-1.5">
-            <span className="text-sm">{content.theme}</span>
-            <button
-              type="button"
-              aria-label={content.theme.value}
-              title={content.theme.value}
-              onClick={onToggleTheme}
-              className={cn(iconButtonClass, "-mr-2 ml-auto")}
-            >
-              {dark ? (
-                <Moon aria-hidden="true" className="size-4" />
-              ) : (
-                <Sun aria-hidden="true" className="size-4" />
-              )}
-            </button>
-          </div>
-          {/* Interface sounds, toggled like the theme. */}
-          <div className="flex h-8 items-center gap-2 px-1.5">
-            <span className="text-sm">{content.sounds}</span>
-            <SoundSwitch className={cn(iconButtonClass, "-mr-2 ml-auto")} />
-          </div>
+          {/* Whole rows toggle (the menu stays open to show the new state):
+              label left, current state's icon right. */}
+          <DropdownMenuItem
+            closeOnClick={false}
+            onClick={onToggleTheme}
+            className="group py-1.5"
+          >
+            {content.theme}
+            {dark ? (
+              <Moon aria-hidden="true" className={rowIconClass} />
+            ) : (
+              <Sun aria-hidden="true" className={rowIconClass} />
+            )}
+          </DropdownMenuItem>
+          <SoundItem label={content.sounds} />
           {/* Label left, GitHub then X right-aligned with the theme toggle. */}
           <div className="flex h-8 items-center gap-1 px-1.5">
             <span className="text-sm">{content.socials}</span>

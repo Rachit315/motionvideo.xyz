@@ -104,6 +104,8 @@ export default {
       es: "Copiar instrucción",
       fr: "Copier l’instruction",
     }),
+    // Beside the "Prompt" heading in the detail view, where "prompt" is implied.
+    copyShort: t({ en: "Copy", es: "Copiar", fr: "Copier" }),
     copied: t({ en: "Copied", es: "Copiado", fr: "Copiée" }),
     copyError: t({
       en: "Clipboard unavailable. Select and copy the prompt below.",
@@ -164,6 +166,35 @@ export default {
       es: "No se pudo cargar el vídeo alojado. Puedes verlo en la publicación original.",
       fr: "Cette vidéo n’a pas pu être chargée. Vous pouvez la regarder dans la publication originale.",
     }),
+    // The detail view's prompt fold and how the video was made.
+    showAll: t({ en: "Show all", es: "Ver todo", fr: "Tout afficher" }),
+    showLess: t({ en: "Show less", es: "Ver menos", fr: "Afficher moins" }),
+    model: t({ en: "Model", es: "Modelo", fr: "Modèle" }),
+    stack: t({ en: "Stack", es: "Herramientas", fr: "Outils" }),
+    effort: t({ en: "Effort", es: "Esfuerzo", fr: "Effort" }),
+    efforts: {
+      medium: t({ en: "Medium", es: "Medio", fr: "Moyen" }),
+      high: t({ en: "High", es: "Alto", fr: "Élevé" }),
+      max: t({ en: "Max", es: "Máximo", fr: "Maximum" }),
+    },
+    iterations: t({ en: "Iterations", es: "Iteraciones", fr: "Itérations" }),
+    iterationCounts: {
+      "one-shot": t({
+        en: "One-shot",
+        es: "A la primera",
+        fr: "Du premier coup",
+      }),
+      "few-rounds": t({
+        en: "A few rounds",
+        es: "Unas pocas rondas",
+        fr: "Quelques allers-retours",
+      }),
+      "many-rounds": t({
+        en: "Many rounds",
+        es: "Muchas rondas",
+        fr: "De nombreux allers-retours",
+      }),
+    },
     categories: {
       "product-ui": t({
         en: "Product UI",
