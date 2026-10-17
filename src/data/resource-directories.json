@@ -881,6 +881,30 @@
         "category": "Editor",
         "url": "https://videoeditor.fyi/",
         "cover": "https://assets.motionvideo.xyz/directories/tools/videoeditor-fyi-7e904f79bd.webp"
+      },
+      {
+        "id": "arqe",
+        "name": "Arqe",
+        "description": "Motion templates, animated mockups, and stock in one place",
+        "category": "Motion",
+        "url": "https://arqe.ai/",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/arqe-e05dc2e63e.png"
+      },
+      {
+        "id": "swishy",
+        "name": "Swishy",
+        "description": "AI motion designer for stunning animations and typefaces",
+        "category": "AI",
+        "url": "https://swishy.ai/",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/swishy-619112eebb.png"
+      },
+      {
+        "id": "animos",
+        "name": "Animos",
+        "description": "Showcase your designs in motion",
+        "category": "Motion",
+        "url": "https://animos.app/",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/animos-8643c3616d.png"
       }
     ]
   },
