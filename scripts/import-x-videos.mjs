@@ -4,9 +4,10 @@
 //   pnpm catalog:import:videos
 //
 // Each source names the post plus the curation FxTwitter can't supply: a
-// title, content categories and, when the creator shared it, where the prompt
-// is (in the post itself or in one of the creator's own replies) between two
-// markers. Posts already in the catalog are skipped, so the list can keep
+// title, content categories and where the prompt is (in the post itself or in
+// one of the creator's own replies) between two markers, or a skill URL. Every
+// video needs a prompt or a skill, so a source with neither is rejected. Posts
+// already in the catalog are skipped, so the list can keep
 // growing; find new posts with `pnpm catalog:discover`. New videos are spread
 // through the default (popular) order, one after every third existing video.
 // Run `pnpm assets:mirror` afterwards to move the media onto
@@ -33,41 +34,6 @@ const PREVIEW_WIDTH = 480;
 // Posts found with `pnpm catalog:discover` and checked by hand. Add one here,
 // then rerun the script.
 const SOURCES = [
-  {
-    post: "claudeai/status/2108271552991252810",
-    title: "Claude Motion launch explainer",
-    contentTags: ["product-ui", "charts"],
-  },
-  {
-    post: "higgsfield/status/2108294775644585998",
-    title: "Higgsfield Katana launch film",
-    contentTags: ["product-ui", "kinetic-type"],
-  },
-  {
-    post: "flxrnc/status/2108899503092740561",
-    title: "Opus 5.5 motion loop",
-    contentTags: ["shapes"],
-  },
-  {
-    post: "anabology/status/2110224953287070195",
-    title: "Claudia Grok Bot music video teaser",
-    contentTags: ["music", "characters"],
-  },
-  {
-    post: "higgsfield_ai/status/2108378429737628038",
-    title: "Zero-percent video generation motion piece",
-    contentTags: ["shapes", "particles"],
-  },
-  {
-    post: "RoundtableSpace/status/2107686101729055121",
-    title: "Opus 5.5 alone vs in a motion harness",
-    contentTags: ["product-ui"],
-  },
-  {
-    post: "beamnxw/status/2108953385189732416",
-    title: "637 animation techniques reel",
-    contentTags: ["kinetic-type", "shapes"],
-  },
   {
     post: "twoclipping/status/2110329502676951367",
     title: "Landing page 3D fly-over",
@@ -96,51 +62,6 @@ const SOURCES = [
     },
   },
   {
-    post: "flxrnc/status/2109266407338934719",
-    title: "Opus 5.5 motion piece without a video editor",
-    contentTags: ["shapes"],
-  },
-  {
-    post: "motion_so/status/2108241529726984328",
-    title: "Sonnet, Haiku and Opus 5.5 make a video about Claude",
-    contentTags: ["kinetic-type"],
-  },
-  {
-    post: "beamnxw/status/2109304262597443724",
-    title: "Promo video studio teaser",
-    contentTags: ["product-ui"],
-  },
-  {
-    post: "beamnxw/status/2110039251681218763",
-    title: "Claude Code and Remotion studio reel",
-    contentTags: ["product-ui"],
-  },
-  {
-    post: "higgsfield_ai/status/2108312022429602298",
-    title: "Car commercial made in code",
-    contentTags: ["photos"],
-  },
-  {
-    post: "flxrnc/status/2109629188525420930",
-    title: "Single-prompt Opus 5.5 motion piece",
-    contentTags: ["shapes"],
-  },
-  {
-    post: "higgsfield/status/2108384911245869197",
-    title: "Pure Three.js film made in Claude",
-    contentTags: ["particles"],
-  },
-  {
-    post: "higgsfield/status/2110378916963876908",
-    title: "Claude on its own motion design: launch video",
-    contentTags: ["product-ui", "kinetic-type"],
-  },
-  {
-    post: "beamnxw/status/2109255985994830148",
-    title: "Motion design studio stack reel",
-    contentTags: ["code"],
-  },
-  {
     post: "higgsfield_ai/status/2108372803464692139",
     title: "LOUD ONE launch film",
     contentTags: ["kinetic-type", "music"],
@@ -150,11 +71,6 @@ const SOURCES = [
     },
   },
   {
-    post: "motion_so/status/2107507518817878117",
-    title: "Opus 5.5 launch video with and without a harness",
-    contentTags: ["product-ui"],
-  },
-  {
     post: "higgsfield_ai/status/2108370085178138694",
     title: "PHYLLA language model launch",
     contentTags: ["kinetic-type"],
@@ -162,16 +78,6 @@ const SOURCES = [
       in: "post",
       from: "<inputs>",
     },
-  },
-  {
-    post: "primalrobin/status/2107767177743069515",
-    title: "40-minute Claude documentary for $2",
-    contentTags: ["diagrams"],
-  },
-  {
-    post: "beamnxw/status/2108821248817971519",
-    title: "20 tools motion studio reel",
-    contentTags: ["code"],
   },
   {
     post: "socialwithaayan/status/2109641079087919114",
@@ -201,126 +107,6 @@ const SOURCES = [
     },
   },
   {
-    post: "runwayml/status/2108287937272266800",
-    title: "Claude Motion with Runway",
-    contentTags: ["charts"],
-  },
-  {
-    post: "alex_barashkov/status/2107855834130636808",
-    title: "Graphic animation with the full prompt log",
-    contentTags: ["shapes"],
-  },
-  {
-    post: "motion_so/status/2108614312684380287",
-    title: "Second World War explainer, Claude Motion vs Motion",
-    contentTags: ["diagrams"],
-  },
-  {
-    post: "higgsfield_ai/status/2108397633584947553",
-    title: "3D and 2D animation one-shot in Claude",
-    contentTags: ["characters"],
-  },
-  {
-    post: "higgsfield_ai/status/2108362169163358365",
-    title: "Product shoot to motion video in two hours",
-    contentTags: ["photos"],
-  },
-  {
-    post: "higgsfield_ai/status/2108423513480876234",
-    title: "3D motion graphics coded in Claude",
-    contentTags: ["shapes"],
-  },
-  {
-    post: "higgsfield_ai/status/2108422688972939300",
-    title: "After Effects-style animation in code",
-    contentTags: ["shapes"],
-  },
-  {
-    post: "higgsfield_ai/status/2108322424492339297",
-    title: "Brand mascot animation",
-    contentTags: ["characters"],
-  },
-  {
-    post: "higgsfield_ai/status/2108324188100686223",
-    title: "Strata launch video",
-    contentTags: ["product-ui"],
-  },
-  {
-    post: "paulo_kombucha/status/2110014691523101157",
-    title: "Cactus mascot with 14 animated transitions",
-    contentTags: ["characters"],
-  },
-  {
-    post: "primalrobin/status/2107964005910212703",
-    title: "15-minute 3D documentary",
-    contentTags: ["diagrams"],
-  },
-  {
-    post: "motion_so/status/2109082358091792711",
-    title: "A380 animation one-shot",
-    contentTags: ["diagrams"],
-  },
-  {
-    post: "higgsfield_ai/status/2108337982231228481",
-    title: "Product commercial in code",
-    contentTags: ["photos"],
-  },
-  {
-    post: "motion_so/status/2109412370175115294",
-    title: "A motion video about prompts",
-    contentTags: ["kinetic-type"],
-  },
-  {
-    post: "higgsfield_ai/status/2108318576470089979",
-    title: "Code-based motion design",
-    contentTags: ["shapes"],
-  },
-  {
-    post: "motion_so/status/2108391952685396435",
-    title: "Motion working inside Claude over MCP",
-    contentTags: ["product-ui"],
-  },
-  {
-    post: "kloss_xyz/status/2108237822029099461",
-    title: "Full song music video in Blender",
-    contentTags: ["music", "particles"],
-  },
-  {
-    post: "higgsfield_ai/status/2108422189263593795",
-    title: "3D car chase animation",
-    contentTags: ["shapes"],
-  },
-  {
-    post: "hanifproduktif/status/2110182874913910978",
-    title: "HyperFrames launch video with Gemini 4 Argon",
-    contentTags: ["product-ui"],
-  },
-  {
-    post: "higgsfield_ai/status/2108421514966298799",
-    title: "Paper animation drawn in Claude",
-    contentTags: ["characters"],
-  },
-  {
-    post: "higgsfield_ai/status/2108400820198985759",
-    title: "Launch teaser one-shot",
-    contentTags: ["kinetic-type"],
-  },
-  {
-    post: "higgsfield_ai/status/2108318230574227524",
-    title: "Motion graphic, every pixel editable",
-    contentTags: ["shapes"],
-  },
-  {
-    post: "higgsfield_ai/status/2108346535499227448",
-    title: "Generation, animation and editing in code",
-    contentTags: ["shapes"],
-  },
-  {
-    post: "higgsfield_ai/status/2108330828216565858",
-    title: "Kinetic type promo with glitch transitions",
-    contentTags: ["kinetic-type"],
-  },
-  {
     post: "kloss_xyz/status/2109087249572749553",
     title: "Turn It Up Now lyric video",
     contentTags: ["music", "kinetic-type"],
@@ -328,41 +114,6 @@ const SOURCES = [
       in: "post",
       from: "Make a fully interactive music video",
     },
-  },
-  {
-    post: "thayto_dev/status/2107582000639136156",
-    title: "Job applications feature video",
-    contentTags: ["product-ui"],
-  },
-  {
-    post: "beamnxw/status/2110408774737432738",
-    title: "Motion studio stack reel",
-    contentTags: ["code"],
-  },
-  {
-    post: "motion_so/status/2107879939051786720",
-    title: "Nano Banana 2.1 motion design",
-    contentTags: ["photos"],
-  },
-  {
-    post: "himanshutwtxs/status/2108093804725325928",
-    title: "Coffee brewing methods explainer",
-    contentTags: ["diagrams"],
-  },
-  {
-    post: "motion_so/status/2109724848796897597",
-    title: "Muse Wonder launch video",
-    contentTags: ["product-ui"],
-  },
-  {
-    post: "motion_so/status/2110399022162911263",
-    title: "Gemini 4 Argon in Motion",
-    contentTags: ["product-ui"],
-  },
-  {
-    post: "motion_so/status/2107185985750725006",
-    title: "Inside Opus 5.5's mind",
-    contentTags: ["shapes"],
   },
   {
     post: "phasE89/status/2107759067313672475",
@@ -374,36 +125,6 @@ const SOURCES = [
     },
   },
   {
-    post: "motion_so/status/2109670269598290053",
-    title: "Draw your founder: GPT-6 Astra vs Opus 5.5",
-    contentTags: ["characters"],
-  },
-  {
-    post: "makwanatejas170/status/2107190788610531354",
-    title: "Motion skill before and after",
-    contentTags: ["kinetic-type"],
-  },
-  {
-    post: "BuildFastWithAI/status/2108403445304844291",
-    title: "Rust-rendered video with fframes",
-    contentTags: ["particles", "code"],
-  },
-  {
-    post: "HBCoop_/status/2107924371553841560",
-    title: "Substack launch video in HyperFrames Studio",
-    contentTags: ["product-ui"],
-  },
-  {
-    post: "Rames_Jusso/status/2109705543942369659",
-    title: "HyperFrames Studio one-shot launch video",
-    contentTags: ["product-ui"],
-  },
-  {
-    post: "makwanatejas170/status/2109707535955673392",
-    title: "HeyGen video edited by an agent",
-    contentTags: ["product-ui"],
-  },
-  {
     post: "flxrnc/status/2108242454105251921",
     title: "14-second UI morph loop",
     contentTags: ["shapes", "product-ui"],
@@ -413,21 +134,6 @@ const SOURCES = [
     },
   },
   {
-    post: "Adamdesgns/status/2108994543362187313",
-    title: "Falcon 1 tribute music video",
-    contentTags: ["music"],
-  },
-  {
-    post: "motion_so/status/2110080269948702986",
-    title: "Code remix in Motion",
-    contentTags: ["shapes"],
-  },
-  {
-    post: "motion_so/status/2110052382075973908",
-    title: "Apple HomeView launch video",
-    contentTags: ["product-ui"],
-  },
-  {
     post: "prasenx/status/2109744342617473244",
     title: "History of music",
     contentTags: ["music", "diagrams"],
@@ -435,21 +141,6 @@ const SOURCES = [
       in: "reply",
       from: "make a cinematic video",
     },
-  },
-  {
-    post: "sudeepsd_/status/2108169293540331747",
-    title: "Automated feature update video",
-    contentTags: ["product-ui"],
-  },
-  {
-    post: "BuildFastWithAI/status/2107862020246929648",
-    title: "Godot game trailer by Opus 5.5",
-    contentTags: ["characters"],
-  },
-  {
-    post: "higgsfield_ai/status/2110436743589876093",
-    title: "Ink animation: Gemini 4 Argon vs Opus 5.5",
-    contentTags: ["characters"],
   },
   {
     post: "notdwd/status/2110430375164232173",
@@ -462,31 +153,6 @@ const SOURCES = [
     },
   },
   {
-    post: "samuel_yostt/status/2108284928018272407",
-    title: "ViralGrow promo video",
-    contentTags: ["product-ui"],
-  },
-  {
-    post: "BuildFastWithAI/status/2110324161763840011",
-    title: "Gemini comeback motion graphic",
-    contentTags: ["charts"],
-  },
-  {
-    post: "BuildFastWithAI/status/2108194404347281483",
-    title: "fframes GPU-rendered demo",
-    contentTags: ["code", "particles"],
-  },
-  {
-    post: "aisongman/status/2110276502655000606",
-    title: "Procedural Blender ramen scene",
-    contentTags: ["shapes"],
-  },
-  {
-    post: "higgsfield_ai/status/2110437867487137997",
-    title: "Streaming service launch video",
-    contentTags: ["product-ui"],
-  },
-  {
     post: "DemitiyaGeekzen/status/2110418136277401678",
     title: "huashu-art-motion explainer run with Gemini",
     contentTags: ["characters"],
@@ -494,20 +160,24 @@ const SOURCES = [
   },
 ];
 
-const sourceSchema = z.object({
-  post: z.string().regex(/^\w+\/status\/\d+$/u),
-  title: z.string().min(1),
-  contentTags: z.array(z.enum(MOTION_CATEGORIES)).min(1),
-  prompt: z
-    .object({
-      in: z.enum(["post", "reply"]),
-      from: z.string().min(1),
-      to: z.string().min(1).optional(),
-    })
-    .optional(),
-  skillUrl: z.url().optional(),
-  description: z.string().optional(),
-});
+const sourceSchema = z
+  .object({
+    post: z.string().regex(/^\w+\/status\/\d+$/u),
+    title: z.string().min(1),
+    contentTags: z.array(z.enum(MOTION_CATEGORIES)).min(1),
+    prompt: z
+      .object({
+        in: z.enum(["post", "reply"]),
+        from: z.string().min(1),
+        to: z.string().min(1).optional(),
+      })
+      .optional(),
+    skillUrl: z.url().optional(),
+    description: z.string().optional(),
+  })
+  .refine((source) => source.prompt || source.skillUrl, {
+    message: "A source needs a prompt or a skillUrl",
+  });
 
 const formatSchema = z.object({
   url: z.url(),

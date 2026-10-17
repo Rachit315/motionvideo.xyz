@@ -16,7 +16,27 @@ export interface MotionVideo {
   skillUrl?: string;
   tweetUrl?: string;
   description?: string;
+  /** How it was made, as the creator reported it. */
+  model?: string;
+  stack?: string;
+  /** One of EFFORTS. */
+  effort?: string;
+  /** One of ITERATIONS. */
+  iterations?: string;
 }
+
+// Reasoning effort the model ran at, and how many rounds of feedback the
+// video took, as the creator reported them. Labels live in the gallery
+// dictionary.
+export const EFFORTS = ["medium", "high", "max"] as const;
+export type Effort = (typeof EFFORTS)[number];
+export const findEffort = (value: string | undefined) =>
+  EFFORTS.find((effort) => effort === value);
+
+export const ITERATIONS = ["one-shot", "few-rounds", "many-rounds"] as const;
+export type Iterations = (typeof ITERATIONS)[number];
+export const findIterations = (value: string | undefined) =>
+  ITERATIONS.find((iterations) => iterations === value);
 
 export const MOTION_CATEGORIES = [
   "product-ui",
