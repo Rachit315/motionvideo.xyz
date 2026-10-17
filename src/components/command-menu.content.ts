@@ -213,6 +213,7 @@ export default {
       pt: "Sobre",
       ru: "О проекте",
     }),
+    blog: t({ en: "Blog", es: "Blog", fr: "Blog" }),
     contact: t({
       en: "Contact",
       es: "Contacto",

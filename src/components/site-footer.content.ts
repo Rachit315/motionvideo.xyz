@@ -59,6 +59,7 @@ export default {
       pt: "Criado por",
       ru: "Создано",
     }),
+    blog: t({ en: "Blog", es: "Blog", fr: "Blog" }),
     company: t({
       en: "Company",
       es: "Empresa",
