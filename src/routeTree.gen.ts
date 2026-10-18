@@ -57,6 +57,8 @@ import { Route as ToolsCategoryRouteImport } from './routes/tools/$category'
 import { Route as GalleryCategoryCategoryRouteImport } from './routes/_gallery/category.$category'
 import { Route as GalleryVideosSlugRouteImport } from './routes/_gallery/videos.$slug'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as ApiCatalogIndexRouteImport } from './routes/api/catalog/index'
+import { Route as ApiCatalogDirectoriesRouteImport } from './routes/api/catalog/directories'
 import { Route as ApiWebhookDodoRouteImport } from './routes/api/webhook/dodo'
 import { Route as GalleryCategoryCategoryIndexRouteImport } from './routes/_gallery/category.$category.index'
 import { Route as GalleryCategoryCategoryVideosSlugRouteImport } from './routes/_gallery/category.$category.videos.$slug'
@@ -299,6 +301,16 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiCatalogIndexRoute = ApiCatalogIndexRouteImport.update({
+  id: '/api/catalog/',
+  path: '/api/catalog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCatalogDirectoriesRoute = ApiCatalogDirectoriesRouteImport.update({
+  id: '/api/catalog/directories',
+  path: '/api/catalog/directories',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiWebhookDodoRoute = ApiWebhookDodoRouteImport.update({
   id: '/api/webhook/dodo',
   path: '/api/webhook/dodo',
@@ -364,7 +376,9 @@ export interface FileRoutesByFullPath {
   '/category/$category': typeof GalleryCategoryCategoryRouteWithChildren
   '/videos/$slug': typeof GalleryVideosSlugRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/catalog/directories': typeof ApiCatalogDirectoriesRoute
   '/api/webhook/dodo': typeof ApiWebhookDodoRoute
+  '/api/catalog/': typeof ApiCatalogIndexRoute
   '/category/$category/': typeof GalleryCategoryCategoryIndexRoute
   '/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
 }
@@ -409,7 +423,9 @@ export interface FileRoutesByTo {
   '/tools': typeof ToolsIndexRoute
   '/videos/$slug': typeof GalleryVideosSlugRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/catalog/directories': typeof ApiCatalogDirectoriesRoute
   '/api/webhook/dodo': typeof ApiWebhookDodoRoute
+  '/api/catalog': typeof ApiCatalogIndexRoute
   '/category/$category': typeof GalleryCategoryCategoryIndexRoute
   '/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
 }
@@ -463,7 +479,9 @@ export interface FileRoutesById {
   '/_gallery/category/$category': typeof GalleryCategoryCategoryRouteWithChildren
   '/_gallery/videos/$slug': typeof GalleryVideosSlugRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/catalog/directories': typeof ApiCatalogDirectoriesRoute
   '/api/webhook/dodo': typeof ApiWebhookDodoRoute
+  '/api/catalog/': typeof ApiCatalogIndexRoute
   '/_gallery/category/$category/': typeof GalleryCategoryCategoryIndexRoute
   '/_gallery/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
 }
@@ -516,7 +534,9 @@ export interface FileRouteTypes {
     | '/category/$category'
     | '/videos/$slug'
     | '/api/auth/$'
+    | '/api/catalog/directories'
     | '/api/webhook/dodo'
+    | '/api/catalog/'
     | '/category/$category/'
     | '/category/$category/videos/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -561,7 +581,9 @@ export interface FileRouteTypes {
     | '/tools'
     | '/videos/$slug'
     | '/api/auth/$'
+    | '/api/catalog/directories'
     | '/api/webhook/dodo'
+    | '/api/catalog'
     | '/category/$category'
     | '/category/$category/videos/$slug'
   id:
@@ -614,7 +636,9 @@ export interface FileRouteTypes {
     | '/_gallery/category/$category'
     | '/_gallery/videos/$slug'
     | '/api/auth/$'
+    | '/api/catalog/directories'
     | '/api/webhook/dodo'
+    | '/api/catalog/'
     | '/_gallery/category/$category/'
     | '/_gallery/category/$category/videos/$slug'
   fileRoutesById: FileRoutesById
@@ -646,7 +670,9 @@ export interface RootRouteChildren {
   JobsIndexRoute: typeof JobsIndexRoute
   SponsorshipsIndexRoute: typeof SponsorshipsIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiCatalogDirectoriesRoute: typeof ApiCatalogDirectoriesRoute
   ApiWebhookDodoRoute: typeof ApiWebhookDodoRoute
+  ApiCatalogIndexRoute: typeof ApiCatalogIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -987,6 +1013,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/catalog/': {
+      id: '/api/catalog/'
+      path: '/api/catalog'
+      fullPath: '/api/catalog/'
+      preLoaderRoute: typeof ApiCatalogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/catalog/directories': {
+      id: '/api/catalog/directories'
+      path: '/api/catalog/directories'
+      fullPath: '/api/catalog/directories'
+      preLoaderRoute: typeof ApiCatalogDirectoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/webhook/dodo': {
       id: '/api/webhook/dodo'
       path: '/api/webhook/dodo'
@@ -1160,7 +1200,9 @@ const rootRouteChildren: RootRouteChildren = {
   JobsIndexRoute: JobsIndexRoute,
   SponsorshipsIndexRoute: SponsorshipsIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiCatalogDirectoriesRoute: ApiCatalogDirectoriesRoute,
   ApiWebhookDodoRoute: ApiWebhookDodoRoute,
+  ApiCatalogIndexRoute: ApiCatalogIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
