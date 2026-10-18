@@ -30,11 +30,14 @@ const STORAGE_KEY = "motionvideo-live-cursors";
  * messages = 1 request), so this stays coarse; the CSS transition smooths it.
  */
 const SEND_INTERVAL = 120;
-/** A cursor with no update for this long is dropped, in ms. */
-const STALE_AFTER = 15_000;
 const RETRY_MAX = 30_000;
 /** Keep-alive; the server drops sockets silent for 70 s. */
 const PING_INTERVAL = 25_000;
+/**
+ * No pong this long after a ping means the socket is half-open (sleep,
+ * network switch, silent proxy drop): reconnect instead of waiting on it.
+ */
+const PONG_TIMEOUT = 10_000;
 
 const listeners = new Set<() => void>();
 const subscribeCursors = (onChange: () => void) => {
@@ -69,7 +72,12 @@ interface RemoteCursor {
   path: string;
   x: number;
   y: number;
-  seen: number;
+}
+
+/** One socket's keep-alive interval and pending pong deadline (timer ids). */
+interface Heartbeat {
+  ping?: number;
+  pong?: number;
 }
 
 // The tab's one presence socket and page (LivePresenceProvider mounts once).
@@ -98,15 +106,10 @@ export const LivePresenceProvider = ({ children }: { children: ReactNode }) => {
     let retry = 1000;
     let timer: number | undefined;
     let stopped = false;
-    const ping = setInterval(() => {
-      if (socket?.readyState === WebSocket.OPEN) {
-        socket.send("ping");
-      }
-    }, PING_INTERVAL);
 
     const onMessage = (event: MessageEvent) => {
       let message: PresenceServerMessage;
-      // "pong" (the keep-alive answer) is not JSON and falls through.
+      // "pong" is not JSON and falls through.
       try {
         // SAFETY: only our presence Durable Object writes to this socket.
         message = JSON.parse(String(event.data)) as PresenceServerMessage;
@@ -115,6 +118,22 @@ export const LivePresenceProvider = ({ children }: { children: ReactNode }) => {
       }
       if (message.t === "count") {
         setOnline(message.n);
+      } else if (message.t === "cursors") {
+        // The answer to a page report: exactly who is on this page now.
+        setCursors(
+          new Map(
+            message.list.map((cursor) => [
+              cursor.id,
+              {
+                id: cursor.id,
+                color: cursor.c,
+                path: currentPath,
+                x: cursor.x,
+                y: cursor.y,
+              },
+            ])
+          )
+        );
       } else if (message.t === "move") {
         setCursors((current) =>
           new Map(current).set(message.id, {
@@ -123,11 +142,13 @@ export const LivePresenceProvider = ({ children }: { children: ReactNode }) => {
             path: currentPath,
             x: message.x,
             y: message.y,
-            seen: Date.now(),
           })
         );
       } else if (message.t === "gone") {
         setCursors((current) => {
+          if (!current.has(message.id)) {
+            return current;
+          }
           const next = new Map(current);
           next.delete(message.id);
           return next;
@@ -141,37 +162,57 @@ export const LivePresenceProvider = ({ children }: { children: ReactNode }) => {
         `${protocol}//${location.host}${SOCKET_PATH}`
       );
       socket = opened;
-      opened.addEventListener("open", () => {
-        retry = 1000;
-        sendPresence({ t: "page", p: currentPath });
-      });
-      opened.addEventListener("message", onMessage);
-      opened.addEventListener("close", () => {
-        // A replaced socket (effect re-run) must not clear the current one.
+      const heartbeat: Heartbeat = {};
+      // Closed, or stopped answering: clear its state and reconnect.
+      const drop = () => {
+        clearInterval(heartbeat.ping);
+        clearTimeout(heartbeat.pong);
+        // A replaced socket (effect re-run, or one already dropped as dead)
+        // must not clear the current one.
         if (socket !== opened) {
           return;
         }
         socket = null;
+        opened.close();
         setOnline(null);
         setCursors(new Map());
         if (!stopped) {
           timer = window.setTimeout(connect, retry);
           retry = Math.min(retry * 2, RETRY_MAX);
         }
+      };
+      heartbeat.ping = window.setInterval(() => {
+        if (opened.readyState !== WebSocket.OPEN) {
+          return;
+        }
+        opened.send("ping");
+        if (heartbeat.pong === undefined) {
+          heartbeat.pong = window.setTimeout(drop, PONG_TIMEOUT);
+        }
+      }, PING_INTERVAL);
+      opened.addEventListener("open", () => {
+        retry = 1000;
+        sendPresence({ t: "page", p: currentPath });
       });
+      opened.addEventListener("message", (event) => {
+        // Anything from the server ("pong" included) proves it alive.
+        clearTimeout(heartbeat.pong);
+        heartbeat.pong = undefined;
+        onMessage(event);
+      });
+      opened.addEventListener("close", drop);
     };
 
     connect();
     return () => {
       stopped = true;
       clearTimeout(timer);
-      clearInterval(ping);
       socket?.close(1000, "unmount");
     };
   }, []);
 
-  // A new page: report it. Cursors from the old page stop rendering (they are
-  // tagged with the page they arrived on) and age out.
+  // A new page: report it. The server answers with the cursors already
+  // there, which replace the old page's.
   useEffect(() => {
     currentPath = path;
     sendPresence({ t: "page", p: path });
@@ -222,40 +263,35 @@ export const LivePresenceProvider = ({ children }: { children: ReactNode }) => {
       client = { x: event.clientX, y: event.clientY };
       queue();
     };
+    const hide = () => {
+      client = null;
+      pending = null;
+      sendPresence({ t: "leave" });
+    };
     const onLeave = (event: MouseEvent) => {
       if (!event.relatedTarget) {
-        client = null;
-        pending = null;
-        sendPresence({ t: "leave" });
+        hide();
+      }
+    };
+    // A background tab's cursor would sit parked on everyone else's screen.
+    const onVisibility = () => {
+      if (document.hidden) {
+        hide();
       }
     };
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("scroll", queue, { passive: true });
     document.addEventListener("mouseout", onLeave);
+    document.addEventListener("visibilitychange", onVisibility);
     return () => {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("scroll", queue);
       document.removeEventListener("mouseout", onLeave);
+      document.removeEventListener("visibilitychange", onVisibility);
       clearTimeout(timer);
       sendPresence({ t: "leave" });
     };
   }, [enabled]);
-
-  // Drop cursors whose tab went quiet without saying goodbye.
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCursors((current) => {
-        const now = Date.now();
-        const fresh = [...current.values()].filter(
-          (cursor) => now - cursor.seen < STALE_AFTER
-        );
-        return fresh.length === current.size
-          ? current
-          : new Map(fresh.map((cursor) => [cursor.id, cursor]));
-      });
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
 
   const visible = enabled
     ? [...cursors.values()].filter((cursor) => cursor.path === path)

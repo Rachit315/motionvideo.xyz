@@ -7,9 +7,21 @@ export type PresenceClientMessage =
   | { t: "move"; x: number; y: number }
   | { t: "leave" };
 
-/** Server → tab. */
+/** A cursor on the page: who, its colour, and where. */
+export interface PresenceCursor {
+  id: string;
+  c: string;
+  x: number;
+  y: number;
+}
+
+/**
+ * Server → tab. `cursors` answers every `page` message with the cursors
+ * already on that page, so idle visitors show up without moving.
+ */
 export type PresenceServerMessage =
   | { t: "hello"; id: string; color: string }
   | { t: "count"; n: number }
-  | { t: "move"; id: string; c: string; x: number; y: number }
+  | ({ t: "move" } & PresenceCursor)
+  | { t: "cursors"; list: PresenceCursor[] }
   | { t: "gone"; id: string };

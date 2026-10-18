@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import type {
   PresenceClientMessage,
+  PresenceCursor,
   PresenceServerMessage,
 } from "@/lib/presence";
 
@@ -54,6 +55,11 @@ interface Visitor {
   path: string;
   /** Connect time, ms; the liveness baseline until the first ping. */
   since: number;
+  /**
+   * Last cursor position on `path`, replayed to tabs that arrive later;
+   * null while the pointer is off the page or live cursors are off.
+   */
+  cursor: { x: number; y: number } | null;
 }
 
 // Untrusted input from any tab: validated and clamped here.
@@ -92,6 +98,31 @@ const trySend = (socket: WebSocket, message: string) => {
   }
 };
 
+const broadcastCount = (live: WebSocket[]) => {
+  const count: PresenceServerMessage = { t: "count", n: live.length };
+  const message = JSON.stringify(count);
+  for (const socket of live) {
+    trySend(socket, message);
+  }
+};
+
+/** Sends `payload` to the `live` sockets on `path`, all but `except`. */
+const sendToPage = (
+  live: WebSocket[],
+  path: string,
+  payload: PresenceServerMessage,
+  except?: WebSocket
+) => {
+  const message = JSON.stringify(payload);
+  for (const socket of live) {
+    // SAFETY: fetch() attaches a Visitor to every socket it accepts.
+    const visitor = socket.deserializeAttachment() as Visitor | null;
+    if (socket !== except && visitor?.path === path) {
+      trySend(socket, message);
+    }
+  }
+};
+
 export class Presence extends DurableObject<Env> {
   constructor(ctx: DurableObjectState, env: Env) {
     super(ctx, env);
@@ -102,15 +133,18 @@ export class Presence extends DurableObject<Env> {
   }
 
   /**
-   * Open sockets, minus `except` and any tab that stopped pinging (a closed
-   * laptop or dropped network may never send a close frame); those are
-   * closed here so the online count stays honest.
+   * Open sockets, minus `closing` and any tab that stopped pinging (a closed
+   * laptop or dropped network may never send a close frame). Silent ones are
+   * closed here and announced to the rest, so the online count stays honest
+   * and their cursors disappear.
    */
-  private liveSockets(except?: WebSocket) {
+  private liveSockets(closing?: WebSocket) {
     const now = Date.now();
-    return this.ctx.getWebSockets().filter((socket) => {
-      if (socket === except) {
-        return false;
+    const live: WebSocket[] = [];
+    const silent: Visitor[] = [];
+    for (const socket of this.ctx.getWebSockets()) {
+      if (socket === closing || socket.readyState !== WebSocket.OPEN) {
+        continue;
       }
       // SAFETY: fetch() attaches a Visitor to every socket it accepts.
       const visitor = socket.deserializeAttachment() as Visitor | null;
@@ -119,15 +153,28 @@ export class Presence extends DurableObject<Env> {
         visitor?.since ??
         0;
       if (now - last <= SILENT_LIMIT) {
-        return true;
+        live.push(socket);
+        continue;
       }
+      // Announced below; the attachment cleared so the close that follows
+      // doesn't announce it again.
+      socket.serializeAttachment(null);
       try {
         socket.close(1001, "silent");
       } catch {
         // Already closed.
       }
-      return false;
-    });
+      if (visitor) {
+        silent.push(visitor);
+      }
+    }
+    for (const gone of silent) {
+      sendToPage(live, gone.path, { t: "gone", id: gone.id });
+    }
+    if (silent.length > 0) {
+      broadcastCount(live);
+    }
+    return live;
   }
 
   fetch(request: Request): Response {
@@ -156,6 +203,7 @@ export class Presence extends DurableObject<Env> {
       color: `hsl(${hue} 85% 55%)`,
       path: "/",
       since: Date.now(),
+      cursor: null,
     };
     this.ctx.acceptWebSocket(server);
     server.serializeAttachment(visitor);
@@ -165,7 +213,7 @@ export class Presence extends DurableObject<Env> {
       color: visitor.color,
     };
     server.send(JSON.stringify(hello));
-    this.broadcastCount();
+    broadcastCount(this.liveSockets());
     return new Response(null, { status: 101, webSocket: client });
   }
 
@@ -176,19 +224,40 @@ export class Presence extends DurableObject<Env> {
     if (!message || !visitor) {
       return;
     }
+    const live = this.liveSockets();
     if (message.t === "page") {
       if (message.p !== visitor.path) {
         // Tabs on the old page drop this cursor.
-        this.sendToPage(visitor.path, { t: "gone", id: visitor.id }, socket);
-        socket.serializeAttachment({ ...visitor, path: message.p });
+        sendToPage(live, visitor.path, { t: "gone", id: visitor.id }, socket);
       }
+      socket.serializeAttachment({ ...visitor, path: message.p, cursor: null });
+      // Sent on every page report, reconnects included: the tab replaces
+      // whatever cursors it had with the ones already on this page.
+      const list: PresenceCursor[] = [];
+      for (const other of live) {
+        // SAFETY: fetch() attaches a Visitor to every socket it accepts.
+        const there = other.deserializeAttachment() as Visitor | null;
+        if (other !== socket && there?.path === message.p && there.cursor) {
+          list.push({ id: there.id, c: there.color, ...there.cursor });
+        }
+      }
+      const cursors: PresenceServerMessage = { t: "cursors", list };
+      trySend(socket, JSON.stringify(cursors));
       return;
     }
     if (message.t === "leave") {
-      this.sendToPage(visitor.path, { t: "gone", id: visitor.id }, socket);
+      if (visitor.cursor) {
+        socket.serializeAttachment({ ...visitor, cursor: null });
+      }
+      sendToPage(live, visitor.path, { t: "gone", id: visitor.id }, socket);
       return;
     }
-    this.sendToPage(
+    socket.serializeAttachment({
+      ...visitor,
+      cursor: { x: message.x, y: message.y },
+    });
+    sendToPage(
+      live,
       visitor.path,
       {
         t: "move",
@@ -210,40 +279,19 @@ export class Presence extends DurableObject<Env> {
   }
 
   private disconnect(socket: WebSocket) {
-    // SAFETY: fetch() attaches a Visitor to every socket it accepts.
+    // SAFETY: fetch() attaches a Visitor to every socket it accepts;
+    // liveSockets() clears it on sockets it already dropped and announced.
     const visitor = socket.deserializeAttachment() as Visitor | null;
     try {
       socket.close(1000, "bye");
     } catch {
       // Already closed.
     }
-    if (visitor) {
-      this.sendToPage(visitor.path, { t: "gone", id: visitor.id }, socket);
+    if (!visitor) {
+      return;
     }
-    this.broadcastCount(socket);
-  }
-
-  private broadcastCount(except?: WebSocket) {
-    const sockets = this.liveSockets(except);
-    const count: PresenceServerMessage = { t: "count", n: sockets.length };
-    const message = JSON.stringify(count);
-    for (const socket of sockets) {
-      trySend(socket, message);
-    }
-  }
-
-  private sendToPage(
-    path: string,
-    payload: PresenceServerMessage,
-    except: WebSocket
-  ) {
-    const message = JSON.stringify(payload);
-    for (const socket of this.liveSockets(except)) {
-      // SAFETY: fetch() attaches a Visitor to every socket it accepts.
-      const visitor = socket.deserializeAttachment() as Visitor | null;
-      if (visitor?.path === path) {
-        trySend(socket, message);
-      }
-    }
+    const live = this.liveSockets(socket);
+    sendToPage(live, visitor.path, { t: "gone", id: visitor.id });
+    broadcastCount(live);
   }
 }
