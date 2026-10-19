@@ -1,33 +1,31 @@
 import { IconFile, IconFileZip } from "@tabler/icons-react";
 import type { ReactElement } from "react";
 
-function FileBadge({
+const FILE_MARK_BOX = { size: 72, radius: 8 } as const;
+
+const FileBadge = ({
   fill,
   paths,
 }: {
   fill: string;
   paths: readonly string[];
-}) {
-  return (
-    <svg
-      viewBox={`0 0 ${String(FILE_MARK_BOX.size)} ${String(FILE_MARK_BOX.size)}`}
-      className="size-1/2"
-      aria-hidden
-    >
-      <rect
-        width={FILE_MARK_BOX.size}
-        height={FILE_MARK_BOX.size}
-        rx={FILE_MARK_BOX.radius}
-        fill={fill}
-      />
-      {paths.map((d) => (
-        <path key={d} d={d} fill="#fff" fillRule="evenodd" />
-      ))}
-    </svg>
-  );
-}
-
-const FILE_MARK_BOX = { size: 72, radius: 8 } as const;
+}) => (
+  <svg
+    viewBox={`0 0 ${String(FILE_MARK_BOX.size)} ${String(FILE_MARK_BOX.size)}`}
+    className="size-1/2"
+    aria-hidden
+  >
+    <rect
+      width={FILE_MARK_BOX.size}
+      height={FILE_MARK_BOX.size}
+      rx={FILE_MARK_BOX.radius}
+      fill={fill}
+    />
+    {paths.map((d) => (
+      <path key={d} d={d} fill="#fff" fillRule="evenodd" />
+    ))}
+  </svg>
+);
 
 const FILE_MARK_ART = {
   pdf: {
@@ -65,8 +63,6 @@ const FILE_MARKS = {
   sheet: <FileBadge {...FILE_MARK_ART.sheet} />,
 } as const;
 
-const extensionOf = (name: string) => name.toLowerCase().split(".").pop() ?? "";
-
 const MARKED_EXTENSIONS = {
   pdf: ["pdf"],
   doc: ["doc", "docx", "odt", "rtf", "pages"],
@@ -77,9 +73,15 @@ const MARKED_EXTENSIONS = {
 
 type MarkedKind = keyof typeof MARKED_EXTENSIONS;
 
+// SAFETY: MARKED_EXTENSIONS is a closed object; its keys are exactly MarkedKind.
 const MARKED_KINDS = Object.keys(MARKED_EXTENSIONS) as MarkedKind[];
 
-function markKindOf(file: File): MarkedKind | "image" | "file" {
+const extensionsOf = (kind: MarkedKind): readonly string[] =>
+  MARKED_EXTENSIONS[kind];
+
+const extensionOf = (name: string) => name.toLowerCase().split(".").pop() ?? "";
+
+const markKindOf = (file: File): MarkedKind | "image" | "file" => {
   const ext = extensionOf(file.name);
   if (file.type.startsWith("image/")) {
     return "image";
@@ -88,9 +90,7 @@ function markKindOf(file: File): MarkedKind | "image" | "file" {
     return "pdf";
   }
 
-  const marked = MARKED_KINDS.find((kind) =>
-    (MARKED_EXTENSIONS[kind] as readonly string[]).includes(ext)
-  );
+  const marked = MARKED_KINDS.find((kind) => extensionsOf(kind).includes(ext));
   if (marked) {
     return marked;
   }
@@ -98,9 +98,12 @@ function markKindOf(file: File): MarkedKind | "image" | "file" {
     return "zip";
   }
   return "file";
-}
+};
 
-function fileMarkFor(file: File): ReactElement | null {
+const markOfExtension = (extension: string): MarkedKind | undefined =>
+  MARKED_KINDS.find((kind) => extensionsOf(kind).includes(extension));
+
+const fileMarkFor = (file: File): ReactElement | null => {
   const kind = markKindOf(file);
   if (kind === "image") {
     return null;
@@ -112,14 +115,14 @@ function fileMarkFor(file: File): ReactElement | null {
     return <IconFile stroke={1.8} aria-hidden />;
   }
   return FILE_MARKS[kind];
-}
+};
 
-function fileColorFor(file: File): string | null {
+const fileColorFor = (file: File): string | null => {
   const kind = markKindOf(file);
   return kind === "image" || kind === "zip" || kind === "file"
     ? null
     : FILE_MARK_ART[kind].fill;
-}
+};
 
 export {
   FileBadge,
@@ -128,6 +131,7 @@ export {
   FILE_MARKS,
   fileColorFor,
   fileMarkFor,
+  markOfExtension,
   MARKED_EXTENSIONS,
   type MarkedKind,
 };

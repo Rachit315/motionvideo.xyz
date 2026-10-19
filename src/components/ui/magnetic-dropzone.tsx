@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import {
   fileColorFor,
   fileMarkFor,
+  markOfExtension,
   MARKED_EXTENSIONS,
 } from "@/components/ui/file-badge";
 import type { MarkedKind } from "@/components/ui/file-badge";
@@ -96,7 +97,19 @@ const PROMPTS = [
   "Let go to upload",
 ] as const;
 
+const promptFor = (isOver: boolean, isNear: boolean) => {
+  if (isOver) {
+    return PROMPTS[2];
+  }
+  if (isNear) {
+    return PROMPTS[1];
+  }
+  return PROMPTS[0];
+};
+
 const TAU = Math.PI * 2;
+
+const noCover = () => 0;
 
 type Rgb = readonly [number, number, number];
 
@@ -120,7 +133,7 @@ const mix = (from: Rgb, to: Rgb, amount: number): Rgb => [
 ];
 
 let swatch: CanvasRenderingContext2D | null | undefined;
-function toRgb(color: string): Rgb {
+const toRgb = (color: string): Rgb => {
   swatch ??= document
     .createElement("canvas")
     .getContext("2d", { willReadFrequently: true });
@@ -133,9 +146,9 @@ function toRgb(color: string): Rgb {
   swatch.fillRect(0, 0, 1, 1);
   const [r = 128, g = 128, b = 128] = swatch.getImageData(0, 0, 1, 1).data;
   return [r, g, b];
-}
+};
 
-async function imageTint(file: File) {
+const imageTint = async (file: File) => {
   try {
     const bitmap = await createImageBitmap(file, {
       resizeWidth: 12,
@@ -177,7 +190,7 @@ async function imageTint(file: File) {
   } catch {
     return null;
   }
-}
+};
 
 class Surface {
   private readonly canvas: HTMLCanvasElement;
@@ -289,7 +302,7 @@ class Surface {
 
   tint(wave: Wave, rgb: Rgb) {
     const now = performance.now();
-    wave.from = this.colorOf(wave, now);
+    wave.from = Surface.colorOf(wave, now);
     wave.rgb = rgb;
     wave.tinted = now;
     this.kick();
@@ -337,15 +350,20 @@ class Surface {
       }
     );
     this.kick();
-    return carried.finished.then(
-      () => {},
-      () => {}
-    );
+    const settle = async () => {
+      try {
+        await carried.finished;
+      } catch {
+        // The card may unmount before the animation settles.
+      }
+    };
+    return settle();
   }
 
   crossed(x: number, y: number, start: number) {
-    return new Promise<void>((done) => {
-      this.crossing.push({ x, y, start, done });
+    // eslint-disable-next-line promise/avoid-new -- The promise settles later, when the reveal edge crosses this point.
+    return new Promise<void>((resolve) => {
+      this.crossing.push({ x, y, start, done: resolve });
       this.kick();
     });
   }
@@ -399,7 +417,7 @@ class Surface {
     );
   }
 
-  private colorOf(wave: Wave, now: number) {
+  private static colorOf(wave: Wave, now: number) {
     return mix(
       wave.from,
       wave.rgb,
@@ -437,6 +455,27 @@ class Surface {
     const seconds = Math.min(0.05, Math.max(0, (now - this.last) / 1000));
     this.last = now;
 
+    const settled = this.advanceLens(seconds);
+    this.advanceWaves(now);
+    this.advanceGround(now);
+    this.draw(now);
+    this.advanceReveal(now);
+    this.advanceCrossing(now);
+
+    const groundMoving =
+      this.ground?.state === "rising" || this.ground?.state === "falling";
+    if (
+      this.waves.length > 0 ||
+      !settled ||
+      this.reveal ||
+      groundMoving ||
+      this.crossing.length > 0
+    ) {
+      this.frame = requestAnimationFrame(this.tick);
+    }
+  };
+
+  private advanceLens(seconds: number): boolean {
     const { lens } = this;
     const follow = 1 - Math.exp(-seconds * 22);
     const fade =
@@ -453,7 +492,10 @@ class Surface {
       lens.y = lens.toY;
       lens.strength = lens.toStrength;
     }
+    return settled;
+  }
 
+  private advanceWaves(now: number) {
     this.waves = this.waves.filter((wave) => {
       const t = (now - wave.start) / 1000;
       if (t < 0) {
@@ -470,7 +512,9 @@ class Surface {
         WAVE.speed * t < far + WAVE.halo + WAVE.width * 3
       );
     });
+  }
 
+  private advanceGround(now: number) {
     const { ground } = this;
     if (ground?.state === "rising") {
       const radius = (WAVE.speed * (now - ground.start)) / 1000 - GROUND.lag;
@@ -489,25 +533,28 @@ class Surface {
     ) {
       this.ground = null;
     }
+  }
 
-    this.draw(now);
-
+  private advanceReveal(now: number) {
     const { reveal } = this;
-    if (reveal) {
-      const radius = (WAVE.speed * (now - reveal.start)) / 1000 - REVEAL_LAG;
-      reveal.element.style.setProperty(
-        "--reveal-r",
-        `${Math.max(0, radius).toFixed(1)}px`
-      );
-      reveal.element.style.setProperty(
-        "--reveal-solid",
-        `${Math.max(0, radius - REVEAL_EDGE).toFixed(1)}px`
-      );
-      if (radius - REVEAL_EDGE > reveal.reach) {
-        this.finishReveal();
-      }
+    if (!reveal) {
+      return;
     }
+    const radius = (WAVE.speed * (now - reveal.start)) / 1000 - REVEAL_LAG;
+    reveal.element.style.setProperty(
+      "--reveal-r",
+      `${Math.max(0, radius).toFixed(1)}px`
+    );
+    reveal.element.style.setProperty(
+      "--reveal-solid",
+      `${Math.max(0, radius - REVEAL_EDGE).toFixed(1)}px`
+    );
+    if (radius - REVEAL_EDGE > reveal.reach) {
+      this.finishReveal();
+    }
+  }
 
+  private advanceCrossing(now: number) {
     this.crossing = this.crossing.filter((wait) => {
       const edge =
         (WAVE.speed * (now - wait.start)) / 1000 - GROUND.lag - GROUND.edge;
@@ -517,19 +564,7 @@ class Surface {
       wait.done();
       return false;
     });
-
-    const groundMoving =
-      this.ground?.state === "rising" || this.ground?.state === "falling";
-    if (
-      this.waves.length > 0 ||
-      !settled ||
-      this.reveal ||
-      groundMoving ||
-      this.crossing.length > 0
-    ) {
-      this.frame = requestAnimationFrame(this.tick);
-    }
-  };
+  }
 
   private syncEdge(now: number) {
     const { edge } = this;
@@ -564,6 +599,7 @@ class Surface {
     }
   }
 
+  // eslint-disable-next-line complexity -- The painter draws ground, waves, glow, lens, and dots in a single pass.
   private draw(now: number) {
     this.syncEdge(now);
     const { context } = this;
@@ -571,7 +607,7 @@ class Surface {
 
     const { ground } = this;
     const solid = this.dark ? GROUND.dark : GROUND.light;
-    let coverAt: (x: number, y: number) => number = () => 0;
+    let coverAt: (x: number, y: number) => number = noCover;
     if (ground?.state === "full") {
       context.fillStyle = rgba(this.rest, solid);
       context.fillRect(0, 0, this.width, this.height);
@@ -617,7 +653,7 @@ class Surface {
         wave,
         radius: WAVE.speed * t,
         amp: wave.amp * Math.exp(-t * WAVE.decay),
-        rgb: this.colorOf(wave, now),
+        rgb: Surface.colorOf(wave, now),
       });
     }
 
@@ -748,10 +784,10 @@ class Surface {
   }
 }
 
-function useSurface(
+const useSurface = (
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
   zoneRef: React.RefObject<HTMLDivElement | null>
-) {
+) => {
   const surface = React.useRef<Surface | null>(null);
 
   React.useEffect(() => {
@@ -795,8 +831,10 @@ function useSurface(
     };
   }, [canvasRef, zoneRef]);
 
-  return surface;
-}
+  const getSurface = React.useCallback(() => surface.current, []);
+
+  return getSurface;
+};
 
 export interface DropzoneProps {
   accept?: string;
@@ -810,12 +848,14 @@ export interface DropzoneProps {
   busy?: boolean;
   /** Shows a failed upload instead of the success state. */
   failed?: boolean;
-  onFilesChange?: (files: Array<File>) => void;
+  onFilesChange?: (files: File[]) => void;
   animated?: boolean;
   className?: string;
 }
 
-function formatBytes(bytes: number) {
+const DEFAULT_MAX_SIZE = 1024 * 1024;
+
+const formatBytes = (bytes: number) => {
   if (bytes === 0) {
     return "0 B";
   }
@@ -828,36 +868,36 @@ function formatBytes(bytes: number) {
   const value = bytes / 1024 ** unit;
   const shown = value >= 10 || unit === 0 ? value.toFixed(0) : value.toFixed(1);
 
-  return `${shown.replace(/\.0$/, "")} ${units[unit]}`;
-}
+  return `${shown.replace(/\.0$/u, "")} ${units[unit]}`;
+};
 
-function kindOf(file: File) {
+const kindOf = (file: File) => {
   const dot = file.name.lastIndexOf(".");
   const extension = dot > 0 ? file.name.slice(dot + 1) : "";
   if (extension && extension.length <= 5) {
     return extension.toUpperCase();
   }
-  const subtype = file.type.split("/")[1]?.split(/[.+]/).pop() ?? "";
+  const subtype = file.type.split("/")[1]?.split(/[.+]/u).pop() ?? "";
   return (subtype || "file").toUpperCase();
-}
+};
 
-function nameOfUrl(url: string) {
-  const tail = url.split(/[\\/]/).pop() ?? url;
-  const name = tail.split(/[?#]/)[0] ?? tail;
+const nameOfUrl = (url: string) => {
+  const tail = url.split(/[\\/]/u).pop() ?? url;
+  const name = tail.split(/[?#]/u)[0] ?? tail;
   try {
     return decodeURIComponent(name);
   } catch {
     return name;
   }
-}
+};
 
-function kindOfName(name: string) {
+const kindOfName = (name: string) => {
   const dot = name.lastIndexOf(".");
   const extension = dot > 0 ? name.slice(dot + 1) : "";
   return extension && extension.length <= 5 ? extension.toUpperCase() : "FILE";
-}
+};
 
-function statusOf(isUploading: boolean, count: number, failed: boolean) {
+const statusOf = (isUploading: boolean, count: number, failed: boolean) => {
   if (isUploading) {
     return "Uploading…";
   }
@@ -868,17 +908,17 @@ function statusOf(isUploading: boolean, count: number, failed: boolean) {
     return `${count} files uploaded`;
   }
   return "Uploaded successfully";
-}
+};
 
 const isFileDrag = (transfer: DataTransfer | null) =>
   transfer ? [...transfer.types].includes("Files") : false;
 
-const FAMILIES: Record<string, string> = {
-  image: "Images",
-  video: "Video",
-  audio: "Audio",
-  text: "Text",
-};
+const FAMILIES = new Map([
+  ["image", "Images"],
+  ["video", "Video"],
+  ["audio", "Audio"],
+  ["text", "Text"],
+]);
 
 const MARK_NAMES: Record<MarkedKind, string> = {
   pdf: "PDF",
@@ -887,11 +927,6 @@ const MARK_NAMES: Record<MarkedKind, string> = {
   sheet: "Sheets",
   zip: "ZIP",
 };
-
-const markOfExtension = (extension: string) =>
-  (Object.keys(MARKED_EXTENSIONS) as MarkedKind[]).find((kind) =>
-    (MARKED_EXTENSIONS[kind] as readonly string[]).includes(extension)
-  );
 
 const DOCUMENTS = [
   ...MARKED_EXTENSIONS.pdf,
@@ -924,7 +959,7 @@ const ACCEPT = [
 
 const ACCEPT_NAMES = "Documents, media and archives";
 
-function describeAccept(accept: string) {
+const describeAccept = (accept: string) => {
   const names = accept
     .split(",")
     .map((rule) => rule.trim().toLowerCase())
@@ -933,13 +968,13 @@ function describeAccept(accept: string) {
       if (rule.endsWith("/*")) {
         const family = rule.slice(0, -2);
         return (
-          FAMILIES[family] ??
+          FAMILIES.get(family) ??
           `${family[0]?.toUpperCase() ?? ""}${family.slice(1)}`
         );
       }
       const tail = rule.includes("/")
         ? (rule.split("/")[1] ?? rule)
-        : rule.replace(/^\./, "");
+        : rule.replace(/^\./u, "");
       const mark = markOfExtension(tail);
       return mark ? MARK_NAMES[mark] : tail.toUpperCase();
     });
@@ -949,13 +984,17 @@ function describeAccept(accept: string) {
     return "Any file";
   }
   if (unique.length === 1) {
-    return unique[0]!;
+    return unique[0] ?? "Any file";
   }
 
-  return `${unique.slice(0, -1).join(", ")} and ${unique.at(-1)!}`;
-}
+  const last = unique.at(-1);
+  if (last === undefined) {
+    return "Any file";
+  }
+  return `${unique.slice(0, -1).join(", ")} and ${last}`;
+};
 
-function accepts(file: File, accept: string) {
+const accepts = (file: File, accept: string) => {
   if (!accept.trim()) {
     return true;
   }
@@ -976,11 +1015,24 @@ function accepts(file: File, accept: string) {
       }
       return type === rule;
     });
-}
+};
 
-function Dropzone({
+const rejectionOf = (files: File[], accept: string, maxSize: number) => {
+  const unsupported = files.find((file) => !accepts(file, accept));
+  if (unsupported) {
+    return `${unsupported.name} is not a supported file type.`;
+  }
+  const oversized = files.find((file) => file.size > maxSize);
+  if (oversized) {
+    return `${oversized.name} is larger than ${formatBytes(maxSize)}.`;
+  }
+  return null;
+};
+
+// eslint-disable-next-line complexity -- The dropzone coordinates drag state, upload animation, and file views.
+const Dropzone = ({
   accept = ACCEPT,
-  maxSize = 1024 * 1024,
+  maxSize = DEFAULT_MAX_SIZE,
   multiple = false,
   value,
   required = false,
@@ -989,7 +1041,7 @@ function Dropzone({
   onFilesChange,
   animated = true,
   className,
-}: DropzoneProps) {
+}: DropzoneProps) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const zoneRef = React.useRef<HTMLDivElement>(null);
 
@@ -1016,10 +1068,10 @@ function Dropzone({
 
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const cardRef = React.useRef<HTMLDivElement>(null);
-  const surface = useSurface(canvasRef, zoneRef);
+  const getSurface = useSurface(canvasRef, zoneRef);
   const [arrivals, setArrivals] = React.useState(0);
   const arrivalCount = React.useRef(0);
-  const landing = React.useRef<{
+  const [landing, setLanding] = React.useState<{
     x: number;
     y: number;
     start: number;
@@ -1086,13 +1138,13 @@ function Dropzone({
     x.set(0);
     y.set(0);
     scale.set(1);
-    surface.current?.release();
+    getSurface()?.release();
     setNear(false);
     setOver(false);
-  }, [scale, surface, x, y]);
+  }, [getSurface, scale, x, y]);
 
   React.useEffect(() => {
-    function onDragOver(event: globalThis.DragEvent) {
+    const onDragOver = (event: globalThis.DragEvent) => {
       const zone = zoneRef.current;
       if (!zone || !isFileDrag(event.dataTransfer)) {
         return;
@@ -1133,23 +1185,28 @@ function Dropzone({
 
       const offset = inside ? 0 : proximity * MAX_MAGNET_OFFSET;
 
+      let nextScale = 1;
+      if (!still) {
+        nextScale = inside ? 1.025 : 1.01;
+      }
+
       x.set(still ? 0 : (deltaX / length) * offset);
       y.set(still ? 0 : (deltaY / length) * offset);
-      scale.set(still ? 1 : inside ? 1.025 : 1.01);
+      scale.set(nextScale);
       const at = still ? null : surfacePoint(event.clientX, event.clientY);
       if (at) {
-        surface.current?.point(at.x, at.y, inside ? 1 : proximity * LENS.near);
+        getSurface()?.point(at.x, at.y, inside ? 1 : proximity * LENS.near);
       }
       setError((current) => (current ? null : current));
       setNear(true);
       setOver(inside);
-    }
+    };
 
-    function onDragLeave(event: globalThis.DragEvent) {
+    const onDragLeave = (event: globalThis.DragEvent) => {
       if (event.relatedTarget === null) {
         rest();
       }
-    }
+    };
 
     window.addEventListener("dragover", onDragOver);
     window.addEventListener("dragleave", onDragLeave);
@@ -1162,7 +1219,28 @@ function Dropzone({
       window.removeEventListener("dragend", rest);
       window.removeEventListener("drop", rest);
     };
-  }, [still, rest, scale, surface, surfacePoint, x, y]);
+  }, [still, rest, scale, getSurface, surfacePoint, x, y]);
+
+  const [preview, setPreview] = React.useState<string | null>(null);
+  const previewUrl = React.useRef<string | null>(null);
+  React.useEffect(
+    () => () => {
+      if (previewUrl.current) {
+        URL.revokeObjectURL(previewUrl.current);
+      }
+    },
+    []
+  );
+  const showPreview = React.useCallback((file?: File) => {
+    if (previewUrl.current) {
+      URL.revokeObjectURL(previewUrl.current);
+      previewUrl.current = null;
+    }
+    const url =
+      file && file.type.startsWith("image/") ? URL.createObjectURL(file) : null;
+    previewUrl.current = url;
+    setPreview(url);
+  }, []);
 
   const take = React.useCallback(
     (incoming: File[], dropped?: { clientX: number; clientY: number }) => {
@@ -1174,41 +1252,36 @@ function Dropzone({
         return;
       }
 
-      const unsupported = next.find((file) => !accepts(file, accept));
-      const oversized = next.find((file) => file.size > maxSize);
-
-      const canvas = canvasRef.current;
-      const field = still ? null : surface.current;
-      const at =
-        dropped && canvas
-          ? surfacePoint(dropped.clientX, dropped.clientY)
-          : canvas
-            ? { x: canvas.offsetWidth / 2, y: canvas.offsetHeight / 2 }
-            : null;
-
-      if (unsupported ?? oversized) {
-        turnAway(
-          unsupported
-            ? `${unsupported.name} is not a supported file type.`
-            : `${oversized?.name ?? "That file"} is larger than ${formatBytes(maxSize)}.`
-        );
+      const rejection = rejectionOf(next, accept, maxSize);
+      if (rejection) {
+        turnAway(rejection);
         return;
       }
 
+      const canvas = canvasRef.current;
+      const field = still ? null : getSurface();
+      let at: { x: number; y: number } | null = null;
+      if (canvas) {
+        at = dropped
+          ? surfacePoint(dropped.clientX, dropped.clientY)
+          : { x: canvas.offsetWidth / 2, y: canvas.offsetHeight / 2 };
+      }
+
+      const [landed] = next;
       setFiles(next);
       setError(null);
+      showPreview(landed);
       easeFlag();
       onFilesChange?.(next);
       arrivalCount.current += 1;
       const arrival = arrivalCount.current;
       setArrivals(arrival);
 
-      const landed = next[0];
       if (!landed) {
         return;
       }
       if (!field || !at) {
-        surface.current?.layAll();
+        getSurface()?.layAll();
         setSettled(arrival);
         return;
       }
@@ -1218,9 +1291,10 @@ function Dropzone({
       );
       const start = waves[0]?.start ?? performance.now();
       field.lay(at.x, at.y, start);
-      landing.current = { x: at.x, y: at.y, start, arrival };
+      setLanding({ x: at.x, y: at.y, start, arrival });
       if (!mark && landed.type.startsWith("image/")) {
-        void imageTint(landed).then((color) => {
+        void (async () => {
+          const color = await imageTint(landed);
           if (!color) {
             return;
           }
@@ -1228,41 +1302,43 @@ function Dropzone({
           for (const wave of waves) {
             field.tint(wave, rgb);
           }
-        });
+        })();
       }
     },
     [
       accept,
       busy,
       easeFlag,
+      getSurface,
       maxSize,
       multiple,
       onFilesChange,
+      showPreview,
       still,
-      surface,
       surfacePoint,
       turnAway,
     ]
   );
 
   React.useLayoutEffect(() => {
-    const land = landing.current;
-    landing.current = null;
+    const land = landing;
     const card = cardRef.current;
-    const field = surface.current;
+    const field = getSurface();
     if (!land || !card || !field) {
       return;
     }
-    const carried = field.uncover(card, land.x, land.y, land.start);
-    void Promise.all([carried, field.crossed(land.x, land.y, land.start)]).then(
-      () => {
-        window.clearTimeout(actionsTimer.current);
-        actionsTimer.current = window.setTimeout(() => {
-          setSettled(land.arrival);
-        }, ACTIONS_AFTER_MS);
-      }
-    );
-  }, [arrivals, surface]);
+    const settle = async () => {
+      await Promise.all([
+        field.uncover(card, land.x, land.y, land.start),
+        field.crossed(land.x, land.y, land.start),
+      ]);
+      window.clearTimeout(actionsTimer.current);
+      actionsTimer.current = window.setTimeout(() => {
+        setSettled(land.arrival);
+      }, ACTIONS_AFTER_MS);
+    };
+    void settle();
+  }, [landing, getSurface]);
 
   const open = () => inputRef.current?.click();
 
@@ -1277,12 +1353,13 @@ function Dropzone({
     setError(null);
     easeFlag();
     onFilesChange?.([]);
-    surface.current?.lift(Boolean(still));
+    getSurface()?.lift(Boolean(still));
     const done = () => {
       leaving.current = false;
       setFiles([]);
       setReturned(true);
       returning.current = true;
+      showPreview();
     };
     const card = cardRef.current;
     if (still || !card) {
@@ -1290,18 +1367,24 @@ function Dropzone({
       return;
     }
     leaving.current = true;
-    card
-      .animate(
-        [
-          { opacity: 1, scale: "1", filter: "blur(0px)" },
-          { opacity: 0, scale: "0.97", filter: "blur(2px)" },
-        ],
-        { duration: CARD_OUTRO_MS, easing: EXIT_EASE, fill: "forwards" }
-      )
-      .finished.then(done, done);
+    const finish = async () => {
+      try {
+        await card.animate(
+          [
+            { opacity: 1, scale: "1", filter: "blur(0px)" },
+            { opacity: 0, scale: "0.97", filter: "blur(2px)" },
+          ],
+          { duration: CARD_OUTRO_MS, easing: EXIT_EASE, fill: "forwards" }
+        ).finished;
+      } catch {
+        // The card may unmount before the outro animation finishes.
+      }
+      done();
+    };
+    void finish();
   };
 
-  const first = files[0];
+  const [first] = files;
   const stored = first ? "" : (value?.trim() ?? "");
   const shownName = first?.name ?? (stored ? nameOfUrl(stored) : "");
   const shownKind = first ? kindOf(first) : kindOfName(shownName);
@@ -1316,23 +1399,48 @@ function Dropzone({
     }
     returning.current = false;
     promptRef.current?.focus();
-  }, [first, stored, returned]);
-  const [preview, setPreview] = React.useState<string | null>(null);
-  React.useEffect(() => {
-    if (first) {
-      if (!first.type.startsWith("image/")) {
-        setPreview(null);
-        return;
-      }
-      const url = URL.createObjectURL(first);
-      setPreview(url);
-      return () => {
-        URL.revokeObjectURL(url);
-      };
-    }
-    setPreview(stored || null);
   }, [first, stored]);
-  const prompt = over ? PROMPTS[2] : near ? PROMPTS[1] : PROMPTS[0];
+
+  const prompt = promptFor(over, near);
+
+  let dropState = "border-input bg-card";
+  if (flag === "on") {
+    dropState = "border-destructive/70 bg-destructive/5";
+  } else if (over) {
+    dropState = "border-foreground/40 bg-muted";
+  } else if (near) {
+    dropState = "border-ring/70 bg-muted/60";
+  }
+
+  let statusIcon = (
+    <IconCircleCheckFilled
+      className="size-4 text-emerald-600 dark:text-emerald-400"
+      aria-hidden
+    />
+  );
+  if (busy) {
+    statusIcon = <IconLoader2 className="size-4 animate-spin" aria-hidden />;
+  } else if (failed) {
+    statusIcon = <IconFileX className="text-destructive size-4" aria-hidden />;
+  }
+
+  let promptInitial:
+    | false
+    | { opacity: number; scale?: number; filter?: string } = false;
+  if (returned && !still) {
+    promptInitial = reduced
+      ? { opacity: 0 }
+      : { opacity: 0, scale: 0.97, filter: "blur(2px)" };
+  }
+
+  let flagState = "text-muted-foreground";
+  if (flag === "on") {
+    flagState = "border-destructive/40 bg-destructive/10 text-destructive";
+  } else if (near) {
+    flagState = "border-foreground/30 text-foreground";
+  }
+
+  const previewSrc = preview ?? stored;
 
   return (
     <motion.div
@@ -1355,13 +1463,7 @@ function Dropzone({
       style={{ transform: animated ? transform : undefined }}
       className={cn(
         "relative flex min-h-64 w-full max-w-lg flex-col items-center justify-center overflow-hidden rounded-2xl px-6 py-8 text-center transition-[border-color,background-color] duration-200 ease-(--ease-out) outline-none motion-reduce:transition-none",
-        flag === "on"
-          ? "border-destructive/70 bg-destructive/5"
-          : over
-            ? "border-foreground/40 bg-muted"
-            : near
-              ? "border-ring/70 bg-muted/60"
-              : "border-input bg-card",
+        dropState,
         flag === "easing" && "duration-500",
         className
       )}
@@ -1401,9 +1503,9 @@ function Dropzone({
           className="dropzone-card relative flex w-full flex-col items-center"
         >
           <div className="bg-background text-foreground flex size-14 items-center justify-center overflow-hidden rounded-xl border [&_svg:not([class*='size-'])]:size-5.5">
-            {preview ? (
+            {previewSrc ? (
               <img
-                src={preview}
+                src={previewSrc}
                 alt=""
                 decoding="async"
                 referrerPolicy="no-referrer"
@@ -1415,16 +1517,7 @@ function Dropzone({
           </div>
 
           <p className="mt-4 flex items-center gap-1.5 text-sm font-semibold">
-            {busy ? (
-              <IconLoader2 className="size-4 animate-spin" aria-hidden />
-            ) : failed ? (
-              <IconFileX className="text-destructive size-4" aria-hidden />
-            ) : (
-              <IconCircleCheckFilled
-                className="size-4 text-emerald-600 dark:text-emerald-400"
-                aria-hidden
-              />
-            )}
+            {statusIcon}
             {statusOf(busy, files.length, failed)}
           </p>
 
@@ -1477,13 +1570,7 @@ function Dropzone({
       ) : (
         <motion.button
           ref={promptRef}
-          initial={
-            returned && !still
-              ? reduced
-                ? { opacity: 0 }
-                : { opacity: 0, scale: 0.97, filter: "blur(2px)" }
-              : false
-          }
+          initial={promptInitial}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
           type="button"
@@ -1495,11 +1582,7 @@ function Dropzone({
           <div
             className={cn(
               "bg-background mb-4 flex size-12 items-center justify-center rounded-xl border transition-[border-color,background-color,color] duration-200 ease-(--ease-out) motion-reduce:transition-none",
-              flag === "on"
-                ? "border-destructive/40 bg-destructive/10 text-destructive"
-                : near
-                  ? "border-foreground/30 text-foreground"
-                  : "text-muted-foreground",
+              flagState,
               flag === "easing" && "duration-500"
             )}
           >
@@ -1604,6 +1687,6 @@ function Dropzone({
       </div>
     </motion.div>
   );
-}
+};
 
 export { Dropzone };

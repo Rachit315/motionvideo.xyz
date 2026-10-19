@@ -11,11 +11,11 @@ const ARCH = arc({ strength: 0.6 });
 
 const RadioAnimated = React.createContext(true);
 
-function RadioGroup({
+const RadioGroup = ({
   className,
   animated = true,
   ...props
-}: RadioGroupPrimitive.Props & { animated?: boolean }) {
+}: RadioGroupPrimitive.Props & { animated?: boolean }) => {
   const group = React.useId();
 
   return (
@@ -29,9 +29,9 @@ function RadioGroup({
       </LayoutGroup>
     </RadioAnimated.Provider>
   );
-}
+};
 
-function RadioGroupItem({ className, ...props }: RadioPrimitive.Root.Props) {
+const RadioGroupItem = ({ className, ...props }: RadioPrimitive.Root.Props) => {
   const reduceMotion = useReducedMotion();
   const animated = React.useContext(RadioAnimated);
 
@@ -50,7 +50,6 @@ function RadioGroupItem({ className, ...props }: RadioPrimitive.Root.Props) {
           animated ? (
             <motion.span
               layoutId="radio-group-indicator"
-
               initial={false}
               transition={{
                 layout: reduceMotion
@@ -66,6 +65,6 @@ function RadioGroupItem({ className, ...props }: RadioPrimitive.Root.Props) {
       />
     </RadioPrimitive.Root>
   );
-}
+};
 
 export { RadioGroup, RadioGroupItem };
