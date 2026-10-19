@@ -4,6 +4,7 @@ import { count, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 import { z } from "zod";
 
+import { ROUTES } from "@/constants/routes";
 import catalog from "@/data/motion-catalog.json";
 import { SUBMISSION_STATUSES } from "@/lib/community";
 import type { SubmissionKind, SubmissionStatus } from "@/lib/community";
@@ -145,7 +146,7 @@ export const reviewSubmission = createServerFn({ method: "POST" })
             "",
             `"${submission.title}" is now featured on MotionVideo, credited to you.`,
             "",
-            `See it here: ${env.BETTER_AUTH_URL}/featured`,
+            `See it here: ${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_FEATURED}`,
             "",
             "Thanks for sharing your work.",
           ].join("\n"),

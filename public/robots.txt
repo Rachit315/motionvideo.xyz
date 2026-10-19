@@ -1,3 +1,15 @@
 # https://www.robotstxt.org/robotstxt.html
+# Search and AI crawlers are welcome on public pages; account, admin, and
+# utility paths stay out.
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /checkout
+Disallow: /dashboard
+Disallow: /sign-in
+Disallow: /welcome
+Disallow: /api/
+# The catalog JSON is the machine-readable dataset linked from /llms.txt
+# (most-specific rule wins, so the catalog stays crawlable).
+Allow: /api/catalog/
+
+Sitemap: https://motionvideo.xyz/sitemap.xml

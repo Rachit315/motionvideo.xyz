@@ -77,10 +77,14 @@ export const KeyboardShortcutsProvider = ({
     [SHORTCUT_KEYS.skills, ROUTES.SKILLS, header.skills],
     [SHORTCUT_KEYS.extras, ROUTES.EXTRAS, header.extras],
     [SHORTCUT_KEYS.jobs, ROUTES.JOBS, header.jobs],
-    [SHORTCUT_KEYS.featured, ROUTES.FEATURED, header.featured],
-    [SHORTCUT_KEYS.bookmarks, ROUTES.BOOKMARKS, header.bookmarks],
-    [SHORTCUT_KEYS.sponsorships, ROUTES.SPONSORSHIPS, header.sponsorships],
-    [SHORTCUT_KEYS.settings, ROUTES.SETTINGS, header.settings],
+    [SHORTCUT_KEYS.featured, ROUTES.DASHBOARD_FEATURED, header.featured],
+    [SHORTCUT_KEYS.bookmarks, ROUTES.DASHBOARD_BOOKMARKS, header.bookmarks],
+    [
+      SHORTCUT_KEYS.sponsorships,
+      ROUTES.DASHBOARD_SPONSORSHIPS,
+      header.sponsorships,
+    ],
+    [SHORTCUT_KEYS.settings, ROUTES.DASHBOARD_SETTINGS, header.settings],
   ] as const;
   const sectionRoutes = routes.slice(0, 6);
   const accountRoutes = routes.slice(6);
@@ -103,10 +107,10 @@ export const KeyboardShortcutsProvider = ({
   useHotkey(SHORTCUT_KEYS.skills, go(ROUTES.SKILLS));
   useHotkey(SHORTCUT_KEYS.extras, go(ROUTES.EXTRAS));
   useHotkey(SHORTCUT_KEYS.jobs, go(ROUTES.JOBS));
-  useHotkey(SHORTCUT_KEYS.featured, go(ROUTES.FEATURED));
-  useHotkey(SHORTCUT_KEYS.bookmarks, go(ROUTES.BOOKMARKS));
-  useHotkey(SHORTCUT_KEYS.sponsorships, go(ROUTES.SPONSORSHIPS));
-  useHotkey(SHORTCUT_KEYS.settings, go(ROUTES.SETTINGS));
+  useHotkey(SHORTCUT_KEYS.featured, go(ROUTES.DASHBOARD_FEATURED));
+  useHotkey(SHORTCUT_KEYS.bookmarks, go(ROUTES.DASHBOARD_BOOKMARKS));
+  useHotkey(SHORTCUT_KEYS.sponsorships, go(ROUTES.DASHBOARD_SPONSORSHIPS));
+  useHotkey(SHORTCUT_KEYS.settings, go(ROUTES.DASHBOARD_SETTINGS));
   useHotkey(SHORTCUT_KEYS.feedback, () => feedbackDialog.open());
   useHotkey(SHORTCUT_KEYS.theme, toggleTheme);
   useHotkey(SHORTCUT_KEYS.liveCursors, () =>

@@ -35,7 +35,7 @@ export const SurpriseAndSubmit = ({
       {surpriseLabel}
     </Button>
     <Link
-      to={ROUTES.SUBMIT}
+      to={ROUTES.DASHBOARD_SUBMIT}
       data-track="submit_click"
       data-track-kind={submitSearch.kind}
       // SAFETY: /submit accepts every section kind plus an optional

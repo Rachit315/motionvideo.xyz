@@ -343,7 +343,7 @@ const reviewEmail = (
   note: string | undefined
 ) => {
   const placement = `${TIER_NAMES[row.tier]} sponsorship${row.name ? ` for ${row.name}` : ""}`;
-  const manage = `${env.BETTER_AUTH_URL}${ROUTES.SPONSORSHIPS}`;
+  const manage = `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_SPONSORSHIPS}`;
   const noteBlock = note ? `\n\nNote from the reviewer:\n${note}` : "";
   const runs =
     row.billing === "once"

@@ -45,7 +45,7 @@ export const JobsBoard = ({
       description={type ? content.typeDescriptions[type] : content.heroIntro}
       actions={
         <Link
-          to={ROUTES.JOBS_POST}
+          to={ROUTES.DASHBOARD_JOBS_POST}
           data-track="job_post_start"
           data-track-from="board"
           className={buttonVariants({ variant: "gradient", size: "lg" })}

@@ -9,6 +9,7 @@ import type { Offer } from "@/constants/pricing";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { absoluteUrl } from "@/constants/url";
+import type { MotionVideo } from "@/lib/motion-catalog";
 
 // Structured data, emitted as <script type="application/ld+json"> through a
 // route's `head().scripts`.
@@ -96,6 +97,21 @@ export interface BreadcrumbItem {
 }
 
 const HOME_BREADCRUMB: BreadcrumbItem = { name: "Home", path: ROUTES.HOME };
+
+// One gallery video, for its /videos/$slug page.
+export const videoJsonLd = (video: MotionVideo) =>
+  jsonLdScript({
+    "@type": "VideoObject",
+    contentUrl: absoluteUrl(video.video),
+    creator: { "@type": "Person", name: `@${video.handle}` },
+    description:
+      video.description ??
+      `${video.title}, a motion video by @${video.handle} on ${SITE.NAME}.`,
+    keywords: video.contentTags.join(", "),
+    name: video.title,
+    thumbnailUrl: absoluteUrl(video.poster),
+    uploadDate: video.date,
+  });
 
 // Home › <page>, for pages one level below the home page.
 export const breadcrumbJsonLd = (current: BreadcrumbItem) =>

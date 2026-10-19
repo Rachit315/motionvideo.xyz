@@ -3,6 +3,7 @@ import { notFound } from "@tanstack/react-router";
 import catalog from "@/data/motion-catalog.json";
 import { filterMotionVideos } from "@/lib/motion-catalog";
 import type { MotionFilters, MotionVideo } from "@/lib/motion-catalog";
+import { videoJsonLd } from "@/seo/json-ld";
 import { createMetadata } from "@/seo/metadata";
 
 // Loader and head shared by the video overlay routes: `/videos/$slug` over
@@ -17,21 +18,24 @@ export const loadMotionVideo = ({ params }: { params: { slug: string } }) => {
   return { video };
 };
 
-// Both overlay URLs show the same video, so both point at `/videos/$slug`.
+// Both overlay URLs show the same video, so both point at `/videos/$slug`;
+// structured data makes the video one citable entity per page.
 export const motionVideoHead = ({
   loaderData,
   params,
 }: {
   loaderData?: { video: MotionVideo };
   params: { slug: string };
-}) =>
-  createMetadata({
+}) => ({
+  ...createMetadata({
     canonical: `/videos/${params.slug}`,
     title: loaderData?.video.title ?? "Motion video",
     description: loaderData
       ? `${loaderData.video.title} by @${loaderData.video.handle}. Watch the motion video${loaderData.video.prompt ? " and copy the prompt behind it" : ""} on MotionVideo.`
       : "A motion video on MotionVideo.",
-  });
+  }),
+  scripts: loaderData ? [videoJsonLd(loaderData.video)] : [],
+});
 
 /**
  * The videos before and after `slug` in the grid behind the overlay (same

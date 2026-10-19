@@ -23,7 +23,7 @@ export const Route = createFileRoute("/checkout")({
           ? { email: session.user.email, userId: session.user.id }
           : null;
         if (buyer && (await hasPurchased(buyer.email))) {
-          return redirect(ROUTES.DASHBOARD);
+          return redirect(ROUTES.DASHBOARD_SKILL);
         }
         return redirect(await createCheckoutUrl(buyer));
       },

@@ -27,7 +27,7 @@ export const JobsWidget = ({ jobs }: { jobs: JobListing[] }) => {
           {content.widgetTitle}
         </h2>
         <Link
-          to={ROUTES.JOBS_POST}
+          to={ROUTES.DASHBOARD_JOBS_POST}
           data-track="job_post_start"
           data-track-from="discover"
           className={buttonVariants({ variant: "outline", size: "sm" })}

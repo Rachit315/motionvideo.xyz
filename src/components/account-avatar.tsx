@@ -11,6 +11,7 @@ import { Bookmark } from "reicon-react/icons/Bookmark";
 import { Briefcase } from "reicon-react/icons/Briefcase";
 import { ChatRoundDots } from "reicon-react/icons/ChatRoundDots";
 import { Exit } from "reicon-react/icons/Exit";
+import { File } from "reicon-react/icons/File";
 import { HandHeart } from "reicon-react/icons/HandHeart";
 import { Keyboard } from "reicon-react/icons/Keyboard";
 import { Moon } from "reicon-react/icons/Moon";
@@ -233,7 +234,7 @@ export const AccountMenu = ({
             </>
           )}
           <DropdownMenuLinkItem
-            render={<Link to={ROUTES.FEATURED} />}
+            render={<Link to={ROUTES.DASHBOARD_FEATURED} />}
             className="group py-1.5"
           >
             {content.featured}
@@ -243,7 +244,7 @@ export const AccountMenu = ({
             />
           </DropdownMenuLinkItem>
           <DropdownMenuLinkItem
-            render={<Link to={ROUTES.BOOKMARKS} />}
+            render={<Link to={ROUTES.DASHBOARD_BOOKMARKS} />}
             data-bookmark-fly-target="bookmarks-item"
             className="group py-1.5"
           >
@@ -253,9 +254,19 @@ export const AccountMenu = ({
               className="text-muted-foreground group-hover:text-foreground group-focus:text-accent-foreground ml-auto transition-colors"
             />
           </DropdownMenuLinkItem>
+          <DropdownMenuLinkItem
+            render={<Link to={ROUTES.DASHBOARD_SKILL} />}
+            className="group py-1.5"
+          >
+            {content.accessSkill}
+            <File
+              aria-hidden="true"
+              className="text-muted-foreground group-hover:text-foreground group-focus:text-accent-foreground ml-auto transition-colors"
+            />
+          </DropdownMenuLinkItem>
           <DropdownMenuSeparator />
           <DropdownMenuLinkItem
-            render={<Link to={ROUTES.LISTINGS} />}
+            render={<Link to={ROUTES.DASHBOARD_LISTINGS} />}
             className="group py-1.5"
           >
             {content.listings}
@@ -265,7 +276,7 @@ export const AccountMenu = ({
             />
           </DropdownMenuLinkItem>
           <DropdownMenuLinkItem
-            render={<Link to={ROUTES.SPONSORSHIPS} />}
+            render={<Link to={ROUTES.DASHBOARD_SPONSORSHIPS} />}
             className="group py-1.5"
           >
             {content.sponsorships}
@@ -276,7 +287,7 @@ export const AccountMenu = ({
           </DropdownMenuLinkItem>
           <DropdownMenuSeparator />
           <DropdownMenuLinkItem
-            render={<Link to={ROUTES.SETTINGS} />}
+            render={<Link to={ROUTES.DASHBOARD_SETTINGS} />}
             className="group py-1.5"
           >
             {content.settings}

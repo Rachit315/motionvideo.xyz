@@ -301,7 +301,7 @@ export const reviewJobPost = createServerFn({ method: "POST" })
       )
       .where(eq(jobPosts.id, data.id))
       .run();
-    const manage = `${env.BETTER_AUTH_URL}${ROUTES.JOBS_POST}`;
+    const manage = `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_JOBS_POST}`;
     const noteBlock = note ? `\n\nNote from the reviewer:\n${note}` : "";
     const role = `${found.row.title} at ${found.row.company}`;
     try {

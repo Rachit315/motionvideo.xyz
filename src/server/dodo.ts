@@ -232,7 +232,7 @@ export const createSponsorCheckoutUrl = (
   }
   const query = `?sponsorship=${encodeURIComponent(sponsorshipId)}`;
   return checkoutUrl({
-    cancel_url: `${env.BETTER_AUTH_URL}${ROUTES.SPONSORSHIPS_NEW}${query}`,
+    cancel_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_SPONSORSHIPS_NEW}${query}`,
     customer: { email: buyer.email },
     feature_flags: { allow_discount_code: false },
     metadata: {
@@ -241,7 +241,7 @@ export const createSponsorCheckoutUrl = (
       user_id: buyer.userId,
     },
     product_cart: [{ product_id: productId, quantity: 1 }],
-    return_url: `${env.BETTER_AUTH_URL}${ROUTES.SPONSORSHIPS}${query}`,
+    return_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_SPONSORSHIPS}${query}`,
   });
 };
 
@@ -287,7 +287,7 @@ export const customerPortalUrl = async (email: string): Promise<string> => {
   }
   const session = await getDodo().customers.customerPortal.create(
     customer.customer_id,
-    { return_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD}` }
+    { return_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_SKILL}` }
   );
   return session.link;
 };
@@ -295,7 +295,7 @@ export const customerPortalUrl = async (email: string): Promise<string> => {
 /** Dodo's billing portal for one sponsor, returning to /sponsorships. */
 export const sponsorPortalUrl = async (customerId: string): Promise<string> => {
   const session = await getDodo().customers.customerPortal.create(customerId, {
-    return_url: `${env.BETTER_AUTH_URL}${ROUTES.SPONSORSHIPS}`,
+    return_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_SPONSORSHIPS}`,
   });
   return session.link;
 };
@@ -315,11 +315,11 @@ export const createJobCheckoutUrl = (
   }
   const query = `?job=${encodeURIComponent(jobId)}`;
   return checkoutUrl({
-    cancel_url: `${env.BETTER_AUTH_URL}${ROUTES.JOBS_POST}${query}`,
+    cancel_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_JOBS_POST}${query}`,
     customer: { email: buyer.email },
     feature_flags: { allow_discount_code: false },
     metadata: { product: `job-${plan}`, job_id: jobId, user_id: buyer.userId },
     product_cart: [{ product_id: productId, quantity: 1 }],
-    return_url: `${env.BETTER_AUTH_URL}${ROUTES.LISTINGS}${query}`,
+    return_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_LISTINGS}${query}`,
   });
 };

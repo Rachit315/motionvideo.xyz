@@ -19,9 +19,11 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ExtrasRouteImport } from './routes/extras'
 import { Route as FeaturedRouteImport } from './routes/featured'
 import { Route as ListingsRouteImport } from './routes/listings'
+import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
 import { Route as MotionvideoSkillRouteImport } from './routes/motionvideo-skill'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SignInRouteImport } from './routes/sign-in'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SkillsRouteImport } from './routes/skills'
 import { Route as SponsorRouteImport } from './routes/sponsor'
 import { Route as StudiosRouteImport } from './routes/studios'
@@ -43,6 +45,13 @@ import { Route as AdminSubmissionsRouteImport } from './routes/admin/submissions
 import { Route as ApiUploadRouteImport } from './routes/api/upload'
 import { Route as CreativesIndexRouteImport } from './routes/creatives/index'
 import { Route as CreativesCategoryRouteImport } from './routes/creatives/$category'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as DashboardBookmarksRouteImport } from './routes/dashboard/bookmarks'
+import { Route as DashboardFeaturedRouteImport } from './routes/dashboard/featured'
+import { Route as DashboardListingsRouteImport } from './routes/dashboard/listings'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
+import { Route as DashboardSkillRouteImport } from './routes/dashboard/skill'
+import { Route as DashboardSubmitRouteImport } from './routes/dashboard/submit'
 import { Route as ExtrasIndexRouteImport } from './routes/extras/index'
 import { Route as ExtrasCategoryRouteImport } from './routes/extras/$category'
 import { Route as JobsIndexRouteImport } from './routes/jobs/index'
@@ -60,6 +69,9 @@ import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ApiCatalogIndexRouteImport } from './routes/api/catalog/index'
 import { Route as ApiCatalogDirectoriesRouteImport } from './routes/api/catalog/directories'
 import { Route as ApiWebhookDodoRouteImport } from './routes/api/webhook/dodo'
+import { Route as DashboardJobsPostRouteImport } from './routes/dashboard/jobs/post'
+import { Route as DashboardSponsorshipsIndexRouteImport } from './routes/dashboard/sponsorships/index'
+import { Route as DashboardSponsorshipsNewRouteImport } from './routes/dashboard/sponsorships/new'
 import { Route as GalleryCategoryCategoryIndexRouteImport } from './routes/_gallery/category.$category.index'
 import { Route as GalleryCategoryCategoryVideosSlugRouteImport } from './routes/_gallery/category.$category.videos.$slug'
 
@@ -111,6 +123,11 @@ const ListingsRoute = ListingsRouteImport.update({
   path: '/listings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LlmsDottxtRoute = LlmsDottxtRouteImport.update({
+  id: '/llms.txt',
+  path: '/llms.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MotionvideoSkillRoute = MotionvideoSkillRouteImport.update({
   id: '/motionvideo-skill',
   path: '/motionvideo-skill',
@@ -124,6 +141,11 @@ const SettingsRoute = SettingsRouteImport.update({
 const SignInRoute = SignInRouteImport.update({
   id: '/sign-in',
   path: '/sign-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SkillsRoute = SkillsRouteImport.update({
@@ -231,6 +253,41 @@ const CreativesCategoryRoute = CreativesCategoryRouteImport.update({
   path: '/$category',
   getParentRoute: () => CreativesRoute,
 } as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardBookmarksRoute = DashboardBookmarksRouteImport.update({
+  id: '/bookmarks',
+  path: '/bookmarks',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardFeaturedRoute = DashboardFeaturedRouteImport.update({
+  id: '/featured',
+  path: '/featured',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardListingsRoute = DashboardListingsRouteImport.update({
+  id: '/listings',
+  path: '/listings',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSkillRoute = DashboardSkillRouteImport.update({
+  id: '/skill',
+  path: '/skill',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSubmitRoute = DashboardSubmitRouteImport.update({
+  id: '/submit',
+  path: '/submit',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const ExtrasIndexRoute = ExtrasIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -316,6 +373,23 @@ const ApiWebhookDodoRoute = ApiWebhookDodoRouteImport.update({
   path: '/api/webhook/dodo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardJobsPostRoute = DashboardJobsPostRouteImport.update({
+  id: '/jobs/post',
+  path: '/jobs/post',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSponsorshipsIndexRoute =
+  DashboardSponsorshipsIndexRouteImport.update({
+    id: '/sponsorships/',
+    path: '/sponsorships/',
+    getParentRoute: () => DashboardRoute,
+  } as any)
+const DashboardSponsorshipsNewRoute =
+  DashboardSponsorshipsNewRouteImport.update({
+    id: '/sponsorships/new',
+    path: '/sponsorships/new',
+    getParentRoute: () => DashboardRoute,
+  } as any)
 const GalleryCategoryCategoryIndexRoute =
   GalleryCategoryCategoryIndexRouteImport.update({
     id: '/',
@@ -335,13 +409,15 @@ export interface FileRoutesByFullPath {
   '/bookmarks': typeof BookmarksRoute
   '/checkout': typeof CheckoutRoute
   '/creatives': typeof CreativesRouteWithChildren
-  '/dashboard': typeof DashboardRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/extras': typeof ExtrasRouteWithChildren
   '/featured': typeof FeaturedRoute
   '/listings': typeof ListingsRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/motionvideo-skill': typeof MotionvideoSkillRoute
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/skills': typeof SkillsRouteWithChildren
   '/sponsor': typeof SponsorRoute
   '/studios': typeof StudiosRoute
@@ -360,6 +436,12 @@ export interface FileRoutesByFullPath {
   '/admin/submissions': typeof AdminSubmissionsRoute
   '/api/upload': typeof ApiUploadRoute
   '/creatives/$category': typeof CreativesCategoryRoute
+  '/dashboard/bookmarks': typeof DashboardBookmarksRoute
+  '/dashboard/featured': typeof DashboardFeaturedRoute
+  '/dashboard/listings': typeof DashboardListingsRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/skill': typeof DashboardSkillRoute
+  '/dashboard/submit': typeof DashboardSubmitRoute
   '/extras/$category': typeof ExtrasCategoryRoute
   '/jobs/$type': typeof JobsTypeRoute
   '/jobs/post': typeof JobsPostRoute
@@ -368,6 +450,7 @@ export interface FileRoutesByFullPath {
   '/tools/$category': typeof ToolsCategoryRoute
   '/admin/': typeof AdminIndexRoute
   '/creatives/': typeof CreativesIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/extras/': typeof ExtrasIndexRoute
   '/jobs/': typeof JobsIndexRoute
   '/skills/': typeof SkillsIndexRoute
@@ -378,7 +461,10 @@ export interface FileRoutesByFullPath {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/catalog/directories': typeof ApiCatalogDirectoriesRoute
   '/api/webhook/dodo': typeof ApiWebhookDodoRoute
+  '/dashboard/jobs/post': typeof DashboardJobsPostRoute
+  '/dashboard/sponsorships/new': typeof DashboardSponsorshipsNewRoute
   '/api/catalog/': typeof ApiCatalogIndexRoute
+  '/dashboard/sponsorships/': typeof DashboardSponsorshipsIndexRoute
   '/category/$category/': typeof GalleryCategoryCategoryIndexRoute
   '/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
 }
@@ -386,12 +472,13 @@ export interface FileRoutesByTo {
   '/': typeof GalleryIndexRoute
   '/bookmarks': typeof BookmarksRoute
   '/checkout': typeof CheckoutRoute
-  '/dashboard': typeof DashboardRoute
   '/featured': typeof FeaturedRoute
   '/listings': typeof ListingsRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/motionvideo-skill': typeof MotionvideoSkillRoute
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsor': typeof SponsorRoute
   '/studios': typeof StudiosRoute
   '/submit': typeof SubmitRoute
@@ -408,6 +495,12 @@ export interface FileRoutesByTo {
   '/admin/submissions': typeof AdminSubmissionsRoute
   '/api/upload': typeof ApiUploadRoute
   '/creatives/$category': typeof CreativesCategoryRoute
+  '/dashboard/bookmarks': typeof DashboardBookmarksRoute
+  '/dashboard/featured': typeof DashboardFeaturedRoute
+  '/dashboard/listings': typeof DashboardListingsRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/skill': typeof DashboardSkillRoute
+  '/dashboard/submit': typeof DashboardSubmitRoute
   '/extras/$category': typeof ExtrasCategoryRoute
   '/jobs/$type': typeof JobsTypeRoute
   '/jobs/post': typeof JobsPostRoute
@@ -416,6 +509,7 @@ export interface FileRoutesByTo {
   '/tools/$category': typeof ToolsCategoryRoute
   '/admin': typeof AdminIndexRoute
   '/creatives': typeof CreativesIndexRoute
+  '/dashboard': typeof DashboardIndexRoute
   '/extras': typeof ExtrasIndexRoute
   '/jobs': typeof JobsIndexRoute
   '/skills': typeof SkillsIndexRoute
@@ -425,7 +519,10 @@ export interface FileRoutesByTo {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/catalog/directories': typeof ApiCatalogDirectoriesRoute
   '/api/webhook/dodo': typeof ApiWebhookDodoRoute
+  '/dashboard/jobs/post': typeof DashboardJobsPostRoute
+  '/dashboard/sponsorships/new': typeof DashboardSponsorshipsNewRoute
   '/api/catalog': typeof ApiCatalogIndexRoute
+  '/dashboard/sponsorships': typeof DashboardSponsorshipsIndexRoute
   '/category/$category': typeof GalleryCategoryCategoryIndexRoute
   '/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
 }
@@ -437,13 +534,15 @@ export interface FileRoutesById {
   '/bookmarks': typeof BookmarksRoute
   '/checkout': typeof CheckoutRoute
   '/creatives': typeof CreativesRouteWithChildren
-  '/dashboard': typeof DashboardRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/extras': typeof ExtrasRouteWithChildren
   '/featured': typeof FeaturedRoute
   '/listings': typeof ListingsRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/motionvideo-skill': typeof MotionvideoSkillRoute
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/skills': typeof SkillsRouteWithChildren
   '/sponsor': typeof SponsorRoute
   '/studios': typeof StudiosRoute
@@ -462,6 +561,12 @@ export interface FileRoutesById {
   '/admin/submissions': typeof AdminSubmissionsRoute
   '/api/upload': typeof ApiUploadRoute
   '/creatives/$category': typeof CreativesCategoryRoute
+  '/dashboard/bookmarks': typeof DashboardBookmarksRoute
+  '/dashboard/featured': typeof DashboardFeaturedRoute
+  '/dashboard/listings': typeof DashboardListingsRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/skill': typeof DashboardSkillRoute
+  '/dashboard/submit': typeof DashboardSubmitRoute
   '/extras/$category': typeof ExtrasCategoryRoute
   '/jobs/$type': typeof JobsTypeRoute
   '/jobs/post': typeof JobsPostRoute
@@ -471,6 +576,7 @@ export interface FileRoutesById {
   '/_gallery/': typeof GalleryIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/creatives/': typeof CreativesIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/extras/': typeof ExtrasIndexRoute
   '/jobs/': typeof JobsIndexRoute
   '/skills/': typeof SkillsIndexRoute
@@ -481,7 +587,10 @@ export interface FileRoutesById {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/catalog/directories': typeof ApiCatalogDirectoriesRoute
   '/api/webhook/dodo': typeof ApiWebhookDodoRoute
+  '/dashboard/jobs/post': typeof DashboardJobsPostRoute
+  '/dashboard/sponsorships/new': typeof DashboardSponsorshipsNewRoute
   '/api/catalog/': typeof ApiCatalogIndexRoute
+  '/dashboard/sponsorships/': typeof DashboardSponsorshipsIndexRoute
   '/_gallery/category/$category/': typeof GalleryCategoryCategoryIndexRoute
   '/_gallery/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
 }
@@ -497,9 +606,11 @@ export interface FileRouteTypes {
     | '/extras'
     | '/featured'
     | '/listings'
+    | '/llms.txt'
     | '/motionvideo-skill'
     | '/settings'
     | '/sign-in'
+    | '/sitemap.xml'
     | '/skills'
     | '/sponsor'
     | '/studios'
@@ -518,6 +629,12 @@ export interface FileRouteTypes {
     | '/admin/submissions'
     | '/api/upload'
     | '/creatives/$category'
+    | '/dashboard/bookmarks'
+    | '/dashboard/featured'
+    | '/dashboard/listings'
+    | '/dashboard/settings'
+    | '/dashboard/skill'
+    | '/dashboard/submit'
     | '/extras/$category'
     | '/jobs/$type'
     | '/jobs/post'
@@ -526,6 +643,7 @@ export interface FileRouteTypes {
     | '/tools/$category'
     | '/admin/'
     | '/creatives/'
+    | '/dashboard/'
     | '/extras/'
     | '/jobs/'
     | '/skills/'
@@ -536,7 +654,10 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/catalog/directories'
     | '/api/webhook/dodo'
+    | '/dashboard/jobs/post'
+    | '/dashboard/sponsorships/new'
     | '/api/catalog/'
+    | '/dashboard/sponsorships/'
     | '/category/$category/'
     | '/category/$category/videos/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -544,12 +665,13 @@ export interface FileRouteTypes {
     | '/'
     | '/bookmarks'
     | '/checkout'
-    | '/dashboard'
     | '/featured'
     | '/listings'
+    | '/llms.txt'
     | '/motionvideo-skill'
     | '/settings'
     | '/sign-in'
+    | '/sitemap.xml'
     | '/sponsor'
     | '/studios'
     | '/submit'
@@ -566,6 +688,12 @@ export interface FileRouteTypes {
     | '/admin/submissions'
     | '/api/upload'
     | '/creatives/$category'
+    | '/dashboard/bookmarks'
+    | '/dashboard/featured'
+    | '/dashboard/listings'
+    | '/dashboard/settings'
+    | '/dashboard/skill'
+    | '/dashboard/submit'
     | '/extras/$category'
     | '/jobs/$type'
     | '/jobs/post'
@@ -574,6 +702,7 @@ export interface FileRouteTypes {
     | '/tools/$category'
     | '/admin'
     | '/creatives'
+    | '/dashboard'
     | '/extras'
     | '/jobs'
     | '/skills'
@@ -583,7 +712,10 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/catalog/directories'
     | '/api/webhook/dodo'
+    | '/dashboard/jobs/post'
+    | '/dashboard/sponsorships/new'
     | '/api/catalog'
+    | '/dashboard/sponsorships'
     | '/category/$category'
     | '/category/$category/videos/$slug'
   id:
@@ -598,9 +730,11 @@ export interface FileRouteTypes {
     | '/extras'
     | '/featured'
     | '/listings'
+    | '/llms.txt'
     | '/motionvideo-skill'
     | '/settings'
     | '/sign-in'
+    | '/sitemap.xml'
     | '/skills'
     | '/sponsor'
     | '/studios'
@@ -619,6 +753,12 @@ export interface FileRouteTypes {
     | '/admin/submissions'
     | '/api/upload'
     | '/creatives/$category'
+    | '/dashboard/bookmarks'
+    | '/dashboard/featured'
+    | '/dashboard/listings'
+    | '/dashboard/settings'
+    | '/dashboard/skill'
+    | '/dashboard/submit'
     | '/extras/$category'
     | '/jobs/$type'
     | '/jobs/post'
@@ -628,6 +768,7 @@ export interface FileRouteTypes {
     | '/_gallery/'
     | '/admin/'
     | '/creatives/'
+    | '/dashboard/'
     | '/extras/'
     | '/jobs/'
     | '/skills/'
@@ -638,7 +779,10 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/catalog/directories'
     | '/api/webhook/dodo'
+    | '/dashboard/jobs/post'
+    | '/dashboard/sponsorships/new'
     | '/api/catalog/'
+    | '/dashboard/sponsorships/'
     | '/_gallery/category/$category/'
     | '/_gallery/category/$category/videos/$slug'
   fileRoutesById: FileRoutesById
@@ -650,13 +794,15 @@ export interface RootRouteChildren {
   BookmarksRoute: typeof BookmarksRoute
   CheckoutRoute: typeof CheckoutRoute
   CreativesRoute: typeof CreativesRouteWithChildren
-  DashboardRoute: typeof DashboardRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
   ExtrasRoute: typeof ExtrasRouteWithChildren
   FeaturedRoute: typeof FeaturedRoute
   ListingsRoute: typeof ListingsRoute
+  LlmsDottxtRoute: typeof LlmsDottxtRoute
   MotionvideoSkillRoute: typeof MotionvideoSkillRoute
   SettingsRoute: typeof SettingsRoute
   SignInRoute: typeof SignInRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SkillsRoute: typeof SkillsRouteWithChildren
   SponsorRoute: typeof SponsorRoute
   StudiosRoute: typeof StudiosRoute
@@ -747,6 +893,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ListingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/llms.txt': {
+      id: '/llms.txt'
+      path: '/llms.txt'
+      fullPath: '/llms.txt'
+      preLoaderRoute: typeof LlmsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/motionvideo-skill': {
       id: '/motionvideo-skill'
       path: '/motionvideo-skill'
@@ -766,6 +919,13 @@ declare module '@tanstack/react-router' {
       path: '/sign-in'
       fullPath: '/sign-in'
       preLoaderRoute: typeof SignInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/skills': {
@@ -915,6 +1075,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreativesCategoryRouteImport
       parentRoute: typeof CreativesRoute
     }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/bookmarks': {
+      id: '/dashboard/bookmarks'
+      path: '/bookmarks'
+      fullPath: '/dashboard/bookmarks'
+      preLoaderRoute: typeof DashboardBookmarksRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/featured': {
+      id: '/dashboard/featured'
+      path: '/featured'
+      fullPath: '/dashboard/featured'
+      preLoaderRoute: typeof DashboardFeaturedRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/listings': {
+      id: '/dashboard/listings'
+      path: '/listings'
+      fullPath: '/dashboard/listings'
+      preLoaderRoute: typeof DashboardListingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/skill': {
+      id: '/dashboard/skill'
+      path: '/skill'
+      fullPath: '/dashboard/skill'
+      preLoaderRoute: typeof DashboardSkillRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/submit': {
+      id: '/dashboard/submit'
+      path: '/submit'
+      fullPath: '/dashboard/submit'
+      preLoaderRoute: typeof DashboardSubmitRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/extras/': {
       id: '/extras/'
       path: '/'
@@ -1034,6 +1243,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiWebhookDodoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/jobs/post': {
+      id: '/dashboard/jobs/post'
+      path: '/jobs/post'
+      fullPath: '/dashboard/jobs/post'
+      preLoaderRoute: typeof DashboardJobsPostRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/sponsorships/': {
+      id: '/dashboard/sponsorships/'
+      path: '/sponsorships'
+      fullPath: '/dashboard/sponsorships/'
+      preLoaderRoute: typeof DashboardSponsorshipsIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/sponsorships/new': {
+      id: '/dashboard/sponsorships/new'
+      path: '/sponsorships/new'
+      fullPath: '/dashboard/sponsorships/new'
+      preLoaderRoute: typeof DashboardSponsorshipsNewRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/_gallery/category/$category/': {
       id: '/_gallery/category/$category/'
       path: '/'
@@ -1135,6 +1365,36 @@ const CreativesRouteWithChildren = CreativesRoute._addFileChildren(
   CreativesRouteChildren,
 )
 
+interface DashboardRouteChildren {
+  DashboardBookmarksRoute: typeof DashboardBookmarksRoute
+  DashboardFeaturedRoute: typeof DashboardFeaturedRoute
+  DashboardListingsRoute: typeof DashboardListingsRoute
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
+  DashboardSkillRoute: typeof DashboardSkillRoute
+  DashboardSubmitRoute: typeof DashboardSubmitRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardJobsPostRoute: typeof DashboardJobsPostRoute
+  DashboardSponsorshipsNewRoute: typeof DashboardSponsorshipsNewRoute
+  DashboardSponsorshipsIndexRoute: typeof DashboardSponsorshipsIndexRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardBookmarksRoute: DashboardBookmarksRoute,
+  DashboardFeaturedRoute: DashboardFeaturedRoute,
+  DashboardListingsRoute: DashboardListingsRoute,
+  DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardSkillRoute: DashboardSkillRoute,
+  DashboardSubmitRoute: DashboardSubmitRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+  DashboardJobsPostRoute: DashboardJobsPostRoute,
+  DashboardSponsorshipsNewRoute: DashboardSponsorshipsNewRoute,
+  DashboardSponsorshipsIndexRoute: DashboardSponsorshipsIndexRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 interface ExtrasRouteChildren {
   ExtrasCategoryRoute: typeof ExtrasCategoryRoute
   ExtrasIndexRoute: typeof ExtrasIndexRoute
@@ -1180,13 +1440,15 @@ const rootRouteChildren: RootRouteChildren = {
   BookmarksRoute: BookmarksRoute,
   CheckoutRoute: CheckoutRoute,
   CreativesRoute: CreativesRouteWithChildren,
-  DashboardRoute: DashboardRoute,
+  DashboardRoute: DashboardRouteWithChildren,
   ExtrasRoute: ExtrasRouteWithChildren,
   FeaturedRoute: FeaturedRoute,
   ListingsRoute: ListingsRoute,
+  LlmsDottxtRoute: LlmsDottxtRoute,
   MotionvideoSkillRoute: MotionvideoSkillRoute,
   SettingsRoute: SettingsRoute,
   SignInRoute: SignInRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SkillsRoute: SkillsRouteWithChildren,
   SponsorRoute: SponsorRoute,
   StudiosRoute: StudiosRoute,

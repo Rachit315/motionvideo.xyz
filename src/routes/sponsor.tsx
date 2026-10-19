@@ -168,7 +168,7 @@ const Sponsor = () => {
                       </div>
                     ) : (
                       <Link
-                        to={ROUTES.SPONSORSHIPS_NEW}
+                        to={ROUTES.DASHBOARD_SPONSORSHIPS_NEW}
                         search={{ tier: id }}
                         data-track="sponsor_plan_click"
                         data-track-tier={id}
@@ -261,7 +261,7 @@ const Sponsor = () => {
                         </Button>
                       ) : (
                         <Link
-                          to={ROUTES.SPONSORSHIPS_NEW}
+                          to={ROUTES.DASHBOARD_SPONSORSHIPS_NEW}
                           search={{ tier: id }}
                           data-track="sponsor_plan_click"
                           data-track-tier={id}
