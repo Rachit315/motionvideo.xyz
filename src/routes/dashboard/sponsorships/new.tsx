@@ -16,6 +16,7 @@ import {
 } from "@/components/sponsor-creative-fields";
 import type { CreativeFields } from "@/components/sponsor-creative-fields";
 import { Button } from "@/components/ui/button";
+import { RadioGroup } from "@/components/ui/radio-group";
 import { ROUTES } from "@/constants/routes";
 import {
   SPONSOR_BILLINGS,
@@ -190,14 +191,20 @@ const NewSponsorship = () => {
             title={content.checkout.planSection}
             description={content.checkout.planSectionBody}
           >
-            <div className="flex flex-col gap-3">
+            <RadioGroup
+              className="flex flex-col gap-3"
+              value={fields.tier}
+              onValueChange={(value) =>
+                // SAFETY: the group only holds values from SPONSOR_TIERS.
+                update({ tier: value as SponsorTier })
+              }
+            >
               {SPONSOR_TIERS.map((tier) => {
                 const soldOut = tier === "diamond" && diamondSoldOut;
                 return (
                   <ChoiceCard
                     key={tier}
-                    name="tier"
-                    checked={fields.tier === tier}
+                    value={tier}
                     onSelect={() => update({ tier })}
                     disabled={soldOut}
                     title={content.tiers[tier]}
@@ -216,25 +223,31 @@ const NewSponsorship = () => {
                   </ChoiceCard>
                 );
               })}
-            </div>
+            </RadioGroup>
           </FormSection>
 
           <FormSection
             title={content.checkout.billingSection}
             description={content.checkout.billingSectionBody}
           >
-            <div className="grid gap-3 sm:grid-cols-2">
+            <RadioGroup
+              className="grid gap-3 sm:grid-cols-2"
+              value={fields.billing}
+              onValueChange={(value) =>
+                // SAFETY: the group only holds values from SPONSOR_BILLINGS.
+                update({ billing: value as SponsorBilling })
+              }
+            >
               {SPONSOR_BILLINGS.map((billing) => (
                 <ChoiceCard
                   key={billing}
-                  name="billing"
-                  checked={fields.billing === billing}
+                  value={billing}
                   onSelect={() => update({ billing })}
                   title={content.billings[billing]}
                   body={content.checkout.billingBodies[billing]}
                 />
               ))}
-            </div>
+            </RadioGroup>
           </FormSection>
 
           <CreativeSections

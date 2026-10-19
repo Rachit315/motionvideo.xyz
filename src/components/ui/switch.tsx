@@ -1,28 +1,56 @@
-import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
+import { useState } from "react";
+import type { ComponentProps } from "react";
 
 import { cn } from "@/lib/utils";
 
+type SwitchProps = Omit<
+  ComponentProps<"button">,
+  "checked" | "defaultChecked" | "onChange"
+> & {
+  checked?: boolean;
+  defaultChecked?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
+};
+
 const Switch = ({
   className,
-  size = "default",
+  checked,
+  defaultChecked = false,
+  onCheckedChange,
+  onClick,
   ...props
-}: SwitchPrimitive.Root.Props & {
-  size?: "sm" | "default";
-}) => (
-  <SwitchPrimitive.Root
-    data-slot="switch"
-    data-size={size}
-    className={cn(
-      "peer group/switch focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 data-checked:bg-primary data-unchecked:bg-input dark:data-unchecked:bg-input/80 relative inline-flex shrink-0 items-center rounded-full border border-transparent transition-all outline-none group-has-[:focus-visible]/field-label:border-transparent group-has-[:focus-visible]/field-label:ring-0 after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:ring-3 aria-invalid:ring-3 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px]",
-      className
-    )}
-    {...props}
-  >
-    <SwitchPrimitive.Thumb
-      data-slot="switch-thumb"
-      className="bg-background dark:data-checked:bg-primary-foreground dark:data-unchecked:bg-foreground pointer-events-none block rounded-full ring-0 transition-transform group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0"
-    />
-  </SwitchPrimitive.Root>
-);
+}: SwitchProps) => {
+  const [uncontrolled, setUncontrolled] = useState(defaultChecked);
+  const on = checked ?? uncontrolled;
+
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={on}
+      data-slot="switch"
+      data-on={on ? "true" : "false"}
+      className={cn(
+        "t-toggle",
+
+        "peer group/switch focus-visible:border-ring focus-visible:ring-ring/50 data-[on=false]:bg-input data-[on=true]:bg-primary dark:data-[on=false]:bg-input/80 relative inline-flex h-[18.4px] w-[32.66px] shrink-0 items-center rounded-full border border-transparent outline-none after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:ring-3 disabled:cursor-not-allowed disabled:opacity-50",
+        className
+      )}
+      onClick={(event) => {
+        setUncontrolled(!on);
+        onCheckedChange?.(!on);
+        onClick?.(event);
+      }}
+      {...props}
+    >
+      <span
+        aria-hidden="true"
+        data-slot="switch-thumb"
+
+        className="t-toggle-thumb bg-background dark:group-data-[on=false]/switch:bg-foreground dark:group-data-[on=true]/switch:bg-primary-foreground pointer-events-none ms-px block h-3.5 rounded-full rtl:-scale-x-100"
+      />
+    </button>
+  );
+};
 
 export { Switch };

@@ -1,6 +1,7 @@
 import { useId } from "react";
 import type { MouseEvent, ReactNode } from "react";
 
+import { RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 
 /**
@@ -9,14 +10,15 @@ import { cn } from "@/lib/utils";
  * detail. Without a price the title reads as the card's heading. Styled like
  * the plan cards on /sponsor.
  *
- * The whole card selects the option: the title, price and detail are labels
- * for the radio, and a click anywhere else on the card (its padding, gaps)
- * selects it too, except on controls inside it, so `children` (below the
- * detail) can hold their own controls.
+ * Renders inside a `RadioGroup`, which owns the selection: `value` names this
+ * option, and the card's ring follows the radio's checked state. The whole
+ * card selects the option: the title, price and detail are labels for the
+ * radio, and a click anywhere else on the card (its padding, gaps) selects it
+ * through `onSelect` too, except on controls inside it, so `children` (below
+ * the detail) can hold their own controls.
  */
 export const ChoiceCard = ({
-  name,
-  checked,
+  value,
   onSelect,
   title,
   price,
@@ -25,9 +27,9 @@ export const ChoiceCard = ({
   disabled = false,
   children,
 }: {
-  /** The radio group's name. */
-  name: string;
-  checked: boolean;
+  /** This option's value in the surrounding `RadioGroup`. */
+  value: string;
+  /** Selects this option on clicks that miss the radio (the card's padding). */
   onSelect: () => void;
   title: ReactNode;
   price?: number;
@@ -43,7 +45,9 @@ export const ChoiceCard = ({
     if (
       disabled ||
       !(event.target instanceof Element) ||
-      event.target.closest("a, button, input, label, [role='button']")
+      event.target.closest(
+        "a, button, input, label, [role='button'], [role='radio']"
+      )
     ) {
       return;
     }
@@ -57,8 +61,8 @@ export const ChoiceCard = ({
       onClick={selectFromCard}
       className={cn(
         "bg-card shadow-outline flex flex-col gap-3 rounded-xl p-4 transition-shadow",
+        "has-data-checked:ring-primary has-data-checked:ring-2",
         !disabled && "cursor-pointer",
-        checked && "ring-primary ring-2",
         disabled && "opacity-50"
       )}
     >
@@ -71,15 +75,7 @@ export const ChoiceCard = ({
         <label htmlFor={id} className={cn(labelClass, "min-w-0 flex-1")}>
           {title}
         </label>
-        <input
-          id={id}
-          type="radio"
-          name={name}
-          checked={checked}
-          onChange={onSelect}
-          disabled={disabled}
-          className="accent-primary size-4"
-        />
+        <RadioGroupItem id={id} value={value} disabled={disabled} />
       </span>
       {price !== undefined && (
         <label

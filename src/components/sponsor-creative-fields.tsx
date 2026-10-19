@@ -3,6 +3,7 @@ import { useIntlayer } from "react-intlayer";
 
 import { ImageDropzone } from "@/components/image-dropzone";
 import { FormSection } from "@/components/page";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -13,6 +14,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { SponsorTier } from "@/constants/sponsors";
 import { SUBMISSION_CATEGORIES, SUBMISSION_KINDS } from "@/lib/community";
 import type { SubmissionKind } from "@/lib/community";
@@ -75,110 +78,109 @@ export const CreativePreview = ({
 
   return (
     // Fixed height, so switching placements never moves the page: the
-    // preview centres in the space above the switch, which stays at the
-    // bottom.
-    <div className="bg-card shadow-outline flex h-80 flex-col items-center gap-4 rounded-xl p-6">
-      <div className="flex min-h-0 w-full flex-1 items-center justify-center">
-        {placement === "card" ? (
-          <div className="bg-muted shadow-outline relative aspect-video w-full max-w-sm overflow-hidden rounded-xl">
-            {cover && (
-              <img
-                src={cover}
-                alt=""
-                loading="lazy"
-                decoding="async"
-                referrerPolicy="no-referrer"
-                className="absolute inset-0 size-full object-cover"
-              />
-            )}
-            <span className="absolute top-2.5 left-2.5 rounded-full bg-black/55 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
-              {content.sponsored}
-            </span>
-            <span className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-linear-to-t from-black/70 to-transparent p-2.5 pt-6">
-              <span className="flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white p-1 shadow-sm">
-                {logo && (
-                  <img
-                    src={logo}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                    referrerPolicy="no-referrer"
-                    className="size-full object-contain"
-                  />
-                )}
-              </span>
-              <span className="flex min-w-0 flex-col">
-                <span className="truncate text-sm font-medium tracking-tight text-white">
-                  {name}
-                </span>
-                {fields.tagline.trim() && (
-                  <span className="truncate text-xs text-white/75">
-                    {fields.tagline}
-                  </span>
-                )}
-              </span>
-            </span>
-          </div>
-        ) : (
-          // A page intro in miniature: title and copy lines, then the slots
-          // with this logo first and the open ones dashed.
-          <div className="bg-background shadow-outline dark:bg-popover flex w-full max-w-sm flex-col gap-2 rounded-xl p-4">
-            <span className="bg-muted h-3 w-1/2 rounded-sm" />
-            <span className="bg-muted h-2 w-full rounded-sm" />
-            <span className="bg-muted h-2 w-3/4 rounded-sm" />
-            <div className="mt-2 flex items-center gap-2">
-              <span className="bg-background shadow-outline dark:bg-popover flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-[10px] p-1">
-                {logo && (
-                  <img
-                    src={logo}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                    referrerPolicy="no-referrer"
-                    className={cn(
-                      "size-full object-contain",
-                      fields.darkInvert && "dark:invert"
-                    )}
-                  />
-                )}
-              </span>
-              {[0, 1].map((index) => (
-                <span
-                  key={index}
-                  className="text-muted-foreground flex size-8 items-center justify-center rounded-[10px] border border-dashed border-current/40"
-                >
-                  <span aria-hidden="true" className="relative size-3.5">
-                    <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-current" />
-                    <span className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-current" />
-                  </span>
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-      {tier !== "silver" && (
-        <fieldset className="bg-muted flex gap-0.5 rounded-full p-0.5">
-          <legend className="sr-only">{content.preview}</legend>
-          {(["card", "slot"] as const).map((value) => (
-            <button
-              key={value}
-              type="button"
-              aria-pressed={placement === value}
-              onClick={() => setPicked(value)}
-              className={cn(
-                "rounded-full px-3 py-1 text-xs font-medium transition-colors duration-150 ease-out",
-                placement === value
-                  ? "bg-background shadow-outline dark:bg-popover text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
+    // preview centres in the space above the tabs, which stay at the bottom.
+    <Tabs
+      value={placement}
+      onValueChange={(value) =>
+        // SAFETY: the tab list only holds the two preview placements.
+        setPicked(value as PreviewPlacement)
+      }
+      className="bg-card shadow-outline h-80 gap-4 rounded-xl p-6"
+    >
+      <TabsContent
+        value="card"
+        className="flex min-h-0 w-full items-center justify-center"
+      >
+        <div className="bg-muted shadow-outline relative aspect-video w-full max-w-sm overflow-hidden rounded-xl">
+          {cover && (
+            <img
+              src={cover}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              referrerPolicy="no-referrer"
+              className="absolute inset-0 size-full object-cover"
+            />
+          )}
+          <span className="absolute top-2.5 left-2.5 rounded-full bg-black/55 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
+            {content.sponsored}
+          </span>
+          <span className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-linear-to-t from-black/70 to-transparent p-2.5 pt-6">
+            <span className="flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white p-1 shadow-sm">
+              {logo && (
+                <img
+                  src={logo}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                  className="size-full object-contain"
+                />
               )}
-            >
+            </span>
+            <span className="flex min-w-0 flex-col">
+              <span className="truncate text-sm font-medium tracking-tight text-white">
+                {name}
+              </span>
+              {fields.tagline.trim() && (
+                <span className="truncate text-xs text-white/75">
+                  {fields.tagline}
+                </span>
+              )}
+            </span>
+          </span>
+        </div>
+      </TabsContent>
+      <TabsContent
+        value="slot"
+        className="flex min-h-0 w-full items-center justify-center"
+      >
+        {/* A page intro in miniature: title and copy lines as skeletons, then
+            the slots with this logo first and the open ones dashed. */}
+        <div className="bg-background shadow-outline dark:bg-popover flex w-full max-w-sm flex-col gap-2 rounded-xl p-4">
+          <Skeleton className="h-3 w-1/2 rounded-sm" />
+          <Skeleton className="h-2 w-full rounded-sm" />
+          <Skeleton className="h-2 w-3/4 rounded-sm" />
+          <div className="mt-2 flex items-center gap-2">
+            <span className="bg-background shadow-outline dark:bg-popover flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-[10px] p-1">
+              {logo && (
+                <img
+                  src={logo}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                  className={cn(
+                    "size-full object-contain",
+                    fields.darkInvert && "dark:invert"
+                  )}
+                />
+              )}
+            </span>
+            {[0, 1].map((index) => (
+              <span
+                key={index}
+                className="text-muted-foreground flex size-8 items-center justify-center rounded-[10px] border border-dashed border-current/40"
+              >
+                <span aria-hidden="true" className="relative size-3.5">
+                  <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-current" />
+                  <span className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-current" />
+                </span>
+              </span>
+            ))}
+          </div>
+        </div>
+      </TabsContent>
+      {tier !== "silver" && (
+        <TabsList aria-label={content.preview.value} className="mx-auto">
+          {(["card", "slot"] as const).map((value) => (
+            <TabsTrigger key={value} value={value}>
               {content.placements[value]}
-            </button>
+            </TabsTrigger>
           ))}
-        </fieldset>
+        </TabsList>
       )}
-    </div>
+    </Tabs>
   );
 };
 
@@ -277,11 +279,10 @@ export const CreativeSections = ({
           required
         />
         <label className="text-muted-foreground flex items-start gap-3 text-sm leading-relaxed">
-          <input
-            type="checkbox"
+          <Checkbox
             checked={fields.darkInvert}
-            onChange={(event) => update({ darkInvert: event.target.checked })}
-            className="accent-primary mt-0.5 size-4 shrink-0"
+            onCheckedChange={(checked) => update({ darkInvert: checked })}
+            className="mt-0.5"
           />
           {content.darkInvert}
         </label>

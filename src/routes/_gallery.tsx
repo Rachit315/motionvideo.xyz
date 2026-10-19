@@ -8,8 +8,6 @@ import {
 import { useMemo, useState } from "react";
 import { useIntlayer } from "react-intlayer";
 import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { Pause3 } from "reicon-react/icons/Pause3";
-import { Play } from "reicon-react/icons/Play";
 import { Search } from "reicon-react/icons/Search";
 import { z } from "zod";
 
@@ -40,6 +38,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
 import type { MasonryItem } from "@/components/virtual-masonry";
 import type { SponsorCategory } from "@/constants/sponsors";
 import catalog from "@/data/motion-catalog.json";
@@ -313,20 +312,11 @@ const Gallery = () => {
               </DropdownMenuRadioGroup>
             </DropdownMenuContent>
           </DropdownMenu>
-          <button
-            type="button"
-            aria-pressed={paused}
-            onClick={() => setPaused(!paused)}
-            className={cn(chipClass(paused), "max-sm:size-8")}
-          >
-            {paused ? (
-              <Play aria-hidden="true" />
-            ) : (
-              <Pause3 aria-hidden="true" />
-            )}
-            {/* Both labels share one grid cell, so the chip keeps the wider
+          <label className="flex h-8 cursor-pointer items-center gap-2">
+            <Switch checked={paused} onCheckedChange={setPaused} />
+            {/* Both labels share one grid cell, so the row keeps the wider
                 label's width and never jumps when it toggles. */}
-            <span className="grid justify-items-center max-sm:sr-only">
+            <span className="grid justify-items-center text-sm max-sm:sr-only">
               <span
                 aria-hidden={paused}
                 className={cn(
@@ -346,7 +336,7 @@ const Gallery = () => {
                 {content.play}
               </span>
             </span>
-          </button>
+          </label>
         </div>
       </CollectionToolbar>
       <CollectionGrid
