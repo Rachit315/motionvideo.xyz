@@ -21,7 +21,7 @@ worker-configuration.d.ts
 !.env.example
 
 # Timeless permits website embedding, not font distribution in public repositories.
-# The served copy lives in gitignored `public/fonts/` (materialized by
+# The served copy lives in gitignored `apps/web/public/fonts/` (materialized by
 # `pnpm fonts:pull`); the stale `src/assets` path below stays ignored.
-/src/assets/fonts/timeless/
-/public/fonts/timeless/
+/apps/web/src/assets/fonts/timeless/
+/apps/web/public/fonts/timeless/

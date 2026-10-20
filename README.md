@@ -1,7 +1,7 @@
 <div align="center">
 
 <a href="https://motionvideo.xyz">
-  <img src="public/og.jpg" alt="MotionVideo: motion videos made with AI and code." width="800" />
+  <img src="apps/web/public/og.jpg" alt="MotionVideo: motion videos made with AI and code." width="800" />
 </a>
 
 # MotionVideo
@@ -32,16 +32,30 @@ A directory of motion videos made with AI and code, with the prompts and skills 
 | Analytics | [PostHog](https://posthog.com) |
 | Tooling | [pnpm](https://pnpm.io), [Vite](https://vite.dev), [Oxlint](https://oxc.rs) + [Oxfmt](https://oxc.rs) via [Ultracite](https://www.ultracite.ai), [Lefthook](https://lefthook.dev) |
 
+## Repository
+
+A [pnpm workspace](https://pnpm.io/workspaces):
+
+| Path | What |
+| --- | --- |
+| `apps/web` | The motionvideo.xyz site (TanStack Start on Cloudflare Workers) |
+| `apps/videos` | Our own films ([Remotion](https://www.remotion.dev)): the launch film and every product update video. Each video lives in `src/<video>/` and registers its composition in `src/Root.tsx`. |
+| `docs` | Internal notes |
+
+Linting, formatting and git hooks run from the root (`pnpm check`, `pnpm fix`).
+
 ## Getting started
 
 ```bash
 pnpm install
-cp .env.example .env
-pnpm db:migrate:local
+cp apps/web/.env.example apps/web/.env
+pnpm --filter @motionvideo/web db:migrate:local
 pnpm dev
 ```
 
-Email templates are React Email components in `src/emails`. Preview them with `pnpm email:dev` (port 3001).
+Email templates are React Email components in `apps/web/src/emails`. Preview them with `pnpm --filter @motionvideo/web email:dev` (port 3001).
+
+Open the videos in Remotion Studio with `pnpm studio`.
 
 ## License
 

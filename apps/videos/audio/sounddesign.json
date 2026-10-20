@@ -1,0 +1,56 @@
+{
+ "_doc": "MotionVideo launch film soundtrack (29.47 s, 30 fps). One licensed track (Mixkit 'What About Action?' by Diego Nava, 120.993 BPM, Ab minor) cut so its drop lands on the logo mark; every effect was made in code with earshot forge against real CC0 references (audio/forge_sfx.py) and chosen with earshot rank. Cue frames come from src/launch/timeline.ts via audio/write-cues.ts. Render: pnpm launch:audio:mix.",
+ "duration": 29.4667,
+ "cues": "audio/cues.json",
+
+ "samples": {
+  "fx.key.0": {"file": "audio/forged/keypress/keypress_01.wav", "mono": true, "eq": {"hp": 120, "highshelf": [6000, -3]}, "norm_peak_db": -14, "fade_out": 0.03},
+  "fx.key.1": {"file": "audio/forged/keypress/keypress_02.wav", "mono": true, "eq": {"hp": 120, "highshelf": [6000, -3]}, "norm_peak_db": -14, "fade_out": 0.03},
+  "fx.key.2": {"file": "audio/forged/keypress/keypress_03.wav", "mono": true, "eq": {"hp": 120, "highshelf": [6000, -3]}, "norm_peak_db": -14, "fade_out": 0.03},
+  "fx.click": {"_doc": "the film's one click voice (earshot rank #1 of 8 incl. real CC0 clicks, z +2.6)", "file": "audio/forged/click/click_02.wav", "mono": true, "eq": {"hp": 300}, "norm_peak_db": -12, "fade_out": 0.02},
+  "fx.pop.0": {"file": "audio/forged/pop/pop_01.wav", "mono": true, "eq": {"hp": 200}, "norm_peak_db": -12, "fade_out": 0.03},
+  "fx.land": {"_doc": "the logo mark landing: the same wooden pop, 4 st down so it reads as weight, not a UI tick", "file": "audio/forged/pop/pop_01.wav", "mono": true, "pitch": -4, "eq": {"hp": 90}, "norm_peak_db": -10, "fade_out": 0.06},
+  "fx.whoosh": {"file": "audio/forged/whoosh/whoosh_01.wav", "eq": {"hp": 150, "lp": 12000}, "norm_peak_db": -9, "fade_in": 0.01, "fade_out": 0.1},
+  "fx.bell": {"_doc": "one kalimba Ab5 (the track's tonic) on the cut to the yellow lockup", "file": "audio/forged/pluck/kalimba-Ab5.wav", "norm_peak_db": -9, "fade_out": 0.8}
+ },
+
+ "pools": {
+  "fx.key": ["fx.key.0", "fx.key.1", "fx.key.2"],
+  "fx.click": ["fx.click"],
+  "fx.pop": ["fx.pop.0"],
+  "fx.land": ["fx.land"],
+  "fx.whoosh": ["fx.whoosh"],
+  "fx.bell": ["fx.bell"]
+ },
+
+ "rules": [
+  {"name": "fx.land", "match": {"kind": "land"}, "pool": "fx.land", "mode": "fixed", "gain_db": -2, "pan": 0, "align": "attack"},
+  {"name": "fx.click", "match": {"kind": "click"}, "pool": "fx.click", "mode": "fixed", "gain_db": 9, "pan": 0, "align": "attack", "_doc": "one voice, one level for both presses (open a video, copy its prompt)"},
+  {"name": "fx.key", "match": {"kind": "key", "id": "^product:search:key"}, "pool": "fx.key", "mode": "cycle", "gain_db": 0, "jitter_db": 1.5, "pan": 0, "align": "attack"},
+  {"name": "fx.key space", "match": {"kind": "key", "id": "^product:search:space"}, "pool": "fx.key", "mode": "cycle", "gain_db": 1, "pitch": [-1.5, -1.5], "pan": 0, "align": "attack", "_doc": "space bar: same board, a little deeper"},
+  {"name": "fx.whoosh", "match": {"kind": "whoosh"}, "pool": "fx.whoosh", "mode": "fixed", "align": "peak", "gain_db": -6, "pan": "cue", "pan_scale": 0.6},
+  {"name": "fx.bell", "match": {"kind": "bell"}, "pool": "fx.bell", "mode": "fixed", "gain_db": -6, "pan": 0, "align": "attack"}
+ ],
+
+ "music": {
+  "_doc": "src seconds are the original file. The drop's downbeat transient is at 63.455 s and bars run 1.9836 s from it (arrange.py's own grid, phase confidence 0.14, sat half a beat off: the measured +17 dB step in 20 ms wins). Film 0 = src 59.488, two bars before the drop, inside the 8-bar breakdown, so the drop lands on film 3.967 s = frame 119, the logo mark. The groove runs unbroken for 12 bars and stops one beat early (stop-down); the next downbeat (src 87.255) lands on film 27.767 s = frame 833, the lockup's cut to yellow, and rings out under the kalimba note.",
+  "file": "audio/assets/music/mk-474.mp3",
+  "src_bpm": 120.993,
+  "target_bpm": 120.993,
+  "stretch": "none",
+  "gain_db": -2,
+  "eq": {"hp": 35, "lowshelf": [70, -2]},
+  "segments": [
+   {"label": "last two bars of the breakdown under the cold open, the drop on the logo mark, the groove through the directory; stops one beat early", "src_from": 59.4883, "src_to": 86.759, "at": 0.0, "fade_in": 0.002, "fade_out": 0.06},
+   {"label": "the next downbeat after a beat of air: the button on the cut to yellow, ringing out", "src_from": 87.255, "src_to": 88.0, "at": 27.7667, "fade_in": 0.002, "fade_out": 0.5}
+  ]
+ },
+
+ "_buses_doc": "The arc: the breakdown carries the cold open; full level for the drop and the logo; -3 dB under the three screen recordings (8.9-19.7 s) so the UI reads; -10 dB under the typing (17.37-19.13 s); back to full for the rail; -3 dB under the lockup (from 24.47 s); the downbeat button after the stop-down sits 8 dB down so the ending resolves under the drop. Effects get a 40 Hz high-pass.",
+ "buses": {
+  "music": {"gain_db": 0.0, "auto": [[0, 0], [8.7, 0], [8.9, -3], [17.15, -3], [17.3, -10], [19.2, -10], [19.45, 0], [24.3, 0], [24.6, -3], [27.1, -3], [27.5, -8], [29.4667, -8]]},
+  "amb": {"gain_db": 0.0},
+  "sfx": {"gain_db": 0.0, "eq": {"hp": 40}}
+ },
+ "master": {"_doc": "-14 LUFS for web; ceiling 0.77 linear leaves room for the AAC encode", "lufs": -14, "ceiling": 0.77, "no_glue": true}
+}

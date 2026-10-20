@@ -11,9 +11,12 @@ export default defineConfig({
   // covers its bytes) and run as scripts, so never rewritten.
   ignorePatterns: [
     ...(core.ignorePatterns ?? []),
-    "src/server/db/schema.ts",
-    "src/components/hairline/*.js",
-    // Standalone Remotion project with its own tsconfig and vendored snapcn source.
-    "launch-video/**",
+    "apps/web/src/server/db/schema.ts",
+    "apps/web/src/components/hairline/*.js",
+    // Evil Charts (shadcn registry `@evilcharts/*`): vendored as shipped, so
+    // registry updates apply cleanly.
+    "apps/web/src/components/evilcharts/**",
+    // Remotion project with its own tsconfig and vendored snapcn source.
+    "apps/videos/**",
   ],
 });
