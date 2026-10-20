@@ -4,7 +4,6 @@ import type { CSSProperties, MouseEvent, ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
 import { Bookmark } from "reicon-react/icons/Bookmark";
 
-import { flyBookmarkToMenu } from "@/components/bookmark-fly";
 import { useSignInDialog } from "@/components/sign-in-dialog";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -15,6 +14,7 @@ import {
 import type { TooltipHandle } from "@/components/ui/tooltip";
 import { track } from "@/lib/analytics";
 import { useSession } from "@/lib/auth-client";
+import { flyBookmarkToMenu } from "@/lib/bookmark-fly";
 import { bookmarkKey } from "@/lib/bookmark-items";
 import type { BookmarkKind } from "@/lib/bookmark-items";
 import { toggleBookmark, useBookmarks } from "@/lib/bookmarks";

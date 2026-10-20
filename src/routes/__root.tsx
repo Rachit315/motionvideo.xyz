@@ -15,8 +15,8 @@ import { themeScript } from "@/lib/theme";
 import { organizationJsonLd, websiteJsonLd } from "@/seo/json-ld";
 import { baseMetadata } from "@/seo/metadata";
 
-import fontsCss from "../fonts.css?url";
-import appCss from "../styles.css?url";
+import fontsCss from "../styles/fonts.css?url";
+import appCss from "../styles/globals.css?url";
 
 const RootDocument = ({ children }: { children: React.ReactNode }) => (
   <html lang="en" suppressHydrationWarning>
