@@ -220,20 +220,22 @@ const SponsorshipReview = ({
 const AdminSponsorships = () => {
   const sponsorships = routeApi.useLoaderData();
 
-  return sponsorships.length > 0 ? (
-    <section className="flex flex-col gap-4">
-      {sponsorships.map((sponsorship) => (
-        // Keyed by review state too, so a reviewed card resets its note.
-        <SponsorshipReview
-          key={`${sponsorship.id}-${sponsorship.review}`}
-          sponsorship={sponsorship}
-        />
-      ))}
+  return (
+    <section className="flex flex-1 flex-col gap-4">
+      {sponsorships.length > 0 ? (
+        sponsorships.map((sponsorship) => (
+          // Keyed by review state too, so a reviewed card resets its note.
+          <SponsorshipReview
+            key={`${sponsorship.id}-${sponsorship.review}`}
+            sponsorship={sponsorship}
+          />
+        ))
+      ) : (
+        <p className="text-muted-foreground bg-muted/40 flex flex-1 items-center justify-center rounded-2xl p-8 text-center text-sm">
+          No sponsorships yet.
+        </p>
+      )}
     </section>
-  ) : (
-    <p className="text-muted-foreground bg-muted/40 rounded-2xl p-8 text-center text-sm">
-      No sponsorships yet.
-    </p>
   );
 };
 

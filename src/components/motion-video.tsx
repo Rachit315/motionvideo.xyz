@@ -242,6 +242,11 @@ const MotionPreview = ({
 
 const TOOLTIP_DELAY = 200;
 
+// Actions that stay hidden until the card is hovered or focused. Kept in one
+// place so the prompt and source controls reveal identically.
+const HOVER_ACTION =
+  "pointer-events-none absolute opacity-0 transition-opacity duration-200 group-focus-within/card:pointer-events-auto group-focus-within/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 motion-reduce:transition-none [@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100";
+
 const CopyPromptButton = ({
   prompt,
   size,
@@ -285,35 +290,56 @@ const CopyPromptButton = ({
 };
 
 /**
- * Copy prompt and Bookmark (the two main actions, outline) on the hovered
- * card.
+ * Copy prompt and Bookmark (the two main actions, outline) on the card.
  */
 const VideoActions = ({
   video,
-  className,
   size = "icon",
+  bookmarkAlwaysVisible = false,
 }: {
   video: MotionVideo;
-  className?: string;
   /** `icon-sm` (28px) on the card. */
   size?: "icon" | "icon-sm";
+  /** Keep the bookmark visible instead of revealing it with the card hover. */
+  bookmarkAlwaysVisible?: boolean;
 }) => {
   // One tooltip for both buttons: moving between them slides it across and
   // morphs the label instead of closing one and opening another.
   const tooltip = useMemo(() => createTooltipHandle<ReactNode>(), []);
+  const bookmark = (
+    <BookmarkButton
+      kind="video"
+      id={video.slug}
+      variant="outline"
+      size={size}
+      className="rounded-full"
+      tooltip={tooltip}
+    />
+  );
+  const copyPrompt = video.prompt ? (
+    <CopyPromptButton prompt={video.prompt} size={size} tooltip={tooltip} />
+  ) : null;
+
+  if (bookmarkAlwaysVisible) {
+    return (
+      <>
+        <div className="absolute top-2.5 right-2.5">{bookmark}</div>
+        {copyPrompt && (
+          <div className={cn(HOVER_ACTION, "top-2.5 right-12")}>
+            {copyPrompt}
+          </div>
+        )}
+        <SharedTooltip handle={tooltip} />
+      </>
+    );
+  }
+
   return (
-    <div className={cn("flex shrink-0 gap-2", className)}>
-      {video.prompt && (
-        <CopyPromptButton prompt={video.prompt} size={size} tooltip={tooltip} />
-      )}
-      <BookmarkButton
-        kind="video"
-        id={video.slug}
-        variant="outline"
-        size={size}
-        className="rounded-full"
-        tooltip={tooltip}
-      />
+    <div
+      className={cn("flex shrink-0 gap-2", HOVER_ACTION, "top-2.5 right-2.5")}
+    >
+      {copyPrompt}
+      {bookmark}
       <SharedTooltip handle={tooltip} />
     </div>
   );
@@ -326,6 +352,7 @@ export const MotionVideoCard = ({
   category,
   search,
   onOpen,
+  bookmarkAlwaysVisible = false,
 }: {
   video: MotionVideo;
   paused: boolean;
@@ -340,6 +367,8 @@ export const MotionVideoCard = ({
    * or a copied link works.
    */
   onOpen?: () => void;
+  /** Keep the bookmark visible on the card instead of only on hover. */
+  bookmarkAlwaysVisible?: boolean;
 }) => {
   const content = useIntlayer("motion-gallery");
   const label = `${content.watch.value}: ${video.title}, @${video.handle}`;
@@ -399,14 +428,15 @@ export const MotionVideoCard = ({
         </div>
       </VideoLink>
       {/* Siblings of the card link (buttons can't nest in a link); shown on
-          hover or keyboard focus, clear of the tags, title and avatar. */}
+          hover or keyboard focus, clear of the tags, title and avatar. The
+          bookmark stays visible on the Bookmarks page. */}
       {/* One provider for the card's actions, so their tooltips share
           open state and morph between labels instead of blinking. */}
       <TooltipProvider>
         <VideoActions
           video={video}
           size="icon-sm"
-          className="pointer-events-none absolute top-2.5 right-2.5 opacity-0 transition-opacity duration-200 group-focus-within/card:pointer-events-auto group-focus-within/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 motion-reduce:transition-none [@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100"
+          bookmarkAlwaysVisible={bookmarkAlwaysVisible}
         />
         {/* The creator's original post, like the top-right actions but pinned
             bottom-right; the same link as the detail view's "View source". */}
@@ -430,7 +460,8 @@ export const MotionVideoCard = ({
               className={cn(
                 buttonVariants({ size: "icon-sm", variant: "outline" }),
                 "rounded-full",
-                "pointer-events-none absolute right-2.5 bottom-2.5 opacity-0 transition-opacity duration-200 group-focus-within/card:pointer-events-auto group-focus-within/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 motion-reduce:transition-none [@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100"
+                HOVER_ACTION,
+                "right-2.5 bottom-2.5"
               )}
             >
               <ArrowRightUp aria-hidden="true" />

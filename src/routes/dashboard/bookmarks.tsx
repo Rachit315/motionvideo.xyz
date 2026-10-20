@@ -101,6 +101,7 @@ const Bookmarks = () => {
             category={undefined}
             search={{}}
             onOpen={() => openVideo(item.video.slug)}
+            bookmarkAlwaysVisible
           />
         ),
       };

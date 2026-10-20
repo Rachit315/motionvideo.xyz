@@ -1,5 +1,6 @@
-import { IconFile, IconFileZip } from "@tabler/icons-react";
 import type { ReactElement } from "react";
+import { File } from "reicon-react/icons/File";
+import { FileZip } from "reicon-react/icons/FileZip";
 
 const FILE_MARK_BOX = { size: 72, radius: 8 } as const;
 
@@ -109,10 +110,10 @@ const fileMarkFor = (file: File): ReactElement | null => {
     return null;
   }
   if (kind === "zip") {
-    return <IconFileZip stroke={1.8} aria-hidden />;
+    return <FileZip strokeWidth={1.8} aria-hidden />;
   }
   if (kind === "file") {
-    return <IconFile stroke={1.8} aria-hidden />;
+    return <File strokeWidth={1.8} aria-hidden />;
   }
   return FILE_MARKS[kind];
 };

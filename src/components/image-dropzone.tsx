@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useIntlayer } from "react-intlayer";
+import { GalleryAdd } from "reicon-react/icons/GalleryAdd";
+import { GalleryAdd3 } from "reicon-react/icons/GalleryAdd3";
 
 import { Dropzone } from "@/components/ui/magnetic-dropzone";
 import { UPLOAD_MAX_BYTES } from "@/lib/uploads";
@@ -19,7 +21,6 @@ export const ImageDropzone = ({
   purpose,
   value,
   onChange,
-  label,
   hint,
   required = false,
 }: {
@@ -27,8 +28,6 @@ export const ImageDropzone = ({
   /** The current image path or URL; empty when none. */
   value: string;
   onChange: (value: string) => void;
-  /** What to drop, e.g. "Upload your company logo". */
-  label: string;
   /** Recommended size, e.g. "512 × 512 px". */
   hint: string;
   required?: boolean;
@@ -36,6 +35,7 @@ export const ImageDropzone = ({
   const content = useIntlayer("image-dropzone");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<DropzoneError | null>(null);
+  const maxMb = UPLOAD_MAX_BYTES[purpose] / 1024 / 1024;
 
   const upload = async (file: File | undefined) => {
     if (!file) {
@@ -97,11 +97,24 @@ export const ImageDropzone = ({
         busy={busy}
         failed={Boolean(error)}
         onFilesChange={onFilesChange}
+        icon={
+          required ? (
+            <GalleryAdd3 className="size-5.5" strokeWidth={1.8} aria-hidden />
+          ) : (
+            <GalleryAdd className="size-5.5" strokeWidth={1.8} aria-hidden />
+          )
+        }
+        helper={
+          <>
+            <span>{content.types}</span>
+            <span>{hint}</span>
+            <span>
+              {maxMb} MB {content.max}
+            </span>
+          </>
+        }
         className={cn("max-w-none", purpose === "cover" && "aspect-video")}
       />
-      <p className="text-muted-foreground text-xs">
-        {label} · {hint}
-      </p>
       {error && (
         <p role="alert" className="text-destructive text-xs">
           {

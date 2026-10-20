@@ -306,7 +306,6 @@ const PostJob = () => {
                 purpose="logo"
                 value={fields.logo}
                 onChange={(logo) => update({ logo })}
-                label={content.logoDrop.value}
                 hint={content.logoSize.value}
               />
             </div>

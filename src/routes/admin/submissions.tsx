@@ -1,18 +1,28 @@
 import {
-  Link,
   createFileRoute,
   getRouteApi,
+  useNavigate,
   useRouter,
 } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowRightUp } from "reicon-react/icons/ArrowRightUp";
+import { Check } from "reicon-react/icons/Check";
+import { Xmark } from "reicon-react/icons/Xmark";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ROUTES } from "@/constants/routes";
 import catalog from "@/data/motion-catalog.json";
-import { SUBMISSION_KINDS, SUBMISSION_STATUSES } from "@/lib/community";
+import { SUBMISSION_STATUSES } from "@/lib/community";
 import type { SubmissionKind, SubmissionStatus } from "@/lib/community";
 import { DIRECTORY_ENTRIES } from "@/lib/directories";
 import type { DirectoryKind } from "@/lib/directories";
@@ -80,6 +90,9 @@ const SubmissionReview = ({ submission }: { submission: AdminSubmission }) => {
   });
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const selectedItem = ITEMS[submission.kind].find(
+    (item) => item.id === itemId
+  );
 
   const review = async (
     data: Parameters<typeof reviewSubmission>[0]["data"]
@@ -157,28 +170,59 @@ const SubmissionReview = ({ submission }: { submission: AdminSubmission }) => {
           void review({ id: submission.id, action: "feature", itemId });
         }}
       >
-        <Input
-          aria-label={`Catalog ${submission.kind} id`}
-          placeholder={submission.kind === "video" ? "Video slug" : "Entry id"}
-          list={`admin-items-${submission.kind}`}
+        <Select
           value={itemId}
-          onChange={(event) => setItemId(event.target.value)}
-          required
+          onValueChange={(value) => {
+            if (value) {
+              setItemId(value);
+            }
+          }}
           disabled={pending}
-          className="w-64 max-w-full"
-        />
-        <Button type="submit" size="sm" disabled={pending || !itemId.trim()}>
-          Feature
+          required
+        >
+          <SelectTrigger
+            aria-label={`Catalog ${submission.kind} entry`}
+            className="w-64 max-w-full"
+          >
+            <SelectValue>
+              {selectedItem?.label ?? (itemId || "Select an entry")}
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {ITEMS[submission.kind].map((item) => (
+                <SelectItem key={item.id} value={item.id}>
+                  <span className="flex min-w-0 flex-col">
+                    <span className="truncate">{item.label}</span>
+                    <span className="text-muted-foreground truncate font-mono text-[11px]">
+                      {item.id}
+                    </span>
+                  </span>
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+        <Button
+          type="submit"
+          size="icon-sm"
+          disabled={pending || !itemId.trim()}
+          aria-label="Feature submission"
+          title="Feature"
+        >
+          <Check aria-hidden="true" />
         </Button>
         {submission.status !== "declined" && (
           <Button
             type="button"
-            size="sm"
+            size="icon-sm"
             variant="destructive"
             disabled={pending}
+            aria-label="Decline submission"
+            title="Decline"
             onClick={() => review({ id: submission.id, action: "decline" })}
           >
-            Decline
+            <Xmark aria-hidden="true" />
           </Button>
         )}
         {submission.status !== "pending" && (
@@ -203,30 +247,34 @@ const SubmissionReview = ({ submission }: { submission: AdminSubmission }) => {
 };
 
 const AdminSubmissions = () => {
+  const navigate = useNavigate();
   const { submissions, counts } = routeApi.useLoaderData();
   const { status = "pending" } = routeApi.useSearch();
-  const kinds = SUBMISSION_KINDS.filter((kind) =>
-    submissions.some((submission) => submission.kind === kind)
-  );
 
   return (
-    <section className="flex flex-col gap-4">
-      <nav aria-label="Submission status" className="flex flex-wrap gap-1">
-        {SUBMISSION_STATUSES.map((tab) => (
-          <Link
-            key={tab}
-            to={ROUTES.ADMIN_SUBMISSIONS}
-            search={tab === "pending" ? {} : { status: tab }}
-            aria-current={tab === status ? "page" : undefined}
-            className="text-muted-foreground hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:text-foreground rounded-md px-2.5 py-1 text-sm font-medium transition-colors"
-          >
-            {STATUS_LABELS[tab]}{" "}
-            <span className="text-muted-foreground tabular-nums">
-              {counts[tab]}
-            </span>
-          </Link>
-        ))}
-      </nav>
+    <section className="flex flex-1 flex-col gap-4">
+      <Tabs
+        value={status}
+        onValueChange={(value) => {
+          // SAFETY: the tab list only holds submission statuses.
+          const next = value as SubmissionStatus;
+          void navigate({
+            to: ROUTES.ADMIN_SUBMISSIONS,
+            search: next === "pending" ? {} : { status: next },
+          });
+        }}
+      >
+        <TabsList aria-label="Submission status">
+          {SUBMISSION_STATUSES.map((tab) => (
+            <TabsTrigger key={tab} value={tab}>
+              {STATUS_LABELS[tab]}{" "}
+              <span className="text-muted-foreground tabular-nums">
+                {counts[tab]}
+              </span>
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
       {submissions.length > 0 ? (
         <div className="flex flex-col gap-4">
           {submissions.map((submission) => (
@@ -238,19 +286,10 @@ const AdminSubmissions = () => {
           ))}
         </div>
       ) : (
-        <p className="text-muted-foreground bg-muted/40 rounded-2xl p-8 text-center text-sm">
+        <p className="text-muted-foreground bg-muted/40 flex flex-1 items-center justify-center rounded-2xl p-8 text-center text-sm">
           No {STATUS_LABELS[status].toLowerCase()} submissions.
         </p>
       )}
-      {kinds.map((kind) => (
-        <datalist key={kind} id={`admin-items-${kind}`}>
-          {ITEMS[kind].map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.label}
-            </option>
-          ))}
-        </datalist>
-      ))}
     </section>
   );
 };

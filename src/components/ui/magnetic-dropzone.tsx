@@ -1,13 +1,4 @@
 import {
-  IconCircleCheckFilled,
-  IconFile,
-  IconFileUpload,
-  IconFileX,
-  IconLoader2,
-  IconTrash,
-  IconUpload,
-} from "@tabler/icons-react";
-import {
   animate,
   AnimatePresence,
   motion,
@@ -17,6 +8,13 @@ import {
   useSpring,
 } from "motion/react";
 import * as React from "react";
+import { CheckCircle } from "reicon-react/icons/CheckCircle";
+import { File } from "reicon-react/icons/File";
+import { FileError } from "reicon-react/icons/FileError";
+import { FileUp } from "reicon-react/icons/FileUp";
+import { Loader } from "reicon-react/icons/Loader";
+import { Trash } from "reicon-react/icons/Trash";
+import { Upload } from "reicon-react/icons/Upload";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -849,6 +847,10 @@ export interface DropzoneProps {
   /** Shows a failed upload instead of the success state. */
   failed?: boolean;
   onFilesChange?: (files: File[]) => void;
+  /** Icon shown in the empty state; defaults to a file-upload glyph. */
+  icon?: React.ReactNode;
+  /** Guidance shown inside the empty box, e.g. formats, size and limit. */
+  helper?: React.ReactNode;
   animated?: boolean;
   className?: string;
 }
@@ -1039,6 +1041,8 @@ const Dropzone = ({
   busy = false,
   failed = false,
   onFilesChange,
+  icon,
+  helper,
   animated = true,
   className,
 }: DropzoneProps) => {
@@ -1391,7 +1395,7 @@ const Dropzone = ({
   const mark = first ? (
     fileMarkFor(first)
   ) : (
-    <IconFile stroke={1.8} aria-hidden />
+    <File strokeWidth={1.8} aria-hidden />
   );
   React.useEffect(() => {
     if (first || stored || !returning.current) {
@@ -1413,15 +1417,16 @@ const Dropzone = ({
   }
 
   let statusIcon = (
-    <IconCircleCheckFilled
+    <CheckCircle
+      weight="Filled"
       className="size-4 text-emerald-600 dark:text-emerald-400"
       aria-hidden
     />
   );
   if (busy) {
-    statusIcon = <IconLoader2 className="size-4 animate-spin" aria-hidden />;
+    statusIcon = <Loader className="size-4 animate-spin" aria-hidden />;
   } else if (failed) {
-    statusIcon = <IconFileX className="text-destructive size-4" aria-hidden />;
+    statusIcon = <FileError className="text-destructive size-4" aria-hidden />;
   }
 
   let promptInitial:
@@ -1548,7 +1553,7 @@ const Dropzone = ({
                   disabled={busy}
                   aria-label={`Remove ${shownName}`}
                 >
-                  <IconTrash data-icon="inline-start" aria-hidden />
+                  <Trash data-icon="inline-start" aria-hidden />
                   Remove
                 </Button>
               </span>
@@ -1561,7 +1566,7 @@ const Dropzone = ({
                 onClick={open}
                 disabled={busy}
               >
-                <IconUpload data-icon="inline-start" aria-hidden />
+                <Upload data-icon="inline-start" aria-hidden />
                 Upload another
               </Button>
             </span>
@@ -1605,13 +1610,19 @@ const Dropzone = ({
                   transition={{ type: "spring", duration: 0.3, bounce: 0 }}
                 >
                   {flag === "on" ? (
-                    <IconFileX className="size-5.5" stroke={1.8} aria-hidden />
-                  ) : (
-                    <IconFileUpload
+                    <FileError
                       className="size-5.5"
-                      stroke={1.8}
+                      strokeWidth={1.8}
                       aria-hidden
                     />
+                  ) : (
+                    (icon ?? (
+                      <FileUp
+                        className="size-5.5"
+                        strokeWidth={1.8}
+                        aria-hidden
+                      />
+                    ))
                   )}
                 </motion.span>
               </AnimatePresence>
@@ -1647,10 +1658,14 @@ const Dropzone = ({
               </motion.span>
             ))}
           </p>
-          <p className="text-muted-foreground mt-0.5 text-xs leading-5">
-            {accept === ACCEPT ? ACCEPT_NAMES : describeAccept(accept)} ·{" "}
-            {formatBytes(maxSize)} limit
-          </p>
+          <div className="text-muted-foreground mt-0.5 flex flex-col text-xs leading-5">
+            {helper ?? (
+              <span>
+                {accept === ACCEPT ? ACCEPT_NAMES : describeAccept(accept)} ·{" "}
+                {formatBytes(maxSize)} limit
+              </span>
+            )}
+          </div>
         </motion.button>
       )}
 

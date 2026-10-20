@@ -274,7 +274,6 @@ export const CreativeSections = ({
           purpose="logo"
           value={fields.logo}
           onChange={(logo) => update({ logo })}
-          label={content.logoDrop.value}
           hint={content.logoSize.value}
           required
         />
@@ -296,7 +295,6 @@ export const CreativeSections = ({
           purpose="cover"
           value={fields.cover}
           onChange={(cover) => update({ cover })}
-          label={content.coverDrop.value}
           hint={content.coverSize.value}
           required
         />

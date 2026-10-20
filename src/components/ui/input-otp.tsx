@@ -1,8 +1,8 @@
-import { IconMinus } from "@tabler/icons-react";
 import { OTPInput, OTPInputContext } from "input-otp";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import * as React from "react";
 import { flushSync } from "react-dom";
+import { Minus } from "reicon-react/icons/Minus";
 
 import { cn } from "@/lib/utils";
 
@@ -539,7 +539,7 @@ const InputOTPSeparator = ({ ...props }: React.ComponentProps<"div">) => (
     className="text-muted-foreground flex shrink-0 items-center [&_svg:not([class*='size-'])]:size-5"
     {...props}
   >
-    <IconMinus />
+    <Minus />
   </div>
 );
 
