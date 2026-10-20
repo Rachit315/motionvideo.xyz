@@ -242,10 +242,10 @@ const MotionPreview = ({
 
 const TOOLTIP_DELAY = 200;
 
-// Actions that stay hidden until the card is hovered or focused. Kept in one
-// place so the prompt and source controls reveal identically.
+// Actions that stay hidden until the card is hovered or keyboard-focused.
+// Kept in one place so the prompt and source controls reveal identically.
 const HOVER_ACTION =
-  "pointer-events-none absolute opacity-0 transition-opacity duration-200 group-focus-within/card:pointer-events-auto group-focus-within/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 motion-reduce:transition-none [@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100";
+  "pointer-events-none absolute opacity-0 transition-opacity duration-200 group-has-[:focus-visible]/card:pointer-events-auto group-has-[:focus-visible]/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 motion-reduce:transition-none [@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100";
 
 const CopyPromptButton = ({
   prompt,

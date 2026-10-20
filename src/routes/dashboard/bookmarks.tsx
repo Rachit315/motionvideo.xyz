@@ -125,6 +125,7 @@ const Bookmarks = () => {
               : undefined
           }
           label={`${entry.name}: ${directory.visit.value} (${directory.newTab.value})`}
+          bookmarkAlwaysVisible
         />
       ),
     };
