@@ -1,4 +1,28 @@
-export default function layoutMasonry(items, width, heights, gap = 12) {
+export interface MasonryLayoutItem {
+  key: string;
+  aspectRatio?: number;
+  lane?: number;
+}
+
+export interface MasonryPlacement<T extends MasonryLayoutItem> {
+  item: T;
+  lane: number;
+  top: number;
+  height: number;
+}
+
+export interface MasonryLayout<T extends MasonryLayoutItem> {
+  placements: MasonryPlacement<T>[];
+  laneWidth: number;
+  totalHeight: number;
+}
+
+export default function layoutMasonry<T extends MasonryLayoutItem>(
+  items: T[],
+  width: number,
+  heights: Record<string, number>,
+  gap = 12
+): MasonryLayout<T> {
   const lanes =
     1 + [560, 900, 1200, 1600].filter((point) => width >= point).length;
   const laneWidth = (width - gap * (lanes - 1)) / lanes;

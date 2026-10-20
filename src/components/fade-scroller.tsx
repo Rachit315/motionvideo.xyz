@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
  * A horizontally scrolling `<nav>` whose edges fade out only where more
  * content is hidden: the left edge once scrolled, the right edge until the
  * end. Fade widths animate via the registered `--fade-start`/`--fade-end`
- * properties in styles.css.
+ * properties in styles/globals.css.
  */
 export const FadeScroller = ({
   label,

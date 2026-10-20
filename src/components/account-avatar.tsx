@@ -36,6 +36,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Skeleton } from "@/components/ui/skeleton";
 import { setSoundMuted, useSoundMuted } from "@/components/ui/sound";
 import { LINK } from "@/constants/links";
 import { ACCOUNT_PAGES, ROUTES } from "@/constants/routes";
@@ -76,6 +77,11 @@ const getVisitorSeed = (): string => {
 
 const avatarPlaceholder = (
   <User aria-hidden="true" className="bg-muted size-full p-1.5" />
+);
+
+// Until the client knows the visitor, the avatar is a loading placeholder.
+const avatarLoading = (
+  <Skeleton aria-hidden="true" className="size-full rounded-full" />
 );
 
 // The account's photo (from Google) when it has one; otherwise a generated
@@ -195,7 +201,7 @@ export const AccountMenu = ({
   const feedbackContent = useIntlayer("feedback-dialog");
   const keyboardShortcuts = useKeyboardShortcuts();
   const avatar = (
-    <ClientOnly fallback={avatarPlaceholder}>
+    <ClientOnly fallback={avatarLoading}>
       <AvatarImage photo={user?.image} />
     </ClientOnly>
   );

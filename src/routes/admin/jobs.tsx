@@ -150,18 +150,20 @@ const JobReview = ({ post }: { post: AdminJobPost }) => {
 
 const AdminJobs = () => {
   const posts = routeApi.useLoaderData();
-  return posts.length > 0 ? (
-    <section className="flex flex-col gap-4">
-      {posts.map((post) => (
-        // Keyed by status too, so a reviewed card resets its note.
-        <JobReview key={`${post.id}-${post.status}`} post={post} />
-      ))}
+  return (
+    <section className="flex flex-1 flex-col gap-4">
+      {posts.length > 0 ? (
+        posts.map((post) => (
+          // Keyed by status too, so a reviewed card resets its note.
+          <JobReview key={`${post.id}-${post.status}`} post={post} />
+        ))
+      ) : (
+        <p className="text-muted-foreground bg-muted/40 flex flex-1 items-center justify-center rounded-2xl p-8 text-center text-sm">
+          No paid job posts yet. Rejecting doesn&apos;t refund; refund in Dodo
+          if needed.
+        </p>
+      )}
     </section>
-  ) : (
-    <p className="text-muted-foreground bg-muted/40 rounded-2xl p-8 text-center text-sm">
-      No paid job posts yet. Rejecting doesn&apos;t refund; refund in Dodo if
-      needed.
-    </p>
   );
 };
 

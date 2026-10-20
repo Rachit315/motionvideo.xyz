@@ -101,6 +101,7 @@ const Bookmarks = () => {
             category={undefined}
             search={{}}
             onOpen={() => openVideo(item.video.slug)}
+            bookmarkAlwaysVisible
           />
         ),
       };
@@ -124,6 +125,7 @@ const Bookmarks = () => {
               : undefined
           }
           label={`${entry.name}: ${directory.visit.value} (${directory.newTab.value})`}
+          bookmarkAlwaysVisible
         />
       ),
     };

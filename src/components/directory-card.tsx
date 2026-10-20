@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BookmarkButton } from "@/components/bookmark-button";
 import { ExternalLinkChip } from "@/components/external-link-chip";
 import type { DirectoryEntry, DirectoryKind } from "@/lib/directories";
+import { cn } from "@/lib/utils";
 
 // Covers are imported at 960×540.
 export const DIRECTORY_COVER_RATIO = 16 / 9;
@@ -16,12 +17,15 @@ export const DirectoryCard = ({
   entry,
   categoryLabel,
   label,
+  bookmarkAlwaysVisible = false,
 }: {
   kind: DirectoryKind;
   entry: DirectoryEntry;
   /** Hover badge; omitted on sections without categories. */
   categoryLabel: string | undefined;
   label: string;
+  /** Keep the bookmark visible instead of revealing it with the card hover. */
+  bookmarkAlwaysVisible?: boolean;
 }) => {
   const [broken, setBroken] = useState(false);
 
@@ -81,13 +85,19 @@ export const DirectoryCard = ({
         </span>
       </a>
       {/* A sibling of the link (buttons can't nest in a link); shown on
-          hover or keyboard focus, and kept visible once saved. */}
+          hover or keyboard focus. The bookmark stays visible on the
+          Bookmarks page. */}
       <BookmarkButton
         kind={kind}
         id={entry.id}
         variant="outline"
         size="icon-sm"
-        className="pointer-events-none absolute top-2.5 right-2.5 rounded-full opacity-0 transition-opacity duration-200 group-focus-within/card:pointer-events-auto group-focus-within/card:opacity-100 group-hover/card:pointer-events-auto group-hover/card:opacity-100 aria-pressed:pointer-events-auto aria-pressed:opacity-100 motion-reduce:transition-none [@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100"
+        className={cn(
+          "absolute top-2.5 right-2.5 rounded-full transition-opacity duration-200",
+          bookmarkAlwaysVisible
+            ? "pointer-events-auto"
+            : "pointer-events-none opacity-0 group-hover/card:pointer-events-auto group-hover/card:opacity-100 group-has-[:focus-visible]/card:pointer-events-auto group-has-[:focus-visible]/card:opacity-100 motion-reduce:transition-none [@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100"
+        )}
       />
     </div>
   );

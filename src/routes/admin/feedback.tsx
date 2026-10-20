@@ -1,13 +1,14 @@
 import {
-  Link,
   createFileRoute,
   getRouteApi,
+  useNavigate,
   useRouter,
 } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ROUTES } from "@/constants/routes";
 import { FEEDBACK_MOOD_LABELS } from "@/lib/feedback";
 import type { FeedbackItem } from "@/server/feedback-functions";
@@ -99,27 +100,34 @@ const FeedbackCard = ({ item }: { item: FeedbackItem }) => {
 };
 
 const AdminFeedback = () => {
+  const navigate = useNavigate();
   const { items, counts } = routeApi.useLoaderData();
   const view: FeedbackView = routeApi.useSearch().view ?? "open";
 
   return (
-    <section className="flex flex-col gap-4">
-      <nav aria-label="Feedback status" className="flex flex-wrap gap-1">
-        {(["open", "resolved"] as const).map((tab) => (
-          <Link
-            key={tab}
-            to={ROUTES.ADMIN_FEEDBACK}
-            search={tab === "open" ? {} : { view: tab }}
-            aria-current={tab === view ? "page" : undefined}
-            className="text-muted-foreground hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:text-foreground rounded-md px-2.5 py-1 text-sm font-medium transition-colors"
-          >
-            {VIEW_LABELS[tab]}{" "}
-            <span className="text-muted-foreground tabular-nums">
-              {counts[tab]}
-            </span>
-          </Link>
-        ))}
-      </nav>
+    <section className="flex flex-1 flex-col gap-4">
+      <Tabs
+        value={view}
+        onValueChange={(value) => {
+          // SAFETY: the tab list only holds the feedback views.
+          const next = value as FeedbackView;
+          void navigate({
+            to: ROUTES.ADMIN_FEEDBACK,
+            search: next === "open" ? {} : { view: next },
+          });
+        }}
+      >
+        <TabsList aria-label="Feedback status">
+          {(["open", "resolved"] as const).map((tab) => (
+            <TabsTrigger key={tab} value={tab}>
+              {VIEW_LABELS[tab]}{" "}
+              <span className="text-muted-foreground tabular-nums">
+                {counts[tab]}
+              </span>
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
       {items.length > 0 ? (
         <div className="flex flex-col gap-4">
           {items.map((item) => (
@@ -127,7 +135,7 @@ const AdminFeedback = () => {
           ))}
         </div>
       ) : (
-        <p className="text-muted-foreground bg-muted/40 rounded-2xl p-8 text-center text-sm">
+        <p className="text-muted-foreground bg-muted/40 flex flex-1 items-center justify-center rounded-2xl p-8 text-center text-sm">
           No {VIEW_LABELS[view].toLowerCase()} feedback.
         </p>
       )}

@@ -1,5 +1,5 @@
 /* Website font embedding. This file is intentionally separate from
-   `styles.css`: it almost never changes, so Vite HMR never swaps this
+   `globals.css`: it almost never changes, so Vite HMR never swaps this
    stylesheet while editing styles and the browser never re-resolves the font
    (which is what caused the fallback-font flash on every hot update).
    The WOFF2 is served same-origin from `/fonts` (see `scripts/pull-fonts.mjs`);

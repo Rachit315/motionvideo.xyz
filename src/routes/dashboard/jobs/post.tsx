@@ -15,8 +15,10 @@ import { OrderSummary } from "@/components/order-summary";
 import { FormSection, HeroHeader, PageMain } from "@/components/page";
 import { PlanDetails } from "@/components/plan-details";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { RadioGroup } from "@/components/ui/radio-group";
 import {
   Select,
   SelectContent,
@@ -170,12 +172,18 @@ const PostJob = () => {
               title={content.planSection}
               description={content.planSectionBody}
             >
-              <div className="flex flex-col gap-3">
+              <RadioGroup
+                className="flex flex-col gap-3"
+                value={fields.plan}
+                onValueChange={(value) =>
+                  // SAFETY: the group only holds values from JOB_PLANS.
+                  update({ plan: value as JobPlan })
+                }
+              >
                 {JOB_PLANS.map((plan) => (
                   <ChoiceCard
                     key={plan}
-                    name="plan"
-                    checked={fields.plan === plan}
+                    value={plan}
                     onSelect={() => update({ plan })}
                     title={content.plans[plan].name}
                     price={JOB_PLAN_USD[plan]}
@@ -190,7 +198,7 @@ const PostJob = () => {
                     />
                   </ChoiceCard>
                 ))}
-              </div>
+              </RadioGroup>
             </FormSection>
           )}
 
@@ -254,13 +262,9 @@ const PostJob = () => {
                   {content.workLocation}
                 </span>
                 <label className="flex h-8 items-center gap-2 text-sm">
-                  <input
-                    type="checkbox"
+                  <Checkbox
                     checked={fields.remote}
-                    onChange={(event) =>
-                      update({ remote: event.target.checked })
-                    }
-                    className="accent-primary size-4 shrink-0"
+                    onCheckedChange={(checked) => update({ remote: checked })}
                   />
                   {content.remoteLabel}
                 </label>
@@ -302,7 +306,6 @@ const PostJob = () => {
                 purpose="logo"
                 value={fields.logo}
                 onChange={(logo) => update({ logo })}
-                label={content.logoDrop.value}
                 hint={content.logoSize.value}
               />
             </div>

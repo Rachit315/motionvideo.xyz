@@ -8,9 +8,7 @@ import {
 } from "react";
 import type { ReactNode } from "react";
 
-// oxlint-disable-next-line import/no-duplicates -- ?raw is source text, not the executable module.
-import layoutMasonry from "@/lib/masonry-layout.js";
-import layoutSource from "@/lib/masonry-layout.js?raw";
+import layoutMasonry from "@/lib/masonry-layout";
 
 export interface MasonryItem {
   key: string;
@@ -47,7 +45,7 @@ const readInitialLayout = (id: string): InitialLayout | undefined => {
 // widths. Use the same layout function as React; hydration adopts its snapshot.
 const initialLayoutScript = (items: MasonryItem[]) => `
 (() => {
-  ${layoutSource.replace("export default ", "")}
+  const layoutMasonry = ${layoutMasonry.toString()};
   const grid = document.currentScript.previousElementSibling;
   const items = ${JSON.stringify(items.map(({ key, aspectRatio, lane }) => ({ key, aspectRatio, lane }))).replaceAll("<", "\\u003c")};
   const width = grid.clientWidth;

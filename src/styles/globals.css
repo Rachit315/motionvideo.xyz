@@ -131,6 +131,42 @@
       opacity: var(--otp-wave-dim);
     }
   }
+  --ring-duration: 150ms;
+  --check-box: 150ms;
+  --check-draw: 350ms;
+  --check-delay: 0ms;
+  --check-uncheck: 150ms;
+  --check-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  @keyframes radio-dot-in {
+    from {
+      scale: 0.25;
+    }
+    to {
+      scale: 1;
+    }
+  }
+  --toggle-dur: 220ms;
+  --toggle-travel: 14.66px;
+  --toggle-thumb: 14px;
+  --toggle-grow: 5px;
+  --toggle-track: 0ms;
+  --toggle-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  --skeleton-shimmer-duration: 1600ms;
+  --color-shell-line-strong: var(--shell-line-strong);
+  --color-skeleton-sweep: var(----skeleton-sweep);
+  @keyframes skeleton-shimmer {
+    to {
+      transform: translateX(100%);
+    }
+  }
+  --raise-duration: 200ms;
+  --ease-raise: cubic-bezier(0.6, 0.6, 0, 1);
+  --push-lift: 5px;
+  --push-travel: 4px;
+  --push-hover: 1px;
+  --push-press: 110ms;
+  --push-release: 190ms;
+  --push-spring: cubic-bezier(0.22, 1.32, 0.36, 1);
 }
 
 :root {
@@ -176,6 +212,8 @@
   --shell-fg-faint: #6d6d6d;
   --otp-trail-color: rgb(0 0 0 / 45%);
   --otp-success-color: oklch(0.68 0.16 240);
+  --shell-line-strong: #dcdcdc;
+  --skeleton-sweep: rgb(0 0 0 / 6%);
 }
 
 .dark {
@@ -219,6 +257,8 @@
   --shell-fg-faint: #8e8e8e;
   --otp-trail-color: rgb(255 255 255 / 55%);
   --otp-success-color: oklch(0.75 0.15 240);
+  --skeleton-sweep: rgb(255 255 255 / 7%);
+  --shell-line-strong: #303030;
 }
 
 /* Site cursor: the kibo-ui pointer arrow (black, white keyline so it reads on
@@ -313,6 +353,73 @@
     /* No rubber-band bounce past the page edges. */
     overscroll-behavior: none;
     scroll-behavior: smooth;
+  }
+  .arc {
+    overflow: clip;
+    mask-image:
+      linear-gradient(to right, transparent, #000 8%, #000 92%, transparent),
+      linear-gradient(to bottom, #000 88%, transparent);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
+    --u: 1px;
+    --arc-turn: 460ms;
+  }
+
+  @supports (width: 1cqw) {
+    .arc {
+      --u: min(1px, calc(100cqw / var(--fan, 546)));
+    }
+  }
+  .dropzone-card[data-revealing] {
+    -webkit-mask-image: radial-gradient(
+      circle at var(--reveal-x, 50%) var(--reveal-y, 50%),
+      #000 var(--reveal-solid, 0px),
+      transparent var(--reveal-r, 0px)
+    );
+    mask-image: radial-gradient(
+      circle at var(--reveal-x, 50%) var(--reveal-y, 50%),
+      #000 var(--reveal-solid, 0px),
+      transparent var(--reveal-r, 0px)
+    );
+  }
+  .dropzone-edge > .dropzone-edge-solid {
+    opacity: 0;
+  }
+  .dropzone-edge[data-ground] > .dropzone-edge-solid {
+    opacity: 1;
+  }
+  .dropzone-edge[data-ground="full"] > .dropzone-edge-dashed {
+    opacity: 0;
+  }
+  .dropzone-edge[data-ground="rising"] > .dropzone-edge-solid {
+    -webkit-mask-image: radial-gradient(
+      circle at var(--ground-x) var(--ground-y),
+      #000 var(--ground-solid),
+      transparent var(--ground-r)
+    );
+    mask-image: radial-gradient(
+      circle at var(--ground-x) var(--ground-y),
+      #000 var(--ground-solid),
+      transparent var(--ground-r)
+    );
+  }
+  .dropzone-edge[data-ground="rising"] > .dropzone-edge-dashed {
+    -webkit-mask-image: radial-gradient(
+      circle at var(--ground-x) var(--ground-y),
+      transparent var(--ground-solid),
+      #000 var(--ground-r)
+    );
+    mask-image: radial-gradient(
+      circle at var(--ground-x) var(--ground-y),
+      transparent var(--ground-solid),
+      #000 var(--ground-r)
+    );
+  }
+  .dropzone-edge[data-ground="falling"] > .dropzone-edge-solid {
+    opacity: var(--ground-left);
+  }
+  .dropzone-edge[data-ground="falling"] > .dropzone-edge-dashed {
+    opacity: calc(1 - var(--ground-left));
   }
 }
 /* Same layer as Tailwind's cursor-default/cursor-pointer, declared later, so the
@@ -514,6 +621,40 @@ media-theme-sutro {
   .otp-bounce {
     animation: none;
   }
+  .t-check,
+  .t-check svg path {
+    transition: none !important;
+  }
+  .t-toggle,
+  .t-toggle-thumb {
+    transition: none;
+  }
+  :is(
+      .t-toggle:hover:not(:disabled),
+      [role="menuitemcheckbox"]:not([aria-disabled="true"]):is(:hover, :focus)
+        .t-toggle
+    )
+    .t-toggle-thumb {
+    clip-path: inset(0 var(--toggle-travel) 0 0 round 999px);
+  }
+  :is(
+      .t-toggle[data-on="true"]:hover:not(:disabled),
+      [role="menuitemcheckbox"]:not([aria-disabled="true"]):is(:hover, :focus)
+        .t-toggle[data-on="true"]
+    )
+    .t-toggle-thumb {
+    clip-path: inset(0 0 0 var(--toggle-travel) round 999px);
+  }
+  .skeleton-shimmer::after {
+    animation: none;
+  }
+  .t-push,
+  .t-push:active {
+    transition-duration: 0ms;
+  }
+  .t-raise:not(.t-flat)::before {
+    transition-duration: 0ms;
+  }
 }
 
 /* Fade widths for `FadeScroller`; registered so they can transition. */
@@ -625,4 +766,374 @@ media-theme-sutro {
   animation: otp-bounce var(--otp-bounce-duration) linear
     calc(var(--otp-trail-index) * var(--otp-success-stagger)) forwards;
   will-change: transform;
+}
+
+@utility transition-ring {
+  transition-property:
+    color, background-color, border-color, box-shadow, outline-color,
+    outline-offset;
+  transition-duration: var(--ring-duration);
+  transition-timing-function: var(--ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0ms;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0ms;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0ms;
+  }
+}
+.t-check {
+  transition:
+    background var(--check-box) var(--check-ease),
+    border-color var(--check-box) var(--check-ease),
+    box-shadow var(--check-box) var(--check-ease);
+}
+.t-check svg path {
+  stroke-dasharray: var(--check-len, 13);
+  stroke-dashoffset: var(--check-len, 13);
+  transition: stroke-dashoffset var(--check-uncheck) var(--check-ease);
+}
+.t-check[aria-checked="true"] svg path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset var(--check-draw) var(--check-ease)
+    var(--check-delay);
+}
+.t-toggle {
+  transition:
+    background var(--toggle-track) var(--toggle-ease),
+    box-shadow var(--ring-duration) var(--ease-out),
+    border-color var(--ring-duration) var(--ease-out);
+}
+.t-toggle-thumb {
+  width: calc(var(--toggle-travel) + var(--toggle-thumb));
+  clip-path: inset(0 var(--toggle-travel) 0 0 round 999px);
+  transition: clip-path var(--toggle-dur) var(--toggle-ease);
+  will-change: clip-path;
+}
+.t-toggle[data-on="true"] .t-toggle-thumb {
+  clip-path: inset(0 0 0 var(--toggle-travel) round 999px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :is(
+      .t-toggle:hover:not(:disabled),
+      [role="menuitemcheckbox"]:not([aria-disabled="true"]):is(:hover, :focus)
+        .t-toggle
+    )
+    .t-toggle-thumb {
+    clip-path: inset(
+      0 calc(var(--toggle-travel) - var(--toggle-grow)) 0 0 round 999px
+    );
+  }
+  :is(
+      .t-toggle[data-on="true"]:hover:not(:disabled),
+      [role="menuitemcheckbox"]:not([aria-disabled="true"]):is(:hover, :focus)
+        .t-toggle[data-on="true"]
+    )
+    .t-toggle-thumb {
+    clip-path: inset(
+      0 0 0 calc(var(--toggle-travel) - var(--toggle-grow)) round 999px
+    );
+  }
+}
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.skeleton-shimmer::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--skeleton-sweep),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: skeleton-shimmer var(--skeleton-shimmer-duration) linear infinite;
+}
+.skeleton-shimmer:dir(rtl)::after {
+  animation-direction: reverse;
+}
+.t-push {
+  transition:
+    translate var(--push-release) var(--push-spring),
+    box-shadow var(--push-release) var(--push-spring);
+}
+.t-push:active {
+  transition-duration: var(--push-press);
+  transition-timing-function: var(--ease-out);
+}
+.t-raise:not(.t-flat)::before {
+  border-width: 0;
+  background-color: var(--raise-fill);
+  box-shadow: var(--raise-shadow);
+  transition:
+    scale var(--raise-duration) var(--ease-raise),
+    filter var(--raise-duration) var(--ease-raise),
+    box-shadow var(--raise-duration) var(--ease-raise);
+}
+
+@media (hover: hover) {
+  .t-raise:not(.t-flat):hover::before {
+    box-shadow: var(--raise-lifted, var(--raise-shadow));
+    filter: var(--raise-lit, none);
+  }
+  .t-raise.t-label:not(.t-flat):is(a, button):hover::before {
+    filter: brightness(0.97);
+  }
+  .dark .t-raise.t-label:not(.t-flat):is(a, button):hover::before {
+    filter: brightness(1.15);
+  }
+}
+.t-raise:not(.t-flat)[aria-expanded="true"]::before {
+  box-shadow: var(--raise-lifted, var(--raise-shadow));
+  filter: var(--raise-lit, none);
+}
+.t-raise:not(.t-flat):active:not([aria-haspopup])::before,
+.t-raise:not(.t-flat)[data-pressed]::before {
+  box-shadow: var(--raise-shadow);
+}
+.t-raise-primary::before {
+  --raise-fill: var(--primary);
+  --raise-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    inset 0 1px 2px -0.5px rgb(255 255 255 / 0.12),
+    inset 0 8px 24px -4px rgb(255 255 255 / 0.1),
+    inset 0 -4px 12px -4px rgb(255 255 255 / 0.06),
+    0 0 0 1px color-mix(in oklch, var(--primary), black 40%),
+    0 0.5px 0.5px rgb(0 0 0 / 0.08), 0 2px 2px -1px rgb(0 0 0 / 0.08),
+    0 3px 3px -1.5px rgb(0 0 0 / 0.08), 0 5px 5px -2.5px rgb(0 0 0 / 0.07),
+    0 8px 8px -3px rgb(0 0 0 / 0.06), 0 12px 12px -6px rgb(0 0 0 / 0.05);
+  --raise-lifted: initial;
+  --raise-lit: brightness(1.25);
+  --raise-lip: rgb(255 255 255 / 0.14);
+  --raise-shade: transparent;
+  --raise-edge: color-mix(in oklch, var(--primary), black 40%);
+  --raise-contact: rgb(0 0 0 / 0.08);
+}
+.t-raise-outline::before {
+  --raise-fill: var(--background);
+  --raise-shadow:
+    inset 0 -1px 0 rgb(0 0 0 / 0.05), inset 0 -6px 12px -6px rgb(0 0 0 / 0.035),
+    0 0 0 1px rgb(0 0 0 / 0.07), 0 0.5px 0.5px rgb(0 0 0 / 0.05),
+    0 2px 2px -1px rgb(0 0 0 / 0.035), 0 3px 3px -1.5px rgb(0 0 0 / 0.03),
+    0 5px 5px -2.5px rgb(0 0 0 / 0.025), 0 8px 8px -3px rgb(0 0 0 / 0.015),
+    0 12px 12px -6px rgb(0 0 0 / 0.01);
+  --raise-lifted:
+    inset 0 -1px 0 rgb(0 0 0 / 0.05), inset 0 -6px 12px -6px rgb(0 0 0 / 0.035),
+    0 0 0 1px rgb(0 0 0 / 0.09), 0 1px 1px -0.5px rgb(0 0 0 / 0.06),
+    0 3px 3px -1.5px rgb(0 0 0 / 0.045), 0 5px 5px -2.5px rgb(0 0 0 / 0.04),
+    0 8px 8px -4px rgb(0 0 0 / 0.035), 0 12px 12px -6px rgb(0 0 0 / 0.03),
+    0 16px 16px -8px rgb(0 0 0 / 0.02);
+  --raise-lit: initial;
+  --raise-lip: transparent;
+  --raise-shade: rgb(0 0 0 / 0.05);
+  --raise-edge: rgb(0 0 0 / 0.07);
+  --raise-contact: rgb(0 0 0 / 0.06);
+}
+.t-raise-secondary::before {
+  --raise-fill: var(--secondary);
+  --raise-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    inset 0 1px 2px -0.5px rgb(255 255 255 / 0.7),
+    inset 0 -6px 12px -6px rgb(0 0 0 / 0.04), inset 0 -1px 0 rgb(0 0 0 / 0.05),
+    0 0 0 1px rgb(0 0 0 / 0.06), 0 0.5px 0.5px rgb(0 0 0 / 0.04),
+    0 2px 2px -1px rgb(0 0 0 / 0.03), 0 3px 3px -1.5px rgb(0 0 0 / 0.025),
+    0 5px 5px -2.5px rgb(0 0 0 / 0.02), 0 8px 8px -3px rgb(0 0 0 / 0.015),
+    0 12px 12px -6px rgb(0 0 0 / 0.01);
+  --raise-lifted:
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    inset 0 1px 2px -0.5px rgb(255 255 255 / 0.7),
+    inset 0 -6px 12px -6px rgb(0 0 0 / 0.04), inset 0 -1px 0 rgb(0 0 0 / 0.05),
+    0 0 0 1px rgb(0 0 0 / 0.08), 0 1px 1px -0.5px rgb(0 0 0 / 0.05),
+    0 3px 3px -1.5px rgb(0 0 0 / 0.04), 0 5px 5px -2.5px rgb(0 0 0 / 0.035),
+    0 8px 8px -4px rgb(0 0 0 / 0.03), 0 12px 12px -6px rgb(0 0 0 / 0.025),
+    0 16px 16px -8px rgb(0 0 0 / 0.02);
+  --raise-lit: initial;
+  --raise-lip: rgb(255 255 255 / 0.9);
+  --raise-shade: rgb(0 0 0 / 0.05);
+  --raise-edge: rgb(0 0 0 / 0.06);
+  --raise-contact: rgb(0 0 0 / 0.05);
+}
+.t-raise-destructive::before {
+  --raise-fill: #c11d22;
+  --raise-shadow:
+    inset 0 1px 2px -0.5px rgb(255 255 255 / 0.12),
+    inset 0 0.5px 0.5px rgb(255 255 255 / 0.16),
+    inset 0 8px 24px -4px rgb(255 255 255 / 0.16),
+    inset 0 -4px 12px -4px rgb(255 255 255 / 0.06),
+    0 0 0 1px color-mix(in oklch, #c11d22, black 30%),
+    0 0.5px 0.5px rgb(64 0 0 / 0.08), 0 2px 2px -1px rgb(64 0 0 / 0.07),
+    0 3px 3px -1.5px rgb(64 0 0 / 0.07), 0 5px 5px -2.5px rgb(64 0 0 / 0.06),
+    0 8px 8px -3px rgb(64 0 0 / 0.06), 0 12px 12px -6px rgb(64 0 0 / 0.05);
+  --raise-lifted: initial;
+  --raise-lit: brightness(1.1);
+  --raise-lip: rgb(255 255 255 / 0.16);
+  --raise-shade: transparent;
+  --raise-edge: color-mix(in oklch, #c11d22, black 30%);
+  --raise-contact: rgb(64 0 0 / 0.08);
+}
+.dark .t-raise-primary::before {
+  --raise-fill: var(--primary);
+  --raise-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.95),
+    inset 0 1px 2px -0.5px rgb(255 255 255 / 0.8),
+    inset 0 12px 16px -10px rgb(255 255 255 / 0.7),
+    inset 0 -12px 16px -10px rgb(0 0 0 / 0.24),
+    inset 0 -1px 2px -1px rgb(0 0 0 / 0.14), 0 0 0 1px rgb(0 0 0 / 0.4),
+    0 0.5px 0.5px rgb(0 0 0 / 0.16), 0 2px 2px -1px rgb(0 0 0 / 0.12),
+    0 3px 3px -1.5px rgb(0 0 0 / 0.1), 0 5px 5px -2.5px rgb(0 0 0 / 0.08),
+    0 8px 8px -3px rgb(0 0 0 / 0.06), 0 12px 12px -6px rgb(0 0 0 / 0.05);
+  --raise-lifted: initial;
+  --raise-lit: brightness(1.06);
+  --raise-lip: rgb(255 255 255 / 0.9);
+  --raise-shade: rgb(0 0 0 / 0.14);
+  --raise-edge: rgb(0 0 0 / 0.6);
+  --raise-contact: rgb(0 0 0 / 0.16);
+}
+.dark .t-raise-secondary::before {
+  --raise-fill: var(--secondary);
+  --raise-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.12),
+    inset 0 1px 2px -0.5px rgb(255 255 255 / 0.1),
+    inset 0 8px 24px -4px rgb(255 255 255 / 0.06),
+    inset 0 -4px 12px -4px rgb(255 255 255 / 0.08), 0 0 0 1px rgb(0 0 0 / 0.35),
+    0 0.5px 0.5px rgb(0 0 0 / 0.16), 0 2px 2px -1px rgb(0 0 0 / 0.12),
+    0 3px 3px -1.5px rgb(0 0 0 / 0.1), 0 5px 5px -2.5px rgb(0 0 0 / 0.08),
+    0 8px 8px -3px rgb(0 0 0 / 0.06), 0 12px 12px -6px rgb(0 0 0 / 0.05);
+  --raise-lifted: initial;
+  --raise-lit: brightness(1.2);
+  --raise-lip: rgb(255 255 255 / 0.12);
+  --raise-shade: transparent;
+  --raise-edge: rgb(0 0 0 / 0.5);
+  --raise-contact: rgb(0 0 0 / 0.16);
+}
+.dark .t-raise-outline::before {
+  --raise-fill: color-mix(in oklch, var(--background), white 4%);
+  --raise-shadow:
+    inset 0 8px 24px -4px rgb(255 255 255 / 0.04),
+    inset 0 -4px 12px -4px rgb(255 255 255 / 0.05),
+    inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 0.5px 0.5px rgb(0 0 0 / 0.16),
+    0 2px 2px -1px rgb(0 0 0 / 0.12), 0 3px 3px -1.5px rgb(0 0 0 / 0.1),
+    0 5px 5px -2.5px rgb(0 0 0 / 0.08), 0 8px 8px -3px rgb(0 0 0 / 0.06),
+    0 12px 12px -6px rgb(0 0 0 / 0.05);
+  --raise-lifted:
+    inset 0 8px 24px -4px rgb(255 255 255 / 0.04),
+    inset 0 -4px 12px -4px rgb(255 255 255 / 0.05),
+    inset 0 0 0 1px rgb(255 255 255 / 0.16), 0 0.5px 0.5px rgb(0 0 0 / 0.16),
+    0 2px 2px -1px rgb(0 0 0 / 0.12), 0 3px 3px -1.5px rgb(0 0 0 / 0.1),
+    0 5px 5px -2.5px rgb(0 0 0 / 0.08), 0 8px 8px -3px rgb(0 0 0 / 0.06),
+    0 12px 12px -6px rgb(0 0 0 / 0.05);
+  --raise-lit: initial;
+  --raise-lip: transparent;
+  --raise-shade: transparent;
+  --raise-edge: rgb(255 255 255 / 0.1);
+  --raise-contact: rgb(0 0 0 / 0.16);
+}
+.dark .t-raise-destructive::before {
+  --raise-fill: #c8161b;
+  --raise-shadow:
+    inset 0 1px 2px -0.5px rgb(255 255 255 / 0.12),
+    inset 0 0.5px 0.5px rgb(255 255 255 / 0.16),
+    inset 0 8px 24px -4px rgb(255 255 255 / 0.16),
+    inset 0 -4px 12px -4px rgb(255 255 255 / 0.06), 0 0 0 1px rgb(0 0 0 / 0.35),
+    0 0.5px 0.5px rgb(0 0 0 / 0.16), 0 2px 2px -1px rgb(0 0 0 / 0.12),
+    0 3px 3px -1.5px rgb(0 0 0 / 0.1), 0 5px 5px -2.5px rgb(0 0 0 / 0.08),
+    0 8px 8px -3px rgb(0 0 0 / 0.06), 0 12px 12px -6px rgb(0 0 0 / 0.05);
+  --raise-lifted: initial;
+  --raise-lit: brightness(1.08);
+  --raise-lip: rgb(255 255 255 / 0.16);
+  --raise-shade: transparent;
+  --raise-edge: rgb(0 0 0 / 0.5);
+  --raise-contact: rgb(0 0 0 / 0.16);
+}
+.t-raise-info::before {
+  --raise-fill: #e8f1fe;
+  --raise-lip: rgb(255 255 255 / 0.7);
+  --raise-shade: rgb(37 99 235 / 0.12);
+  --raise-edge: rgb(37 99 235 / 0.2);
+  --raise-contact: rgb(37 99 235 / 0.08);
+}
+.t-raise-warning::before {
+  --raise-fill: #fef3dc;
+  --raise-lip: rgb(255 255 255 / 0.7);
+  --raise-shade: rgb(217 119 6 / 0.14);
+  --raise-edge: rgb(217 119 6 / 0.24);
+  --raise-contact: rgb(217 119 6 / 0.08);
+}
+.t-raise-success::before {
+  --raise-fill: #e7f4ea;
+  --raise-lip: rgb(255 255 255 / 0.7);
+  --raise-shade: rgb(2 135 68 / 0.12);
+  --raise-edge: rgb(2 135 68 / 0.2);
+  --raise-contact: rgb(2 135 68 / 0.08);
+}
+.t-raise-danger::before {
+  --raise-fill: #feebe9;
+  --raise-lip: rgb(255 255 255 / 0.7);
+  --raise-shade: rgb(209 16 37 / 0.12);
+  --raise-edge: rgb(209 16 37 / 0.2);
+  --raise-contact: rgb(209 16 37 / 0.08);
+}
+.dark .t-raise-info::before {
+  --raise-fill: #1c2842;
+  --raise-lip: rgb(255 255 255 / 0.08);
+  --raise-shade: rgb(0 0 0 / 0.2);
+}
+.dark .t-raise-warning::before {
+  --raise-fill: #332712;
+  --raise-lip: rgb(255 255 255 / 0.08);
+  --raise-shade: rgb(0 0 0 / 0.2);
+}
+.dark .t-raise-success::before {
+  --raise-fill: #13301c;
+  --raise-lip: rgb(255 255 255 / 0.08);
+  --raise-shade: rgb(0 0 0 / 0.2);
+}
+.dark .t-raise-danger::before {
+  --raise-fill: #3e1e1c;
+  --raise-lip: rgb(255 255 255 / 0.08);
+  --raise-shade: rgb(0 0 0 / 0.2);
+}
+.t-raise-tint::before {
+  --raise-fill: color-mix(
+    in oklab,
+    currentColor 9%,
+    var(--raise-ground, var(--background))
+  );
+  --raise-lip: rgb(255 255 255 / 0.6);
+  --raise-shade: color-mix(in srgb, currentColor 12%, transparent);
+  --raise-edge: color-mix(in srgb, currentColor 22%, transparent);
+  --raise-contact: color-mix(in srgb, currentColor 8%, transparent);
+}
+.dark .t-raise-tint::before {
+  --raise-fill: color-mix(
+    in oklab,
+    currentColor 13%,
+    var(--raise-ground, var(--background))
+  );
+  --raise-lip: color-mix(in srgb, currentColor 16%, transparent);
+  --raise-shade: rgb(0 0 0 / 0.2);
+}
+.t-raise.t-label:not(.t-flat)::before,
+.t-raise.t-label:not(.t-flat):hover::before,
+.t-raise.t-label:not(.t-flat)[aria-expanded="true"]::before {
+  box-shadow:
+    inset 0 1px 0 var(--raise-lip),
+    inset 0 -1px 0 var(--raise-shade),
+    0 0 0 1px var(--raise-edge),
+    0 0.5px 0.5px var(--raise-contact),
+    0 1px 1px -0.5px var(--raise-contact),
+    0 2px 2px -1px var(--raise-contact);
+  filter: none;
+}
+.dark .t-raise.t-label::before {
+  --raise-lip: transparent;
+  --raise-shade: transparent;
+  --raise-edge: color-mix(in srgb, currentColor 24%, transparent);
+  --raise-contact: transparent;
 }

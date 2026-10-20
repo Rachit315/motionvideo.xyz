@@ -8,6 +8,7 @@ import { z } from "zod";
 import { FormSection, HeroHeader, PageMain } from "@/components/page";
 import { useSignInDialog } from "@/components/sign-in-dialog";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -316,12 +317,11 @@ const SubmissionForm = ({
           description={content.sections.submitBody}
         >
           <div className="flex items-start gap-3">
-            <input
+            <Checkbox
               id="submission-consent"
-              type="checkbox"
               name="consent"
               required
-              className="accent-primary mt-0.5 size-4 shrink-0"
+              className="mt-0.5"
             />
             <Label
               htmlFor="submission-consent"

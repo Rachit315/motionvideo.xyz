@@ -15,7 +15,8 @@ const buttonCva = cva(
         // Plain yellow fill (`--primary`) with black text.
         default:
           "bg-primary text-primary-foreground hover:bg-primary/85 aria-expanded:bg-primary/85",
-        // Yellow gradient from the landing CTA (`--color-cta-*` in styles.css).
+        // Yellow gradient from the landing CTA (`--color-cta-*` in
+        // styles/globals.css).
         // Reserved for special calls to action such as checkout.
         gradient:
           "from-cta-from to-cta-to shadow-cta text-cta-foreground border-0 bg-linear-to-b bg-clip-border duration-200 hover:brightness-105",

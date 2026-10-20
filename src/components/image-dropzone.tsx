@@ -1,9 +1,9 @@
-import { useId, useRef, useState } from "react";
-import type { DragEvent } from "react";
+import { useState } from "react";
 import { useIntlayer } from "react-intlayer";
 import { GalleryAdd } from "reicon-react/icons/GalleryAdd";
+import { GalleryAdd3 } from "reicon-react/icons/GalleryAdd3";
 
-import { Button } from "@/components/ui/button";
+import { Dropzone } from "@/components/ui/magnetic-dropzone";
 import { UPLOAD_MAX_BYTES } from "@/lib/uploads";
 import type { UploadPurpose } from "@/lib/uploads";
 import { cn } from "@/lib/utils";
@@ -14,14 +14,13 @@ const ACCEPTED_TYPES = new Set(ACCEPT.split(","));
 type DropzoneError = "type" | "size" | "upload";
 
 /**
- * A dashed drop area that uploads one image to /api/upload and reports the
- * stored path. Shows the image once set, with Replace and Remove.
+ * An image field that uploads one image to /api/upload and reports the stored
+ * path. Shows the current image, with Remove and Upload another once set.
  */
 export const ImageDropzone = ({
   purpose,
   value,
   onChange,
-  label,
   hint,
   required = false,
 }: {
@@ -29,17 +28,12 @@ export const ImageDropzone = ({
   /** The current image path or URL; empty when none. */
   value: string;
   onChange: (value: string) => void;
-  /** What to drop, e.g. "Upload your company logo". */
-  label: string;
   /** Recommended size, e.g. "512 × 512 px". */
   hint: string;
   required?: boolean;
 }) => {
   const content = useIntlayer("image-dropzone");
-  const inputId = useId();
-  const input = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
-  const [dragging, setDragging] = useState(false);
   const [error, setError] = useState<DropzoneError | null>(null);
   const maxMb = UPLOAD_MAX_BYTES[purpose] / 1024 / 1024;
 
@@ -83,94 +77,44 @@ export const ImageDropzone = ({
     }
   };
 
-  const onDrop = (event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    setDragging(false);
-    void upload(event.dataTransfer.files[0]);
+  const onFilesChange = (files: File[]) => {
+    const [file] = files;
+    if (!file) {
+      setError(null);
+      onChange("");
+      return;
+    }
+    void upload(file);
   };
 
   return (
     <div className="flex flex-col gap-2">
-      <div
-        onDragOver={(event) => {
-          event.preventDefault();
-          setDragging(true);
-        }}
-        onDragLeave={() => setDragging(false)}
-        onDrop={onDrop}
-        aria-busy={busy}
-        className={cn(
-          "bg-muted/40 border-foreground/20 relative flex flex-col overflow-hidden rounded-2xl border border-dashed transition-colors",
-          purpose === "cover" ? "aspect-video" : "min-h-56",
-          dragging && "border-primary bg-primary/5"
-        )}
-      >
-        {value ? (
-          <img
-            src={value}
-            alt=""
-            decoding="async"
-            referrerPolicy="no-referrer"
-            className={cn(
-              "absolute inset-0 size-full",
-              purpose === "cover" ? "object-cover" : "object-contain p-10"
-            )}
-          />
-        ) : (
-          <div className="text-muted-foreground flex flex-1 flex-col items-center justify-center gap-1 p-6 text-center text-xs">
-            <GalleryAdd aria-hidden="true" className="mb-2 size-7" />
+      <Dropzone
+        accept={ACCEPT}
+        maxSize={UPLOAD_MAX_BYTES[purpose]}
+        value={value}
+        required={required}
+        busy={busy}
+        failed={Boolean(error)}
+        onFilesChange={onFilesChange}
+        icon={
+          required ? (
+            <GalleryAdd3 className="size-5.5" strokeWidth={1.8} aria-hidden />
+          ) : (
+            <GalleryAdd className="size-5.5" strokeWidth={1.8} aria-hidden />
+          )
+        }
+        helper={
+          <>
             <span>{content.types}</span>
             <span>{hint}</span>
             <span>
               {maxMb} MB {content.max}
             </span>
-          </div>
-        )}
-        <div className="relative mt-auto flex items-center justify-between gap-2 p-3">
-          <label
-            htmlFor={inputId}
-            className={cn(
-              "text-muted-foreground text-xs",
-              value && "bg-background/80 rounded-md px-2 py-1 backdrop-blur"
-            )}
-          >
-            {busy ? content.uploading : label}
-          </label>
-          <div className="flex gap-1.5">
-            {value && !required && (
-              <Button
-                type="button"
-                size="sm"
-                variant="outline"
-                onClick={() => onChange("")}
-                disabled={busy}
-              >
-                {content.remove}
-              </Button>
-            )}
-            <Button
-              type="button"
-              size="sm"
-              variant="outline"
-              onClick={() => input.current?.click()}
-              disabled={busy}
-            >
-              {value ? content.replace : content.browse}
-            </Button>
-          </div>
-        </div>
-        <input
-          ref={input}
-          id={inputId}
-          type="file"
-          accept={ACCEPT}
-          className="sr-only"
-          onChange={(event) => {
-            void upload(event.target.files?.[0]);
-            event.target.value = "";
-          }}
-        />
-      </div>
+          </>
+        }
+        className={cn("max-w-none", purpose === "cover" && "aspect-video")}
+      />
       {error && (
         <p role="alert" className="text-destructive text-xs">
           {
