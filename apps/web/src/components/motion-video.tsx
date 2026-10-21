@@ -23,6 +23,7 @@ import { Xmark } from "reicon-react/icons/Xmark";
 
 import { BookmarkButton } from "@/components/bookmark-button";
 import { CopyIcon } from "@/components/copy-icon";
+import { SponsoredCard } from "@/components/sponsored-card";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Tooltip,
@@ -893,6 +894,9 @@ export const MotionVideoOverlay = ({
                   </a>
                 )}
               </div>
+              {/* Diamond's third placement: the list item beside every video.
+                  Falls back to the founding partners until a Diamond is live. */}
+              <SponsoredCard placement="sidebar" />
               <dl>
                 <DetailRow label={content.creator}>
                   <a

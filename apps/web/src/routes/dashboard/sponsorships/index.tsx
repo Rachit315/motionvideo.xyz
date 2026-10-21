@@ -30,7 +30,7 @@ import {
 import { ROUTES } from "@/constants/routes";
 import { SPONSOR_PRICE_USD } from "@/constants/sponsors";
 import { track } from "@/lib/analytics";
-import { sponsorCreativeSchema, tierNeedsCategory } from "@/lib/sponsorships";
+import { sponsorCreativeSchema } from "@/lib/sponsorships";
 import { createMetadata } from "@/seo/metadata";
 import {
   deleteSponsorDraft,
@@ -49,7 +49,7 @@ interface SponsorshipsSearch {
   payment_id?: string;
 }
 
-type SaveError = "validation" | "cover" | "category" | "storage";
+type SaveError = "validation" | "cover" | "storage";
 
 const routeApi = getRouteApi("/dashboard/sponsorships/");
 
@@ -58,15 +58,12 @@ const helpClass = "text-muted-foreground text-xs leading-relaxed";
 const CreativeForm = ({ sponsorship }: { sponsorship: MySponsorship }) => {
   const content = useIntlayer("sponsorships-page");
   const router = useRouter();
-  const needsCategory = tierNeedsCategory(sponsorship.tier);
   const [fields, setFields] = useState<CreativeFields>({
     name: sponsorship.name ?? "",
     url: sponsorship.url ?? "",
     tagline: sponsorship.tagline ?? "",
     logo: sponsorship.logo ?? "",
     cover: sponsorship.cover ?? "",
-    categoryKind: sponsorship.categoryKind,
-    category: sponsorship.category,
     darkInvert: sponsorship.darkInvert,
   });
   const [status, setStatus] = useState<"idle" | "pending" | "saved">("idle");
@@ -85,10 +82,6 @@ const CreativeForm = ({ sponsorship }: { sponsorship: MySponsorship }) => {
       setError("cover");
       return;
     }
-    if (needsCategory && !fields.category) {
-      setError("category");
-      return;
-    }
     const input = sponsorCreativeSchema.safeParse({
       id: sponsorship.id,
       name: fields.name,
@@ -96,10 +89,6 @@ const CreativeForm = ({ sponsorship }: { sponsorship: MySponsorship }) => {
       tagline: fields.tagline,
       logo: fields.logo,
       cover: fields.cover,
-      categoryKind: needsCategory
-        ? (fields.categoryKind ?? undefined)
-        : undefined,
-      category: needsCategory ? (fields.category ?? undefined) : undefined,
       darkInvert: fields.darkInvert,
     });
     if (!input.success) {
@@ -133,7 +122,6 @@ const CreativeForm = ({ sponsorship }: { sponsorship: MySponsorship }) => {
           idPrefix={sponsorship.id}
           fields={fields}
           update={update}
-          needsCategory={needsCategory}
         />
 
         <FormSection

@@ -156,10 +156,6 @@ export const liveSponsors = async (): Promise<Sponsor[]> => {
             logo: row.logo,
             cover: row.cover,
             tagline: row.tagline ?? undefined,
-            category:
-              row.categoryKind && row.category
-                ? { kind: row.categoryKind, slug: row.category }
-                : undefined,
             darkInvert: row.darkInvert,
           },
         ]

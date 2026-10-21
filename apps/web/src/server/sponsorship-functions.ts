@@ -8,11 +8,7 @@ import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { SPONSOR_ONCE_DAYS } from "@/constants/sponsors";
 import type { SponsorTier } from "@/constants/sponsors";
-import {
-  sponsorCreativeSchema,
-  sponsorDraftSchema,
-  tierNeedsCategory,
-} from "@/lib/sponsorships";
+import { sponsorCreativeSchema, sponsorDraftSchema } from "@/lib/sponsorships";
 
 import { requireAdmin } from "./admin";
 import { audienceStats } from "./audience";
@@ -58,8 +54,6 @@ const mySponsorshipColumns = {
   logo: sponsorships.logo,
   cover: sponsorships.cover,
   darkInvert: sponsorships.darkInvert,
-  categoryKind: sponsorships.categoryKind,
-  category: sponsorships.category,
   review: sponsorships.review,
   reviewNote: sponsorships.reviewNote,
 };
@@ -144,7 +138,6 @@ export const saveSponsorDraft = createServerFn({ method: "POST" })
     }
     const db = drizzle(env.DB);
     const now = new Date();
-    const needsCategory = tierNeedsCategory(data.tier);
     const fields = {
       tier: data.tier,
       billing: data.billing,
@@ -154,8 +147,6 @@ export const saveSponsorDraft = createServerFn({ method: "POST" })
       logo: data.logo,
       cover: data.cover,
       darkInvert: data.darkInvert,
-      categoryKind: needsCategory ? (data.categoryKind ?? null) : null,
-      category: needsCategory ? (data.category ?? null) : null,
       updatedAt: now,
     };
     if (data.id) {
@@ -272,10 +263,6 @@ export const saveSponsorCreative = createServerFn({ method: "POST" })
   .validator(sponsorCreativeSchema)
   .handler(async ({ data }) => {
     const row = await ownedPaidSponsorship(data.id);
-    const needsCategory = tierNeedsCategory(row.tier);
-    if (needsCategory && !data.category) {
-      throw new Error("A category is required for this tier");
-    }
     await drizzle(env.DB)
       .update(sponsorships)
       .set({
@@ -284,8 +271,6 @@ export const saveSponsorCreative = createServerFn({ method: "POST" })
         tagline: data.tagline,
         logo: data.logo,
         cover: data.cover,
-        categoryKind: needsCategory ? (data.categoryKind ?? null) : null,
-        category: needsCategory ? (data.category ?? null) : null,
         darkInvert: data.darkInvert,
         review: "pending",
         reviewNote: null,

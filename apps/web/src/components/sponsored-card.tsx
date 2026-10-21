@@ -2,43 +2,52 @@ import { useEffect, useState } from "react";
 import { useIntlayer } from "react-intlayer";
 
 import { ExternalLinkChip } from "@/components/external-link-chip";
+import { SponsorListItem } from "@/components/sponsor-list-item";
 import { FOUNDING_SPONSORS } from "@/constants/sponsors";
-import type { SponsorCategory } from "@/constants/sponsors";
-import { sameCategory, useSponsors } from "@/lib/sponsorships";
+import { useSponsors } from "@/lib/sponsorships";
 import { cn } from "@/lib/utils";
 import { withUtm } from "@/lib/utm";
 
 // How long each sponsor stays on the card before fading to the next.
 const ROTATE_MS = 6000;
 
+// UTM content and analytics name per placement. The feed keeps its original
+// names ("grid", "card") so earlier click data stays comparable.
+const TRACKING = {
+  feed: { utm: "grid", track: "card" },
+  sidebar: { utm: "sidebar", track: "sidebar" },
+} as const;
+
 /**
- * A sponsored tile for the grid: every Diamond sponsor (or, while there is
- * none, the founding sponsors), then on a category page that category's Gold
- * and Silver sponsors. Each cover fades into the
- * next on a timer, with a progress hairline along the bottom edge. The whole
- * card links straight to the showing sponsor.
+ * A sponsored placement: every Diamond sponsor first (or, while there is
+ * none, the founding sponsors), then Gold and Silver in the feed. No tier is
+ * tied to a category page. The detail sidebar shows only Diamond, as a list
+ * item rather than a card. Each cover (or row) fades into the next on a
+ * timer, with a progress hairline along the bottom edge. The whole placement
+ * links straight to the showing sponsor.
  */
 export const SponsoredCard = ({
-  category,
+  placement,
 }: {
-  /** The category page being shown; `undefined` on "All" pages. */
-  category: SponsorCategory | undefined;
+  /** The video grid feed, or a detail view's sidebar. */
+  placement: keyof typeof TRACKING;
 }) => {
   const content = useIntlayer("motion-gallery");
   const live = useSponsors();
-  // Always Diamond first (the founding sponsors while there is none), then
-  // this category's Gold, then its Silver.
+  // Diamond first (the founding sponsors while there is none). Only the feed
+  // goes on to Gold and Silver.
   const diamond = live.filter((entry) => entry.tier === "diamond");
-  const sponsors = [
-    ...(diamond.length > 0 ? diamond : FOUNDING_SPONSORS),
-    ...(["gold", "silver"] as const).flatMap((tier) =>
-      live.filter(
-        (entry) => entry.tier === tier && sameCategory(entry.category, category)
-      )
-    ),
-  ].flatMap((entry) => (entry.cover ? [{ ...entry, cover: entry.cover }] : []));
+  const base = diamond.length > 0 ? diamond : FOUNDING_SPONSORS;
+  const gold = live.filter((entry) => entry.tier === "gold");
+  const silver = live.filter((entry) => entry.tier === "silver");
+  const sponsors =
+    placement === "sidebar"
+      ? [...base]
+      : [...base, ...gold, ...silver].flatMap((entry) =>
+          entry.cover ? [{ ...entry, cover: entry.cover }] : []
+        );
   const [active, setActive] = useState(0);
-  // The list changes between category pages; stay within it.
+  // The list changes between pages; stay within it.
   const showing = active % Math.max(sponsors.length, 1);
   const sponsor = sponsors[showing];
 
@@ -59,13 +68,47 @@ export const SponsoredCard = ({
     return null;
   }
 
+  if (placement === "sidebar") {
+    return (
+      <a
+        href={withUtm(sponsor.url, TRACKING.sidebar.utm)}
+        target="_blank"
+        rel="sponsored noopener"
+        data-track="sponsor_click"
+        data-track-placement={TRACKING.sidebar.track}
+        data-track-name={sponsor.name}
+        aria-label={`${sponsor.name} (${content.sponsored.value})`}
+        className="group focus-visible:ring-ring hover:bg-muted/60 relative -mx-2 flex items-center rounded-xl px-2 py-2 transition-colors outline-none focus-visible:ring-2"
+      >
+        <SponsorListItem
+          logo={sponsor.logo}
+          name={sponsor.name}
+          tagline={sponsor.tagline}
+          sponsored={content.sponsored}
+          darkInvert={sponsor.darkInvert}
+        />
+        {sponsors.length > 1 && (
+          <span
+            aria-hidden="true"
+            className="bg-muted absolute inset-x-2 bottom-0 h-0.5 overflow-hidden rounded-full motion-reduce:hidden"
+          >
+            <span
+              key={active}
+              className="animate-mv-rotate bg-primary/60 block h-full"
+            />
+          </span>
+        )}
+      </a>
+    );
+  }
+
   return (
     <a
-      href={withUtm(sponsor.url, "grid")}
+      href={withUtm(sponsor.url, TRACKING[placement].utm)}
       target="_blank"
       rel="sponsored noopener"
       data-track="sponsor_click"
-      data-track-placement="card"
+      data-track-placement={TRACKING[placement].track}
       data-track-name={sponsor.name}
       aria-label={`${sponsor.name} (${content.sponsored.value})`}
       className="group focus-visible:ring-ring shadow-outline relative block aspect-video overflow-hidden rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
@@ -73,7 +116,7 @@ export const SponsoredCard = ({
       {sponsors.map((entry, index) => (
         <img
           key={`${entry.name}:${entry.url}`}
-          src={entry.cover}
+          src={entry.cover ?? undefined}
           alt=""
           loading="lazy"
           decoding="async"

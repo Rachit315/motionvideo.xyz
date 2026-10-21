@@ -6,7 +6,6 @@ import { Ufo } from "reicon-react/icons/Ufo";
 import { SponsorSlots } from "@/components/sponsor-slots";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
-import type { SponsorCategory } from "@/constants/sponsors";
 
 /** Surprise me and Submit, the intro actions of the gallery and directories. */
 export const SurpriseAndSubmit = ({
@@ -51,22 +50,19 @@ export const SurpriseAndSubmit = ({
 
 /**
  * The first masonry tile shared by the gallery, the resource directories and
- * Jobs: heading, intro copy, the page's actions, Diamond sponsor slots, and on
- * category pages the Silver sponsors of that category.
+ * Jobs: heading, intro copy, the page's actions, and the Diamond and Gold
+ * sponsor slots.
  */
 export const CollectionIntro = ({
   titleId,
   title,
   description,
   actions,
-  sponsorCategory,
 }: {
   titleId: string;
   title: ReactNode;
   description: ReactNode;
   actions: ReactNode;
-  /** The category page being shown; `undefined` on "All" pages. */
-  sponsorCategory: SponsorCategory | undefined;
 }) => (
   <section
     aria-labelledby={titleId}
@@ -87,6 +83,6 @@ export const CollectionIntro = ({
       </p>
     </header>
     <div className="flex flex-wrap gap-2">{actions}</div>
-    <SponsorSlots category={sponsorCategory} />
+    <SponsorSlots />
   </section>
 );

@@ -139,11 +139,6 @@ const SponsorshipReview = ({
                 />
               </a>
             )}
-            {sponsorship.categoryKind && (
-              <p className="text-muted-foreground text-sm">
-                Category: {sponsorship.categoryKind} / {sponsorship.category}
-              </p>
-            )}
             {sponsorship.darkInvert && (
               <p className="text-muted-foreground text-sm">
                 Logo inverted in dark mode

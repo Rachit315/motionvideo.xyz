@@ -65,7 +65,7 @@ export const sponsorships = sqliteTable(
     darkInvert: integer("dark_invert", { mode: "boolean" })
       .notNull()
       .default(false),
-    // Gold and Silver placements: the section and category page they show on.
+    // Legacy category targeting metadata; placements are site-wide now.
     categoryKind: text("category_kind", {
       enum: ["video", "tool", "studio", "skill", "extra"],
     }),

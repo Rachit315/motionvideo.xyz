@@ -24,7 +24,7 @@ import {
 } from "@/constants/sponsors";
 import type { SponsorBilling, SponsorTier } from "@/constants/sponsors";
 import { track } from "@/lib/analytics";
-import { sponsorDraftSchema, tierNeedsCategory } from "@/lib/sponsorships";
+import { sponsorDraftSchema } from "@/lib/sponsorships";
 import { createMetadata } from "@/seo/metadata";
 import {
   getDiamondSoldOut,
@@ -53,7 +53,6 @@ interface DraftFields extends CreativeFields {
 type FormError =
   | "validation"
   | "cover"
-  | "category"
   | "sold-out"
   | "drafts"
   | "save"
@@ -75,8 +74,6 @@ const fieldsOf = (
       tagline: draft.tagline ?? "",
       logo: draft.logo ?? "",
       cover: draft.cover ?? "",
-      categoryKind: draft.categoryKind,
-      category: draft.category,
       darkInvert: draft.darkInvert,
     };
   }
@@ -108,7 +105,6 @@ const NewSponsorship = () => {
   const [savedId, setSavedId] = useState(draft?.id);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<FormError | null>(null);
-  const needsCategory = tierNeedsCategory(fields.tier);
   const price = SPONSOR_PRICE_USD[fields.tier];
   const update = (patch: Partial<DraftFields>) =>
     setFields((current) => ({ ...current, ...patch }));
@@ -122,10 +118,6 @@ const NewSponsorship = () => {
       setError("cover");
       return;
     }
-    if (needsCategory && !fields.category) {
-      setError("category");
-      return;
-    }
     const input = sponsorDraftSchema.safeParse({
       id: savedId,
       tier: fields.tier,
@@ -135,10 +127,6 @@ const NewSponsorship = () => {
       tagline: fields.tagline,
       logo: fields.logo,
       cover: fields.cover,
-      categoryKind: needsCategory
-        ? (fields.categoryKind ?? undefined)
-        : undefined,
-      category: needsCategory ? (fields.category ?? undefined) : undefined,
       darkInvert: fields.darkInvert,
     });
     if (!input.success) {
@@ -252,7 +240,6 @@ const NewSponsorship = () => {
             idPrefix="new-sponsorship"
             fields={fields}
             update={update}
-            needsCategory={needsCategory}
           />
 
           <FormSection

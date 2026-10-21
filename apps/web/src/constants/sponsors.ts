@@ -1,5 +1,3 @@
-import type { SubmissionKind } from "@/lib/community";
-
 export const SPONSOR_TIERS = ["diamond", "gold", "silver"] as const;
 
 export type SponsorTier = (typeof SPONSOR_TIERS)[number];
@@ -19,12 +17,6 @@ export const SPONSOR_PRICE_USD: Record<SponsorTier, number> = {
 /** Days a one-off sponsorship stays live, counted from approval. */
 export const SPONSOR_ONCE_DAYS = 30;
 
-/** A section and one of its category slugs, e.g. `{ kind: "tool", slug: "ai" }`. */
-export interface SponsorCategory {
-  kind: SubmissionKind;
-  slug: string;
-}
-
 export interface Sponsor {
   name: string;
   tier: SponsorTier;
@@ -34,8 +26,6 @@ export interface Sponsor {
   /** Cover of the sponsored grid card (every tier). */
   cover: string | null;
   tagline?: string;
-  /** Gold and Silver: the category page the placement shows on. */
-  category?: SponsorCategory;
   /** Dark-on-transparent mark: invert it so it reads on dark backgrounds. */
   darkInvert?: boolean;
 }
