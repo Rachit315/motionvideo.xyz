@@ -205,7 +205,7 @@ export const SponsorPlacements = () => {
           </div>
           <div className="flex flex-col gap-2.5">
             <div className="flex aspect-video">
-              <SponsoredCard placement="feed" />
+              <SponsoredCard placement="feed" demo />
             </div>
             <span aria-hidden="true">
               <PosterTile video={VIDEOS.kinetic} />
@@ -249,7 +249,7 @@ export const SponsorPlacements = () => {
                 </span>
               </span>
             </div>
-            <SponsorSlots />
+            <SponsorSlots demo />
           </div>
           <div
             aria-hidden="true"
@@ -321,7 +321,7 @@ export const SponsorPlacements = () => {
                 <ArrowRightUp />
               </span>
             </div>
-            <SponsoredCard placement="sidebar" />
+            <SponsoredCard placement="sidebar" demo />
             <dl aria-hidden="true">
               <DetailRow label={gallery.creator}>
                 <span className="flex items-center gap-1.5">

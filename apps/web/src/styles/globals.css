@@ -629,6 +629,9 @@ media-theme-sutro {
   --media-background-color: var(--background);
   /* Scrub thumb depth, in place of media-chrome's default hairline shadow. */
   --media-range-thumb-box-shadow: 0 1px 2px oklch(0 0 0 / 0.4);
+  /* Keyboard focus ring on buttons and sliders: the brand accent instead of
+     media-chrome's default blue (rgb(27 127 204)). */
+  --media-focus-box-shadow: inset 0 0 0 2px var(--primary);
 }
 
 /* Route view transitions (`viewTransition` on gallery ↔ /videos/$slug links):

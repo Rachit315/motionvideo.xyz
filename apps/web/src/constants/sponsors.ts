@@ -32,7 +32,8 @@ export interface Sponsor {
 
 /**
  * A founding sponsor: credited on /sponsor, and shown in the sponsored grid
- * card only while no Diamond sponsor is live. Never in the sponsor slots.
+ * card only while no Diamond sponsor is live. Never in the live slots or
+ * sidebar; the /sponsor placement previews show them there as examples.
  */
 export type FoundingSponsor = Pick<
   Sponsor,

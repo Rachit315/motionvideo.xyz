@@ -21,31 +21,40 @@ const TRACKING = {
 /**
  * A sponsored placement: every Diamond sponsor first (or, while there is
  * none, the founding sponsors), then Gold and Silver in the feed. No tier is
- * tied to a category page. The detail sidebar shows only Diamond, as a list
- * item rather than a card. Each cover (or row) fades into the next on a
- * timer, with a progress hairline along the bottom edge. The whole placement
- * links straight to the showing sponsor.
+ * tied to a category page. The detail sidebar shows only live Diamond
+ * sponsors, as a list item rather than a card, and nothing while there is
+ * none. Each cover (or row) fades into the next on a timer, with a progress
+ * hairline along the bottom edge. The whole placement links straight to the
+ * showing sponsor.
  */
 export const SponsoredCard = ({
   placement,
+  demo = false,
 }: {
   /** The video grid feed, or a detail view's sidebar. */
   placement: keyof typeof TRACKING;
+  /**
+   * The /sponsor placement previews: the sidebar falls back to the founding
+   * sponsors too, so the preview is never empty. Clicks track as "preview".
+   */
+  demo?: boolean;
 }) => {
   const content = useIntlayer("motion-gallery");
   const live = useSponsors();
-  // Diamond first (the founding sponsors while there is none). Only the feed
-  // goes on to Gold and Silver.
   const diamond = live.filter((entry) => entry.tier === "diamond");
-  const base = diamond.length > 0 ? diamond : FOUNDING_SPONSORS;
   const gold = live.filter((entry) => entry.tier === "gold");
   const silver = live.filter((entry) => entry.tier === "silver");
+  const fallback = diamond.length > 0 ? diamond : FOUNDING_SPONSORS;
+  // Founding sponsors fill the feed card on the live site; the sidebar only
+  // borrows them in the /sponsor preview.
+  const sidebar = demo ? fallback : diamond;
   const sponsors =
     placement === "sidebar"
-      ? [...base]
-      : [...base, ...gold, ...silver].flatMap((entry) =>
+      ? [...sidebar]
+      : [...fallback, ...gold, ...silver].flatMap((entry) =>
           entry.cover ? [{ ...entry, cover: entry.cover }] : []
         );
+  const track = demo ? "preview" : TRACKING[placement].track;
   const [active, setActive] = useState(0);
   // The list changes between pages; stay within it.
   const showing = active % Math.max(sponsors.length, 1);
@@ -75,7 +84,7 @@ export const SponsoredCard = ({
         target="_blank"
         rel="sponsored noopener"
         data-track="sponsor_click"
-        data-track-placement={TRACKING.sidebar.track}
+        data-track-placement={track}
         data-track-name={sponsor.name}
         aria-label={`${sponsor.name} (${content.sponsored.value})`}
         className="group focus-visible:ring-ring hover:bg-muted/60 relative -mx-2 flex items-center rounded-xl px-2 py-2 transition-colors outline-none focus-visible:ring-2"
@@ -108,7 +117,7 @@ export const SponsoredCard = ({
       target="_blank"
       rel="sponsored noopener"
       data-track="sponsor_click"
-      data-track-placement={TRACKING[placement].track}
+      data-track-placement={track}
       data-track-name={sponsor.name}
       aria-label={`${sponsor.name} (${content.sponsored.value})`}
       className="group focus-visible:ring-ring shadow-outline relative block aspect-video overflow-hidden rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
@@ -138,9 +147,11 @@ export const SponsoredCard = ({
         </span>
       </span>
       <span className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-linear-to-t from-black/70 to-transparent p-2.5 pt-6">
+        {/* Same chip as the slots and sidebar: white in light, inverse in
+            dark, with dark-on-transparent marks inverted to match. */}
         <span
           key={`${sponsor.name}:${sponsor.url}`}
-          className="flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white p-1 shadow-sm"
+          className="bg-background dark:bg-popover flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-full p-1 shadow-sm"
         >
           <img
             src={sponsor.logo}
@@ -150,7 +161,10 @@ export const SponsoredCard = ({
             loading="lazy"
             decoding="async"
             referrerPolicy="no-referrer"
-            className="size-full object-contain"
+            className={cn(
+              "size-full object-contain",
+              sponsor.darkInvert && "dark:invert"
+            )}
           />
         </span>
         <span className="flex min-w-0 flex-1 flex-col">
