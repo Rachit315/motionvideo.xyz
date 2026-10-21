@@ -38,7 +38,7 @@ import { cn } from "@/lib/utils";
 import { withUtm } from "@/lib/utm";
 import { createMetadata } from "@/seo/metadata";
 import { getLandingData } from "@/server/functions";
-import { getDiamondSoldOut } from "@/server/sponsorship-functions";
+import { getSoldOutTiers } from "@/server/sponsorship-functions";
 
 // Matches PageSection headings on the other company pages.
 const sectionTitle = "text-xl font-semibold tracking-tight";
@@ -85,7 +85,7 @@ const SponsorLink = ({ sponsor }: { sponsor: FoundingSponsor }) => (
 
 const Sponsor = () => {
   const content = useIntlayer("sponsor");
-  const { signedIn, sponsors, diamondSoldOut } = routeApi.useLoaderData();
+  const { signedIn, sponsors, soldOutTiers } = routeApi.useLoaderData();
 
   return (
     <>
@@ -159,7 +159,7 @@ const Sponsor = () => {
               const tierSponsors = sponsors.filter(
                 (sponsor) => sponsor.tier === id
               );
-              const full = id === "diamond" && diamondSoldOut;
+              const full = soldOutTiers.includes(id);
               return (
                 <li
                   key={id}
@@ -267,7 +267,7 @@ const Sponsor = () => {
                       </ul>
                     </CardContent>
                     <CardFooter className="border-t-0 bg-transparent pt-0">
-                      {featured && diamondSoldOut ? (
+                      {soldOutTiers.includes(id) ? (
                         <Button
                           size="lg"
                           variant="outline"
@@ -369,11 +369,11 @@ export const Route = createFileRoute("/sponsor")({
   loader: async () => {
     // The audience numbers are fetched in the browser with a skeleton: a slow
     // PostHog query must never hold up navigation to this page.
-    const [landing, diamondSoldOut] = await Promise.all([
+    const [landing, soldOutTiers] = await Promise.all([
       getLandingData(),
-      getDiamondSoldOut(),
+      getSoldOutTiers(),
     ]);
-    return { ...landing, diamondSoldOut };
+    return { ...landing, soldOutTiers };
   },
   head: () =>
     createMetadata({

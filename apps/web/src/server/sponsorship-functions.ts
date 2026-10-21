@@ -18,7 +18,7 @@ import { sponsorships } from "./db/sponsorship-schema";
 import { createSponsorCheckoutUrl, sponsorPortalUrl } from "./dodo";
 import { sendEmail } from "./email";
 import {
-  diamondSoldOut,
+  soldOutTiers,
   syncSponsorPayment,
   syncSponsorship,
 } from "./sponsorships";
@@ -30,8 +30,9 @@ const DAY = 24 * 60 * 60 * 1000;
 const MAX_DRAFTS = 10;
 const idSchema = z.string().min(1).max(100);
 
-export const getDiamondSoldOut = createServerFn({ method: "GET" }).handler(() =>
-  diamondSoldOut()
+/** Tiers whose seats (SPONSOR_SLOTS each) are all taken. */
+export const getSoldOutTiers = createServerFn({ method: "GET" }).handler(() =>
+  soldOutTiers()
 );
 
 /** Site traffic shown to prospective sponsors on /sponsor. */
@@ -126,14 +127,15 @@ export type SaveDraftResult =
 
 /**
  * Creates or edits an unpaid sponsorship draft: plan, billing and the
- * placement, all saved before checkout. Diamond is refused while its seats
- * are taken.
+ * placement, all saved before checkout. A tier is refused while its seats are
+ * taken.
  */
 export const saveSponsorDraft = createServerFn({ method: "POST" })
   .validator(sponsorDraftSchema)
   .handler(async ({ data }): Promise<SaveDraftResult> => {
     const session = await requireSession();
-    if (data.tier === "diamond" && (await diamondSoldOut())) {
+    const soldOut = await soldOutTiers();
+    if (soldOut.includes(data.tier)) {
       return { ok: false, error: "sold-out" };
     }
     const db = drizzle(env.DB);
@@ -193,10 +195,18 @@ export const saveSponsorDraft = createServerFn({ method: "POST" })
     return { ok: true, id };
   });
 
-/** Dodo checkout for one of the user's unpaid drafts. */
+/** Starting checkout can fail when the draft's tier filled up meanwhile. */
+export type StartCheckoutResult =
+  | { ok: true; url: string }
+  | { ok: false; error: "sold-out" };
+
+/**
+ * Dodo checkout for one of the user's unpaid drafts. Re-checks the seats: a
+ * draft saved earlier must not pay into a tier that has since sold out.
+ */
 export const startSponsorCheckout = createServerFn({ method: "POST" })
   .validator(z.object({ id: idSchema }))
-  .handler(async ({ data }) => {
+  .handler(async ({ data }): Promise<StartCheckoutResult> => {
     const session = await requireSession();
     const [row] = await drizzle(env.DB)
       .select({
@@ -215,10 +225,15 @@ export const startSponsorCheckout = createServerFn({ method: "POST" })
     if (!row || row.status !== "unpaid") {
       throw new Error("Not an unpaid draft");
     }
-    return createSponsorCheckoutUrl(row.tier, row.billing, data.id, {
+    const soldOut = await soldOutTiers();
+    if (soldOut.includes(row.tier)) {
+      return { ok: false, error: "sold-out" };
+    }
+    const url = await createSponsorCheckoutUrl(row.tier, row.billing, data.id, {
       email: session.user.email,
       userId: session.user.id,
     });
+    return { ok: true, url };
   });
 
 /** Deletes one of the user's unpaid drafts. */

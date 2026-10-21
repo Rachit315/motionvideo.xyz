@@ -58,5 +58,8 @@ export const FOUNDING_SPONSORS: readonly FoundingSponsor[] = [
   },
 ];
 
-/** Diamond seats: the header shows this many marks or open invite slots. */
+/**
+ * Seats per tier (Diamond, Gold and Silver each): a tier sells out at this
+ * many paid runs. Also the number of slots under each page intro.
+ */
 export const SPONSOR_SLOTS = 3;

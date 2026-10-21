@@ -27,8 +27,8 @@ import { track } from "@/lib/analytics";
 import { sponsorDraftSchema } from "@/lib/sponsorships";
 import { createMetadata } from "@/seo/metadata";
 import {
-  getDiamondSoldOut,
   getMySponsorships,
+  getSoldOutTiers,
   saveSponsorDraft,
   startSponsorCheckout,
 } from "@/server/sponsorship-functions";
@@ -63,7 +63,7 @@ const routeApi = getRouteApi("/dashboard/sponsorships/new");
 const fieldsOf = (
   draft: MySponsorship | undefined,
   search: NewSponsorshipSearch,
-  diamondSoldOut: boolean
+  soldOut: readonly SponsorTier[]
 ): DraftFields => {
   if (draft) {
     return {
@@ -77,11 +77,13 @@ const fieldsOf = (
       darkInvert: draft.darkInvert,
     };
   }
-  const fallback: SponsorTier = diamondSoldOut ? "gold" : "diamond";
+  // The asked-for tier when it has a seat, else the first tier that does
+  // (Diamond when every tier is full; saving then explains it sold out).
+  const open = (tier: SponsorTier) => !soldOut.includes(tier);
   const tier =
-    search.tier === "diamond" && diamondSoldOut
-      ? fallback
-      : (search.tier ?? fallback);
+    search.tier && open(search.tier)
+      ? search.tier
+      : (SPONSOR_TIERS.find(open) ?? "diamond");
   return {
     ...EMPTY_CREATIVE,
     tier,
@@ -92,14 +94,14 @@ const fieldsOf = (
 const NewSponsorship = () => {
   const content = useIntlayer("sponsorships-page");
   const sponsorCopy = useIntlayer("sponsor");
-  const { email, sponsorships, diamondSoldOut } = routeApi.useLoaderData();
+  const { email, sponsorships, soldOutTiers } = routeApi.useLoaderData();
   const search = routeApi.useSearch();
   const draft = sponsorships.find(
     (sponsorship) =>
       sponsorship.id === search.sponsorship && sponsorship.status === "unpaid"
   );
   const [fields, setFields] = useState(() =>
-    fieldsOf(draft, search, diamondSoldOut)
+    fieldsOf(draft, search, soldOutTiers)
   );
   // Set once the draft is saved, so a retry edits it instead of adding one.
   const [savedId, setSavedId] = useState(draft?.id);
@@ -154,7 +156,13 @@ const NewSponsorship = () => {
       product: `sponsor-${fields.tier}-${fields.billing}`,
     });
     try {
-      window.location.assign(await startSponsorCheckout({ data: { id } }));
+      const checkout = await startSponsorCheckout({ data: { id } });
+      if (!checkout.ok) {
+        setPending(false);
+        setError(checkout.error);
+        return;
+      }
+      window.location.assign(checkout.url);
     } catch {
       setPending(false);
       setError("checkout");
@@ -187,7 +195,7 @@ const NewSponsorship = () => {
               }
             >
               {SPONSOR_TIERS.map((tier) => {
-                const soldOut = tier === "diamond" && diamondSoldOut;
+                const soldOut = soldOutTiers.includes(tier);
                 return (
                   <ChoiceCard
                     key={tier}
@@ -296,9 +304,9 @@ export const Route = createFileRoute("/dashboard/sponsorships/new")({
     sponsorship: idSchema.safeParse(search.sponsorship).data,
   }),
   loader: async ({ location }) => {
-    const [mine, diamondSoldOut] = await Promise.all([
+    const [mine, soldOutTiers] = await Promise.all([
       getMySponsorships({ data: {} }),
-      getDiamondSoldOut(),
+      getSoldOutTiers(),
     ]);
     if (!mine) {
       throw redirect({
@@ -306,6 +314,6 @@ export const Route = createFileRoute("/dashboard/sponsorships/new")({
         to: ROUTES.SIGN_IN,
       });
     }
-    return { ...mine, diamondSoldOut };
+    return { ...mine, soldOutTiers };
   },
 });
