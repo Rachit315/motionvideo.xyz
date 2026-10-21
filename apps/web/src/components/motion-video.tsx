@@ -894,10 +894,10 @@ export const MotionVideoOverlay = ({
                   </a>
                 )}
               </div>
-              {/* Diamond's third placement: the list item beside every video.
-                  Renders nothing until a Diamond sponsor is live. */}
-              <SponsoredCard placement="sidebar" />
               <dl>
+                {/* Diamond's third placement: the first details row, beside
+                    every video. Renders nothing until a Diamond is live. */}
+                <SponsoredCard placement="sidebar" />
                 <DetailRow label={content.creator}>
                   <a
                     href={`https://x.com/${video.handle}`}

@@ -456,6 +456,18 @@ export default {
       pt: "Patrocinado",
       ru: "Спонсор",
     }),
+    // Label of the Diamond row in a video's details list.
+    sponsoredBy: t({
+      en: "Sponsored by",
+      es: "Patrocinado por",
+      fr: "Sponsorisé par",
+      zh: "赞助商",
+      ko: "후원",
+      ja: "スポンサー",
+      de: "Gesponsert von",
+      pt: "Patrocinado por",
+      ru: "Спонсор",
+    }),
     category: t({
       en: "Category",
       es: "Categoría",

@@ -3,7 +3,7 @@ import { useIntlayer } from "react-intlayer";
 
 import { ImageDropzone } from "@/components/image-dropzone";
 import { FormSection } from "@/components/page";
-import { SponsorListItem } from "@/components/sponsor-list-item";
+import { SponsorDetailRow } from "@/components/sponsor-detail-row";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -105,8 +105,8 @@ const CampaignCardPreview = ({
 };
 
 // Roughly how each placement renders: the cover in the feed (every tier), the
-// logo in the slots (Diamond and Gold), and the list item in a video's detail
-// sidebar (Diamond only). A switch picks which one to show.
+// logo in the slots (Diamond and Gold), and the "Sponsored by" row in a
+// video's detail sidebar (Diamond only). A switch picks which one to show.
 export const CreativePreview = ({
   fields,
   tier,
@@ -115,6 +115,7 @@ export const CreativePreview = ({
   tier: SponsorTier;
 }) => {
   const content = useIntlayer("sponsorships-page");
+  const gallery = useIntlayer("motion-gallery");
   const [picked, setPicked] = useState<PreviewPlacement>("card");
   let previewPlacements: PreviewPlacement[] = ["card"];
   if (tier === "diamond") {
@@ -197,42 +198,39 @@ export const CreativePreview = ({
         value="sidebar"
         className="flex min-h-0 w-full items-center justify-center"
       >
-        {/* A video detail view in miniature: a 3:1 page split, with the
-            sponsor as a list item in the narrower sidebar. */}
-        <div className="grid w-full max-w-sm grid-cols-[3fr_1fr] overflow-hidden rounded-lg border">
-          <div className="bg-muted/30 flex flex-col gap-2 p-2">
-            <div className="bg-muted shadow-outline aspect-video rounded-lg" />
-            <Skeleton className="h-2 w-3/4 rounded-sm" />
-            <Skeleton className="h-2 w-1/2 rounded-sm" />
-            <div className="mt-auto flex gap-1.5">
-              <Skeleton className="h-6 w-16 rounded-md" />
-              <Skeleton className="h-6 w-12 rounded-md" />
-            </div>
-          </div>
-          <div className="bg-background flex flex-col gap-2 border-l p-2">
-            <div className="flex items-center justify-between gap-1">
-              <Skeleton className="size-4 rounded-full" />
-              <span className="flex gap-1">
-                <Skeleton className="size-4 rounded-full" />
-                <Skeleton className="size-4 rounded-full" />
-              </span>
-            </div>
-            <Skeleton className="h-2 w-2/3 rounded-sm" />
-            <Skeleton className="h-2 w-full rounded-sm" />
-            <Skeleton className="h-2 w-3/4 rounded-sm" />
-            <Skeleton className="h-5 w-full rounded-md" />
-            <span className="mt-1 flex rounded-lg px-1 py-1.5">
-              <SponsorListItem
-                logo={logo}
-                name={name}
-                tagline={tagline}
-                sponsored={content.sponsored}
-                darkInvert={fields.darkInvert}
-              />
+        {/* A video detail sidebar: header icons, title and source button,
+            then the details list with the sponsor as its first row. */}
+        <div className="bg-background shadow-outline dark:bg-popover flex w-full max-w-xs flex-col gap-3 rounded-xl p-4">
+          <div className="flex items-center justify-between gap-1">
+            <Skeleton className="size-6 rounded-full" />
+            <span className="flex gap-1.5">
+              <Skeleton className="size-6 rounded-full" />
+              <Skeleton className="size-6 rounded-full" />
+              <Skeleton className="size-6 rounded-full" />
             </span>
-            <Skeleton className="mt-auto h-2 w-2/3 rounded-sm" />
-            <Skeleton className="h-2 w-1/2 rounded-sm" />
           </div>
+          <Skeleton className="h-3 w-3/4 rounded-sm" />
+          <Skeleton className="h-8 w-full rounded-lg" />
+          <dl>
+            <SponsorDetailRow
+              label={gallery.sponsoredBy}
+              logo={logo}
+              name={name}
+              tagline={tagline}
+              darkInvert={fields.darkInvert}
+              className="gap-3 py-2 text-xs"
+            />
+            {["w-16", "w-20", "w-12"].map((width) => (
+              <div
+                key={width}
+                aria-hidden="true"
+                className="flex items-center justify-between gap-3 border-t border-dashed py-2"
+              >
+                <Skeleton className="h-2 w-12 rounded-sm" />
+                <Skeleton className={cn("h-2 rounded-sm", width)} />
+              </div>
+            ))}
+          </dl>
         </div>
       </TabsContent>
       {previewPlacements.length > 1 && (

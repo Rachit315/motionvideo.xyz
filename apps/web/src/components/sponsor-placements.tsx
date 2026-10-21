@@ -134,7 +134,10 @@ const DetailRow = ({
   label: ReactNode;
   children: ReactNode;
 }) => (
-  <div className="flex items-start justify-between gap-3 border-t border-dashed py-1.5 first:border-t-0">
+  <div
+    aria-hidden="true"
+    className="flex items-start justify-between gap-3 border-t border-dashed py-1.5 first:border-t-0"
+  >
     <dt className="text-muted-foreground">{label}</dt>
     <dd className="flex min-w-0 flex-col items-end text-right">{children}</dd>
   </div>
@@ -321,8 +324,12 @@ export const SponsorPlacements = () => {
                 <ArrowRightUp />
               </span>
             </div>
-            <SponsoredCard placement="sidebar" demo />
-            <dl aria-hidden="true">
+            <dl>
+              <SponsoredCard
+                placement="sidebar"
+                demo
+                rowClassName="gap-3 py-1.5 text-xs"
+              />
               <DetailRow label={gallery.creator}>
                 <span className="flex items-center gap-1.5">
                   <img

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useIntlayer } from "react-intlayer";
 
 import { ExternalLinkChip } from "@/components/external-link-chip";
-import { SponsorListItem } from "@/components/sponsor-list-item";
+import { SponsorDetailRow } from "@/components/sponsor-detail-row";
 import { FOUNDING_SPONSORS } from "@/constants/sponsors";
 import { useSponsors } from "@/lib/sponsorships";
 import { cn } from "@/lib/utils";
@@ -20,16 +20,16 @@ const TRACKING = {
 
 /**
  * A sponsored placement: every Diamond sponsor first (or, while there is
- * none, the founding sponsors), then Gold and Silver in the feed. No tier is
- * tied to a category page. The detail sidebar shows only live Diamond
- * sponsors, as a list item rather than a card, and nothing while there is
- * none. Each cover (or row) fades into the next on a timer, with a progress
- * hairline along the bottom edge. The whole placement links straight to the
- * showing sponsor.
+ * none, the founding sponsors), then Gold and Silver in the feed, as a cover
+ * card that fades to the next on a timer with a progress hairline along its
+ * bottom edge. No tier is tied to a category page. The detail sidebar shows
+ * only live Diamond sponsors, as the "Sponsored by" row of its details list
+ * (render it inside that `<dl>`), and nothing while there is none.
  */
 export const SponsoredCard = ({
   placement,
   demo = false,
+  rowClassName,
 }: {
   /** The video grid feed, or a detail view's sidebar. */
   placement: keyof typeof TRACKING;
@@ -38,6 +38,8 @@ export const SponsoredCard = ({
    * sponsors too, so the preview is never empty. Clicks track as "preview".
    */
   demo?: boolean;
+  /** Sidebar only: spacing/type overrides for the row (compact previews). */
+  rowClassName?: string;
 }) => {
   const content = useIntlayer("motion-gallery");
   const live = useSponsors();
@@ -78,36 +80,31 @@ export const SponsoredCard = ({
   }
 
   if (placement === "sidebar") {
+    // A "Sponsored by" row in the details list; with several Diamond
+    // sponsors it fades from one to the next.
     return (
-      <a
-        href={withUtm(sponsor.url, TRACKING.sidebar.utm)}
-        target="_blank"
-        rel="sponsored noopener"
-        data-track="sponsor_click"
-        data-track-placement={track}
-        data-track-name={sponsor.name}
-        aria-label={`${sponsor.name} (${content.sponsored.value})`}
-        className="group focus-visible:ring-ring hover:bg-muted/60 relative -mx-2 flex items-center rounded-xl px-2 py-2 transition-colors outline-none focus-visible:ring-2"
-      >
-        <SponsorListItem
-          logo={sponsor.logo}
-          name={sponsor.name}
-          tagline={sponsor.tagline}
-          sponsored={content.sponsored}
-          darkInvert={sponsor.darkInvert}
-        />
-        {sponsors.length > 1 && (
-          <span
-            aria-hidden="true"
-            className="bg-muted absolute inset-x-2 bottom-0 h-0.5 overflow-hidden rounded-full motion-reduce:hidden"
-          >
-            <span
-              key={active}
-              className="animate-mv-rotate bg-primary/60 block h-full"
-            />
-          </span>
+      <SponsorDetailRow
+        key={`${sponsor.name}:${sponsor.url}`}
+        label={content.sponsoredBy}
+        logo={sponsor.logo}
+        name={sponsor.name}
+        tagline={sponsor.tagline}
+        darkInvert={sponsor.darkInvert}
+        className={cn(
+          sponsors.length > 1 &&
+            "animate-in fade-in duration-500 motion-reduce:animate-none",
+          rowClassName
         )}
-      </a>
+        link={{
+          href: withUtm(sponsor.url, TRACKING.sidebar.utm),
+          target: "_blank",
+          rel: "sponsored noopener",
+          "data-track": "sponsor_click",
+          "data-track-placement": track,
+          "data-track-name": sponsor.name,
+          "aria-label": `${sponsor.name} (${content.sponsored.value})`,
+        }}
+      />
     );
   }
 
