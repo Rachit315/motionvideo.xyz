@@ -1,7 +1,7 @@
 // Find recent motion videos, X Articles and GitHub skills worth adding, by
 // reading the timelines of every creator already in the catalog through the
 // public FxTwitter API. Prints candidates only; curate them by hand into
-// scripts/import-x-videos.mjs, scripts/import-x-articles.mjs or
+// scripts/x-video-sources.json, scripts/import-x-articles.mjs or
 // src/data/resource-directories.json.
 //
 //   pnpm catalog:discover                     last 7 days

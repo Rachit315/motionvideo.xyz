@@ -3,15 +3,16 @@
 //
 //   pnpm catalog:import:videos
 //
-// Each source names the post plus the curation FxTwitter can't supply: a
-// title, content categories and where the prompt is (in the post itself or in
-// one of the creator's own replies) between two markers, or a skill URL. Every
-// video needs a prompt or a skill, so a source with neither is rejected. Posts
-// already in the catalog are skipped, so the list can keep
-// growing; find new posts with `pnpm catalog:discover`. New videos are spread
-// through the default (popular) order, one after every third existing video.
-// Run `pnpm assets:mirror` afterwards to move the media onto
-// assets.motionvideo.xyz.
+// Each source in x-video-sources.json names the post plus the curation
+// FxTwitter can't supply: a title, content categories, the model when the
+// creator reported it, and the prompt or a skill URL. The prompt is either
+// found in the post (or one of the creator's own replies) between two markers,
+// or given as `text` when the creator published it elsewhere (an image, a
+// gist, a gallery). Every video needs a prompt or a skill, so a source with
+// neither is rejected. Posts already in the catalog are skipped, so the list
+// can keep growing; find new posts with `pnpm catalog:discover`. New videos are
+// spread evenly through the default (popular) order. Run `pnpm assets:mirror`
+// afterwards to move the media onto assets.motionvideo.xyz.
 import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
@@ -20,160 +21,45 @@ import { promisify } from "node:util";
 
 import { z } from "zod";
 
-import { MOTION_CATEGORIES } from "../src/lib/motion-catalog.ts";
+import {
+  EFFORTS,
+  ITERATIONS,
+  MOTION_CATEGORIES,
+  MOTION_MODELS,
+} from "../src/lib/motion-catalog.ts";
 
 const run = promisify(execFile);
 const catalogPath = fileURLToPath(
   new URL("../src/data/motion-catalog.json", import.meta.url)
 );
+const sourcesPath = fileURLToPath(
+  new URL("x-video-sources.json", import.meta.url)
+);
 const API = "https://api.fxtwitter.com/2";
 const CONCURRENCY = 6;
 // Cards play a small preview; the detail view plays the best quality.
 const PREVIEW_WIDTH = 480;
-
-// Posts found with `pnpm catalog:discover` and checked by hand. Add one here,
-// then rerun the script.
-const SOURCES = [
-  {
-    post: "twoclipping/status/2110329502676951367",
-    title: "Landing page 3D fly-over",
-    contentTags: ["product-ui"],
-    prompt: {
-      in: "post",
-      from: "<inputs>",
-    },
-  },
-  {
-    post: "kloss_xyz/status/2107696042053431360",
-    title: "MAGNETIC psychedelic Blender short",
-    contentTags: ["music", "particles"],
-    prompt: {
-      in: "reply",
-      from: "MAGNETIC:",
-    },
-  },
-  {
-    post: "beamnxw/status/2109722135291744578",
-    title: "One-word brand launch clip",
-    contentTags: ["kinetic-type", "product-ui"],
-    prompt: {
-      in: "reply",
-      from: "<inputs>",
-    },
-  },
-  {
-    post: "higgsfield_ai/status/2108372803464692139",
-    title: "LOUD ONE launch film",
-    contentTags: ["kinetic-type", "music"],
-    prompt: {
-      in: "reply",
-      from: "<inputs>",
-    },
-  },
-  {
-    post: "higgsfield_ai/status/2108370085178138694",
-    title: "PHYLLA language model launch",
-    contentTags: ["kinetic-type"],
-    prompt: {
-      in: "post",
-      from: "<inputs>",
-    },
-  },
-  {
-    post: "socialwithaayan/status/2109641079087919114",
-    title: "Animated short directed from one Claude chat",
-    contentTags: ["characters"],
-    prompt: {
-      in: "reply",
-      from: "Use the Fish Audio",
-    },
-  },
-  {
-    post: "rossaxbt/status/2108933141406638456",
-    title: "White dot UI motion system",
-    contentTags: ["product-ui", "shapes"],
-    prompt: {
-      in: "post",
-      from: "<inputs>",
-    },
-  },
-  {
-    post: "rossaxbt/status/2108570705692357094",
-    title: "Orange dot motion system",
-    contentTags: ["shapes", "kinetic-type", "charts"],
-    prompt: {
-      in: "post",
-      from: "<inputs>",
-    },
-  },
-  {
-    post: "kloss_xyz/status/2109087249572749553",
-    title: "Turn It Up Now lyric video",
-    contentTags: ["music", "kinetic-type"],
-    prompt: {
-      in: "post",
-      from: "Make a fully interactive music video",
-    },
-  },
-  {
-    post: "phasE89/status/2107759067313672475",
-    title: "Offside explained in 3D",
-    contentTags: ["diagrams"],
-    prompt: {
-      in: "reply",
-      from: "3D VÝUKOVÉ",
-    },
-  },
-  {
-    post: "flxrnc/status/2108242454105251921",
-    title: "14-second UI morph loop",
-    contentTags: ["shapes", "product-ui"],
-    prompt: {
-      in: "post",
-      from: "<inputs>",
-    },
-  },
-  {
-    post: "prasenx/status/2109744342617473244",
-    title: "History of music",
-    contentTags: ["music", "diagrams"],
-    prompt: {
-      in: "reply",
-      from: "make a cinematic video",
-    },
-  },
-  {
-    post: "notdwd/status/2110430375164232173",
-    title: "Shotbase landing page fly-over",
-    contentTags: ["product-ui"],
-    prompt: {
-      in: "post",
-      from: "<inputs>",
-      to: "</start>",
-    },
-  },
-  {
-    post: "DemitiyaGeekzen/status/2110418136277401678",
-    title: "huashu-art-motion explainer run with Gemini",
-    contentTags: ["characters"],
-    skillUrl: "https://github.com/alchaincyf/huashu-art-motion",
-  },
-];
-
 const sourceSchema = z
   .object({
     post: z.string().regex(/^\w+\/status\/\d+$/u),
     title: z.string().min(1),
     contentTags: z.array(z.enum(MOTION_CATEGORIES)).min(1),
     prompt: z
-      .object({
-        in: z.enum(["post", "reply"]),
-        from: z.string().min(1),
-        to: z.string().min(1).optional(),
-      })
+      .union([
+        z.object({
+          in: z.enum(["post", "reply"]),
+          from: z.string().min(1),
+          to: z.string().min(1).optional(),
+        }),
+        z.object({ text: z.string().min(1) }),
+      ])
       .optional(),
     skillUrl: z.url().optional(),
     description: z.string().optional(),
+    model: z.enum(MOTION_MODELS).optional(),
+    stack: z.string().min(1).optional(),
+    effort: z.enum(EFFORTS).optional(),
+    iterations: z.enum(ITERATIONS).optional(),
   })
   .refine((source) => source.prompt || source.skillUrl, {
     message: "A source needs a prompt or a skillUrl",
@@ -247,6 +133,9 @@ const findPrompt = (source, conversation) => {
   const { prompt } = source;
   if (!prompt) {
     return null;
+  }
+  if ("text" in prompt) {
+    return prompt.text.trim();
   }
   const { status } = conversation;
   const texts =
@@ -349,46 +238,58 @@ const buildVideo = async (source) => {
   if (source.description) {
     video.description = source.description;
   }
+  for (const key of ["model", "stack", "effort", "iterations"]) {
+    if (source[key]) {
+      video[key] = source[key];
+    }
+  }
   return video;
 };
 
 const catalog = JSON.parse(await readFile(catalogPath, "utf-8"));
+const sources = z
+  .array(sourceSchema)
+  .parse(JSON.parse(await readFile(sourcesPath, "utf-8")));
 const known = new Set(
   catalog.videos.map(
     (video) => video.tweetUrl?.match(/status\/(?<id>\d+)/u)?.groups.id
   )
 );
-const pending = z
-  .array(sourceSchema)
-  .parse(SOURCES)
-  .filter((source) => !known.has(source.post.split("/status/")[1]));
+const pending = sources.filter(
+  (source) => !known.has(source.post.split("/status/")[1])
+);
 
-const added = [];
+// Indexed by source, so new videos keep the order of the sources file.
+const built = [];
 const failed = [];
-const queue = [...pending];
+const queue = [...pending.entries()];
 // A few posts at a time, to stay gentle on the public API.
 const worker = async () => {
-  for (let source = queue.shift(); source; source = queue.shift()) {
+  for (let entry = queue.shift(); entry; entry = queue.shift()) {
+    const [index, source] = entry;
     try {
       // oxlint-disable-next-line no-await-in-loop
-      added.push(await buildVideo(source));
+      built[index] = await buildVideo(source);
     } catch (error) {
       failed.push({ post: source.post, error: error.message });
     }
   }
 };
 await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+const added = built.filter(Boolean);
 
-// Interleave: one new video after every three existing ones.
+// Spread the new videos evenly through the existing order.
 const videos = [];
-const fresh = [...added];
+const step = catalog.videos.length / (added.length + 1);
+let next = 0;
 for (const [index, video] of catalog.videos.entries()) {
   videos.push(video);
-  if (index % 3 === 2 && fresh.length > 0) {
-    videos.push(fresh.shift());
+  while (next < added.length && index + 1 >= step * (next + 1)) {
+    videos.push(added[next]);
+    next += 1;
   }
 }
-videos.push(...fresh);
+videos.push(...added.slice(next));
 
 if (added.length > 0) {
   await writeFile(
@@ -397,7 +298,7 @@ if (added.length > 0) {
   );
 }
 console.log(
-  `${added.length} added, ${SOURCES.length - pending.length} already in the catalog, ${failed.length} failed.`
+  `${added.length} added, ${sources.length - pending.length} already in the catalog, ${failed.length} failed.`
 );
 if (failed.length > 0) {
   console.error(failed);

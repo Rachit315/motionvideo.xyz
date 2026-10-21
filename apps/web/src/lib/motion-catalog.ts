@@ -16,7 +16,7 @@ export interface MotionVideo {
   skillUrl?: string;
   tweetUrl?: string;
   description?: string;
-  /** How it was made, as the creator reported it. */
+  /** How it was made, as the creator reported it. One of MOTION_MODELS. */
   model?: string;
   stack?: string;
   /** One of EFFORTS. */
@@ -37,6 +37,20 @@ export const ITERATIONS = ["one-shot", "few-rounds", "many-rounds"] as const;
 export type Iterations = (typeof ITERATIONS)[number];
 export const findIterations = (value: string | undefined) =>
   ITERATIONS.find((iterations) => iterations === value);
+
+// Models creators reported making their videos with, as shown in the gallery.
+// The URL carries a slug (`?model=opus-5-5`).
+export const MOTION_MODELS = [
+  "Opus 5.5",
+  "Fable 5.5",
+  "Gemini 4 Argon",
+  "GPT-6 Astra",
+] as const;
+export type MotionModel = (typeof MOTION_MODELS)[number];
+export const motionModelSlug = (model: string) =>
+  model.toLowerCase().replaceAll(/[^a-z\d]+/gu, "-");
+export const findMotionModel = (slug: string | undefined) =>
+  MOTION_MODELS.find((model) => motionModelSlug(model) === slug);
 
 export const MOTION_CATEGORIES = [
   "product-ui",
@@ -60,6 +74,8 @@ export const findMotionCategory = (value: string | undefined) =>
 // The category is a path segment (`/category/$category`), not a search param.
 export interface GallerySearch {
   type?: "prompt" | "skill";
+  /** A motionModelSlug. */
+  model?: string;
   sort?: "newest" | "oldest";
 }
 
@@ -75,6 +91,12 @@ export const filterMotionVideos = (
   const words = search.q?.trim().toLowerCase().split(/\s+/u) ?? [];
   const filtered = videos.filter((video) => {
     if (search.type && !video.tags.includes(search.type)) {
+      return false;
+    }
+    if (
+      search.model &&
+      (!video.model || motionModelSlug(video.model) !== search.model)
+    ) {
       return false;
     }
     if (search.category && !video.contentTags.includes(search.category)) {
