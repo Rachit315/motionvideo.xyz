@@ -452,6 +452,40 @@
   --animate-mv-cycle: mv-cycle 6s ease-in-out infinite both;
   /* Sponsored card timer hairline: fills once per rotation. */
   --animate-mv-rotate: mv-rotate 6s linear forwards;
+  /* Header wordmark: sprocket holes running past "Video" (see brand.tsx). */
+  --animate-brand-sprockets: brand-sprockets 500ms linear infinite;
+}
+
+@keyframes brand-sprockets {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: -0.3em;
+  }
+}
+
+/* Header wordmark: an o of "Motion" bounces like a ball. Anticipate (squash),
+   stretch on the way up, squash on landing, settle. */
+@keyframes brand-bounce {
+  0%,
+  100% {
+    transform: none;
+  }
+  14% {
+    transform: scale(1.18, 0.8);
+    animation-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1);
+  }
+  46% {
+    transform: translateY(-0.5em) scale(0.88, 1.14);
+    animation-timing-function: cubic-bezier(0.33, 0, 0.66, 0.34);
+  }
+  70% {
+    transform: scale(1.22, 0.78);
+  }
+  86% {
+    transform: scale(0.96, 1.05);
+  }
 }
 
 /* `mv-delay-<ms>`: staggers the looping demo animations. */
