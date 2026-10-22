@@ -42,6 +42,8 @@ const PAGES: { lastmod?: string; path: string }[] = [
   { path: ROUTES.MOTIONVIDEO_SKILL },
   { path: ROUTES.PRICING },
   { path: ROUTES.MOVES },
+  { path: ROUTES.MCP },
+  { path: ROUTES.DOCS },
   ...MOVES.map((move) => ({ path: `${ROUTES.MOVES}/${move.slug}` })),
   ...STATIC_PAGES.map((page) => ({ path: page })),
 ];

@@ -11,7 +11,7 @@ const [movesText, promptsText, catalogText, source] = await Promise.all([
   read("src/data/moves.json"),
   read("src/server/data/move-prompts.json"),
   read("src/data/motion-catalog.json"),
-  read("src/lib/moves.ts"),
+  read("src/lib/move-families.ts"),
 ]);
 
 const families = [

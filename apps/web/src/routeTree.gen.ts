@@ -16,10 +16,12 @@ import { Route as BookmarksRouteImport } from './routes/bookmarks'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as CreativesRouteImport } from './routes/creatives'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DocsRouteImport } from './routes/docs'
 import { Route as ExtrasRouteImport } from './routes/extras'
 import { Route as FeaturedRouteImport } from './routes/featured'
 import { Route as ListingsRouteImport } from './routes/listings'
 import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MotionvideoSkillRouteImport } from './routes/motionvideo-skill'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as SettingsRouteImport } from './routes/settings'
@@ -113,6 +115,11 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DocsRoute = DocsRouteImport.update({
+  id: '/docs',
+  path: '/docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExtrasRoute = ExtrasRouteImport.update({
   id: '/extras',
   path: '/extras',
@@ -131,6 +138,11 @@ const ListingsRoute = ListingsRouteImport.update({
 const LlmsDottxtRoute = LlmsDottxtRouteImport.update({
   id: '/llms.txt',
   path: '/llms.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MotionvideoSkillRoute = MotionvideoSkillRouteImport.update({
@@ -440,10 +452,12 @@ export interface FileRoutesByFullPath {
   '/checkout': typeof CheckoutRoute
   '/creatives': typeof CreativesRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
+  '/docs': typeof DocsRoute
   '/extras': typeof ExtrasRouteWithChildren
   '/featured': typeof FeaturedRoute
   '/listings': typeof ListingsRoute
   '/llms.txt': typeof LlmsDottxtRoute
+  '/mcp': typeof McpRoute
   '/motionvideo-skill': typeof MotionvideoSkillRoute
   '/pricing': typeof PricingRoute
   '/settings': typeof SettingsRoute
@@ -507,9 +521,11 @@ export interface FileRoutesByTo {
   '/': typeof GalleryIndexRoute
   '/bookmarks': typeof BookmarksRoute
   '/checkout': typeof CheckoutRoute
+  '/docs': typeof DocsRoute
   '/featured': typeof FeaturedRoute
   '/listings': typeof ListingsRoute
   '/llms.txt': typeof LlmsDottxtRoute
+  '/mcp': typeof McpRoute
   '/motionvideo-skill': typeof MotionvideoSkillRoute
   '/pricing': typeof PricingRoute
   '/settings': typeof SettingsRoute
@@ -575,10 +591,12 @@ export interface FileRoutesById {
   '/checkout': typeof CheckoutRoute
   '/creatives': typeof CreativesRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
+  '/docs': typeof DocsRoute
   '/extras': typeof ExtrasRouteWithChildren
   '/featured': typeof FeaturedRoute
   '/listings': typeof ListingsRoute
   '/llms.txt': typeof LlmsDottxtRoute
+  '/mcp': typeof McpRoute
   '/motionvideo-skill': typeof MotionvideoSkillRoute
   '/pricing': typeof PricingRoute
   '/settings': typeof SettingsRoute
@@ -648,10 +666,12 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/creatives'
     | '/dashboard'
+    | '/docs'
     | '/extras'
     | '/featured'
     | '/listings'
     | '/llms.txt'
+    | '/mcp'
     | '/motionvideo-skill'
     | '/pricing'
     | '/settings'
@@ -715,9 +735,11 @@ export interface FileRouteTypes {
     | '/'
     | '/bookmarks'
     | '/checkout'
+    | '/docs'
     | '/featured'
     | '/listings'
     | '/llms.txt'
+    | '/mcp'
     | '/motionvideo-skill'
     | '/pricing'
     | '/settings'
@@ -782,10 +804,12 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/creatives'
     | '/dashboard'
+    | '/docs'
     | '/extras'
     | '/featured'
     | '/listings'
     | '/llms.txt'
+    | '/mcp'
     | '/motionvideo-skill'
     | '/pricing'
     | '/settings'
@@ -855,10 +879,12 @@ export interface RootRouteChildren {
   CheckoutRoute: typeof CheckoutRoute
   CreativesRoute: typeof CreativesRouteWithChildren
   DashboardRoute: typeof DashboardRouteWithChildren
+  DocsRoute: typeof DocsRoute
   ExtrasRoute: typeof ExtrasRouteWithChildren
   FeaturedRoute: typeof FeaturedRoute
   ListingsRoute: typeof ListingsRoute
   LlmsDottxtRoute: typeof LlmsDottxtRoute
+  McpRoute: typeof McpRoute
   MotionvideoSkillRoute: typeof MotionvideoSkillRoute
   PricingRoute: typeof PricingRoute
   SettingsRoute: typeof SettingsRoute
@@ -936,6 +962,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/docs': {
+      id: '/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/extras': {
       id: '/extras'
       path: '/extras'
@@ -962,6 +995,13 @@ declare module '@tanstack/react-router' {
       path: '/llms.txt'
       fullPath: '/llms.txt'
       preLoaderRoute: typeof LlmsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/motionvideo-skill': {
@@ -1542,10 +1582,12 @@ const rootRouteChildren: RootRouteChildren = {
   CheckoutRoute: CheckoutRoute,
   CreativesRoute: CreativesRouteWithChildren,
   DashboardRoute: DashboardRouteWithChildren,
+  DocsRoute: DocsRoute,
   ExtrasRoute: ExtrasRouteWithChildren,
   FeaturedRoute: FeaturedRoute,
   ListingsRoute: ListingsRoute,
   LlmsDottxtRoute: LlmsDottxtRoute,
+  McpRoute: McpRoute,
   MotionvideoSkillRoute: MotionvideoSkillRoute,
   PricingRoute: PricingRoute,
   SettingsRoute: SettingsRoute,

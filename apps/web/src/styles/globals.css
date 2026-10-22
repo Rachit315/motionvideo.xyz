@@ -167,6 +167,10 @@
   --push-press: 110ms;
   --push-release: 190ms;
   --push-spring: cubic-bezier(0.22, 1.32, 0.36, 1);
+  /* Navigation menu: the hover pill's slide and its fill. */
+  --tabs-duration: 250ms;
+  --tabs-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --color-nav-hover: var(--nav-hover);
 }
 
 :root {
@@ -214,6 +218,7 @@
   --otp-success-color: oklch(0.68 0.16 240);
   --shell-line-strong: #dcdcdc;
   --skeleton-sweep: rgb(0 0 0 / 6%);
+  --nav-hover: oklch(0.945 0 0);
 }
 
 .dark {
@@ -258,6 +263,7 @@
   --otp-trail-color: rgb(255 255 255 / 55%);
   --otp-success-color: oklch(0.75 0.15 240);
   --skeleton-sweep: rgb(255 255 255 / 7%);
+  --nav-hover: var(--muted);
   --shell-line-strong: #303030;
 }
 
@@ -691,6 +697,39 @@ media-theme-sutro {
   }
   .t-raise:not(.t-flat)::before {
     transition-duration: 0ms;
+  }
+}
+
+/* Navigation menu popup: tips in from the side it opens on, fades out. */
+@keyframes popover-flip-in {
+  from {
+    opacity: 0;
+    transform: perspective(600px) rotateX(var(--popover-tilt-x, 0deg))
+      rotateY(var(--popover-tilt-y, 0deg)) scale(0.94);
+  }
+}
+@keyframes popover-flip-out {
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+.popover-panel[data-side="bottom"] {
+  --popover-tilt-x: -20deg;
+}
+.popover-panel[data-side="top"] {
+  --popover-tilt-x: 20deg;
+}
+.popover-panel[data-open] {
+  animation: popover-flip-in 300ms var(--ease-out);
+}
+.popover-panel[data-closed] {
+  animation: popover-flip-out 160ms var(--ease-exit) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .popover-panel[data-open],
+  .popover-panel[data-closed] {
+    animation: none;
   }
 }
 

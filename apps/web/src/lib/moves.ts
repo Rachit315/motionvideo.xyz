@@ -1,24 +1,11 @@
 import moves from "@/data/moves.json";
+import type { MoveFamily } from "@/lib/move-families";
 
 // Moves: MotionVideo's own library of motion design techniques. Each move's
 // public part (this module, shipped to the browser and indexed) explains what
 // it is, when to use it and where it appears in the gallery. Its copy-ready
 // prompt snippet is Pro-only: it lives in src/server/data/move-prompts.json
 // and is only read by server functions after an access check.
-
-export const MOVE_FAMILIES = [
-  "timing",
-  "type",
-  "transitions",
-  "ui",
-  "vector",
-  "generative",
-  "camera",
-  "texture",
-  "data",
-  "sound",
-] as const;
-export type MoveFamily = (typeof MOVE_FAMILIES)[number];
 
 export interface Move {
   /** URL slug: `/moves/<slug>`. */
@@ -46,9 +33,6 @@ export const MOVES: Move[] = moves.moves as Move[];
 
 export const findMove = (slug: string | undefined) =>
   MOVES.find((move) => move.slug === slug);
-
-export const findMoveFamily = (value: string | undefined) =>
-  MOVE_FAMILIES.find((family) => family === value);
 
 /** The Pro-only half of a move, served by `getMovePrompt` after an access check. */
 export interface MovePrompt {

@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
 import { ChevronDown } from "reicon-react/icons/ChevronDown";
 
+import { Brand } from "@/components/brand";
 import { GitHubIcon, XIcon } from "@/components/brand-icons";
 import { FooterWordmark } from "@/components/footer-wordmark";
 import { LocaleSwitcher } from "@/components/locale-switcher";
@@ -14,10 +15,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLinkItem,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -31,29 +28,10 @@ import { LINK } from "@/constants/links";
 import { OTHER_PRODUCTS, SHADCN_LABS_PROJECTS } from "@/constants/products";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
+import { MOTION_CATEGORIES } from "@/lib/motion-catalog";
+import { MOVE_FAMILIES } from "@/lib/move-families";
 import { cn } from "@/lib/utils";
 import { withUtm } from "@/lib/utm";
-
-const FooterMenu = ({
-  label,
-  children,
-}: {
-  label: ReactNode;
-  children: ReactNode;
-}) => (
-  <DropdownMenu>
-    <DropdownMenuTrigger className={buttonVariants({ variant: "subtle" })}>
-      {label}
-      <ChevronDown
-        aria-hidden="true"
-        className="size-3.5 transition-transform in-data-popup-open:rotate-180"
-      />
-    </DropdownMenuTrigger>
-    <DropdownMenuContent side="top" align="end" className="w-52">
-      {children}
-    </DropdownMenuContent>
-  </DropdownMenu>
-);
 
 const IconLink = ({
   href,
@@ -86,8 +64,7 @@ const IconLink = ({
 );
 
 // The footer's icon button groups each share one tooltip that slides and
-// morphs between their buttons. Desktop and mobile each mount their own
-// copy, so each instance makes its own handle.
+// morphs between their buttons.
 
 const Socials = () => {
   const content = useIntlayer("site-footer");
@@ -130,137 +107,154 @@ const ThemeAndSound = () => {
   );
 };
 
-const mobileHeadingClass = "text-foreground font-medium";
-const mobileLinkClass =
-  "text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm transition-colors outline-none focus-visible:ring-2";
+const headingClass = "text-foreground font-medium";
+const linkClass =
+  "text-muted-foreground hover:text-foreground focus-visible:ring-ring w-fit rounded-sm transition-colors outline-none focus-visible:ring-2";
 
+/** One titled list of links; columns stack several. */
+const LinkGroup = ({
+  heading,
+  children,
+}: {
+  heading: ReactNode;
+  children: ReactNode;
+}) => (
+  <div className="flex flex-col gap-2.5">
+    <p className={headingClass}>{heading}</p>
+    {children}
+  </div>
+);
+
+const Column = ({ children }: { children: ReactNode }) => (
+  <div className="flex flex-col gap-8">{children}</div>
+);
+
+const ExternalLink = ({
+  href,
+  children,
+}: {
+  href: string;
+  children: ReactNode;
+}) => (
+  <a href={withUtm(href, "footer")} className={linkClass}>
+    {children}
+  </a>
+);
+
+/**
+ * Every page as plain, server-rendered links (nothing behind a menu but the
+ * Shadcn Labs projects), so visitors and crawlers reach them all: the brand
+ * column, then four columns of link groups. On phones the brand sits on top
+ * and the groups pair up.
+ */
 export const SiteFooter = () => {
   const content = useIntlayer("site-footer");
-  const legal = [
-    [ROUTES.TERMS, content.terms],
-    [ROUTES.PRIVACY, content.privacy],
-    [ROUTES.REFUNDS, content.refunds],
+  const header = useIntlayer("site-header");
+  const gallery = useIntlayer("motion-gallery");
+  const moves = useIntlayer("moves");
+  const product = [
+    [ROUTES.MOTIONVIDEO_SKILL, content.agentSkill],
+    [ROUTES.MOVES, header.techniques],
+    [ROUTES.MCP, header.mcp],
+    [ROUTES.PRICING, header.pricing],
+    [ROUTES.DOCS, header.docs],
+  ] as const;
+  const resources = [
+    [ROUTES.HOME, header.discover],
+    [ROUTES.TOOLS, header.tools],
+    [ROUTES.CREATIVES, header.creatives],
+    [ROUTES.SKILLS, header.skills],
+    [ROUTES.EXTRAS, header.extras],
+    [ROUTES.JOBS, header.jobs],
   ] as const;
   const company = [
     [ROUTES.ABOUT, content.about],
     [ROUTES.BRAND, content.brand],
     [ROUTES.CONTACT, content.contact],
+  ] as const;
+  const contribute = [
+    [ROUTES.DASHBOARD_SUBMIT, header.submit],
     [ROUTES.SPONSOR, content.sponsor],
   ] as const;
-  const labsMenu = (
-    <DropdownMenuSub>
-      <DropdownMenuSubTrigger>{content.labsProjects}</DropdownMenuSubTrigger>
-      <DropdownMenuSubContent className="w-44">
-        {SHADCN_LABS_PROJECTS.map((project) => (
-          <DropdownMenuLinkItem
-            key={project.name}
-            href={withUtm(project.url, "footer")}
-          >
-            {project.name}
-          </DropdownMenuLinkItem>
-        ))}
-      </DropdownMenuSubContent>
-    </DropdownMenuSub>
-  );
-  const credit = (
-    <p className="text-muted-foreground">
-      © {new Date().getFullYear()} {SITE.NAME}
-      <span className="mx-2" aria-hidden="true">
-        ·
-      </span>
-      {content.builtBy}{" "}
-      <a
-        href={withUtm(LINK.AUTHOR_WEBSITE, "footer")}
-        className="hover:text-foreground transition-colors"
-      >
-        {SITE.AUTHOR.FIRST_NAME}
-      </a>
-    </p>
-  );
+  const legal = [
+    [ROUTES.TERMS, content.terms],
+    [ROUTES.PRIVACY, content.privacy],
+    [ROUTES.REFUNDS, content.refunds],
+  ] as const;
+  const links = (
+    group: readonly (readonly [string, ReactNode])[]
+  ): ReactNode[] =>
+    group.map(([to, label]) => (
+      // SAFETY: every `to` above is a ROUTES constant of a real page.
+      <Link key={to} to={to as never} className={linkClass}>
+        {label}
+      </Link>
+    ));
 
   return (
-    <footer className="mx-auto mt-auto w-full max-w-[1800px] px-4 pt-6 text-sm sm:px-6">
-      {/* Desktop: one row, link groups in dropdowns. */}
-      <div className="flex items-center justify-between gap-x-4 max-md:hidden">
-        {credit}
+    <footer className="mx-auto mt-auto w-full max-w-[1800px] px-4 pt-16 text-sm sm:px-6">
+      <div className="grid gap-x-8 gap-y-12 lg:grid-cols-[minmax(0,1.4fr)_repeat(4,minmax(0,1fr))]">
+        <div className="flex max-w-xs flex-col items-start gap-4">
+          <Brand />
+          <p className="text-muted-foreground text-pretty">
+            {content.description}
+          </p>
+          <div className="-ml-2 flex items-center">
+            <Socials />
+          </div>
+        </div>
         <nav
           aria-label={content.footer.value}
-          className="-mr-2 flex items-center gap-0.5"
+          className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4 lg:col-span-4"
         >
-          <FooterMenu label={content.legal}>
-            {legal.map(([to, label]) => (
-              <DropdownMenuLinkItem key={to} render={<Link to={to} />}>
-                {label}
-              </DropdownMenuLinkItem>
-            ))}
-          </FooterMenu>
-          <FooterMenu label={content.company}>
-            {company.map(([to, label]) => (
-              <DropdownMenuLinkItem key={to} render={<Link to={to} />}>
-                {label}
-              </DropdownMenuLinkItem>
-            ))}
-          </FooterMenu>
-          <FooterMenu label={content.otherProducts}>
-            {OTHER_PRODUCTS.map((product) => (
-              <DropdownMenuLinkItem
-                key={product.name}
-                href={withUtm(product.url, "footer")}
-              >
-                {product.name}
-              </DropdownMenuLinkItem>
-            ))}
-            <DropdownMenuSeparator />
-            {labsMenu}
-          </FooterMenu>
-          <span className="bg-border mx-1.5 h-4 w-px" aria-hidden="true" />
-          <Socials />
-          <span className="bg-border mx-1.5 h-4 w-px" aria-hidden="true" />
-          <LocaleSwitcher />
-          <ThemeAndSound />
-        </nav>
-      </div>
-      {/* Mobile: link groups as a two-column grid, products spanning both,
-          then socials | locale + theme, then the credit line. */}
-      <div className="flex flex-col gap-8 md:hidden">
-        <nav
-          aria-label={content.footer.value}
-          className="grid grid-cols-2 gap-x-4 gap-y-8"
-        >
-          {(
-            [
-              [content.legal, legal],
-              [content.company, company],
-            ] as const
-          ).map(([heading, links]) => (
-            <div key={heading.value} className="flex flex-col gap-2.5">
-              <p className={mobileHeadingClass}>{heading}</p>
-              {links.map(([to, label]) => (
-                <Link key={to} to={to} className={mobileLinkClass}>
-                  {label}
+          <Column>
+            <LinkGroup heading={content.product}>{links(product)}</LinkGroup>
+            <LinkGroup heading={header.techniques}>
+              {MOVE_FAMILIES.map((family) => (
+                <Link
+                  key={family}
+                  to={ROUTES.MOVES}
+                  search={{ family }}
+                  className={linkClass}
+                >
+                  {moves.familyLabels[family]}
                 </Link>
               ))}
-            </div>
-          ))}
-          <div className="col-span-2 flex flex-col gap-2.5">
-            <p className={mobileHeadingClass}>{content.otherProducts}</p>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
-              {OTHER_PRODUCTS.map((product) => (
-                <a
-                  key={product.name}
-                  href={withUtm(product.url, "footer")}
-                  className={mobileLinkClass}
+            </LinkGroup>
+          </Column>
+          <Column>
+            <LinkGroup heading={header.resources}>{links(resources)}</LinkGroup>
+            <LinkGroup heading={content.company}>{links(company)}</LinkGroup>
+            <LinkGroup heading={content.contribute}>
+              {links(contribute)}
+            </LinkGroup>
+          </Column>
+          <Column>
+            <LinkGroup heading={content.categories}>
+              {MOTION_CATEGORIES.map((category) => (
+                <Link
+                  key={category}
+                  to="/category/$category"
+                  params={{ category }}
+                  className={linkClass}
                 >
-                  {product.name}
-                </a>
+                  {gallery.categories[category]}
+                </Link>
+              ))}
+            </LinkGroup>
+            <LinkGroup heading={content.legal}>{links(legal)}</LinkGroup>
+          </Column>
+          <Column>
+            <LinkGroup heading={content.otherProducts}>
+              {OTHER_PRODUCTS.map((item) => (
+                <ExternalLink key={item.name} href={item.url}>
+                  {item.name}
+                </ExternalLink>
               ))}
               {/* Reads as one more product link; the chevron marks the menu. */}
               <DropdownMenu>
                 <DropdownMenuTrigger
-                  className={cn(
-                    mobileLinkClass,
-                    "flex items-center gap-1 text-left"
-                  )}
+                  className={cn(linkClass, "flex items-center gap-1 text-left")}
                 >
                   {content.labsProjects}
                   <ChevronDown
@@ -279,19 +273,29 @@ export const SiteFooter = () => {
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-            </div>
-          </div>
+            </LinkGroup>
+          </Column>
         </nav>
-        <div className="-mx-2 flex items-center justify-between">
-          <div className="flex items-center">
-            <Socials />
-          </div>
-          <div className="flex items-center">
-            <LocaleSwitcher />
-            <ThemeAndSound />
-          </div>
+      </div>
+      {/* Credit left; language, theme and sound right. No rule above. */}
+      <div className="mt-16 flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+        <p className="text-muted-foreground">
+          © {new Date().getFullYear()} {SITE.NAME}
+          <span className="mx-2" aria-hidden="true">
+            ·
+          </span>
+          {content.builtBy}{" "}
+          <a
+            href={withUtm(LINK.AUTHOR_WEBSITE, "footer")}
+            className="hover:text-foreground transition-colors"
+          >
+            {SITE.AUTHOR.FIRST_NAME}
+          </a>
+        </p>
+        <div className="-mr-2 flex items-center">
+          <LocaleSwitcher />
+          <ThemeAndSound />
         </div>
-        {credit}
       </div>
       {/* Mobile: lifted slightly so the (half-height) progressive blur
           dissolves only the wordmark's lower edge. */}
