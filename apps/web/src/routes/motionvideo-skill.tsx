@@ -4,7 +4,7 @@ import { useIntlayer } from "react-intlayer";
 import { DemoFrame } from "@/components/demo-frame";
 import { FeatureArt } from "@/components/feature-art";
 import { LogoGroup } from "@/components/logo-group";
-import { PriceCard } from "@/components/pricing";
+import { PlanCards } from "@/components/pricing";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import {
@@ -19,16 +19,17 @@ import { SITE } from "@/constants/site";
 import { AGENTS, RENDERERS } from "@/constants/stack";
 import { VIDEOS } from "@/constants/videos";
 import { cn } from "@/lib/utils";
-import { faqJsonLd, productJsonLd } from "@/seo/json-ld";
+import { faqJsonLd, planJsonLd } from "@/seo/json-ld";
 import { createMetadata } from "@/seo/metadata";
-import { getLandingData, getOffer } from "@/server/functions";
+import { getLandingData } from "@/server/functions";
+import { getMyPlan } from "@/server/plan-functions";
 
 const routeApi = getRouteApi("/motionvideo-skill");
 
 const sectionTitle = "text-2xl font-semibold tracking-tight";
 
 const Landing = () => {
-  const { signedIn, offer } = routeApi.useLoaderData();
+  const { signedIn, access } = routeApi.useLoaderData();
   const content = useIntlayer("landing");
   const { faqs } = useIntlayer("faqs");
   const { features } = useIntlayer("features");
@@ -169,11 +170,19 @@ const Landing = () => {
             </Accordion>
           </section>
 
+          {/* The skill is part of the plans; the cards show monthly prices
+              and /pricing has the annual and lifetime options. */}
           <section id="pricing" className="flex scroll-mt-8 flex-col gap-8">
             <h2 className={cn(sectionTitle, "text-center")}>
               {content.priceTitle}
             </h2>
-            <PriceCard offer={offer} />
+            <PlanCards billing="monthly" access={access} />
+            <a
+              href={ROUTES.PRICING}
+              className="text-foreground self-center text-sm font-medium underline underline-offset-4"
+            >
+              {content.pricing}
+            </a>
           </section>
         </div>
       </main>
@@ -184,15 +193,18 @@ const Landing = () => {
 
 export const Route = createFileRoute("/motionvideo-skill")({
   component: Landing,
-  head: ({ loaderData }) => ({
+  head: () => ({
     ...createMetadata({
       canonical: ROUTES.MOTIONVIDEO_SKILL,
       description: SITE.DESCRIPTION.LONG,
     }),
-    scripts: [productJsonLd(loaderData?.offer), faqJsonLd()],
+    scripts: [...planJsonLd(), faqJsonLd()],
   }),
   loader: async () => {
-    const [landing, offer] = await Promise.all([getLandingData(), getOffer()]);
-    return { ...landing, offer };
+    const [landing, access] = await Promise.all([
+      getLandingData(),
+      getMyPlan(),
+    ]);
+    return { ...landing, access };
   },
 });

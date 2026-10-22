@@ -1,4 +1,9 @@
-import { createFileRoute, getRouteApi, redirect } from "@tanstack/react-router";
+import {
+  Link,
+  createFileRoute,
+  getRouteApi,
+  redirect,
+} from "@tanstack/react-router";
 import { useState } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
@@ -6,8 +11,7 @@ import { CheckCircle } from "reicon-react/icons/CheckCircle";
 
 import { CopyIcon } from "@/components/copy-icon";
 import { AccountPageHeader, PageMain } from "@/components/page";
-import { BuyButton } from "@/components/pricing";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -28,7 +32,8 @@ import { SITE } from "@/constants/site";
 import { SKILL } from "@/constants/skill";
 import { useTransientStatus } from "@/hooks/use-transient-status";
 import { createMetadata } from "@/seo/metadata";
-import { getAccount, getOffer, getPortalUrl } from "@/server/functions";
+import { getAccount } from "@/server/functions";
+import { getPlanPortalUrl } from "@/server/plan-functions";
 
 interface SkillSearch {
   /** Dev-only preview of the owner state. */
@@ -51,7 +56,7 @@ const PurchaseCard = () => {
   const openPortal = async () => {
     setBusy(true);
     try {
-      window.location.href = await getPortalUrl();
+      window.location.href = await getPlanPortalUrl();
     } catch {
       setBusy(false);
     }
@@ -87,7 +92,9 @@ const PurchaseCard = () => {
         <CardDescription>{content.purchaseDescription}</CardDescription>
       </CardHeader>
       <CardContent>
-        <BuyButton offer={account.offer} />
+        <Link to={ROUTES.PRICING} className={buttonVariants({ size: "lg" })}>
+          {content.seePlans}
+        </Link>
       </CardContent>
     </Card>
   );
@@ -192,7 +199,6 @@ export const Route = createFileRoute("/dashboard/skill")({
         email: "preview@example.com",
         purchased: true,
         name: null,
-        offer: await getOffer(),
       };
     }
     const account = await getAccount();
@@ -202,6 +208,6 @@ export const Route = createFileRoute("/dashboard/skill")({
         to: ROUTES.SIGN_IN,
       });
     }
-    return { ...account, offer: await getOffer() };
+    return account;
   },
 });

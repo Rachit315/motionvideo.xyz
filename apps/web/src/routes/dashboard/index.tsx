@@ -11,6 +11,7 @@ import { useIntlayer } from "react-intlayer";
 import { ArrowRight } from "reicon-react/icons/ArrowRight";
 import { Bookmark } from "reicon-react/icons/Bookmark";
 import { Briefcase } from "reicon-react/icons/Briefcase";
+import { Card2 } from "reicon-react/icons/Card2";
 import { File } from "reicon-react/icons/File";
 import { HandHeart } from "reicon-react/icons/HandHeart";
 import { Settings } from "reicon-react/icons/Settings";
@@ -96,6 +97,12 @@ const Dashboard = () => {
         }
       />
       <section aria-label={content.sections.value} className="grid gap-3">
+        <HubCard
+          to={ROUTES.DASHBOARD_BILLING}
+          icon={<Card2 aria-hidden="true" />}
+          title={content.billing}
+          description={content.billingBody}
+        />
         <HubCard
           to={ROUTES.DASHBOARD_FEATURED}
           icon={<Sparkles aria-hidden="true" />}

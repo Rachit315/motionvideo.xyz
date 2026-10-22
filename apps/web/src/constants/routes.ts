@@ -10,6 +10,7 @@ export const ROUTES = {
   CONTACT: "/contact",
   CREATIVES: "/creatives",
   DASHBOARD: "/dashboard",
+  DASHBOARD_BILLING: "/dashboard/billing",
   DASHBOARD_BOOKMARKS: "/dashboard/bookmarks",
   DASHBOARD_FEATURED: "/dashboard/featured",
   DASHBOARD_JOBS_POST: "/dashboard/jobs/post",
@@ -26,7 +27,8 @@ export const ROUTES = {
   JOBS: "/jobs",
   HOW_IT_WORKS: "/motionvideo-skill#how-it-works",
   MOTIONVIDEO_SKILL: "/motionvideo-skill",
-  PRICING: "/motionvideo-skill#pricing",
+  MOVES: "/moves",
+  PRICING: "/pricing",
   PRIVACY: "/privacy",
   REFUNDS: "/refunds",
   SIGN_IN: "/sign-in",
@@ -44,6 +46,7 @@ export const ROUTES = {
  */
 export const ACCOUNT_PAGES: ReadonlySet<string> = new Set([
   ROUTES.DASHBOARD,
+  ROUTES.DASHBOARD_BILLING,
   ROUTES.DASHBOARD_BOOKMARKS,
   ROUTES.DASHBOARD_FEATURED,
   ROUTES.DASHBOARD_JOBS_POST,

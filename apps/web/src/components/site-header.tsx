@@ -109,11 +109,13 @@ const MobileMenu = () => {
             <DiscoverLink onClick={close} className={mobileLinkClass} />
             {(
               [
+                [ROUTES.MOVES, content.moves],
                 [ROUTES.TOOLS, content.tools],
                 [ROUTES.CREATIVES, content.creatives],
                 [ROUTES.SKILLS, content.skills],
                 [ROUTES.EXTRAS, content.extras],
                 [ROUTES.JOBS, content.jobs],
+                [ROUTES.PRICING, content.pricing],
               ] as const
             ).map(([to, label]) => (
               <Link
@@ -151,6 +153,9 @@ export const SiteHeader = ({ signedIn }: { signedIn?: boolean }) => {
           className="-ml-2 hidden items-center gap-0.5 lg:flex"
         >
           <DiscoverLink className={linkClass} />
+          <Link to={ROUTES.MOVES} className={linkClass}>
+            {content.moves}
+          </Link>
           <Link to={ROUTES.TOOLS} className={linkClass}>
             {content.tools}
           </Link>
@@ -165,6 +170,9 @@ export const SiteHeader = ({ signedIn }: { signedIn?: boolean }) => {
           </Link>
           <Link to={ROUTES.JOBS} className={linkClass}>
             {content.jobs}
+          </Link>
+          <Link to={ROUTES.PRICING} className={linkClass}>
+            {content.pricing}
           </Link>
         </nav>
       </div>

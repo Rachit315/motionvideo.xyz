@@ -6,6 +6,7 @@ import { absoluteUrl } from "@/constants/url";
 import catalog from "@/data/motion-catalog.json";
 import { DIRECTORY_CATEGORIES } from "@/lib/directories";
 import { MOTION_CATEGORIES } from "@/lib/motion-catalog";
+import { MOVES } from "@/lib/moves";
 
 // Public, canonical pages only: signed-in pages (/dashboard/…), redirects
 // (/studios, /tools/skills), and utility pages (/checkout, /welcome) stay out.
@@ -39,6 +40,9 @@ const PAGES: { lastmod?: string; path: string }[] = [
   ...JOB_TYPES.map((type) => ({ path: `${ROUTES.JOBS}/${type}` })),
   { path: ROUTES.SPONSOR },
   { path: ROUTES.MOTIONVIDEO_SKILL },
+  { path: ROUTES.PRICING },
+  { path: ROUTES.MOVES },
+  ...MOVES.map((move) => ({ path: `${ROUTES.MOVES}/${move.slug}` })),
   ...STATIC_PAGES.map((page) => ({ path: page })),
 ];
 

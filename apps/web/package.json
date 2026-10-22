@@ -9,6 +9,7 @@
     "prebuild": "node scripts/pull-fonts.mjs",
     "fonts:pull": "node scripts/pull-fonts.mjs",
     "dodo:setup": "node scripts/setup-dodo.mjs",
+    "moves:check": "node scripts/check-moves.mjs",
     "preview": "vite preview",
     "deploy": "pnpm build && pnpm db:migrate:remote && wrangler deploy",
     "typecheck": "wrangler types && tsc --noEmit",

@@ -9,6 +9,7 @@ import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
 import { Bookmark } from "reicon-react/icons/Bookmark";
 import { Briefcase } from "reicon-react/icons/Briefcase";
+import { Card2 } from "reicon-react/icons/Card2";
 import { ChatRoundDots } from "reicon-react/icons/ChatRoundDots";
 import { Exit } from "reicon-react/icons/Exit";
 import { File } from "reicon-react/icons/File";
@@ -266,6 +267,16 @@ export const AccountMenu = ({
           >
             {content.accessSkill}
             <File
+              aria-hidden="true"
+              className="text-muted-foreground group-hover:text-foreground group-focus:text-accent-foreground ml-auto transition-colors"
+            />
+          </DropdownMenuLinkItem>
+          <DropdownMenuLinkItem
+            render={<Link to={ROUTES.DASHBOARD_BILLING} />}
+            className="group py-1.5"
+          >
+            {content.billing}
+            <Card2
               aria-hidden="true"
               className="text-muted-foreground group-hover:text-foreground group-focus:text-accent-foreground ml-auto transition-colors"
             />
