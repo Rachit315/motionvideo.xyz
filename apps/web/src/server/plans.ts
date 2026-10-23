@@ -162,20 +162,10 @@ export const liveOwnedRow = async (user: { id: string; email: string }) => {
 };
 
 /**
- * What an account can use: its own live plan, else a seat on a live Business
- * plan (signing in with an invited email accepts the invite), else nothing.
- * `legacySkill` marks buyers of the retired Skill Bundle, who keep the skill
- * repository but not Pro.
+ * The live Business row an account holds a seat on, if any. Signing in with
+ * an invited email accepts the invite.
  */
-export const planAccessFor = async (user: {
-  id: string;
-  email: string;
-}): Promise<PlanAccess> => {
-  const legacySkill = await hasPurchased(user.email).catch(() => false);
-  const owned = await liveOwnedRow(user);
-  if (owned) {
-    return { ...accessOf(owned, "owner"), legacySkill };
-  }
+export const liveSeatRow = async (user: { id: string; email: string }) => {
   const db = drizzle(env.DB);
   const email = user.email.toLowerCase();
   const seats = await db
@@ -188,7 +178,7 @@ export const planAccessFor = async (user: {
     .where(or(eq(planSeats.userId, user.id), eq(planSeats.email, email)));
   const seat = seats.find(({ row }) => row.plan === "business" && isLive(row));
   if (!seat) {
-    return { ...NO_ACCESS, legacySkill };
+    return null;
   }
   if (!seat.seat.userId) {
     await db
@@ -197,8 +187,37 @@ export const planAccessFor = async (user: {
       .where(eq(planSeats.id, seat.seat.id))
       .run();
   }
-  return { ...accessOf(seat.row, "seat"), legacySkill };
+  return seat.row;
 };
+
+/**
+ * What an account can use: its own live plan, else a seat on a live Business
+ * plan, else nothing. `legacySkill` marks buyers of the retired Skill Bundle,
+ * who keep the skill repository but not Pro.
+ */
+export const planAccessFor = async (user: {
+  id: string;
+  email: string;
+}): Promise<PlanAccess> => {
+  const legacySkill = await hasPurchased(user.email).catch(() => false);
+  const owned = await liveOwnedRow(user);
+  if (owned) {
+    return { ...accessOf(owned, "owner"), legacySkill };
+  }
+  const seat = await liveSeatRow(user);
+  if (!seat) {
+    return { ...NO_ACCESS, legacySkill };
+  }
+  return { ...accessOf(seat, "seat"), legacySkill };
+};
+
+/**
+ * Whether an account can use Pro right now: its own live plan or a seat on a
+ * live Business plan. D1 only (no Dodo call), for per-request checks such as
+ * the MCP server's Pro tools.
+ */
+export const hasLivePlan = async (user: { id: string; email: string }) =>
+  (await liveOwnedRow(user)) !== null || (await liveSeatRow(user)) !== null;
 
 /** Seats on a Business row, oldest first. */
 export const seatsOf = (rowId: string) =>

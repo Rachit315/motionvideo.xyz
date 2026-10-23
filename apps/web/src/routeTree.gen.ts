@@ -14,25 +14,28 @@ import { Route as PagesRouteImport } from './routes/_pages'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as BookmarksRouteImport } from './routes/bookmarks'
 import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as ConsentRouteImport } from './routes/consent'
 import { Route as CreativesRouteImport } from './routes/creatives'
 import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as DocsRouteImport } from './routes/docs'
 import { Route as ExtrasRouteImport } from './routes/extras'
 import { Route as FeaturedRouteImport } from './routes/featured'
 import { Route as ListingsRouteImport } from './routes/listings'
 import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
-import { Route as McpRouteImport } from './routes/mcp'
+import { Route as MotionvideoMcpRouteImport } from './routes/motionvideo-mcp'
 import { Route as MotionvideoSkillRouteImport } from './routes/motionvideo-skill'
-import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as MovesRouteImport } from './routes/moves'
+import { Route as ProRouteImport } from './routes/pro'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SkillDotmdRouteImport } from './routes/skill[.]md'
 import { Route as SkillsRouteImport } from './routes/skills'
 import { Route as SponsorRouteImport } from './routes/sponsor'
 import { Route as StudiosRouteImport } from './routes/studios'
 import { Route as SubmitRouteImport } from './routes/submit'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as WelcomeRouteImport } from './routes/welcome'
+import { Route as DotwellKnownSplatRouteImport } from './routes/[.]well-known.$'
 import { Route as GalleryIndexRouteImport } from './routes/_gallery/index'
 import { Route as PagesAboutRouteImport } from './routes/_pages/about'
 import { Route as PagesBrandRouteImport } from './routes/_pages/brand'
@@ -56,13 +59,15 @@ import { Route as DashboardListingsRouteImport } from './routes/dashboard/listin
 import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
 import { Route as DashboardSkillRouteImport } from './routes/dashboard/skill'
 import { Route as DashboardSubmitRouteImport } from './routes/dashboard/submit'
+import { Route as DocsIndexRouteImport } from './routes/docs/index'
+import { Route as DocsSplatRouteImport } from './routes/docs/$'
 import { Route as ExtrasIndexRouteImport } from './routes/extras/index'
 import { Route as ExtrasCategoryRouteImport } from './routes/extras/$category'
 import { Route as JobsIndexRouteImport } from './routes/jobs/index'
 import { Route as JobsTypeRouteImport } from './routes/jobs/$type'
 import { Route as JobsPostRouteImport } from './routes/jobs/post'
 import { Route as MovesIndexRouteImport } from './routes/moves/index'
-import { Route as MovesSlugRouteImport } from './routes/moves/$slug'
+import { Route as MovesFamilyRouteImport } from './routes/moves/$family'
 import { Route as SkillsIndexRouteImport } from './routes/skills/index'
 import { Route as SkillsCategoryRouteImport } from './routes/skills/$category'
 import { Route as SponsorshipsIndexRouteImport } from './routes/sponsorships/index'
@@ -74,12 +79,18 @@ import { Route as GalleryVideosSlugRouteImport } from './routes/_gallery/videos.
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ApiCatalogIndexRouteImport } from './routes/api/catalog/index'
 import { Route as ApiCatalogDirectoriesRouteImport } from './routes/api/catalog/directories'
+import { Route as ApiMcpBookmarksRouteImport } from './routes/api/mcp/bookmarks'
+import { Route as ApiMcpFeaturedRouteImport } from './routes/api/mcp/featured'
 import { Route as ApiMovesIndexRouteImport } from './routes/api/moves/index'
 import { Route as ApiWebhookDodoRouteImport } from './routes/api/webhook/dodo'
 import { Route as DashboardJobsPostRouteImport } from './routes/dashboard/jobs/post'
 import { Route as DashboardSponsorshipsIndexRouteImport } from './routes/dashboard/sponsorships/index'
 import { Route as DashboardSponsorshipsNewRouteImport } from './routes/dashboard/sponsorships/new'
+import { Route as MovesFamilyIndexRouteImport } from './routes/moves/$family.index'
+import { Route as MovesFamilySlugRouteImport } from './routes/moves/$family.$slug'
 import { Route as GalleryCategoryCategoryIndexRouteImport } from './routes/_gallery/category.$category.index'
+import { Route as ApiMcpMovesIndexRouteImport } from './routes/api/mcp/moves/index'
+import { Route as ApiMcpMovesSlugRouteImport } from './routes/api/mcp/moves/$slug'
 import { Route as GalleryCategoryCategoryVideosSlugRouteImport } from './routes/_gallery/category.$category.videos.$slug'
 
 const GalleryRoute = GalleryRouteImport.update({
@@ -105,6 +116,11 @@ const CheckoutRoute = CheckoutRouteImport.update({
   path: '/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConsentRoute = ConsentRouteImport.update({
+  id: '/consent',
+  path: '/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CreativesRoute = CreativesRouteImport.update({
   id: '/creatives',
   path: '/creatives',
@@ -113,11 +129,6 @@ const CreativesRoute = CreativesRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DocsRoute = DocsRouteImport.update({
-  id: '/docs',
-  path: '/docs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExtrasRoute = ExtrasRouteImport.update({
@@ -140,9 +151,9 @@ const LlmsDottxtRoute = LlmsDottxtRouteImport.update({
   path: '/llms.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
+const MotionvideoMcpRoute = MotionvideoMcpRouteImport.update({
+  id: '/motionvideo-mcp',
+  path: '/motionvideo-mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MotionvideoSkillRoute = MotionvideoSkillRouteImport.update({
@@ -150,9 +161,14 @@ const MotionvideoSkillRoute = MotionvideoSkillRouteImport.update({
   path: '/motionvideo-skill',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PricingRoute = PricingRouteImport.update({
-  id: '/pricing',
-  path: '/pricing',
+const MovesRoute = MovesRouteImport.update({
+  id: '/moves',
+  path: '/moves',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProRoute = ProRouteImport.update({
+  id: '/pro',
+  path: '/pro',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -168,6 +184,11 @@ const SignInRoute = SignInRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SkillDotmdRoute = SkillDotmdRouteImport.update({
+  id: '/skill.md',
+  path: '/skill.md',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SkillsRoute = SkillsRouteImport.update({
@@ -198,6 +219,11 @@ const ToolsRoute = ToolsRouteImport.update({
 const WelcomeRoute = WelcomeRouteImport.update({
   id: '/welcome',
   path: '/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DotwellKnownSplatRoute = DotwellKnownSplatRouteImport.update({
+  id: '/.well-known/$',
+  path: '/.well-known/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GalleryIndexRoute = GalleryIndexRouteImport.update({
@@ -315,6 +341,16 @@ const DashboardSubmitRoute = DashboardSubmitRouteImport.update({
   path: '/submit',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DocsIndexRoute = DocsIndexRouteImport.update({
+  id: '/docs/',
+  path: '/docs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsSplatRoute = DocsSplatRouteImport.update({
+  id: '/docs/$',
+  path: '/docs/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExtrasIndexRoute = ExtrasIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -341,14 +377,14 @@ const JobsPostRoute = JobsPostRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const MovesIndexRoute = MovesIndexRouteImport.update({
-  id: '/moves/',
-  path: '/moves/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => MovesRoute,
 } as any)
-const MovesSlugRoute = MovesSlugRouteImport.update({
-  id: '/moves/$slug',
-  path: '/moves/$slug',
-  getParentRoute: () => rootRouteImport,
+const MovesFamilyRoute = MovesFamilyRouteImport.update({
+  id: '/$family',
+  path: '/$family',
+  getParentRoute: () => MovesRoute,
 } as any)
 const SkillsIndexRoute = SkillsIndexRouteImport.update({
   id: '/',
@@ -405,6 +441,16 @@ const ApiCatalogDirectoriesRoute = ApiCatalogDirectoriesRouteImport.update({
   path: '/api/catalog/directories',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiMcpBookmarksRoute = ApiMcpBookmarksRouteImport.update({
+  id: '/api/mcp/bookmarks',
+  path: '/api/mcp/bookmarks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMcpFeaturedRoute = ApiMcpFeaturedRouteImport.update({
+  id: '/api/mcp/featured',
+  path: '/api/mcp/featured',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiMovesIndexRoute = ApiMovesIndexRouteImport.update({
   id: '/api/moves/',
   path: '/api/moves/',
@@ -432,12 +478,32 @@ const DashboardSponsorshipsNewRoute =
     path: '/sponsorships/new',
     getParentRoute: () => DashboardRoute,
   } as any)
+const MovesFamilyIndexRoute = MovesFamilyIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MovesFamilyRoute,
+} as any)
+const MovesFamilySlugRoute = MovesFamilySlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => MovesFamilyRoute,
+} as any)
 const GalleryCategoryCategoryIndexRoute =
   GalleryCategoryCategoryIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => GalleryCategoryCategoryRoute,
   } as any)
+const ApiMcpMovesIndexRoute = ApiMcpMovesIndexRouteImport.update({
+  id: '/api/mcp/moves/',
+  path: '/api/mcp/moves/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMcpMovesSlugRoute = ApiMcpMovesSlugRouteImport.update({
+  id: '/api/mcp/moves/$slug',
+  path: '/api/mcp/moves/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GalleryCategoryCategoryVideosSlugRoute =
   GalleryCategoryCategoryVideosSlugRouteImport.update({
     id: '/videos/$slug',
@@ -450,25 +516,28 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/bookmarks': typeof BookmarksRoute
   '/checkout': typeof CheckoutRoute
+  '/consent': typeof ConsentRoute
   '/creatives': typeof CreativesRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
-  '/docs': typeof DocsRoute
   '/extras': typeof ExtrasRouteWithChildren
   '/featured': typeof FeaturedRoute
   '/listings': typeof ListingsRoute
   '/llms.txt': typeof LlmsDottxtRoute
-  '/mcp': typeof McpRoute
+  '/motionvideo-mcp': typeof MotionvideoMcpRoute
   '/motionvideo-skill': typeof MotionvideoSkillRoute
-  '/pricing': typeof PricingRoute
+  '/moves': typeof MovesRouteWithChildren
+  '/pro': typeof ProRoute
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/skill.md': typeof SkillDotmdRoute
   '/skills': typeof SkillsRouteWithChildren
   '/sponsor': typeof SponsorRoute
   '/studios': typeof StudiosRoute
   '/submit': typeof SubmitRoute
   '/tools': typeof ToolsRouteWithChildren
   '/welcome': typeof WelcomeRoute
+  '/.well-known/$': typeof DotwellKnownSplatRoute
   '/about': typeof PagesAboutRoute
   '/brand': typeof PagesBrandRoute
   '/contact': typeof PagesContactRoute
@@ -488,16 +557,18 @@ export interface FileRoutesByFullPath {
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/skill': typeof DashboardSkillRoute
   '/dashboard/submit': typeof DashboardSubmitRoute
+  '/docs/$': typeof DocsSplatRoute
   '/extras/$category': typeof ExtrasCategoryRoute
   '/jobs/$type': typeof JobsTypeRoute
   '/jobs/post': typeof JobsPostRoute
-  '/moves/$slug': typeof MovesSlugRoute
+  '/moves/$family': typeof MovesFamilyRouteWithChildren
   '/skills/$category': typeof SkillsCategoryRoute
   '/sponsorships/new': typeof SponsorshipsNewRoute
   '/tools/$category': typeof ToolsCategoryRoute
   '/admin/': typeof AdminIndexRoute
   '/creatives/': typeof CreativesIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/docs/': typeof DocsIndexRoute
   '/extras/': typeof ExtrasIndexRoute
   '/jobs/': typeof JobsIndexRoute
   '/moves/': typeof MovesIndexRoute
@@ -508,33 +579,41 @@ export interface FileRoutesByFullPath {
   '/videos/$slug': typeof GalleryVideosSlugRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/catalog/directories': typeof ApiCatalogDirectoriesRoute
+  '/api/mcp/bookmarks': typeof ApiMcpBookmarksRoute
+  '/api/mcp/featured': typeof ApiMcpFeaturedRoute
   '/api/webhook/dodo': typeof ApiWebhookDodoRoute
   '/dashboard/jobs/post': typeof DashboardJobsPostRoute
   '/dashboard/sponsorships/new': typeof DashboardSponsorshipsNewRoute
+  '/moves/$family/$slug': typeof MovesFamilySlugRoute
   '/api/catalog/': typeof ApiCatalogIndexRoute
   '/api/moves/': typeof ApiMovesIndexRoute
   '/dashboard/sponsorships/': typeof DashboardSponsorshipsIndexRoute
+  '/moves/$family/': typeof MovesFamilyIndexRoute
+  '/api/mcp/moves/$slug': typeof ApiMcpMovesSlugRoute
   '/category/$category/': typeof GalleryCategoryCategoryIndexRoute
+  '/api/mcp/moves/': typeof ApiMcpMovesIndexRoute
   '/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof GalleryIndexRoute
   '/bookmarks': typeof BookmarksRoute
   '/checkout': typeof CheckoutRoute
-  '/docs': typeof DocsRoute
+  '/consent': typeof ConsentRoute
   '/featured': typeof FeaturedRoute
   '/listings': typeof ListingsRoute
   '/llms.txt': typeof LlmsDottxtRoute
-  '/mcp': typeof McpRoute
+  '/motionvideo-mcp': typeof MotionvideoMcpRoute
   '/motionvideo-skill': typeof MotionvideoSkillRoute
-  '/pricing': typeof PricingRoute
+  '/pro': typeof ProRoute
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/skill.md': typeof SkillDotmdRoute
   '/sponsor': typeof SponsorRoute
   '/studios': typeof StudiosRoute
   '/submit': typeof SubmitRoute
   '/welcome': typeof WelcomeRoute
+  '/.well-known/$': typeof DotwellKnownSplatRoute
   '/about': typeof PagesAboutRoute
   '/brand': typeof PagesBrandRoute
   '/contact': typeof PagesContactRoute
@@ -554,16 +633,17 @@ export interface FileRoutesByTo {
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/skill': typeof DashboardSkillRoute
   '/dashboard/submit': typeof DashboardSubmitRoute
+  '/docs/$': typeof DocsSplatRoute
   '/extras/$category': typeof ExtrasCategoryRoute
   '/jobs/$type': typeof JobsTypeRoute
   '/jobs/post': typeof JobsPostRoute
-  '/moves/$slug': typeof MovesSlugRoute
   '/skills/$category': typeof SkillsCategoryRoute
   '/sponsorships/new': typeof SponsorshipsNewRoute
   '/tools/$category': typeof ToolsCategoryRoute
   '/admin': typeof AdminIndexRoute
   '/creatives': typeof CreativesIndexRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/docs': typeof DocsIndexRoute
   '/extras': typeof ExtrasIndexRoute
   '/jobs': typeof JobsIndexRoute
   '/moves': typeof MovesIndexRoute
@@ -573,13 +653,19 @@ export interface FileRoutesByTo {
   '/videos/$slug': typeof GalleryVideosSlugRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/catalog/directories': typeof ApiCatalogDirectoriesRoute
+  '/api/mcp/bookmarks': typeof ApiMcpBookmarksRoute
+  '/api/mcp/featured': typeof ApiMcpFeaturedRoute
   '/api/webhook/dodo': typeof ApiWebhookDodoRoute
   '/dashboard/jobs/post': typeof DashboardJobsPostRoute
   '/dashboard/sponsorships/new': typeof DashboardSponsorshipsNewRoute
+  '/moves/$family/$slug': typeof MovesFamilySlugRoute
   '/api/catalog': typeof ApiCatalogIndexRoute
   '/api/moves': typeof ApiMovesIndexRoute
   '/dashboard/sponsorships': typeof DashboardSponsorshipsIndexRoute
+  '/moves/$family': typeof MovesFamilyIndexRoute
+  '/api/mcp/moves/$slug': typeof ApiMcpMovesSlugRoute
   '/category/$category': typeof GalleryCategoryCategoryIndexRoute
+  '/api/mcp/moves': typeof ApiMcpMovesIndexRoute
   '/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
 }
 export interface FileRoutesById {
@@ -589,25 +675,28 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/bookmarks': typeof BookmarksRoute
   '/checkout': typeof CheckoutRoute
+  '/consent': typeof ConsentRoute
   '/creatives': typeof CreativesRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
-  '/docs': typeof DocsRoute
   '/extras': typeof ExtrasRouteWithChildren
   '/featured': typeof FeaturedRoute
   '/listings': typeof ListingsRoute
   '/llms.txt': typeof LlmsDottxtRoute
-  '/mcp': typeof McpRoute
+  '/motionvideo-mcp': typeof MotionvideoMcpRoute
   '/motionvideo-skill': typeof MotionvideoSkillRoute
-  '/pricing': typeof PricingRoute
+  '/moves': typeof MovesRouteWithChildren
+  '/pro': typeof ProRoute
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/skill.md': typeof SkillDotmdRoute
   '/skills': typeof SkillsRouteWithChildren
   '/sponsor': typeof SponsorRoute
   '/studios': typeof StudiosRoute
   '/submit': typeof SubmitRoute
   '/tools': typeof ToolsRouteWithChildren
   '/welcome': typeof WelcomeRoute
+  '/.well-known/$': typeof DotwellKnownSplatRoute
   '/_pages/about': typeof PagesAboutRoute
   '/_pages/brand': typeof PagesBrandRoute
   '/_pages/contact': typeof PagesContactRoute
@@ -627,10 +716,11 @@ export interface FileRoutesById {
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/skill': typeof DashboardSkillRoute
   '/dashboard/submit': typeof DashboardSubmitRoute
+  '/docs/$': typeof DocsSplatRoute
   '/extras/$category': typeof ExtrasCategoryRoute
   '/jobs/$type': typeof JobsTypeRoute
   '/jobs/post': typeof JobsPostRoute
-  '/moves/$slug': typeof MovesSlugRoute
+  '/moves/$family': typeof MovesFamilyRouteWithChildren
   '/skills/$category': typeof SkillsCategoryRoute
   '/sponsorships/new': typeof SponsorshipsNewRoute
   '/tools/$category': typeof ToolsCategoryRoute
@@ -638,6 +728,7 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/creatives/': typeof CreativesIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/docs/': typeof DocsIndexRoute
   '/extras/': typeof ExtrasIndexRoute
   '/jobs/': typeof JobsIndexRoute
   '/moves/': typeof MovesIndexRoute
@@ -648,13 +739,19 @@ export interface FileRoutesById {
   '/_gallery/videos/$slug': typeof GalleryVideosSlugRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/catalog/directories': typeof ApiCatalogDirectoriesRoute
+  '/api/mcp/bookmarks': typeof ApiMcpBookmarksRoute
+  '/api/mcp/featured': typeof ApiMcpFeaturedRoute
   '/api/webhook/dodo': typeof ApiWebhookDodoRoute
   '/dashboard/jobs/post': typeof DashboardJobsPostRoute
   '/dashboard/sponsorships/new': typeof DashboardSponsorshipsNewRoute
+  '/moves/$family/$slug': typeof MovesFamilySlugRoute
   '/api/catalog/': typeof ApiCatalogIndexRoute
   '/api/moves/': typeof ApiMovesIndexRoute
   '/dashboard/sponsorships/': typeof DashboardSponsorshipsIndexRoute
+  '/moves/$family/': typeof MovesFamilyIndexRoute
+  '/api/mcp/moves/$slug': typeof ApiMcpMovesSlugRoute
   '/_gallery/category/$category/': typeof GalleryCategoryCategoryIndexRoute
+  '/api/mcp/moves/': typeof ApiMcpMovesIndexRoute
   '/_gallery/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
 }
 export interface FileRouteTypes {
@@ -664,25 +761,28 @@ export interface FileRouteTypes {
     | '/admin'
     | '/bookmarks'
     | '/checkout'
+    | '/consent'
     | '/creatives'
     | '/dashboard'
-    | '/docs'
     | '/extras'
     | '/featured'
     | '/listings'
     | '/llms.txt'
-    | '/mcp'
+    | '/motionvideo-mcp'
     | '/motionvideo-skill'
-    | '/pricing'
+    | '/moves'
+    | '/pro'
     | '/settings'
     | '/sign-in'
     | '/sitemap.xml'
+    | '/skill.md'
     | '/skills'
     | '/sponsor'
     | '/studios'
     | '/submit'
     | '/tools'
     | '/welcome'
+    | '/.well-known/$'
     | '/about'
     | '/brand'
     | '/contact'
@@ -702,16 +802,18 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/dashboard/skill'
     | '/dashboard/submit'
+    | '/docs/$'
     | '/extras/$category'
     | '/jobs/$type'
     | '/jobs/post'
-    | '/moves/$slug'
+    | '/moves/$family'
     | '/skills/$category'
     | '/sponsorships/new'
     | '/tools/$category'
     | '/admin/'
     | '/creatives/'
     | '/dashboard/'
+    | '/docs/'
     | '/extras/'
     | '/jobs/'
     | '/moves/'
@@ -722,33 +824,41 @@ export interface FileRouteTypes {
     | '/videos/$slug'
     | '/api/auth/$'
     | '/api/catalog/directories'
+    | '/api/mcp/bookmarks'
+    | '/api/mcp/featured'
     | '/api/webhook/dodo'
     | '/dashboard/jobs/post'
     | '/dashboard/sponsorships/new'
+    | '/moves/$family/$slug'
     | '/api/catalog/'
     | '/api/moves/'
     | '/dashboard/sponsorships/'
+    | '/moves/$family/'
+    | '/api/mcp/moves/$slug'
     | '/category/$category/'
+    | '/api/mcp/moves/'
     | '/category/$category/videos/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/bookmarks'
     | '/checkout'
-    | '/docs'
+    | '/consent'
     | '/featured'
     | '/listings'
     | '/llms.txt'
-    | '/mcp'
+    | '/motionvideo-mcp'
     | '/motionvideo-skill'
-    | '/pricing'
+    | '/pro'
     | '/settings'
     | '/sign-in'
     | '/sitemap.xml'
+    | '/skill.md'
     | '/sponsor'
     | '/studios'
     | '/submit'
     | '/welcome'
+    | '/.well-known/$'
     | '/about'
     | '/brand'
     | '/contact'
@@ -768,16 +878,17 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/dashboard/skill'
     | '/dashboard/submit'
+    | '/docs/$'
     | '/extras/$category'
     | '/jobs/$type'
     | '/jobs/post'
-    | '/moves/$slug'
     | '/skills/$category'
     | '/sponsorships/new'
     | '/tools/$category'
     | '/admin'
     | '/creatives'
     | '/dashboard'
+    | '/docs'
     | '/extras'
     | '/jobs'
     | '/moves'
@@ -787,13 +898,19 @@ export interface FileRouteTypes {
     | '/videos/$slug'
     | '/api/auth/$'
     | '/api/catalog/directories'
+    | '/api/mcp/bookmarks'
+    | '/api/mcp/featured'
     | '/api/webhook/dodo'
     | '/dashboard/jobs/post'
     | '/dashboard/sponsorships/new'
+    | '/moves/$family/$slug'
     | '/api/catalog'
     | '/api/moves'
     | '/dashboard/sponsorships'
+    | '/moves/$family'
+    | '/api/mcp/moves/$slug'
     | '/category/$category'
+    | '/api/mcp/moves'
     | '/category/$category/videos/$slug'
   id:
     | '__root__'
@@ -802,25 +919,28 @@ export interface FileRouteTypes {
     | '/admin'
     | '/bookmarks'
     | '/checkout'
+    | '/consent'
     | '/creatives'
     | '/dashboard'
-    | '/docs'
     | '/extras'
     | '/featured'
     | '/listings'
     | '/llms.txt'
-    | '/mcp'
+    | '/motionvideo-mcp'
     | '/motionvideo-skill'
-    | '/pricing'
+    | '/moves'
+    | '/pro'
     | '/settings'
     | '/sign-in'
     | '/sitemap.xml'
+    | '/skill.md'
     | '/skills'
     | '/sponsor'
     | '/studios'
     | '/submit'
     | '/tools'
     | '/welcome'
+    | '/.well-known/$'
     | '/_pages/about'
     | '/_pages/brand'
     | '/_pages/contact'
@@ -840,10 +960,11 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/dashboard/skill'
     | '/dashboard/submit'
+    | '/docs/$'
     | '/extras/$category'
     | '/jobs/$type'
     | '/jobs/post'
-    | '/moves/$slug'
+    | '/moves/$family'
     | '/skills/$category'
     | '/sponsorships/new'
     | '/tools/$category'
@@ -851,6 +972,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/creatives/'
     | '/dashboard/'
+    | '/docs/'
     | '/extras/'
     | '/jobs/'
     | '/moves/'
@@ -861,13 +983,19 @@ export interface FileRouteTypes {
     | '/_gallery/videos/$slug'
     | '/api/auth/$'
     | '/api/catalog/directories'
+    | '/api/mcp/bookmarks'
+    | '/api/mcp/featured'
     | '/api/webhook/dodo'
     | '/dashboard/jobs/post'
     | '/dashboard/sponsorships/new'
+    | '/moves/$family/$slug'
     | '/api/catalog/'
     | '/api/moves/'
     | '/dashboard/sponsorships/'
+    | '/moves/$family/'
+    | '/api/mcp/moves/$slug'
     | '/_gallery/category/$category/'
+    | '/api/mcp/moves/'
     | '/_gallery/category/$category/videos/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -877,38 +1005,45 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   BookmarksRoute: typeof BookmarksRoute
   CheckoutRoute: typeof CheckoutRoute
+  ConsentRoute: typeof ConsentRoute
   CreativesRoute: typeof CreativesRouteWithChildren
   DashboardRoute: typeof DashboardRouteWithChildren
-  DocsRoute: typeof DocsRoute
   ExtrasRoute: typeof ExtrasRouteWithChildren
   FeaturedRoute: typeof FeaturedRoute
   ListingsRoute: typeof ListingsRoute
   LlmsDottxtRoute: typeof LlmsDottxtRoute
-  McpRoute: typeof McpRoute
+  MotionvideoMcpRoute: typeof MotionvideoMcpRoute
   MotionvideoSkillRoute: typeof MotionvideoSkillRoute
-  PricingRoute: typeof PricingRoute
+  MovesRoute: typeof MovesRouteWithChildren
+  ProRoute: typeof ProRoute
   SettingsRoute: typeof SettingsRoute
   SignInRoute: typeof SignInRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SkillDotmdRoute: typeof SkillDotmdRoute
   SkillsRoute: typeof SkillsRouteWithChildren
   SponsorRoute: typeof SponsorRoute
   StudiosRoute: typeof StudiosRoute
   SubmitRoute: typeof SubmitRoute
   ToolsRoute: typeof ToolsRouteWithChildren
   WelcomeRoute: typeof WelcomeRoute
+  DotwellKnownSplatRoute: typeof DotwellKnownSplatRoute
   ApiUploadRoute: typeof ApiUploadRoute
+  DocsSplatRoute: typeof DocsSplatRoute
   JobsTypeRoute: typeof JobsTypeRoute
   JobsPostRoute: typeof JobsPostRoute
-  MovesSlugRoute: typeof MovesSlugRoute
   SponsorshipsNewRoute: typeof SponsorshipsNewRoute
+  DocsIndexRoute: typeof DocsIndexRoute
   JobsIndexRoute: typeof JobsIndexRoute
-  MovesIndexRoute: typeof MovesIndexRoute
   SponsorshipsIndexRoute: typeof SponsorshipsIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiCatalogDirectoriesRoute: typeof ApiCatalogDirectoriesRoute
+  ApiMcpBookmarksRoute: typeof ApiMcpBookmarksRoute
+  ApiMcpFeaturedRoute: typeof ApiMcpFeaturedRoute
   ApiWebhookDodoRoute: typeof ApiWebhookDodoRoute
   ApiCatalogIndexRoute: typeof ApiCatalogIndexRoute
   ApiMovesIndexRoute: typeof ApiMovesIndexRoute
+  ApiMcpMovesSlugRoute: typeof ApiMcpMovesSlugRoute
+  ApiMcpMovesIndexRoute: typeof ApiMcpMovesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -948,6 +1083,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/consent': {
+      id: '/consent'
+      path: '/consent'
+      fullPath: '/consent'
+      preLoaderRoute: typeof ConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/creatives': {
       id: '/creatives'
       path: '/creatives'
@@ -960,13 +1102,6 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/docs': {
-      id: '/docs'
-      path: '/docs'
-      fullPath: '/docs'
-      preLoaderRoute: typeof DocsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/extras': {
@@ -997,11 +1132,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LlmsDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
+    '/motionvideo-mcp': {
+      id: '/motionvideo-mcp'
+      path: '/motionvideo-mcp'
+      fullPath: '/motionvideo-mcp'
+      preLoaderRoute: typeof MotionvideoMcpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/motionvideo-skill': {
@@ -1011,11 +1146,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MotionvideoSkillRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/pricing': {
-      id: '/pricing'
-      path: '/pricing'
-      fullPath: '/pricing'
-      preLoaderRoute: typeof PricingRouteImport
+    '/moves': {
+      id: '/moves'
+      path: '/moves'
+      fullPath: '/moves'
+      preLoaderRoute: typeof MovesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pro': {
+      id: '/pro'
+      path: '/pro'
+      fullPath: '/pro'
+      preLoaderRoute: typeof ProRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings': {
@@ -1037,6 +1179,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/skill.md': {
+      id: '/skill.md'
+      path: '/skill.md'
+      fullPath: '/skill.md'
+      preLoaderRoute: typeof SkillDotmdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/skills': {
@@ -1079,6 +1228,13 @@ declare module '@tanstack/react-router' {
       path: '/welcome'
       fullPath: '/welcome'
       preLoaderRoute: typeof WelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/$': {
+      id: '/.well-known/$'
+      path: '/.well-known/$'
+      fullPath: '/.well-known/$'
+      preLoaderRoute: typeof DotwellKnownSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_gallery/': {
@@ -1242,6 +1398,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSubmitRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/docs/': {
+      id: '/docs/'
+      path: '/docs'
+      fullPath: '/docs/'
+      preLoaderRoute: typeof DocsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs/$': {
+      id: '/docs/$'
+      path: '/docs/$'
+      fullPath: '/docs/$'
+      preLoaderRoute: typeof DocsSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/extras/': {
       id: '/extras/'
       path: '/'
@@ -1279,17 +1449,17 @@ declare module '@tanstack/react-router' {
     }
     '/moves/': {
       id: '/moves/'
-      path: '/moves'
+      path: '/'
       fullPath: '/moves/'
       preLoaderRoute: typeof MovesIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof MovesRoute
     }
-    '/moves/$slug': {
-      id: '/moves/$slug'
-      path: '/moves/$slug'
-      fullPath: '/moves/$slug'
-      preLoaderRoute: typeof MovesSlugRouteImport
-      parentRoute: typeof rootRouteImport
+    '/moves/$family': {
+      id: '/moves/$family'
+      path: '/$family'
+      fullPath: '/moves/$family'
+      preLoaderRoute: typeof MovesFamilyRouteImport
+      parentRoute: typeof MovesRoute
     }
     '/skills/': {
       id: '/skills/'
@@ -1368,6 +1538,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCatalogDirectoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/mcp/bookmarks': {
+      id: '/api/mcp/bookmarks'
+      path: '/api/mcp/bookmarks'
+      fullPath: '/api/mcp/bookmarks'
+      preLoaderRoute: typeof ApiMcpBookmarksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/mcp/featured': {
+      id: '/api/mcp/featured'
+      path: '/api/mcp/featured'
+      fullPath: '/api/mcp/featured'
+      preLoaderRoute: typeof ApiMcpFeaturedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/moves/': {
       id: '/api/moves/'
       path: '/api/moves'
@@ -1403,12 +1587,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSponsorshipsNewRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/moves/$family/': {
+      id: '/moves/$family/'
+      path: '/'
+      fullPath: '/moves/$family/'
+      preLoaderRoute: typeof MovesFamilyIndexRouteImport
+      parentRoute: typeof MovesFamilyRoute
+    }
+    '/moves/$family/$slug': {
+      id: '/moves/$family/$slug'
+      path: '/$slug'
+      fullPath: '/moves/$family/$slug'
+      preLoaderRoute: typeof MovesFamilySlugRouteImport
+      parentRoute: typeof MovesFamilyRoute
+    }
     '/_gallery/category/$category/': {
       id: '/_gallery/category/$category/'
       path: '/'
       fullPath: '/category/$category/'
       preLoaderRoute: typeof GalleryCategoryCategoryIndexRouteImport
       parentRoute: typeof GalleryCategoryCategoryRoute
+    }
+    '/api/mcp/moves/': {
+      id: '/api/mcp/moves/'
+      path: '/api/mcp/moves'
+      fullPath: '/api/mcp/moves/'
+      preLoaderRoute: typeof ApiMcpMovesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/mcp/moves/$slug': {
+      id: '/api/mcp/moves/$slug'
+      path: '/api/mcp/moves/$slug'
+      fullPath: '/api/mcp/moves/$slug'
+      preLoaderRoute: typeof ApiMcpMovesSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_gallery/category/$category/videos/$slug': {
       id: '/_gallery/category/$category/videos/$slug'
@@ -1549,6 +1761,32 @@ const ExtrasRouteChildren: ExtrasRouteChildren = {
 const ExtrasRouteWithChildren =
   ExtrasRoute._addFileChildren(ExtrasRouteChildren)
 
+interface MovesFamilyRouteChildren {
+  MovesFamilySlugRoute: typeof MovesFamilySlugRoute
+  MovesFamilyIndexRoute: typeof MovesFamilyIndexRoute
+}
+
+const MovesFamilyRouteChildren: MovesFamilyRouteChildren = {
+  MovesFamilySlugRoute: MovesFamilySlugRoute,
+  MovesFamilyIndexRoute: MovesFamilyIndexRoute,
+}
+
+const MovesFamilyRouteWithChildren = MovesFamilyRoute._addFileChildren(
+  MovesFamilyRouteChildren,
+)
+
+interface MovesRouteChildren {
+  MovesFamilyRoute: typeof MovesFamilyRouteWithChildren
+  MovesIndexRoute: typeof MovesIndexRoute
+}
+
+const MovesRouteChildren: MovesRouteChildren = {
+  MovesFamilyRoute: MovesFamilyRouteWithChildren,
+  MovesIndexRoute: MovesIndexRoute,
+}
+
+const MovesRouteWithChildren = MovesRoute._addFileChildren(MovesRouteChildren)
+
 interface SkillsRouteChildren {
   SkillsCategoryRoute: typeof SkillsCategoryRoute
   SkillsIndexRoute: typeof SkillsIndexRoute
@@ -1580,38 +1818,45 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   BookmarksRoute: BookmarksRoute,
   CheckoutRoute: CheckoutRoute,
+  ConsentRoute: ConsentRoute,
   CreativesRoute: CreativesRouteWithChildren,
   DashboardRoute: DashboardRouteWithChildren,
-  DocsRoute: DocsRoute,
   ExtrasRoute: ExtrasRouteWithChildren,
   FeaturedRoute: FeaturedRoute,
   ListingsRoute: ListingsRoute,
   LlmsDottxtRoute: LlmsDottxtRoute,
-  McpRoute: McpRoute,
+  MotionvideoMcpRoute: MotionvideoMcpRoute,
   MotionvideoSkillRoute: MotionvideoSkillRoute,
-  PricingRoute: PricingRoute,
+  MovesRoute: MovesRouteWithChildren,
+  ProRoute: ProRoute,
   SettingsRoute: SettingsRoute,
   SignInRoute: SignInRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SkillDotmdRoute: SkillDotmdRoute,
   SkillsRoute: SkillsRouteWithChildren,
   SponsorRoute: SponsorRoute,
   StudiosRoute: StudiosRoute,
   SubmitRoute: SubmitRoute,
   ToolsRoute: ToolsRouteWithChildren,
   WelcomeRoute: WelcomeRoute,
+  DotwellKnownSplatRoute: DotwellKnownSplatRoute,
   ApiUploadRoute: ApiUploadRoute,
+  DocsSplatRoute: DocsSplatRoute,
   JobsTypeRoute: JobsTypeRoute,
   JobsPostRoute: JobsPostRoute,
-  MovesSlugRoute: MovesSlugRoute,
   SponsorshipsNewRoute: SponsorshipsNewRoute,
+  DocsIndexRoute: DocsIndexRoute,
   JobsIndexRoute: JobsIndexRoute,
-  MovesIndexRoute: MovesIndexRoute,
   SponsorshipsIndexRoute: SponsorshipsIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiCatalogDirectoriesRoute: ApiCatalogDirectoriesRoute,
+  ApiMcpBookmarksRoute: ApiMcpBookmarksRoute,
+  ApiMcpFeaturedRoute: ApiMcpFeaturedRoute,
   ApiWebhookDodoRoute: ApiWebhookDodoRoute,
   ApiCatalogIndexRoute: ApiCatalogIndexRoute,
   ApiMovesIndexRoute: ApiMovesIndexRoute,
+  ApiMcpMovesSlugRoute: ApiMcpMovesSlugRoute,
+  ApiMcpMovesIndexRoute: ApiMcpMovesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

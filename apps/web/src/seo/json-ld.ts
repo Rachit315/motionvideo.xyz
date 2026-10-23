@@ -6,6 +6,7 @@ import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { absoluteUrl } from "@/constants/url";
 import type { MotionVideo } from "@/lib/motion-catalog";
+import { movePath } from "@/lib/moves";
 import type { Move } from "@/lib/moves";
 
 // Structured data, emitted as <script type="application/ld+json"> through a
@@ -70,7 +71,7 @@ const BILLING_DURATION: Partial<Record<PlanBilling, string>> = {
   monthly: "P1M",
 };
 
-// One Product per plan, with an Offer per billing option, for /pricing.
+// One Product per plan, with an Offer per billing option, for /pro.
 export const planJsonLd = () =>
   PLANS.map((plan) =>
     jsonLdScript({
@@ -79,7 +80,7 @@ export const planJsonLd = () =>
       description: SITE.DESCRIPTION.LONG,
       image: absoluteUrl("/og.jpg"),
       name: PLAN_NAME[plan],
-      url: absoluteUrl(ROUTES.PRICING),
+      url: absoluteUrl(ROUTES.PRO),
       offers: planOffers(plan).map((billing) => {
         const price = ((PLAN_PRICE_CENTS[plan][billing] ?? 0) / 100).toFixed(2);
         const duration = BILLING_DURATION[billing];
@@ -88,7 +89,7 @@ export const planJsonLd = () =>
           availability: "https://schema.org/InStock",
           price,
           priceCurrency: "USD",
-          url: absoluteUrl(`${ROUTES.PRICING}?billing=${billing}`),
+          url: absoluteUrl(`${ROUTES.PRO}?billing=${billing}`),
           ...(duration && {
             priceSpecification: {
               "@type": "UnitPriceSpecification",
@@ -162,7 +163,7 @@ export const movesJsonLd = (moves: Move[]) =>
     hasDefinedTerm: moves.map((move) => ({
       "@type": "DefinedTerm",
       name: move.name,
-      url: absoluteUrl(`${ROUTES.MOVES}/${move.slug}`),
+      url: absoluteUrl(movePath(move)),
     })),
   });
 
@@ -174,5 +175,5 @@ export const moveJsonLd = (move: Move) =>
     inDefinedTermSet: MOVES_SET,
     name: move.name,
     termCode: move.slug,
-    url: absoluteUrl(`${ROUTES.MOVES}/${move.slug}`),
+    url: absoluteUrl(movePath(move)),
   });

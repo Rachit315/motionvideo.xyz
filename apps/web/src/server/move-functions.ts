@@ -50,12 +50,18 @@ export const getMovePrompt = createServerFn({ method: "GET" })
     return { locked: false, prompt };
   });
 
-// Each move's card poster: its first example video that no earlier move's
-// card already shows (else its first example), so neighbouring cards in the
-// grid don't repeat one poster. Moves without examples get none.
+/** The clip a move's card loops: one of its gallery examples. */
+export type MoveCardMedia = Pick<
+  MotionVideo,
+  "poster" | "preview" | "width" | "height"
+>;
+
+// Each move's card plays its first example that no earlier move's card
+// already shows (else its first example), so neighbouring cards in the grid
+// don't repeat a clip. Moves without examples get a text card.
 const shownVideos = new Set<string>();
-const POSTERS: Record<string, string> = Object.fromEntries(
-  MOVES.flatMap((move): [string, string][] => {
+const CARDS: Record<string, MoveCardMedia> = Object.fromEntries(
+  MOVES.flatMap((move): [string, MoveCardMedia][] => {
     const videos = move.examples.flatMap((slug) => {
       const video = VIDEOS.get(slug);
       return video ? [video] : [];
@@ -66,13 +72,14 @@ const POSTERS: Record<string, string> = Object.fromEntries(
       return [];
     }
     shownVideos.add(video.slug);
-    return [[move.slug, video.poster]];
+    const { poster, preview, width, height } = video;
+    return [[move.slug, { poster, preview, width, height }]];
   })
 );
 
-/** Card posters for every move, keyed by move slug. */
-export const getMovePosters = createServerFn({ method: "GET" }).handler(
-  () => POSTERS
+/** Card media for every move that has a gallery example, by move slug. */
+export const getMoveCards = createServerFn({ method: "GET" }).handler(
+  () => CARDS
 );
 
 /** The catalog videos a move lists as examples, in its order. */

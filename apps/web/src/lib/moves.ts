@@ -1,3 +1,4 @@
+import { ROUTES } from "@/constants/routes";
 import moves from "@/data/moves.json";
 import type { MoveFamily } from "@/lib/move-families";
 
@@ -8,7 +9,7 @@ import type { MoveFamily } from "@/lib/move-families";
 // and is only read by server functions after an access check.
 
 export interface Move {
-  /** URL slug: `/moves/<slug>`. */
+  /** URL slug: `/moves/<family>/<slug>`. Never a family name. */
   slug: string;
   name: string;
   family: MoveFamily;
@@ -33,6 +34,32 @@ export const MOVES: Move[] = moves.moves as Move[];
 
 export const findMove = (slug: string | undefined) =>
   MOVES.find((move) => move.slug === slug);
+
+/** A move's page: `/moves/<family>/<slug>`. */
+export const movePath = (move: Pick<Move, "family" | "slug">) =>
+  `${ROUTES.MOVES}/${move.family}/${move.slug}`;
+
+/** The moves a grid shows: every move, or one family's. */
+export const movesIn = (family: MoveFamily | undefined) =>
+  family ? MOVES.filter((move) => move.family === family) : MOVES;
+
+/** The moves before and after one in the grid behind its overlay. */
+export interface MoveNeighbours {
+  previous?: string;
+  next?: string;
+}
+
+export const moveNeighbours = (
+  slug: string,
+  family?: MoveFamily
+): MoveNeighbours => {
+  const list = movesIn(family);
+  const index = list.findIndex((move) => move.slug === slug);
+  if (index === -1) {
+    return {};
+  }
+  return { previous: list[index - 1]?.slug, next: list[index + 1]?.slug };
+};
 
 /** The Pro-only half of a move, served by `getMovePrompt` after an access check. */
 export interface MovePrompt {

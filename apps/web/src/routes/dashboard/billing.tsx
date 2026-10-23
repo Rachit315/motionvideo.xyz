@@ -10,6 +10,7 @@ import type { FormEvent } from "react";
 import { useIntlayer, useLocale } from "react-intlayer";
 import { z } from "zod";
 
+import { CopyIcon } from "@/components/copy-icon";
 import { AccountPageHeader, PageMain } from "@/components/page";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -24,6 +25,8 @@ import {
 import { Input } from "@/components/ui/input";
 import type { PlanAccess } from "@/constants/plans";
 import { ROUTES } from "@/constants/routes";
+import { SKILL } from "@/constants/skill";
+import { useTransientStatus } from "@/hooks/use-transient-status";
 import { createMetadata } from "@/seo/metadata";
 import {
   getMyPlan,
@@ -193,6 +196,93 @@ const SeatsCard = ({ seats }: { seats: Seat[] }) => {
   );
 };
 
+/**
+ * The Pro tools of the MotionVideo MCP server: the MCP client signs in with
+ * this account (OAuth), and the plan unlocks them, so there is nothing to
+ * copy here.
+ */
+const McpCard = () => {
+  const content = useIntlayer("billing-page");
+  return (
+    <Card size="lg">
+      <CardHeader>
+        <CardTitle>{content.mcpTitle}</CardTitle>
+        <CardDescription>{content.mcpIntro}</CardDescription>
+      </CardHeader>
+      <CardFooter>
+        <Link
+          to="/docs/$"
+          params={{ _splat: "mcp" }}
+          hash="pro-tools"
+          className={buttonVariants({ size: "lg", variant: "outline" })}
+        >
+          {content.mcpGuide}
+        </Link>
+      </CardFooter>
+    </Card>
+  );
+};
+
+/**
+ * The agent skill, part of the plan: the private repository is granted
+ * through Dodo's portal (connect GitHub there), then installed with the
+ * command below. Also shown to Skill Bundle buyers, who keep the repository.
+ */
+const SkillCard = () => {
+  const content = useIntlayer("dashboard-page");
+  const [status, flash] = useTransientStatus<"idle" | "copied">("idle");
+  const copied = status === "copied";
+  const label = copied ? content.copied.value : content.copy.value;
+  return (
+    <Card size="lg">
+      <CardHeader>
+        <CardTitle>{content.install}</CardTitle>
+        <CardDescription>{content.installIntro}</CardDescription>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-6">
+        <div className="flex flex-col gap-2">
+          <span className="text-sm font-medium">{content.commandLabel}</span>
+          <div className="bg-muted/50 flex items-center gap-2 rounded-xl p-2 pl-4">
+            <code className="min-w-0 flex-1 overflow-x-auto font-mono text-xs whitespace-nowrap">
+              {SKILL.INSTALL_COMMAND}
+            </code>
+            <Button
+              aria-label={label}
+              size="sm"
+              variant="outline"
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText(SKILL.INSTALL_COMMAND);
+                  flash("copied");
+                } catch {
+                  // Clipboard access can be denied; the command stays selectable.
+                }
+              }}
+            >
+              <CopyIcon copied={copied} />
+              {label}
+            </Button>
+          </div>
+          <p className="text-muted-foreground text-xs text-pretty">
+            {content.globalNote}
+          </p>
+        </div>
+        <div className="flex flex-col gap-2">
+          <span className="text-sm font-medium">{content.steps}</span>
+          <ol className="text-muted-foreground flex list-decimal flex-col gap-1.5 pl-4 text-sm">
+            <li>{content.stepPortal}</li>
+            <li>{content.stepInvite}</li>
+            <li>{content.stepPrompt}</li>
+          </ol>
+        </div>
+      </CardContent>
+      <CardFooter>
+        <PortalButton />
+      </CardFooter>
+    </Card>
+  );
+};
+
 const Billing = () => {
   const content = useIntlayer("billing-page");
   const { access, seats } = routeApi.useLoaderData();
@@ -217,10 +307,7 @@ const Billing = () => {
             </CardDescription>
           </CardHeader>
           <CardFooter className="flex flex-wrap gap-2">
-            <Link
-              to={ROUTES.PRICING}
-              className={buttonVariants({ size: "lg" })}
-            >
+            <Link to={ROUTES.PRO} className={buttonVariants({ size: "lg" })}>
               {content.seePlans}
             </Link>
             {access.legacySkill && <PortalButton />}
@@ -228,6 +315,10 @@ const Billing = () => {
         </Card>
       )}
       {seats && <SeatsCard seats={seats} />}
+      {access.plan && <McpCard />}
+      {/* The repository is granted to whoever paid (Dodo's customer): plan
+          owners and Skill Bundle buyers, not seat holders. */}
+      {(access.role === "owner" || access.legacySkill) && <SkillCard />}
     </PageMain>
   );
 };

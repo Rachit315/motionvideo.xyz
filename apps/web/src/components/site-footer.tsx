@@ -14,6 +14,8 @@ import { buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
   DropdownMenuLinkItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -153,11 +155,18 @@ export const SiteFooter = () => {
   const gallery = useIntlayer("motion-gallery");
   const moves = useIntlayer("moves");
   const product = [
-    [ROUTES.MOTIONVIDEO_SKILL, content.agentSkill],
-    [ROUTES.MOVES, header.techniques],
-    [ROUTES.MCP, header.mcp],
-    [ROUTES.PRICING, header.pricing],
-    [ROUTES.DOCS, header.docs],
+    [ROUTES.MOVES, header.moves],
+    [ROUTES.MOTIONVIDEO_SKILL, header.skill],
+    [ROUTES.MOTIONVIDEO_MCP, header.mcp],
+    [ROUTES.PRO, header.pricing],
+  ] as const;
+  const docs = [
+    [ROUTES.DOCS, content.quickstart],
+    [ROUTES.DOCS_MCP, content.mcpServer],
+    [ROUTES.DOCS_SKILL, content.agentSkill],
+    [ROUTES.DOCS_MOVES, content.usingMoves],
+    [ROUTES.DOCS_PLANS, content.plansBilling],
+    [ROUTES.DOCS_API, content.publicApi],
   ] as const;
   const resources = [
     [ROUTES.HOME, header.discover],
@@ -171,9 +180,6 @@ export const SiteFooter = () => {
     [ROUTES.ABOUT, content.about],
     [ROUTES.BRAND, content.brand],
     [ROUTES.CONTACT, content.contact],
-  ] as const;
-  const contribute = [
-    [ROUTES.DASHBOARD_SUBMIT, header.submit],
     [ROUTES.SPONSOR, content.sponsor],
   ] as const;
   const legal = [
@@ -195,7 +201,10 @@ export const SiteFooter = () => {
     <footer className="mx-auto mt-auto w-full max-w-[1800px] px-4 pt-16 text-sm sm:px-6">
       <div className="grid gap-x-8 gap-y-12 lg:grid-cols-[minmax(0,1.4fr)_repeat(4,minmax(0,1fr))]">
         <div className="flex max-w-xs flex-col items-start gap-4">
-          <Brand />
+          {/* text-base: the logo at the header's size (the footer is text-sm). */}
+          <div className="text-base">
+            <Brand />
+          </div>
           <p className="text-muted-foreground text-pretty">
             {content.description}
           </p>
@@ -209,25 +218,17 @@ export const SiteFooter = () => {
         >
           <Column>
             <LinkGroup heading={content.product}>{links(product)}</LinkGroup>
-            <LinkGroup heading={header.techniques}>
-              {MOVE_FAMILIES.map((family) => (
-                <Link
-                  key={family}
-                  to={ROUTES.MOVES}
-                  search={{ family }}
-                  className={linkClass}
-                >
-                  {moves.familyLabels[family]}
-                </Link>
-              ))}
+            <LinkGroup heading={header.docs}>
+              {links(docs)}
+              {/* A server route serving markdown, not an app page. */}
+              <a href={ROUTES.SKILL_MD} className={linkClass}>
+                skill.md
+              </a>
             </LinkGroup>
           </Column>
           <Column>
-            <LinkGroup heading={header.resources}>{links(resources)}</LinkGroup>
+            <LinkGroup heading={header.explore}>{links(resources)}</LinkGroup>
             <LinkGroup heading={content.company}>{links(company)}</LinkGroup>
-            <LinkGroup heading={content.contribute}>
-              {links(contribute)}
-            </LinkGroup>
           </Column>
           <Column>
             <LinkGroup heading={content.categories}>
@@ -245,6 +246,18 @@ export const SiteFooter = () => {
             <LinkGroup heading={content.legal}>{links(legal)}</LinkGroup>
           </Column>
           <Column>
+            <LinkGroup heading={header.moves}>
+              {MOVE_FAMILIES.map((family) => (
+                <Link
+                  key={family}
+                  to="/moves/$family"
+                  params={{ family }}
+                  className={linkClass}
+                >
+                  {moves.familyLabels[family]}
+                </Link>
+              ))}
+            </LinkGroup>
             <LinkGroup heading={content.otherProducts}>
               {OTHER_PRODUCTS.map((item) => (
                 <ExternalLink key={item.name} href={item.url}>
@@ -256,21 +269,26 @@ export const SiteFooter = () => {
                 <DropdownMenuTrigger
                   className={cn(linkClass, "flex items-center gap-1 text-left")}
                 >
-                  {content.labsProjects}
+                  {content.andMore}
                   <ChevronDown
                     aria-hidden="true"
                     className="size-3.5 shrink-0 transition-transform in-data-popup-open:rotate-180"
                   />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent side="top" align="start" className="w-48">
-                  {SHADCN_LABS_PROJECTS.map((project) => (
-                    <DropdownMenuLinkItem
-                      key={project.name}
-                      href={withUtm(project.url, "footer")}
-                    >
-                      {project.name}
-                    </DropdownMenuLinkItem>
-                  ))}
+                  <DropdownMenuGroup>
+                    <DropdownMenuLabel>
+                      {content.labsProjects}
+                    </DropdownMenuLabel>
+                    {SHADCN_LABS_PROJECTS.map((project) => (
+                      <DropdownMenuLinkItem
+                        key={project.name}
+                        href={withUtm(project.url, "footer")}
+                      >
+                        {project.name}
+                      </DropdownMenuLinkItem>
+                    ))}
+                  </DropdownMenuGroup>
                 </DropdownMenuContent>
               </DropdownMenu>
             </LinkGroup>

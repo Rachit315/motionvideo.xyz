@@ -169,7 +169,7 @@ export const createPlanCheckoutUrl = (
     throw new Error("Plan products are not set up; run pnpm dodo:setup");
   }
   return checkoutUrl({
-    cancel_url: `${env.BETTER_AUTH_URL}${ROUTES.PRICING}`,
+    cancel_url: `${env.BETTER_AUTH_URL}${ROUTES.PRO}`,
     customer: { email: buyer.email },
     feature_flags: { allow_discount_code: false },
     metadata: { plan, billing, user_id: buyer.userId },

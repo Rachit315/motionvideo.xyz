@@ -64,6 +64,13 @@
       "when": 1792614551998,
       "tag": "0008_pro_plans",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1792779230035,
+      "tag": "0009_oauth_provider",
+      "breakpoints": true
     }
   ]
 }

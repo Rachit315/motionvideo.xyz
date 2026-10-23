@@ -1,10 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
-import { Check } from "reicon-react/icons/Check";
-import { InfoCircle } from "reicon-react/icons/InfoCircle";
+import { TickCircle } from "reicon-react/icons/TickCircle";
 
-import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -12,11 +10,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PLAN_BILLINGS, PLAN_PRICE_CENTS, PLANS } from "@/constants/plans";
 import type { Plan, PlanAccess, PlanBilling } from "@/constants/plans";
 import { formatUsd } from "@/constants/pricing";
@@ -24,8 +18,9 @@ import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 
 /**
- * Monthly | Annual | Lifetime as links that set `?billing=`, so each tab is
- * a shareable URL and works before hydration. Monthly is the bare /pricing.
+ * Monthly | Annual | Lifetime as tabs that render links setting `?billing=`,
+ * so the URL stays the source of truth: each tab is a shareable URL and works
+ * before hydration. Monthly is the bare /pro.
  */
 export const BillingToggle = ({ billing }: { billing: PlanBilling }) => {
   const content = useIntlayer("pricing");
@@ -37,26 +32,36 @@ export const BillingToggle = ({ billing }: { billing: PlanBilling }) => {
   }
   return (
     <div className="flex flex-col items-center gap-3 sm:relative sm:block">
-      <nav
-        aria-label={content.billingPeriod.value}
-        className="bg-muted inline-flex items-center rounded-xl p-1"
-      >
-        {PLAN_BILLINGS.map((option) => (
-          <Link
-            key={option}
-            to={ROUTES.PRICING}
-            search={{ billing: option === "monthly" ? undefined : option }}
-            replace
-            resetScroll={false}
-            // Monthly's `billing: undefined` would otherwise match every
-            // billing; TanStack sets aria-current="page" on the active link.
-            activeOptions={{ explicitUndefined: true }}
-            className="text-muted-foreground hover:text-foreground aria-[current]:bg-background aria-[current]:text-foreground dark:aria-[current]:bg-input/30 focus-visible:ring-ring/50 rounded-lg px-4 py-1.5 text-sm font-medium transition-colors outline-none focus-visible:ring-3 aria-[current]:shadow-sm"
-          >
-            {content.billing[option]}
-          </Link>
-        ))}
-      </nav>
+      <Tabs value={billing}>
+        <TabsList
+          size="lg"
+          aria-label={content.billingPeriod.value}
+          className="w-80"
+        >
+          {PLAN_BILLINGS.map((option) => (
+            <TabsTrigger
+              key={option}
+              value={option}
+              nativeButton={false}
+              render={
+                <Link
+                  to={ROUTES.PRO}
+                  search={{
+                    billing: option === "monthly" ? undefined : option,
+                  }}
+                  replace
+                  resetScroll={false}
+                  // Monthly's `billing: undefined` would otherwise match
+                  // every billing.
+                  activeOptions={{ explicitUndefined: true }}
+                />
+              }
+            >
+              {content.billing[option]}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
       {/* From sm up the note hangs off the toggle's right edge, so the toggle
           itself stays centred; on mobile it sits below it. */}
       {note && (
@@ -134,15 +139,7 @@ const PlanCard = ({
     >
       <CardHeader>
         <div className="flex flex-col gap-3">
-          <div className="flex flex-col gap-1">
-            <h2 className="flex items-center gap-2 text-base font-semibold">
-              {copy.name}
-              {offered && billing === "annual" && (
-                <Badge variant="secondary">{content.save[plan]}</Badge>
-              )}
-            </h2>
-            <p className="text-muted-foreground text-sm">{copy.audience}</p>
-          </div>
+          <h2 className="text-base font-semibold">{copy.name}</h2>
           <div className="flex flex-col gap-1">
             <p className="flex items-baseline gap-1.5">
               <span className="text-4xl font-semibold tracking-tight tabular-nums">
@@ -162,30 +159,11 @@ const PlanCard = ({
         <ul className="flex flex-col gap-3 text-sm">
           {Object.entries(content.perks[plan]).map(([key, perk]) => (
             <li key={key} className="flex gap-2">
-              <Check
+              <TickCircle
                 aria-hidden="true"
                 className="text-primary mt-0.5 size-4 shrink-0"
               />
-              <span>
-                {perk}
-                {/* MCP sign-in isn't live yet, so the MCP line says so. */}
-                {key === "mcp" && (
-                  <Tooltip>
-                    <TooltipTrigger
-                      render={
-                        <button
-                          type="button"
-                          aria-label={content.mcpNote.value}
-                          className="text-muted-foreground hover:text-foreground focus-visible:ring-ring/50 ml-1 inline-flex translate-y-0.5 rounded-full outline-none focus-visible:ring-3"
-                        />
-                      }
-                    >
-                      <InfoCircle aria-hidden="true" className="size-3.5" />
-                    </TooltipTrigger>
-                    <TooltipContent>{content.mcpNote}</TooltipContent>
-                  </Tooltip>
-                )}
-              </span>
+              <span>{perk}</span>
             </li>
           ))}
         </ul>

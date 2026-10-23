@@ -191,7 +191,7 @@ const NavigationMenuList = ({
           aria-hidden="true"
           data-slot="navigation-menu-pill"
           className={cn(
-            "bg-nav-hover pointer-events-none absolute top-0 left-0 rounded-full ease-(--tabs-ease) motion-reduce:transition-none",
+            "bg-nav-hover pointer-events-none absolute top-0 left-0 rounded-lg ease-(--tabs-ease) motion-reduce:transition-none",
             shown
               ? "transition-[transform,width,opacity] duration-(--tabs-duration)"
               : "transition-opacity duration-150"
@@ -222,7 +222,7 @@ const NavigationMenuItem = ({
 );
 
 const navigationMenuTriggerStyle = cva(
-  "group/navigation-menu-trigger transition-ring focus-visible:ring-ring/50 relative inline-flex h-9 w-max items-center justify-center rounded-full px-3 py-1.5 text-sm font-medium outline-none focus-visible:ring-3 focus-visible:outline-1 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-popup-open:after:absolute data-popup-open:after:-inset-x-(--navigation-menu-gap) data-popup-open:after:inset-y-0 data-popup-open:after:content-['']"
+  "group/navigation-menu-trigger transition-ring focus-visible:ring-ring/50 relative inline-flex h-8 w-max items-center justify-center rounded-lg px-3 py-1.5 text-sm font-medium outline-none focus-visible:ring-3 focus-visible:outline-1 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-popup-open:after:absolute data-popup-open:after:-inset-x-(--navigation-menu-gap) data-popup-open:after:inset-y-0 data-popup-open:after:content-['']"
 );
 
 const NavigationMenuTrigger = ({
@@ -266,7 +266,7 @@ const NavigationMenuLink = ({
   <NavigationMenuPrimitive.Link
     data-slot="navigation-menu-link"
     className={cn(
-      "focus-visible:ring-ring/50 in-data-[slot=navigation-menu-content]:hover:bg-nav-hover in-data-[slot=navigation-menu-content]:focus:bg-nav-hover data-active:bg-muted/50 relative flex items-center gap-2 rounded-full p-2 text-sm transition-[box-shadow,outline-color,outline-offset] duration-(--ring-duration) ease-(--ease-out) outline-none focus-visible:ring-3 focus-visible:outline-1 motion-reduce:transition-none [&_svg:not([class*='size-'])]:size-4",
+      "focus-visible:ring-ring/50 in-data-[slot=navigation-menu-content]:hover:bg-nav-hover in-data-[slot=navigation-menu-content]:focus:bg-nav-hover data-active:bg-muted/50 relative flex items-center gap-2 rounded-lg p-2 text-sm transition-[box-shadow,outline-color,outline-offset] duration-(--ring-duration) ease-(--ease-out) outline-none focus-visible:ring-3 focus-visible:outline-1 motion-reduce:transition-none [&_svg:not([class*='size-'])]:size-4",
       className
     )}
     {...props}

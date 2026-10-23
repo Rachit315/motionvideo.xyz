@@ -55,6 +55,10 @@ const errors = [];
 if (moveSlugs.size !== moves.length) {
   errors.push("duplicate move slugs");
 }
+// `/moves/<x>` is a family page, or an old move link that redirects.
+for (const family of families.filter((name) => moveSlugs.has(name))) {
+  errors.push(`move slug "${family}" is also a family name`);
+}
 if (promptSlugs.size !== prompts.length) {
   errors.push("duplicate prompt slugs");
 }

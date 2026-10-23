@@ -14,7 +14,7 @@ export const PLAN_PRICE_CENTS: Record<
   Plan,
   Partial<Record<PlanBilling, number>>
 > = {
-  pro: { monthly: 999, annual: 7900, lifetime: 14_900 },
+  pro: { monthly: 900, annual: 7900, lifetime: 14_900 },
   business: { monthly: 2900, annual: 24_900 },
 };
 

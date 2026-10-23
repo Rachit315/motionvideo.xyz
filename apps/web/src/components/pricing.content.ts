@@ -5,28 +5,16 @@ import { BUSINESS_SEATS, PLAN_PRICE_CENTS } from "@/constants/plans";
 import { annualSavingsPercent } from "@/constants/pricing";
 
 // Savings come from the real prices, so the copy can't drift from them.
-const PRO_SAVE = annualSavingsPercent(
-  PLAN_PRICE_CENTS.pro.monthly ?? 0,
-  PLAN_PRICE_CENTS.pro.annual ?? 0
+const MAX_SAVE = Math.max(
+  annualSavingsPercent(
+    PLAN_PRICE_CENTS.pro.monthly ?? 0,
+    PLAN_PRICE_CENTS.pro.annual ?? 0
+  ),
+  annualSavingsPercent(
+    PLAN_PRICE_CENTS.business.monthly ?? 0,
+    PLAN_PRICE_CENTS.business.annual ?? 0
+  )
 );
-const BUSINESS_SAVE = annualSavingsPercent(
-  PLAN_PRICE_CENTS.business.monthly ?? 0,
-  PLAN_PRICE_CENTS.business.annual ?? 0
-);
-const MAX_SAVE = Math.max(PRO_SAVE, BUSINESS_SAVE);
-
-const save = (percent: number) =>
-  t({
-    en: `Save ${percent}%`,
-    es: `Ahorra un ${percent} %`,
-    fr: `Économisez ${percent} %`,
-    zh: `省 ${percent}%`,
-    ko: `${percent}% 절약`,
-    ja: `${percent}%お得`,
-    de: `${percent} % sparen`,
-    pt: `Poupe ${percent}%`,
-    ru: `Экономия ${percent}%`,
-  });
 
 const pricing = {
   key: "pricing",
@@ -99,7 +87,6 @@ const pricing = {
       pt: "Pague uma vez",
       ru: "Один платёж",
     }),
-    save: { pro: save(PRO_SAVE), business: save(BUSINESS_SAVE) },
     unit: {
       monthly: t({
         en: "/mo",
@@ -205,17 +192,6 @@ const pricing = {
           pt: "Pro",
           ru: "Pro",
         }),
-        audience: t({
-          en: "For solo builders and freelancers.",
-          es: "Para creadores independientes y freelancers.",
-          fr: "Pour les créateurs indépendants et les freelances.",
-          zh: "适合独立开发者和自由职业者。",
-          ko: "1인 빌더와 프리랜서를 위한 플랜.",
-          ja: "個人開発者やフリーランス向け。",
-          de: "Für Solo-Builder und Freelancer.",
-          pt: "Para criadores independentes e freelancers.",
-          ru: "Для соло-разработчиков и фрилансеров.",
-        }),
         cta: t({
           en: "Get Pro",
           es: "Obtener Pro",
@@ -239,17 +215,6 @@ const pricing = {
           de: "Business",
           pt: "Business",
           ru: "Business",
-        }),
-        audience: t({
-          en: "For companies and teams.",
-          es: "Para empresas y equipos.",
-          fr: "Pour les entreprises et les équipes.",
-          zh: "适合公司和团队。",
-          ko: "회사와 팀을 위한 플랜.",
-          ja: "企業やチーム向け。",
-          de: "Für Unternehmen und Teams.",
-          pt: "Para empresas e equipas.",
-          ru: "Для компаний и команд.",
         }),
         cta: t({
           en: "Get Business",
@@ -300,15 +265,15 @@ const pricing = {
           ru: "Pro-скилл для агентов: знания MotionVideo о моушн-дизайне для Claude Code, Cursor и других агентов",
         }),
         mcp: t({
-          en: "Pro MCP tools: search moves and pull full prompts from your coding agent",
-          es: "Herramientas MCP Pro: busca movimientos y trae prompts completos desde tu agente de programación",
-          fr: "Outils MCP Pro : cherchez des mouvements et récupérez les prompts complets depuis votre agent de programmation",
-          zh: "Pro MCP 工具：在编程智能体中搜索动效并获取完整提示词",
-          ko: "Pro MCP 도구: 코딩 에이전트에서 무브를 검색하고 전체 프롬프트를 가져오기",
-          ja: "Pro MCPツール：コーディングエージェントからムーブを検索し、完全なプロンプトを取得",
-          de: "Pro-MCP-Tools: Moves suchen und vollständige Prompts direkt aus deinem Coding-Agent abrufen",
-          pt: "Ferramentas MCP Pro: pesquise movimentos e obtenha prompts completos a partir do seu agente de programação",
-          ru: "Pro-инструменты MCP: ищите движения и получайте полные промпты прямо из кодинг-агента",
+          en: "Pro MCP tools: search moves and pull full prompts by signing in with your account",
+          es: "Herramientas MCP Pro: busca movimientos y trae prompts completos iniciando sesión con tu cuenta",
+          fr: "Outils MCP Pro : cherchez des mouvements et récupérez les prompts complets en vous connectant avec votre compte",
+          zh: "Pro MCP 工具：登录你的账号即可搜索动效并获取完整提示词",
+          ko: "Pro MCP 도구: 계정으로 로그인해 무브를 검색하고 전체 프롬프트 가져오기",
+          ja: "Pro MCPツール：アカウントでサインインしてムーブを検索し、完全なプロンプトを取得",
+          de: "Pro-MCP-Tools: Moves suchen und vollständige Prompts abrufen, angemeldet mit deinem Konto",
+          pt: "Ferramentas MCP Pro: pesquisa movimentos e obtém prompts completos ao iniciares sessão com a tua conta",
+          ru: "Pro-инструменты MCP: ищите движения и получайте полные промпты, войдя в свой аккаунт",
         }),
         updates: t({
           en: "Every future move, skill and MCP update, free",
@@ -391,17 +356,6 @@ const pricing = {
         }),
       },
     },
-    mcpNote: t({
-      en: "Rolling out with MCP sign-in",
-      es: "Llega junto con el inicio de sesión en MCP",
-      fr: "Disponible avec la connexion au MCP",
-      zh: "将随 MCP 登录一同推出",
-      ko: "MCP 로그인과 함께 순차 제공",
-      ja: "MCPサインインとともに順次提供",
-      de: "Kommt mit der MCP-Anmeldung",
-      pt: "Chega com o início de sessão no MCP",
-      ru: "Появится вместе со входом в MCP",
-    }),
   },
 } satisfies Dictionary;
 

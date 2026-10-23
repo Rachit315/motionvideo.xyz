@@ -1,7 +1,7 @@
 // Idempotent Dodo Payments setup for MotionVideo: brand, products, GitHub
-// repository entitlement, and webhook endpoint. Re-running finds what already
-// exists by name or URL and only creates the rest (and replaces a product
-// whose price changed).
+// repository entitlement, and webhook endpoint. Re-running
+// finds what already exists by name or URL and only creates the rest (and
+// replaces a product whose price changed).
 //
 //   pnpm dodo:setup            test mode (DODO_PAYMENTS_API_KEY), writes IDs to .env
 //   pnpm dodo:setup --live     live mode (DODO_PAYMENTS_LIVE_API_KEY), writes IDs to wrangler.jsonc
@@ -58,7 +58,7 @@ const oneTimePrice = (cents) => ({
 });
 
 const PRO_SUMMARY =
-  "MotionVideo Pro: the full Moves library of motion techniques with copy-ready prompts, the Pro agent skill (read-only access to a private GitHub repository), every future update, and a commercial license.";
+  "MotionVideo Pro: the full Moves library of motion techniques with copy-ready prompts, the Pro agent skill (read-only access to a private GitHub repository), the Pro tools of the MotionVideo MCP server (sign in with your account), every future update, and a commercial license.";
 const BUSINESS_SUMMARY = `MotionVideo Business: everything in MotionVideo Pro for a team of 3 seats (the buyer plus 2 invited members), with a commercial license.`;
 
 const PRODUCTS = [
@@ -76,7 +76,7 @@ const PRODUCTS = [
     envKey: "DODO_PRODUCT_PRO_MONTHLY",
     name: "MotionVideo Pro — Monthly",
     description: `${PRO_SUMMARY} Billed monthly; cancel anytime.`,
-    price: recurringPrice(999, "Month"),
+    price: recurringPrice(900, "Month"),
   },
   {
     envKey: "DODO_PRODUCT_PRO_ANNUAL",
@@ -267,19 +267,48 @@ const productEntries = await Promise.all(
   })
 );
 const productIds = Object.fromEntries(productEntries.filter(Boolean));
+
+// Adds an entitlement to each product, keeping the ones it already has. Each
+// product's entitlement list is read and rewritten independently.
+const attachEntitlement = (label, entitlement, products) =>
+  Promise.all(
+    products.map(async ({ envKey, name }) => {
+      const productId = productIds[envKey];
+      const product = await dodo.products.retrieve(productId);
+      const attached = (product.entitlements ?? []).map((item) => item.id);
+      if (attached.includes(entitlement)) {
+        log(`${label.padEnd(9)} attached to ${name}`);
+        return;
+      }
+      await dodo.products.update(productId, {
+        entitlements: [...attached, entitlement].map((id) => ({
+          entitlement_id: id,
+        })),
+      });
+      log(`${label.padEnd(9)} attached to ${name} (now)`);
+    })
+  );
+
+// Every Pro and Business product.
+const PLAN_PRODUCTS = PRODUCTS.filter(
+  (product) =>
+    productIds[product.envKey] &&
+    /^DODO_PRODUCT_(?<plan>PRO|BUSINESS)_/u.test(product.envKey)
+);
+const entitlements = await collect(dodo.entitlements.list());
+
 // GitHub repository access (the Pro agent skill) for every Pro and Business
 // product, and for the retired bundle so its buyers keep theirs. Requires the
 // Dodo Payments GitHub App on the motionvideohq organization, which is a
 // dashboard OAuth step.
-const GITHUB_PRODUCTS = PRODUCTS.filter(
-  (product) =>
-    productIds[product.envKey] &&
-    (product.retired ||
-      /^DODO_PRODUCT_(?<plan>PRO|BUSINESS)_/u.test(product.envKey))
-);
+const GITHUB_PRODUCTS = [
+  ...PRODUCTS.filter(
+    (product) => product.retired && productIds[product.envKey]
+  ),
+  ...PLAN_PRODUCTS,
+];
 let entitlementId = null;
 try {
-  const entitlements = await collect(dodo.entitlements.list());
   let entitlement = entitlements.find(
     (item) =>
       item.integration_type === "github" && item.name === ENTITLEMENT_NAME
@@ -295,24 +324,7 @@ try {
     log(`github    created  ${entitlement.id}`);
   }
   entitlementId = entitlement.id;
-  // Each product's entitlement list is read and rewritten independently.
-  await Promise.all(
-    GITHUB_PRODUCTS.map(async ({ envKey, name }) => {
-      const productId = productIds[envKey];
-      const product = await dodo.products.retrieve(productId);
-      const attached = (product.entitlements ?? []).map((item) => item.id);
-      if (attached.includes(entitlementId)) {
-        log(`github    attached to ${name}`);
-        return;
-      }
-      await dodo.products.update(productId, {
-        entitlements: [...attached, entitlementId].map((id) => ({
-          entitlement_id: id,
-        })),
-      });
-      log(`github    attached to ${name} (now)`);
-    })
-  );
+  await attachEntitlement("github", entitlementId, GITHUB_PRODUCTS);
 } catch (error) {
   log(`github    skipped  ${error.status ?? ""} ${error.message}`);
   log(

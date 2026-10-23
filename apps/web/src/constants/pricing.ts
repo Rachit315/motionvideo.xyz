@@ -1,4 +1,4 @@
-// Whole-dollar prices drop the cents ($79, not $79.00); others keep them ($9.99).
+// Whole-dollar prices drop the cents ($79, not $79.00); others keep them ($9.50).
 export const formatUsd = (cents: number): string =>
   new Intl.NumberFormat("en-US", {
     currency: "USD",
