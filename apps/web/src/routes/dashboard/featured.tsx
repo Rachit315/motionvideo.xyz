@@ -161,7 +161,7 @@ const Featured = () => {
                 video={item.video}
                 paused={openIndex !== -1}
                 open={false}
-                category={undefined}
+                scope={undefined}
                 search={{}}
                 onOpen={() => openVideo(item.video.slug)}
               />

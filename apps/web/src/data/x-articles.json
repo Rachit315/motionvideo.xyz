@@ -1,6 +1,141 @@
 {
-  "importedAt": "2026-10-14T18:40:04.909Z",
+  "importedAt": "2026-10-23T19:50:56.307Z",
   "entries": [
+    {
+      "id": "tobiadonadon_-2113352372001054721",
+      "name": "Video Editing Has Just Been Solved by AI",
+      "description": "@tobiadonadon_ · i've been spending way too much time editing videos lately. and paying someone $20–30 to edit a 30-second reel doesn't make much sense eith…",
+      "category": "Articles",
+      "url": "https://x.com/tobiadonadon_/article/2113352372001054721",
+      "cover": "https://pbs.twimg.com/media/HVQimrNXAAA5e42.jpg",
+      "publishedAt": "2026-10-22T19:30:44.000Z"
+    },
+    {
+      "id": "lemomo_ai-2113195080517562646",
+      "name": "Lemo-Opuscar 史诗级更新：8种新风格+新改编玩法，我把风格库变成了风格制作工具箱",
+      "description": "@lemomo_ai · Hello 大家好，我是lemomo。这次 Lemo-Opuscar 迎来了上线以来最大的一次更新，不光有新的风格，还有新的玩法，整个项目定位从【视频风格库】变成【搭建自己风格库的工具】。 新增【剪辑与纪实】8",
+      "category": "Articles",
+      "url": "https://x.com/lemomo_ai/article/2113195080517562646",
+      "cover": "https://pbs.twimg.com/media/HVNzCllbsAEnMP_.jpg",
+      "publishedAt": "2026-10-22T09:05:43.000Z"
+    },
+    {
+      "id": "humzaakhalid-2112801267710095825",
+      "name": "How to Edit VIRAL Instagram Reels Using Claude Code",
+      "description": "@humzaakhalid · i’m going to walk you through the exact pipeline i used this week to make a full Instagram Reel inside Claude Code... the presenter, the vo…",
+      "category": "Articles",
+      "url": "https://x.com/humzaakhalid/article/2112801267710095825",
+      "cover": "https://pbs.twimg.com/media/HVIlPQIaUAATF61.jpg",
+      "publishedAt": "2026-10-21T07:00:50.000Z"
+    },
+    {
+      "id": "tkz_aiart-2112755280392212536",
+      "name": "AI動画制作が変わる！「プレビズ」という新しい可能性",
+      "description": "@tkz_aiart · MiniMax H3・Blender・Claude・Codexでプレビズ作ってから動画生成がいい理由 こちらのポスト、バズりました。 「プレビズ」について、今後主流になりそうと。",
+      "category": "Articles",
+      "url": "https://x.com/tkz_aiart/article/2112755280392212536",
+      "cover": "https://pbs.twimg.com/media/HVIGR_daYAA3gr5.jpg",
+      "publishedAt": "2026-10-21T03:58:06.000Z"
+    },
+    {
+      "id": "aiedge_-2112552093483671966",
+      "name": "Opus 5.5: Motion Engineering (FULL GUIDE)",
+      "description": "@aiedge_ · Opus 5.5 just killed motion designers. What used to take a $10,000 team now gets one-shotted in Claude Code. In <15 minutes, you can now ge…",
+      "category": "Articles",
+      "url": "https://x.com/aiedge_/article/2112552093483671966",
+      "cover": "https://pbs.twimg.com/media/HVBLuUQaIAAp9FV.jpg",
+      "publishedAt": "2026-10-20T14:30:43.000Z"
+    },
+    {
+      "id": "mileson07-2112473015439208688",
+      "name": "开源一个让 AI 做出有情绪、高质感视频的 Skill",
+      "description": "@Mileson07 · 我把「超级峰的视频设计方法论」开源了。这是一个让 AI 做出有情绪、高质感视频的 Skill。",
+      "category": "Articles",
+      "url": "https://x.com/Mileson07/article/2112473015439208688",
+      "cover": "https://pbs.twimg.com/media/HVDkrgCWsAAhesp.jpg",
+      "publishedAt": "2026-10-20T09:16:29.000Z"
+    },
+    {
+      "id": "sleepclip-2112181238907769216",
+      "name": "How I Make Viral Launch Videos for $0 with Opus 5.5 (Full Course)",
+      "description": "@sleepclip · a motion studio will quote you $5,000 to $15,000 for a 20 second launch video, then take 3 weeks to deliver it. i made one last night in cl…",
+      "category": "Articles",
+      "url": "https://x.com/sleepclip/article/2112181238907769216",
+      "cover": "https://pbs.twimg.com/media/HU_5nKJXwAAw8Uo.png",
+      "publishedAt": "2026-10-19T13:57:04.000Z"
+    },
+    {
+      "id": "socialwithaayan-2112162508891201962",
+      "name": "How to Edit Videos With Opus 5.5 (Full Guide)",
+      "description": "@socialwithaayan · Opus 5.5 can edit a video without ever watching it. Riley Brown gave it one raw take, full of mistakes, and one prompt. It did 15 jobs on i…",
+      "category": "Articles",
+      "url": "https://x.com/socialwithaayan/article/2112162508891201962",
+      "cover": "https://pbs.twimg.com/media/HU_okgPacAAO12I.jpg",
+      "publishedAt": "2026-10-19T12:42:38.000Z"
+    },
+    {
+      "id": "zhu185178-2112127321905762500",
+      "name": "我用 Opus 5.5 做了一条广告，这是完整教程",
+      "description": "@zhu185178 · 开源地址：https://github.com/feicaiclub/ad-storyboarder 这期视频我给特斯拉新款 Roadster 做了一支 41 秒的广告。做它用的工作流叫广告分镜师，是我自己搭的，装在 Claude Code 里，Opus 5.5 当导演兼制片，…",
+      "category": "Articles",
+      "url": "https://x.com/zhu185178/article/2112127321905762500",
+      "cover": "https://pbs.twimg.com/media/HU_HsTBaUAArDe2.jpg",
+      "publishedAt": "2026-10-19T10:22:49.000Z"
+    },
+    {
+      "id": "0xjmori-2111793914206171234",
+      "name": "Motion Engineering: One Bot, Five Departments, an Entire Studio",
+      "description": "@0xjmori · How to turn Claude Opus 5.5 into a motion production team that directs, animates, renders, reviews, and delivers professional videos. Most…",
+      "category": "Articles",
+      "url": "https://x.com/0xjmori/article/2111793914206171234",
+      "cover": "https://pbs.twimg.com/media/HU6UB0RWoAApw3X.jpg",
+      "publishedAt": "2026-10-18T12:17:59.000Z"
+    },
+    {
+      "id": "raphaelaubryy-2111331094650069115",
+      "name": "i reused a 3-day-old render engine to ship a new launch video in under an hour",
+      "description": "@RaphaelAubryy · Built once. Reused the same day for a second launch video: about an hour. Reused again this week for a real AI-visibility scan: 145 seconds…",
+      "category": "Articles",
+      "url": "https://x.com/RaphaelAubryy/article/2111331094650069115",
+      "cover": "https://pbs.twimg.com/media/HUz0bRabEAAGlDH.jpg",
+      "publishedAt": "2026-10-17T05:38:54.000Z"
+    },
+    {
+      "id": "adrianpunk115-2110591812536803373",
+      "name": "AI 视频基础（上册）：结构、素材与分镜",
+      "description": "@AdrianPunk115 · 你花了半天写提示词、生成镜头、反复重抽，观众可能看了 3 秒就划走。画面很漂亮，他却还不知道这条视频跟自己有什么关系。",
+      "category": "Articles",
+      "url": "https://x.com/AdrianPunk115/article/2110591812536803373",
+      "cover": "https://pbs.twimg.com/media/HUpUCrhbIAANKvK.jpg",
+      "publishedAt": "2026-10-15T04:41:15.000Z"
+    },
+    {
+      "id": "khazix0918-2110587546271191166",
+      "name": "分享一个最近很惊艳的开源Skill，一句话让AI搓出任何原理的科普视频。",
+      "description": "@Khazix0918 · 前两天发现了一个超棒的Skill，可能很多朋友也都刷到了。 叫Anatomy，中文含义是深度剖析。 这个东西，我觉得特别有意思。 它的核心设计理念，只有一句话。 The object is the explanation. 物体本身，就是解释。",
+      "category": "Articles",
+      "url": "https://x.com/Khazix0918/article/2110587546271191166",
+      "cover": "https://pbs.twimg.com/media/HUpM1LRaYAAXBFc.jpg",
+      "publishedAt": "2026-10-15T04:24:18.000Z"
+    },
+    {
+      "id": "zhu185178-2110385140837056621",
+      "name": "我让 Opus 5.5 当导演，一个人 2 小时跑通 AI 短剧制作全流程",
+      "description": "@zhu185178 · 我昨天发了一期教程，讲怎么让 Opus 5.5 当 AI 导演，全程自动制作一部AI 短剧。视频 29 分钟，太长了，所以写了这篇省流版，带你快速了解这期到底在讲什么，以及它能帮你做什么。",
+      "category": "Articles",
+      "url": "https://x.com/zhu185178/article/2110385140837056621",
+      "cover": "https://pbs.twimg.com/media/HUmSXqwa0AE3-rH.jpg",
+      "publishedAt": "2026-10-14T15:00:01.000Z"
+    },
+    {
+      "id": "rubenhassid-2110250601032659233",
+      "name": "How to use Claude Motion & Claude Dashboards (from beginner to pro):",
+      "description": "@rubenhassid · Claude gets an update; industries die. Once something hard becomes a commodity, no one pays for it. I wish I were exaggerating. But more th…",
+      "category": "Articles",
+      "url": "https://x.com/rubenhassid/article/2110250601032659233",
+      "cover": "https://pbs.twimg.com/media/HUj_ambbsAAhA82.jpg",
+      "publishedAt": "2026-10-14T06:05:24.000Z"
+    },
     {
       "id": "hyperframes_-2110072407784616067",
       "name": "Prompting in HyperFrames Studio",
@@ -63,6 +198,15 @@
       "url": "https://x.com/ridark_eth/article/2106005237190275109",
       "cover": "https://assets.motionvideo.xyz/directories/articles/ridark-eth-2106005237190275109-7f0c0f8645.jpg",
       "publishedAt": "2026-10-02T12:55:50.000Z"
+    },
+    {
+      "id": "humzaakhalid-2105947929290936331",
+      "name": "100+ Copy-Paste Prompts To Create Videos With Opus 5.5",
+      "description": "@humzaakhalid · A good motion designer on retainer costs $5,000 to $6,000 a month, and he takes 2-3 weeks for a 60-second animated explainer. That was the…",
+      "category": "Articles",
+      "url": "https://x.com/humzaakhalid/article/2105947929290936331",
+      "cover": "https://pbs.twimg.com/media/HTnQSDxbwAAqi1l.jpg",
+      "publishedAt": "2026-10-02T09:08:07.000Z"
     },
     {
       "id": "0xwhrrari-2105643919119696297",

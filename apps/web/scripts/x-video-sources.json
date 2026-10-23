@@ -2270,5 +2270,66 @@
       "text": "RemotionとHTML、CSS、SVGを使って、動画生成AIへカメラ構図と連続したカメラ移動を伝えるための「カメラ構図一覧」と「モーションコンテ」を作ってください。\n\n30種類の重複しないカメラ構図を、HTML画面上の6列×5行グリッドに並べてください。\n\n各パネルには以下を表示します。\n・ID：A〜Z、AA〜AD\n・構図名\n・16:9の構図サムネイル\n\n被写体は、位置、向き、傾きだけが分かるシンプルなi字人形を2体使います。人物Aはシアン、人物Bはオレンジにして、二人の位置関係を判別しやすくしてください。背景、ステージ、客席、家具なども単純なSVG図形で表現してください。\n\n全景、ツーショット、各人物の寄り、肩越し、横顔、俯瞰、あおり、主観、前景越し、背面、周回など、重複しない30種類を作ってください。"
     },
     "stack": "Remotion + HTML"
+  },
+  {
+    "post": "oalanicolas/status/2107958931230241037",
+    "title": "Human history in doodles",
+    "contentTags": ["diagrams", "characters", "music"],
+    "model": "Fable 5.5",
+    "stack": "Canvas 2D",
+    "iterations": "few-rounds",
+    "prompt": {
+      "text": "passe por várias eras da história de forma animada usando rabisco integrando o estilo de música, sons daquele momento, de eras que foram importantes para humanidade"
+    }
+  },
+  {
+    "post": "YanqingCheng/status/2106158746938269728",
+    "title": "Seikilos epitaph illustrated animation",
+    "contentTags": ["characters", "music"],
+    "model": "Fable 5.5",
+    "effort": "max",
+    "iterations": "one-shot",
+    "prompt": {
+      "text": "nice to meet you! I would love for you to produce a wonderful javascript illustrated animation about a topic from humanity that you think is fantastic, with whatever soundtrack and composition and motion design and art style you like - think of this as your chance to showcase your personality to the world, and to tell them about something that inspires or delights you."
+    }
+  },
+  {
+    "post": "olddonkeyblog/status/2106508425211330750",
+    "title": "Glucose to ethanol explainer",
+    "contentTags": ["diagrams"],
+    "model": "Fable 5.5",
+    "stack": "SVG",
+    "prompt": {
+      "text": "an animated SVG, embedded in HTML, of a glucose molecule going through glycolysis and then into ethanol."
+    }
+  },
+  {
+    "post": "olddonkeyblog/status/2106507742454403485",
+    "title": "Sixteen Starships launch",
+    "contentTags": ["diagrams", "shapes"],
+    "model": "Fable 5.5",
+    "stack": "SVG",
+    "prompt": {
+      "text": "an animated SVG, embedded in HTML, of 16 Starships launching together, stage separation, then entering space."
+    }
+  },
+  {
+    "post": "imjustnewatai/status/2107092333720449392",
+    "title": "Never-seen optical illusion",
+    "contentTags": ["shapes"],
+    "model": "Fable 5.5",
+    "prompt": {
+      "text": "make a optical illusion that’s never been made/seen before"
+    }
+  },
+  {
+    "post": "toyoshim/status/2110047064470224969",
+    "title": "Raymarched abstract shader loops",
+    "contentTags": ["shapes", "particles"],
+    "model": "Gemini 4 Argon",
+    "iterations": "many-rounds",
+    "prompt": {
+      "text": "レイマーチで何か新しい表現を頼む"
+    }
   }
 ]

@@ -14,10 +14,11 @@ export interface DirectoryEntry {
 // (studios and designers), `skill` lists /skills, and `extra` lists /extras.
 export type DirectoryKind = "tool" | "studio" | "skill" | "extra";
 
-// The data file lists skills and resources under tools; they get their own
-// sections here.
+// The data file lists skills, web articles and resources under tools; they
+// get their own sections here.
 const KIND_BY_TOOL_CATEGORY = {
   Skills: "skill",
+  Articles: "extra",
   Resources: "extra",
 } as const satisfies Record<string, DirectoryKind>;
 
@@ -73,8 +74,18 @@ export const DIRECTORY_ENTRIES: Record<DirectoryKind, DirectoryEntry[]> = {
     ...entry,
     category: skillCategoryOf(entry.id) ?? entry.category,
   })),
-  // X articles (`pnpm catalog:import:articles`) come before the resources.
-  extra: [...xArticles.entries, ...toolsOfKind("extra")],
+  // Articles first, newest first: X articles (`pnpm catalog:import:articles`)
+  // and web articles (category "Articles" in the data file) together, then
+  // the resources.
+  extra: [
+    ...[
+      ...xArticles.entries,
+      ...toolsOfKind("extra").filter((entry) => entry.category === "Articles"),
+    ].toSorted((a, b) =>
+      (b.publishedAt ?? "").localeCompare(a.publishedAt ?? "")
+    ),
+    ...toolsOfKind("extra").filter((entry) => entry.category !== "Articles"),
+  ],
 };
 
 // URL slugs for each section's category names; they match the chip labels.

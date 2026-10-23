@@ -80,21 +80,18 @@ export const SponsoredCard = ({
   }
 
   if (placement === "sidebar") {
-    // A "Sponsored by" row in the details list; with several Diamond
-    // sponsors it fades from one to the next.
+    // A "Sponsored by" row in the details list. With several Diamond
+    // sponsors, its hairline counts down each turn and the value fades to
+    // the next; the row itself (and its label) stays mounted.
     return (
       <SponsorDetailRow
-        key={`${sponsor.name}:${sponsor.url}`}
         label={content.sponsoredBy}
         logo={sponsor.logo}
         name={sponsor.name}
         tagline={sponsor.tagline}
         darkInvert={sponsor.darkInvert}
-        className={cn(
-          sponsors.length > 1 &&
-            "animate-in fade-in duration-500 motion-reduce:animate-none",
-          rowClassName
-        )}
+        rotation={sponsors.length > 1 ? { key: active } : undefined}
+        className={rowClassName}
         link={{
           href: withUtm(sponsor.url, TRACKING.sidebar.utm),
           target: "_blank",
@@ -179,11 +176,11 @@ export const SponsoredCard = ({
       {sponsors.length > 1 && (
         <span
           aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-[3px] bg-white/20 motion-reduce:hidden"
+          className="absolute inset-x-0 bottom-0 h-0.5 bg-white/15 motion-reduce:hidden"
         >
           <span
             key={active}
-            className="animate-mv-rotate block h-full bg-white/90"
+            className="animate-mv-rotate bg-primary block h-full"
           />
         </span>
       )}

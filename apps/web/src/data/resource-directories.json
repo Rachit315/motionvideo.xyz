@@ -905,6 +905,204 @@
         "category": "Motion",
         "url": "https://animos.app/",
         "cover": "https://assets.motionvideo.xyz/directories/tools/animos-8643c3616d.png"
+      },
+      {
+        "id": "article-medium-com-7-step-workflow-to-create-insane-motion-graphics-with-claude",
+        "name": "7-Step Workflow to Create Insane Motion Graphics With Claude",
+        "description": "Divy Yadav · How the author went from a logo spinning on a white screen to a 38-second launch video with Claude Code and Remotion.",
+        "category": "Articles",
+        "url": "https://medium.com/ai-engineering-simplified/7-step-workflow-to-create-insane-motion-graphics-with-claude-33d7977d6ea6",
+        "cover": "https://miro.medium.com/v2/resize:fit:1200/1*rimFfyDsYmZ-Y-2Zw8gu7Q.png",
+        "publishedAt": "2026-10-21T00:00:00.000Z"
+      },
+      {
+        "id": "article-nervegna-substack-com-how-to-build-a-motion-design-studio-with-claude-opus-5-5",
+        "name": "How to Build a Motion Design Studio with Claude Opus 5.5",
+        "description": "Tommaso Nervegna · Every prompt, follow-up, system prompt and skill behind pro-level motion graphics made in code with Claude Opus 5.5.",
+        "category": "Articles",
+        "url": "https://nervegna.substack.com/p/how-to-build-a-motion-design-studio",
+        "cover": "https://substackcdn.com/image/fetch/$s_!oScl!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1ad50c5c-22d8-4c01-b63c-9f48dc14772b_1672x941.png",
+        "publishedAt": "2026-10-21T00:00:00.000Z"
+      },
+      {
+        "id": "article-learnwithmeai-com-my-claude-skill-makes-10-viral-motion-videos-for-0",
+        "name": "My Claude Skill Makes 10 Viral Motion Videos for $0",
+        "description": "Gencay · After reading 331 viral Opus 5.5 posts, the author turned the 10 styles that get the most views into one Claude skill.",
+        "category": "Articles",
+        "url": "https://www.learnwithmeai.com/p/claude-motion-studio-10-styles",
+        "cover": "https://substackcdn.com/image/fetch/$s_!nVUi!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F97dd5d20-ede1-4196-ba84-188fb9cf18c7_1232x928.png",
+        "publishedAt": "2026-10-19T00:00:00.000Z"
+      },
+      {
+        "id": "article-inte-action-com-after-effects-claude",
+        "name": "After Effectsのテキストアニメーションを Claudeで作る｜プロンプトだけで引き出し線・フォントシャッフル・音ハメ",
+        "description": "専門学校講師のイラレさん · Japanese prompts that get Claude to build AE-style text motion: callout labels, font-shuffle titles and beat-synced type.",
+        "category": "Articles",
+        "url": "https://inte-action.com/2026/10/19/after-effects-text-animation-claude/",
+        "cover": "https://inte-action.com/wp-content/uploads/2026/10/thumbnail-5.webp",
+        "publishedAt": "2026-10-19T00:00:00.000Z"
+      },
+      {
+        "id": "article-learn-prompting-fr-hyperframes-make-a-video-without-filming-with-example",
+        "name": "HyperFrames: make a video without filming, with example",
+        "description": "Dorian Laurenceau · Turns a lesson into a 16-second HyperFrames video, with the MP4, HTML source, storyboard and a verification checklist.",
+        "category": "Articles",
+        "url": "https://learn-prompting.fr/blog/hyperframes-video-sans-tournage-tutoriel",
+        "cover": "https://learn-prompting.fr/images/og/learnia-default.png",
+        "publishedAt": "2026-10-19T00:00:00.000Z"
+      },
+      {
+        "id": "article-nihardaily-com-remotion-vs-hyperframes-render-speed-and-cost",
+        "name": "Remotion vs HyperFrames: render speed and cost",
+        "description": "Nihar Ranjan Das · Measured renders show Remotion about 3x faster than HyperFrames on the test video, but HyperFrames has no licence fee.",
+        "category": "Articles",
+        "url": "https://www.nihardaily.com/posts/remotion-vs-hyperframes-we-timed-renders-and-priced-both",
+        "cover": "https://www.nihardaily.com/posts/remotion-vs-hyperframes-we-timed-renders-and-priced-both/og.png",
+        "publishedAt": "2026-10-17T00:00:00.000Z"
+      },
+      {
+        "id": "article-analyticsmadesimple-com-how-to-turn-a-chart-into-a-short-video-with-claude-motion-an",
+        "name": "How to turn a chart into a short video with Claude Motion, and when a dashboard is better",
+        "description": "Jose S · Turning a chart or report into a short code-built animated video with Claude Motion, and when a dashboard is the better pick.",
+        "category": "Articles",
+        "url": "https://analyticsmadesimple.com/tutorials/claude-motion-animated-chart-vs-claude-dashboards",
+        "cover": "https://analyticsmadesimple.com/wp-content/uploads/2026/10/claude-motion-cover.avif",
+        "publishedAt": "2026-10-16T00:00:00.000Z"
+      },
+      {
+        "id": "article-roo-beehiiv-com-claude-motion-prompts-that-survive-the-editor-12-templates-a",
+        "name": "Claude Motion Prompts That Survive the Editor: 12 Templates and a Fact-Check",
+        "description": "Roo's Newsletter · 12 Claude Motion prompt templates that name the audience, the screen and the length, plus a fact-check.",
+        "category": "Articles",
+        "url": "https://roo.beehiiv.com/p/claude-motion-prompts",
+        "cover": "https://media.beehiiv.com/cdn-cgi/image/fit=scale-down,quality=80,width=1200,onerror=redirect/uploads/publication/thumbnail/fb8c9560-f48e-4408-840c-21ac3b660a90/landscape_1768760667683.jpg",
+        "publishedAt": "2026-10-16T00:00:00.000Z"
+      },
+      {
+        "id": "article-charliehills-substack-com-16-stripe-style-animations-and-my-style-file",
+        "name": "16 Stripe-style animations (and my style file)",
+        "description": "Charlie Hills · Charlie Hills pulls Stripe's look into one style file and uses it to make 16 Stripe-style animations in Claude Code.",
+        "category": "Articles",
+        "url": "https://charliehills.substack.com/p/16-stripe-style-animations",
+        "cover": "https://substackcdn.com/image/fetch/$s_!so04!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff3536077-c171-4b6d-b884-6cb71dad25a3_2912x1640.png",
+        "publishedAt": "2026-10-15T00:00:00.000Z"
+      },
+      {
+        "id": "article-willfrancis-com-how-to-use-claude-motion-a-simple-guide",
+        "name": "How to Use Claude Motion: A Simple Guide",
+        "description": "Will Francis · How to create, edit and export animations with Claude Motion, with access requirements, prompts and a marketing example.",
+        "category": "Articles",
+        "url": "https://willfrancis.com/how-to-use-claude-motion/",
+        "cover": "https://willfrancis.com/media/articles/claude-motion/cover.png",
+        "publishedAt": "2026-10-14T00:00:00.000Z"
+      },
+      {
+        "id": "article-dev-to-opus-ge-ne-re-ma-vide-o-de-motion-design-en-20-minutes",
+        "name": "Opus génère ma vidéo de motion design en 20 minutes",
+        "description": "Julien Landuré · A developer puts the Opus 5.5 video-prompt trend to the test and gets a motion design video out of it in 20 minutes.",
+        "category": "Articles",
+        "url": "https://dev.to/techtown-fr/opus-genere-ma-video-de-motion-design-en-20-minutes-254n",
+        "cover": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fet63w2g0b5066nughi6j.png",
+        "publishedAt": "2026-10-14T00:00:00.000Z"
+      },
+      {
+        "id": "article-notdesignschool-jp-claude-opus-5-5-astra",
+        "name": "Claude Opus 5.5とは？デザイナー向けモーション制作とAstra比較",
+        "description": "もち · Opus 5.5 motion work for designers, incl. a 15-second brutalist reel made in about 7 minutes, compared with GPT-6 Astra.",
+        "category": "Articles",
+        "url": "https://notdesignschool.jp/story/claude-opus-5-5-for-designers",
+        "cover": "https://notdesignschool.jp/assets/articles/claude-opus-5-5-for-designers/ogp.jpg",
+        "publishedAt": "2026-10-14T00:00:00.000Z"
+      },
+      {
+        "id": "article-wireflow-ai-claude-motion-graphics-one-prompt-a-12-second-clip-and-what",
+        "name": "Claude Motion Graphics: One Prompt, a 12-Second Clip and What It Cost",
+        "description": "Andrew Adams · Wireflow gave Claude Code one prompt, got a 12-second 1080p motion graphics clip, and broke down what it cost.",
+        "category": "Articles",
+        "url": "https://www.wireflow.ai/blog/claude-motion-graphics",
+        "cover": "https://assets.wireflow.ai/blog/claude-motion-graphics/hero-v2.png",
+        "publishedAt": "2026-10-14T00:00:00.000Z"
+      },
+      {
+        "id": "article-nocode-mba-claude-opus-5-5-motion-graphics-claude-code-workflow",
+        "name": "Claude Opus 5.5 Motion Graphics: Claude Code Workflow",
+        "description": "No Code MBA · Using Claude Opus 5.5 and a Claude Code motion-design skill to animate a talking-head clip, then refine captions and sound.",
+        "category": "Articles",
+        "url": "https://www.nocode.mba/articles/claude-opus-5-5-motion-graphics",
+        "cover": null,
+        "publishedAt": "2026-10-12T00:00:00.000Z"
+      },
+      {
+        "id": "article-bnext-com-tw-claude-opus-5-5-10-ai",
+        "name": "Claude做影片教學！Opus 5.5做出10種AI動畫風格、提示詞免費複製",
+        "description": "蘇柔瑋 · Steps and copyable prompts for 10 Claude Opus 5.5 video styles, from pixel art and recipes to 3D games and launch films.",
+        "category": "Articles",
+        "url": "https://www.bnext.com.tw/article/92576/claude-opus-5.5",
+        "cover": "https://bnextmedia.s3.hicloud.net.tw/image/album/2026-10/1phv-1791595499.gif",
+        "publishedAt": "2026-10-12T00:00:00.000Z"
+      },
+      {
+        "id": "article-blog-stackademic-com-remotion-claude-code-type-a-sentence-get-a-video",
+        "name": "Remotion + Claude Code: Type a Sentence, Get a Video",
+        "description": "ambuj singh · A video is just a function of time, so an AI agent can write one; the setup and code for Remotion with Claude Code.",
+        "category": "Articles",
+        "url": "https://blog.stackademic.com/remotion-claude-code-type-a-sentence-get-a-video-17927f45e55d",
+        "cover": "https://miro.medium.com/v2/resize:fit:1200/0*rGZMlwJzjczqe7mG.png",
+        "publishedAt": "2026-10-12T00:00:00.000Z"
+      },
+      {
+        "id": "article-charliehills-substack-com-claude-motion",
+        "name": "Claude /motion",
+        "description": "Charlie Hills · A first look at Anthropic's newly launched Claude Motion, and how to make its animations look expensive.",
+        "category": "Articles",
+        "url": "https://charliehills.substack.com/p/claude-motion-graphics",
+        "cover": "https://substackcdn.com/image/fetch/$s_!yrIS!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff2751c5d-72ae-4947-8008-ff484ea543bd_1456x1040.jpeg",
+        "publishedAt": "2026-10-11T00:00:00.000Z"
+      },
+      {
+        "id": "article-news-qq-com-opus5-5",
+        "name": "Opus5.5做视频-中文实操指南",
+        "description": "赛脖古 · A Chinese hands-on route to making Opus 5.5 videos, compiled from 48 community cases, open-source repos and creator guides.",
+        "category": "Articles",
+        "url": "https://news.qq.com/rain/a/20261010A0CRFZ00",
+        "cover": "https://inews.gtimg.com/om_ls/O6RjVAeCskFS6-Q6hZtPzvXU5DR0l9W4U6oJ4DWS3bNHQAA_640330/0",
+        "publishedAt": "2026-10-10T00:00:00.000Z"
+      },
+      {
+        "id": "article-claude-com-build-live-dashboards-and-animate-explainers-with-claude",
+        "name": "Build live dashboards and animate explainers with Claude",
+        "description": "Anthropic · Anthropic launches Claude Dashboards and Claude Motion in beta and puts Docs, Slides and Design on every plan, including Free.",
+        "category": "Articles",
+        "url": "https://claude.com/resources/articles/dashboards-and-motion",
+        "cover": "https://claude.com/resources/articles/dashboards-and-motion/opengraph-image/og",
+        "publishedAt": "2026-10-08T00:00:00.000Z"
+      },
+      {
+        "id": "article-medium-com-opus-5-5-video-generation-and-the-fable-5-5-question",
+        "name": "Opus 5.5 video generation — and the Fable 5.5 question",
+        "description": "Eimantas Kudarauskas · A tour of recent Opus 5.5 videos, from a product launch film to a recursion explainer, and what they suggest about Fable 5.5.",
+        "category": "Articles",
+        "url": "https://medium.com/@e.kudarauskas/opus-5-5-video-generation-and-the-fable-5-5-question-f41562ff8238",
+        "cover": "https://miro.medium.com/v2/resize:fit:1200/1*JRF-oDcUaClwUo_rMSUFoA.png",
+        "publishedAt": "2026-10-06T00:00:00.000Z"
+      },
+      {
+        "id": "article-dev-to-i-built-a-macos-app-where-your-coding-agent-makes-the-video",
+        "name": "I built a macOS app where your coding agent makes the video: Remocn Studio 1.0",
+        "description": "Remocn · Remocn Studio is a free MIT macOS app: Claude Code, Codex and other agents write a Remotion project you review in a live preview.",
+        "category": "Articles",
+        "url": "https://dev.to/remocn/i-built-a-macos-app-where-your-coding-agent-makes-the-video-remocn-studio-10-4j74",
+        "cover": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fremocn.studio%2Fopengraph-image",
+        "publishedAt": "2026-10-06T00:00:00.000Z"
+      },
+      {
+        "id": "article-aiblewmymind-substack-com-how-to-make-videos-with-claude-opus-5-5-10-examples-with-eve",
+        "name": "How to Make Videos With Claude Opus 5.5: 10+ Examples With Every Prompt (Plus How to Add Voice, Music and Real Footage)",
+        "description": "Daria Cupareanu · 10+ Claude Opus 5.5 motion graphics videos with every prompt, plus how to add voiceovers, music and real footage.",
+        "category": "Articles",
+        "url": "https://aiblewmymind.substack.com/p/claude-opus-5-5-video-animations",
+        "cover": "https://substackcdn.com/image/fetch/$s_!PVZx!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F14fa2387-5f19-4946-a180-4f37f479727c_1376x768.jpeg",
+        "publishedAt": "2026-10-01T00:00:00.000Z"
       }
     ]
   },
@@ -997,6 +1195,350 @@
         "category": "Studio",
         "url": "https://www.ravie.co/",
         "cover": "https://assets.motionvideo.xyz/directories/studios/ravie-e7e0a7c097.webp"
+      },
+      {
+        "id": "skale",
+        "name": "Skale",
+        "description": "Launch videos for startups",
+        "category": "Studio",
+        "url": "https://skale.solutions/",
+        "cover": "https://pbs.twimg.com/profile_banners/1877277596322271233/1788340163"
+      },
+      {
+        "id": "flash-motion",
+        "name": "Flash Motion",
+        "description": "Launch videos for SaaS, AI and tech",
+        "category": "Studio",
+        "url": "https://flashmotion.io",
+        "cover": "https://pbs.twimg.com/profile_banners/1787591225496776704/1790025093"
+      },
+      {
+        "id": "intently",
+        "name": "Intently",
+        "description": "Product videos for fintech",
+        "category": "Studio",
+        "url": "http://intently.agency",
+        "cover": "https://pbs.twimg.com/profile_banners/1804917827247448064/1790101027"
+      },
+      {
+        "id": "creww",
+        "name": "Creww",
+        "description": "AI films and video",
+        "category": "Studio",
+        "url": "http://creww.studio",
+        "cover": "https://pbs.twimg.com/profile_banners/2099076808121651201/1789294769"
+      },
+      {
+        "id": "nick-greenawalt",
+        "name": "Nick Greenawalt",
+        "description": "Experiential motion designer",
+        "category": "Designers",
+        "url": "https://x.com/motionbynick",
+        "cover": "https://pbs.twimg.com/profile_banners/1352453431491964928/1777735226"
+      },
+      {
+        "id": "franc-ois-lefebvre",
+        "name": "François Lefebvre",
+        "description": "Motion designer and After Effects author",
+        "category": "Designers",
+        "url": "https://x.com/lachamade",
+        "cover": null
+      },
+      {
+        "id": "jake-bartlett",
+        "name": "Jake Bartlett",
+        "description": "Motion designer and instructor",
+        "category": "Designers",
+        "url": "http://www.jakeinmotion.com",
+        "cover": "https://pbs.twimg.com/profile_banners/804770874/1518795778"
+      },
+      {
+        "id": "khlaseek",
+        "name": "Khlaseek",
+        "description": "Product and motion designer",
+        "category": "Designers",
+        "url": "https://khliink.vercel.app/khlaseekdesigner",
+        "cover": "https://pbs.twimg.com/profile_banners/837728438328885248/1783674860"
+      },
+      {
+        "id": "phavorism",
+        "name": "Phavorism",
+        "description": "Motion designer and ad breakdowns",
+        "category": "Designers",
+        "url": "https://x.com/Phavorism",
+        "cover": "https://pbs.twimg.com/profile_banners/1622772745015803904/1790185791"
+      },
+      {
+        "id": "finaltouch",
+        "name": "Finaltouch",
+        "description": "AI video creator for brands",
+        "category": "Designers",
+        "url": "https://x.com/Finaltoucch",
+        "cover": "https://pbs.twimg.com/profile_banners/1677350623556034560/1781036039"
+      },
+      {
+        "id": "oma-devuae",
+        "name": "(Oma)devuae",
+        "description": "Product videos and brand content",
+        "category": "Designers",
+        "url": "https://www.behance.net/omadevuae",
+        "cover": "https://pbs.twimg.com/profile_banners/1605208473783963649/1771063354"
+      },
+      {
+        "id": "leo-mazzei",
+        "name": "Leo Mazzei",
+        "description": "Rive, motion and UI design",
+        "category": "Designers",
+        "url": "https://x.com/mazzeimotion",
+        "cover": "https://pbs.twimg.com/profile_banners/846200964/1768173051"
+      },
+      {
+        "id": "jesse-gilbert",
+        "name": "Jesse Gilbert",
+        "description": "Motion designer",
+        "category": "Designers",
+        "url": "https://x.com/JesseGilbert",
+        "cover": "https://pbs.twimg.com/profile_banners/14668023/1493439987"
+      },
+      {
+        "id": "addx-studio",
+        "name": "Addx Studio",
+        "description": "Launch videos for SaaS companies",
+        "category": "Studio",
+        "url": "https://addxstudio.com",
+        "cover": "https://pbs.twimg.com/profile_banners/1038547187075096576/1790183022"
+      },
+      {
+        "id": "refine-studio",
+        "name": "Refine Studio",
+        "description": "Launch videos for web3 and AI teams",
+        "category": "Studio",
+        "url": "https://refinestudio.io/launch",
+        "cover": "https://pbs.twimg.com/profile_banners/1592684506179424256/1781805159"
+      },
+      {
+        "id": "airform",
+        "name": "Airform",
+        "description": "Launch videos for complex products",
+        "category": "Studio",
+        "url": "https://airform.design/motion-design",
+        "cover": "https://pbs.twimg.com/profile_banners/1660239283368648705/1771843853"
+      },
+      {
+        "id": "nen-creative",
+        "name": "Nen Creative",
+        "description": "Launch films and design for AI startups",
+        "category": "Studio",
+        "url": "https://nencreative.com",
+        "cover": "https://pbs.twimg.com/profile_banners/1514694422008532993/1786579069"
+      },
+      {
+        "id": "relate-studio",
+        "name": "Relate Studio",
+        "description": "Brand and promo videos for crypto teams",
+        "category": "Studio",
+        "url": "https://www.relate.studio",
+        "cover": "https://pbs.twimg.com/profile_banners/1647750953385308160/1783588389"
+      },
+      {
+        "id": "golden-wolf",
+        "name": "Golden Wolf",
+        "description": "Animation studio for global brands",
+        "category": "Studio",
+        "url": "https://goldenwolf.tv",
+        "cover": "https://pbs.twimg.com/profile_banners/1054957742/1739445375"
+      },
+      {
+        "id": "illo",
+        "name": "illo",
+        "description": "Motion design and illustration studio",
+        "category": "Studio",
+        "url": "https://illo.tv",
+        "cover": "https://pbs.twimg.com/profile_banners/231102153/1730133331"
+      },
+      {
+        "id": "buck",
+        "name": "BUCK",
+        "description": "Brand animation and design for brands",
+        "category": "Studio",
+        "url": "https://www.buck.co",
+        "cover": "https://pbs.twimg.com/profile_banners/415841455/1719494286"
+      },
+      {
+        "id": "breadnbeyond",
+        "name": "Breadnbeyond",
+        "description": "Animated explainer videos for startups",
+        "category": "Studio",
+        "url": "https://breadnbeyond.com",
+        "cover": "https://pbs.twimg.com/profile_banners/26650185/1567391285"
+      },
+      {
+        "id": "studio-dumbar-dept",
+        "name": "Studio Dumbar/DEPT®",
+        "description": "Visual identity, motion and sound",
+        "category": "Studio",
+        "url": "http://studiodumbar.com",
+        "cover": "https://pbs.twimg.com/profile_banners/8098712/1617884027"
+      },
+      {
+        "id": "jett-collective",
+        "name": "Jett Collective",
+        "description": "AI commercials for Google and Coca-Cola",
+        "category": "Studio",
+        "url": "https://x.com/Jett_Collective",
+        "cover": "https://pbs.twimg.com/profile_banners/1354498921419030529/1792761932"
+      },
+      {
+        "id": "abdullah-skromatic",
+        "name": "Abdullah (Skromatic)",
+        "description": "Launch videos for founders and brands",
+        "category": "Designers",
+        "url": "https://skromatic.com",
+        "cover": "https://pbs.twimg.com/profile_banners/1938497612371660807/1789373450"
+      },
+      {
+        "id": "naso",
+        "name": "Naso",
+        "description": "SaaS explainers and launch videos",
+        "category": "Designers",
+        "url": "https://x.com/Nasowise1",
+        "cover": "https://pbs.twimg.com/profile_banners/1146553839123861504/1774997078"
+      },
+      {
+        "id": "precious-cypher",
+        "name": "Precious Cypher",
+        "description": "Product videos for SaaS and tech brands",
+        "category": "Designers",
+        "url": "http://www.preciousmotion.com",
+        "cover": "https://pbs.twimg.com/profile_banners/1106128354728701952/1764584018"
+      },
+      {
+        "id": "heisenbergg",
+        "name": "heisenbergg.",
+        "description": "Rive animations and product launch videos",
+        "category": "Designers",
+        "url": "https://heisenbergg.com",
+        "cover": "https://pbs.twimg.com/profile_banners/1755280900127076352/1792606267"
+      },
+      {
+        "id": "ben-aguilera",
+        "name": "Ben Aguilera",
+        "description": "Videos for tech startups",
+        "category": "Designers",
+        "url": "http://reallygoodvideos.com",
+        "cover": ""
+      },
+      {
+        "id": "jeremiah-warren",
+        "name": "Jeremiah Warren",
+        "description": "Films for AI companies",
+        "category": "Designers",
+        "url": "http://www.jeremiahwarren.com",
+        "cover": "https://pbs.twimg.com/profile_banners/17681644/1717105502"
+      },
+      {
+        "id": "ben-fryc",
+        "name": "Ben Fryc",
+        "description": "3D and motion design",
+        "category": "Designers",
+        "url": "https://www.benfryc.com",
+        "cover": "https://pbs.twimg.com/profile_banners/16310533/1780087241"
+      },
+      {
+        "id": "bartek-radziejewski",
+        "name": "Bartek Radziejewski",
+        "description": "Rive interactions for apps and websites",
+        "category": "Designers",
+        "url": "http://radbar.studio",
+        "cover": "https://pbs.twimg.com/profile_banners/516390607/1772997170"
+      },
+      {
+        "id": "matt-je-drzejewski",
+        "name": "Matt Jędrzejewski",
+        "description": "Interactive UI animation for apps",
+        "category": "Designers",
+        "url": "http://www.animattor.co",
+        "cover": "https://pbs.twimg.com/profile_banners/1706961905686806528/1709314882"
+      },
+      {
+        "id": "kyryll-meshkov",
+        "name": "Kyryll Meshkov",
+        "description": "Interactive animations for modern apps",
+        "category": "Designers",
+        "url": "https://www.cineponica.pictures/",
+        "cover": "https://pbs.twimg.com/profile_banners/14866314/1675530703"
+      },
+      {
+        "id": "joey-judkins",
+        "name": "Joey Judkins",
+        "description": "Interactive Rive animation for apps",
+        "category": "Designers",
+        "url": "https://x.com/JJMotionStudio",
+        "cover": "https://pbs.twimg.com/profile_banners/144975245/1719503033"
+      },
+      {
+        "id": "yuji-onimotion",
+        "name": "Yuji (ONIMOTION)",
+        "description": "Rive and product animation for companies",
+        "category": "Designers",
+        "url": "https://onimotion.jp/",
+        "cover": "https://pbs.twimg.com/profile_banners/1000309263330230272/1762354161"
+      },
+      {
+        "id": "mayte-cg",
+        "name": "Mayte CG",
+        "description": "Motion, UI design and Rive animation",
+        "category": "Designers",
+        "url": "http://maytecg.com",
+        "cover": "https://pbs.twimg.com/profile_banners/126062330/1677615338"
+      },
+      {
+        "id": "john-odunayo",
+        "name": "John Odunayo",
+        "description": "Motion graphics for brands like TON",
+        "category": "Designers",
+        "url": "http://johnodunayo.my.canva.site",
+        "cover": "https://pbs.twimg.com/profile_banners/3297318816/1776824368"
+      },
+      {
+        "id": "solarin-ayotomiwa",
+        "name": "Solarin Ayotomiwa",
+        "description": "Motion design for fintech, web3 and SaaS",
+        "category": "Designers",
+        "url": "https://sayotomiwa.framer.website/",
+        "cover": "https://pbs.twimg.com/profile_banners/1008617870643875840/1790440059"
+      },
+      {
+        "id": "nicolas-dorey",
+        "name": "Nicolas Dorey",
+        "description": "Freelance motion design and VFX",
+        "category": "Designers",
+        "url": "https://x.com/NicoMotions",
+        "cover": "https://pbs.twimg.com/profile_banners/3140902006/1648486779"
+      },
+      {
+        "id": "victor-v",
+        "name": "Victor V.",
+        "description": "3D motion design for brands",
+        "category": "Designers",
+        "url": "http://vicv.co",
+        "cover": "https://pbs.twimg.com/profile_banners/67970021/1725462122"
+      },
+      {
+        "id": "vikrant-patankar",
+        "name": "Vikrant Patankar",
+        "description": "Brand films and product demos",
+        "category": "Designers",
+        "url": "https://www.vikpat.com",
+        "cover": "https://pbs.twimg.com/profile_banners/786769147/1768206296"
+      },
+      {
+        "id": "christopher-fryant",
+        "name": "Christopher Fryant",
+        "description": "2D/3D and AI films for xAI and Luma",
+        "category": "Designers",
+        "url": "https://www.chrisfryant.com/",
+        "cover": "https://pbs.twimg.com/profile_banners/39125372/1745284963"
       }
     ]
   }

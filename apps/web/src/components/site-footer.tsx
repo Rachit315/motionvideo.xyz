@@ -31,6 +31,12 @@ import { LINK } from "@/constants/links";
 import { OTHER_PRODUCTS, SHADCN_LABS_PROJECTS } from "@/constants/products";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
+import {
+  MOTION_CATEGORIES,
+  MOTION_MODELS,
+  MOTION_MODEL_NAMES,
+  motionModelSlug,
+} from "@/lib/motion-catalog";
 import { cn } from "@/lib/utils";
 import { withUtm } from "@/lib/utm";
 
@@ -134,6 +140,84 @@ const mobileHeadingClass = "text-foreground font-medium";
 const mobileLinkClass =
   "text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm transition-colors outline-none focus-visible:ring-2";
 
+/**
+ * Plain link columns to every gallery page (model, type and category pages)
+ * and the directories, so visitors and crawlers can reach them all from any
+ * page. Rendered on the server; nothing hides behind a menu.
+ */
+const FooterLinks = () => {
+  const content = useIntlayer("site-footer");
+  const gallery = useIntlayer("motion-gallery");
+  const header = useIntlayer("site-header");
+  const directory = [
+    [ROUTES.TOOLS, header.tools],
+    [ROUTES.CREATIVES, header.creatives],
+    [ROUTES.SKILLS, header.skills],
+    [ROUTES.EXTRAS, header.extras],
+    [ROUTES.JOBS, header.jobs],
+  ] as const;
+  return (
+    <nav
+      aria-label={content.browse.value}
+      className="mb-8 grid grid-cols-2 gap-x-4 gap-y-8 border-b pb-8 md:grid-cols-[1fr_1fr_2fr_1fr]"
+    >
+      <div className="flex flex-col gap-2.5">
+        <p className={mobileHeadingClass}>{content.byModel}</p>
+        {MOTION_MODELS.map((model) => (
+          <Link
+            key={model}
+            to="/model/$model"
+            params={{ model: motionModelSlug(model) }}
+            className={mobileLinkClass}
+          >
+            {MOTION_MODEL_NAMES[model]}
+          </Link>
+        ))}
+      </div>
+      <div className="flex flex-col gap-2.5">
+        <p className={mobileHeadingClass}>{content.byType}</p>
+        <Link
+          to="/type/$type"
+          params={{ type: "prompt" }}
+          className={mobileLinkClass}
+        >
+          {content.prompts}
+        </Link>
+        <Link
+          to="/type/$type"
+          params={{ type: "skill" }}
+          className={mobileLinkClass}
+        >
+          {content.skillVideos}
+        </Link>
+      </div>
+      <div className="col-span-2 flex flex-col gap-2.5 md:col-span-1">
+        <p className={mobileHeadingClass}>{content.categories}</p>
+        <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
+          {MOTION_CATEGORIES.map((category) => (
+            <Link
+              key={category}
+              to="/category/$category"
+              params={{ category }}
+              className={mobileLinkClass}
+            >
+              {gallery.categories[category]}
+            </Link>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-col gap-2.5">
+        <p className={mobileHeadingClass}>{content.directory}</p>
+        {directory.map(([to, label]) => (
+          <Link key={to} to={to} className={mobileLinkClass}>
+            {label}
+          </Link>
+        ))}
+      </div>
+    </nav>
+  );
+};
+
 export const SiteFooter = () => {
   const content = useIntlayer("site-footer");
   const legal = [
@@ -180,6 +264,7 @@ export const SiteFooter = () => {
 
   return (
     <footer className="mx-auto mt-auto w-full max-w-[1800px] px-4 pt-6 text-sm sm:px-6">
+      <FooterLinks />
       {/* Desktop: one row, link groups in dropdowns. */}
       <div className="flex items-center justify-between gap-x-4 max-md:hidden">
         {credit}
