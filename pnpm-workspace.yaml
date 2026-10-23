@@ -8,3 +8,9 @@ allowBuilds:
   msw: false
   workerd: true
   sharp: false
+
+# @better-auth/mcp asks for ^1.7.6 of the OAuth provider, which resolves to
+# releases that need a newer @better-auth/core than the better-auth we pin.
+# Keep the provider on better-auth's version; bump them together.
+overrides:
+  "@better-auth/oauth-provider": 1.7.6

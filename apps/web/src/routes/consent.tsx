@@ -1,7 +1,7 @@
-import { IconCheck } from "@tabler/icons-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useIntlayer } from "react-intlayer";
+import { Check } from "reicon-react/icons/Check";
 
 import { AuthCard, AuthHeading } from "@/components/login-form";
 import { Button } from "@/components/ui/button";
@@ -168,8 +168,8 @@ const Consent = () => {
                 <ul className="flex flex-col gap-1.5 text-sm">
                   {scopes.map((scope) => (
                     <li className="flex items-start gap-2" key={scope}>
-                      <IconCheck
-                        aria-hidden
+                      <Check
+                        aria-hidden="true"
                         className="text-muted-foreground mt-0.5 size-4 shrink-0"
                       />
                       <span>{scopeLabelOf(scope)}</span>
