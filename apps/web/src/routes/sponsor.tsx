@@ -2,9 +2,9 @@ import { Link, createFileRoute, getRouteApi } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
 import { ArrowRight } from "reicon-react/icons/ArrowRight";
 import { ArrowRightUp } from "reicon-react/icons/ArrowRightUp";
-import { Check } from "reicon-react/icons/Check";
 import { Envelope } from "reicon-react/icons/Envelope";
 import { Plus } from "reicon-react/icons/Plus";
+import { TickCircle } from "reicon-react/icons/TickCircle";
 
 import { XIcon } from "@/components/brand-icons";
 import { HeroHeader, PageMain } from "@/components/page";
@@ -257,7 +257,7 @@ const Sponsor = () => {
                       <ul className="flex flex-col gap-3 text-sm">
                         {tier.perks.map((perk) => (
                           <li key={perk.value} className="flex gap-2">
-                            <Check
+                            <TickCircle
                               aria-hidden="true"
                               className="text-primary mt-0.5 size-4 shrink-0"
                             />

@@ -116,10 +116,6 @@ export const ResourceDirectory = ({
           >
             {[undefined, ...categories].map((value) => {
               const selected = value?.slug === category?.slug;
-              const count = value
-                ? entries.filter((entry) => entry.category === value.id).length
-                : entries.length;
-              // "All" stays a white outline when chosen; a chosen category turns yellow.
               const linkProps = value
                 ? {
                     to: SECTION_ROUTES[kind].category,
@@ -132,9 +128,7 @@ export const ResourceDirectory = ({
                   {...linkProps}
                   activeOptions={{ exact: true, includeSearch: false }}
                   active={selected}
-                  activeVariant={value ? "default" : "outline"}
                   label={value ? labels[value.slug] : content.all}
-                  count={count}
                 />
               );
             })}

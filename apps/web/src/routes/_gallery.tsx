@@ -6,13 +6,15 @@ import {
   useParams,
 } from "@tanstack/react-router";
 import type { UseNavigateResult } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
+import type { IconComponent } from "reicon-react";
 import { ChevronDown } from "reicon-react/icons/ChevronDown";
-import { Pause3 } from "reicon-react/icons/Pause3";
-import { Play } from "reicon-react/icons/Play";
+import { Code } from "reicon-react/icons/Code";
+import { Layers } from "reicon-react/icons/Layers";
 import { Search } from "reicon-react/icons/Search";
+import { Text } from "reicon-react/icons/Text";
 import { z } from "zod";
 
 import {
@@ -34,6 +36,15 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SponsoredCard, sponsoredTileIndex } from "@/components/sponsored-card";
 import { buttonVariants } from "@/components/ui/button";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -203,10 +214,35 @@ const chipClass = (active: boolean) =>
     active && "shadow-outline"
   );
 
-// Resource on the left, model on the right: one pick per side, and the menu
-// stays open so both can be set in one go. Each side counts the videos on the
-// current page (category) under the other side's pick.
-const ResourceModelMenu = ({
+const SORTS = ["popular", "newest", "oldest"] as const;
+type Sort = (typeof SORTS)[number];
+
+// The filter chip reads "type icon · model · sort": the type as an icon (a
+// handful of fixed choices), the model only when one is picked, and the sort
+// order, which always has a value.
+const TYPE_ICONS: Record<"all" | (typeof MOTION_TYPES)[number], IconComponent> =
+  { all: Layers, prompt: Text, skill: Code };
+
+interface FilterOption {
+  value: string;
+  label: ReactNode;
+  icon?: IconComponent;
+  disabled?: boolean;
+}
+
+interface FilterSection {
+  id: "type" | "model" | "sort";
+  label: ReactNode;
+  value: string;
+  options: FilterOption[];
+  onSelect: (value: string) => void;
+}
+
+// One control for type, model and order: a dropdown from `sm` up, a bottom
+// drawer on phones. Picks apply at once and the menu stays open, so all three
+// can be set in one go. A type or model with no videos on the current page
+// (category) under the other's pick is disabled.
+const GalleryFilters = ({
   search,
   category,
   onChange,
@@ -217,101 +253,183 @@ const ResourceModelMenu = ({
 }) => {
   const content = useIntlayer("motion-gallery");
   const model = findMotionModel(search.model);
-  const typeCounts = useMemo(() => {
-    const matching = filterMotionVideos(videos, {
-      model: search.model,
-      category,
-    });
-    return Object.fromEntries([
-      ["all", matching.length],
-      ...MOTION_TYPES.map((type) => [
-        type,
-        matching.filter((video) => video.tags.includes(type)).length,
-      ]),
-    ]);
-  }, [search.model, category]);
-  const modelCounts = useMemo(() => {
-    const matching = filterMotionVideos(videos, {
-      type: search.type,
-      category,
-    });
-    return Object.fromEntries([
-      ["all", matching.length],
-      ...MODELS.map((id) => [
-        id,
-        matching.filter((video) => video.model === id).length,
-      ]),
-    ]);
-  }, [search.type, category]);
+  const sort: Sort = search.sort ?? "popular";
+  const typesInView = useMemo(
+    () =>
+      new Set(
+        filterMotionVideos(videos, { model: search.model, category }).flatMap(
+          (video) => video.tags
+        )
+      ),
+    [search.model, category]
+  );
+  const modelsInView = useMemo(
+    () =>
+      new Set(
+        filterMotionVideos(videos, { type: search.type, category }).map(
+          (video) => video.model
+        )
+      ),
+    [search.type, category]
+  );
+
+  const sections: FilterSection[] = [
+    {
+      id: "type",
+      label: content.type,
+      value: search.type ?? "all",
+      onSelect: (value) => onChange({ type: findMotionType(value) }),
+      options: [
+        { value: "all", label: content.all, icon: TYPE_ICONS.all },
+        ...MOTION_TYPES.map((type) => ({
+          value: type,
+          label: content[type],
+          icon: TYPE_ICONS[type],
+          disabled: !typesInView.has(type) && search.type !== type,
+        })),
+      ],
+    },
+    {
+      id: "model",
+      label: content.model,
+      value: search.model ?? "all",
+      onSelect: (value) => onChange({ model: findMotionModel(value) && value }),
+      options: [
+        { value: "all", label: content.all },
+        ...MODELS.map((id) => ({
+          value: motionModelSlug(id),
+          label: id,
+          disabled: !modelsInView.has(id) && model !== id,
+        })),
+      ],
+    },
+    {
+      id: "sort",
+      label: content.sort,
+      value: sort,
+      onSelect: (value) =>
+        onChange({
+          sort: value === "newest" || value === "oldest" ? value : undefined,
+        }),
+      options: SORTS.map((id) => ({ value: id, label: content[id] })),
+    },
+  ];
+
+  const TypeIcon = TYPE_ICONS[search.type ?? "all"];
+  const triggerClass = chipClass(Boolean(search.type || model || search.sort));
+  const summary = (
+    <>
+      <TypeIcon aria-hidden="true" />
+      <span aria-hidden="true" className="opacity-60">
+        ·
+      </span>
+      {model && (
+        <>
+          <span className="max-w-28 truncate">{model}</span>
+          <span aria-hidden="true" className="opacity-60">
+            ·
+          </span>
+        </>
+      )}
+      <span className="whitespace-nowrap">{content[sort]}</span>
+      <ChevronDown aria-hidden="true" className="size-3.5" />
+    </>
+  );
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger
-        aria-label={content.filterType.value}
-        className={chipClass(Boolean(search.type || model))}
-      >
-        {search.type && content[search.type]}
-        {search.type && model && " · "}
-        {model}
-        {!search.type && !model && content.all}
-        <ChevronDown aria-hidden="true" className="size-3.5" />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="flex w-auto max-w-[calc(100vw-1rem)] gap-1">
-        <DropdownMenuRadioGroup
-          className="min-w-36"
-          value={search.type ?? "all"}
-          onValueChange={(value) => onChange({ type: findMotionType(value) })}
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          aria-label={content.filters.value}
+          className={cn(triggerClass, "max-sm:hidden")}
         >
-          <DropdownMenuLabel>{content.type}</DropdownMenuLabel>
-          <DropdownMenuRadioItem value="all">
-            {content.all}
-            <span className="text-muted-foreground ml-auto text-xs tabular-nums">
-              {typeCounts.all}
-            </span>
-          </DropdownMenuRadioItem>
-          {MOTION_TYPES.map((type) => (
-            <DropdownMenuRadioItem
-              key={type}
-              value={type}
-              disabled={typeCounts[type] === 0 && search.type !== type}
-            >
-              {content[type]}
-              <span className="text-muted-foreground ml-auto text-xs tabular-nums">
-                {typeCounts[type]}
-              </span>
-            </DropdownMenuRadioItem>
-          ))}
-        </DropdownMenuRadioGroup>
-        <Separator orientation="vertical" className="-my-1 h-auto" />
-        <DropdownMenuRadioGroup
-          className="min-w-44"
-          value={search.model ?? "all"}
-          onValueChange={(value) =>
-            onChange({ model: findMotionModel(value) && value })
-          }
+          {summary}
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          align="end"
+          className="flex w-auto max-w-[calc(100vw-1rem)] gap-1"
         >
-          <DropdownMenuLabel>{content.model}</DropdownMenuLabel>
-          <DropdownMenuRadioItem value="all">
-            {content.all}
-            <span className="text-muted-foreground ml-auto text-xs tabular-nums">
-              {modelCounts.all}
-            </span>
-          </DropdownMenuRadioItem>
-          {MODELS.map((id) => (
-            <DropdownMenuRadioItem
-              key={id}
-              value={motionModelSlug(id)}
-              disabled={modelCounts[id] === 0 && model !== id}
-            >
-              {id}
-              <span className="text-muted-foreground ml-auto text-xs tabular-nums">
-                {modelCounts[id]}
-              </span>
-            </DropdownMenuRadioItem>
+          {sections.map((section, index) => (
+            <div key={section.id} className="contents">
+              {index > 0 && (
+                <Separator orientation="vertical" className="-my-1 h-auto" />
+              )}
+              <DropdownMenuRadioGroup
+                className={section.id === "model" ? "min-w-44" : "min-w-40"}
+                value={section.value}
+                onValueChange={(value) => section.onSelect(String(value))}
+              >
+                <DropdownMenuLabel>{section.label}</DropdownMenuLabel>
+                {section.options.map((option) => {
+                  const Icon = option.icon;
+                  return (
+                    <DropdownMenuRadioItem
+                      key={option.value}
+                      value={option.value}
+                      disabled={option.disabled}
+                    >
+                      {Icon && (
+                        <Icon
+                          aria-hidden="true"
+                          className="text-muted-foreground"
+                        />
+                      )}
+                      {option.label}
+                    </DropdownMenuRadioItem>
+                  );
+                })}
+              </DropdownMenuRadioGroup>
+            </div>
           ))}
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <Drawer shouldScaleBackground={false}>
+        <DrawerTrigger
+          aria-label={content.filters.value}
+          className={cn(triggerClass, "sm:hidden")}
+        >
+          {summary}
+        </DrawerTrigger>
+        <DrawerContent className="h-auto max-h-[85svh]">
+          <DrawerHeader className="pb-2">
+            <DrawerTitle>{content.filters}</DrawerTitle>
+          </DrawerHeader>
+          <div className="flex flex-col gap-5 overflow-y-auto px-4 pb-2">
+            {sections.map((section) => (
+              <fieldset key={section.id}>
+                <legend className="text-muted-foreground mb-2 text-xs font-medium">
+                  {section.label}
+                </legend>
+                <div className="flex flex-wrap gap-2">
+                  {section.options.map((option) => {
+                    const Icon = option.icon;
+                    const checked = section.value === option.value;
+                    return (
+                      <button
+                        key={option.value}
+                        type="button"
+                        aria-pressed={checked}
+                        disabled={option.disabled}
+                        onClick={() => section.onSelect(option.value)}
+                        className={chipClass(checked)}
+                      >
+                        {Icon && <Icon aria-hidden="true" />}
+                        {option.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            ))}
+          </div>
+          <DrawerFooter className="pb-[calc(1rem+env(safe-area-inset-bottom,0px))]">
+            <DrawerClose className={buttonVariants({ size: "lg" })}>
+              {content.done}
+            </DrawerClose>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    </>
   );
 };
 
@@ -351,7 +469,6 @@ const Gallery = () => {
   const { signedIn, jobs } = routeApi.useLoaderData();
   const search = routeApi.useSearch();
   const navigate = useNavigate();
-  const [paused, setPaused] = useState(false);
   // The open video renders as a child route overlay on top of this gallery.
   // A category, model or type page fixes that filter in the path (`scope`);
   // the rest are search params, merged under it.
@@ -360,12 +477,6 @@ const Gallery = () => {
   const scope = scopeOf(params);
   const category = scope?.kind === "category" ? scope.category : undefined;
   const filters: GallerySearch = { ...search, ...scopeFilters(scope) };
-  const sort = search.sort ?? "popular";
-  const sortLabels = {
-    popular: content.popular,
-    newest: content.newest,
-    oldest: content.oldest,
-  };
 
   const filtered = useMemo(
     () =>
@@ -377,19 +488,8 @@ const Gallery = () => {
       }),
     [filters.type, filters.model, category, search.sort]
   );
-  const categoryCounts = useMemo(() => {
-    const matching = filterMotionVideos(videos, {
-      type: filters.type,
-      model: filters.model,
-    });
-    return Object.fromEntries(
-      MOTION_CATEGORIES.map((id) => [
-        id,
-        matching.filter((video) => video.contentTags.includes(id)).length,
-      ])
-    );
-  }, [filters.type, filters.model]);
-  const previewsPaused = paused || Boolean(openSlug);
+  // Previews pause while a video's overlay covers the grid.
+  const previewsPaused = Boolean(openSlug);
   const lanes = useLaneCount();
 
   // Type, model and sort stay search params on whichever page is showing,
@@ -470,110 +570,44 @@ const Gallery = () => {
     <>
       <SiteHeader signedIn={signedIn} />
       <CollectionToolbar label={content.browse.value}>
-        <div className="flex min-w-0 flex-1 items-center gap-2 lg:flex-none lg:basis-[65%]">
-          <ResourceModelMenu
+        <FadeScroller
+          label={content.filterCategory.value}
+          className="-mx-1 -my-1 min-w-0 flex-1 px-1 py-1 lg:flex-none lg:basis-[65%]"
+        >
+          <CategoryChip
+            to="/"
+            search={chipSearch}
+            active={!category}
+            label={content.all}
+          />
+          {MOTION_CATEGORIES.map((id) => {
+            const active = category === id;
+            return active ? (
+              <CategoryChip
+                key={id}
+                to="/"
+                search={chipSearch}
+                active
+                label={content.categories[id]}
+              />
+            ) : (
+              <CategoryChip
+                key={id}
+                to="/category/$category"
+                params={{ category: id }}
+                search={chipSearch}
+                active={false}
+                label={content.categories[id]}
+              />
+            );
+          })}
+        </FadeScroller>
+        <div className="ml-auto flex shrink-0 items-center">
+          <GalleryFilters
             search={filters}
             category={category}
             onChange={updateSearch}
           />
-          <Separator orientation="vertical" className="my-1.5" />
-          <FadeScroller
-            label={content.filterCategory.value}
-            className="-mx-1 -my-1 min-w-0 flex-1 px-1 py-1"
-          >
-            {MOTION_CATEGORIES.map((id) => {
-              const active = category === id;
-              // Each category is its own page; the active chip goes back to `/`.
-              return active ? (
-                <CategoryChip
-                  key={id}
-                  to="/"
-                  search={chipSearch}
-                  active
-                  label={content.categories[id]}
-                  count={categoryCounts[id]}
-                />
-              ) : (
-                <CategoryChip
-                  key={id}
-                  to="/category/$category"
-                  params={{ category: id }}
-                  search={chipSearch}
-                  active={false}
-                  label={content.categories[id]}
-                  count={categoryCounts[id]}
-                />
-              );
-            })}
-          </FadeScroller>
-        </div>
-        <div className="ml-auto flex shrink-0 items-center gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger
-              aria-label={content.sort.value}
-              className={chipClass(sort !== "popular")}
-            >
-              {sortLabels[sort]}
-              <ChevronDown aria-hidden="true" className="size-3.5" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-44">
-              <DropdownMenuRadioGroup
-                value={sort}
-                onValueChange={(value) =>
-                  updateSearch({
-                    sort:
-                      value === "newest" || value === "oldest"
-                        ? value
-                        : undefined,
-                  })
-                }
-              >
-                <DropdownMenuRadioItem value="popular">
-                  {content.popular}
-                </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="newest">
-                  {content.newest}
-                </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="oldest">
-                  {content.oldest}
-                </DropdownMenuRadioItem>
-              </DropdownMenuRadioGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <button
-            type="button"
-            aria-pressed={paused}
-            onClick={() => setPaused(!paused)}
-            className={cn(chipClass(paused), "max-sm:size-8")}
-          >
-            {paused ? (
-              <Play aria-hidden="true" />
-            ) : (
-              <Pause3 aria-hidden="true" />
-            )}
-            {/* Both labels share one grid cell, so the chip keeps the wider
-                label's width and never jumps when it toggles. */}
-            <span className="grid justify-items-center max-sm:sr-only">
-              <span
-                aria-hidden={paused}
-                className={cn(
-                  "col-start-1 row-start-1 transition-opacity duration-150 ease-out",
-                  paused && "opacity-0"
-                )}
-              >
-                {content.pause}
-              </span>
-              <span
-                aria-hidden={!paused}
-                className={cn(
-                  "col-start-1 row-start-1 transition-opacity duration-150 ease-out",
-                  !paused && "opacity-0"
-                )}
-              >
-                {content.play}
-              </span>
-            </span>
-          </button>
         </div>
       </CollectionToolbar>
       <CollectionGrid

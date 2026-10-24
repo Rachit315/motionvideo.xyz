@@ -98,13 +98,7 @@ export const JobsBoard = ({
                 : { to: ROUTES.JOBS })}
               activeOptions={{ exact: true, includeSearch: false }}
               active={value === type}
-              activeVariant={value ? "default" : "outline"}
               label={value ? content.types[value] : content.all}
-              count={
-                value
-                  ? jobs.filter((job) => job.type === value).length
-                  : jobs.length
-              }
             />
           ))}
         </FadeScroller>

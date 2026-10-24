@@ -153,9 +153,7 @@ const Bookmarks = () => {
                     to={ROUTES.DASHBOARD_BOOKMARKS}
                     search={{ kind: value }}
                     active={value === kind}
-                    activeVariant={value ? "default" : "outline"}
                     label={value ? content.kinds[value] : content.all}
-                    count={value ? counts.get(value) : visible.length}
                   />
                 )
               )}

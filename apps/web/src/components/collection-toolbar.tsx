@@ -26,27 +26,22 @@ export const CollectionToolbar = ({
 );
 
 /**
- * Rounded category pill with a count, for the horizontally scrolling filter
- * row. The active pill reads as yellow (`default`); the "All" pill stays a
- * white outline when active via `activeVariant="outline"`.
+ * Rounded category pill for the horizontally scrolling filter row. The
+ * active pill, "All" included, reads as yellow (`default`).
  *
  * Link props stay loose (`to` as a plain string) so one chip can serve every
  * section's routes; they are forwarded to TanStack's `Link`.
  */
 export const CategoryChip = ({
   active,
-  activeVariant = "default",
   label,
-  count,
   to,
   params,
   search,
   activeOptions,
 }: {
   active: boolean;
-  activeVariant?: "default" | "outline";
   label: ReactNode;
-  count: ReactNode;
   to: string;
   params?: Record<string, string>;
   search?: Record<string, string | undefined>;
@@ -64,13 +59,12 @@ export const CategoryChip = ({
     aria-current={active ? ("page" as const) : undefined}
     className={cn(
       buttonVariants({
-        variant: active ? activeVariant : "secondary",
+        variant: active ? "default" : "secondary",
       }),
       "rounded-full px-3",
       !active && "text-muted-foreground"
     )}
   >
     {label}
-    <span className="text-xs tabular-nums opacity-60">{count}</span>
   </Link>
 );
