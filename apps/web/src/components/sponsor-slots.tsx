@@ -10,9 +10,8 @@ import {
   createTooltipHandle,
 } from "@/components/ui/tooltip";
 import { ROUTES } from "@/constants/routes";
-import { SPONSOR_SLOTS } from "@/constants/sponsors";
-import type { SponsorCategory } from "@/constants/sponsors";
-import { sameCategory, useSponsors } from "@/lib/sponsorships";
+import { FOUNDING_SPONSORS, SPONSOR_SLOTS } from "@/constants/sponsors";
+import { useSponsors } from "@/lib/sponsorships";
 import { cn } from "@/lib/utils";
 import { withUtm } from "@/lib/utm";
 
@@ -21,34 +20,33 @@ const slotClass =
   "focus-visible:ring-ring/50 flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-[10px] outline-none focus-visible:ring-3";
 
 /**
- * The sponsor slots under a page's intro actions: Diamond sponsors on every
- * page, then on a category page that category's Gold sponsors (up to
- * SPONSOR_SLOTS each, so at most six). Dashed "+" places leading to /sponsor
+ * The sponsor slots under a page's intro actions: Diamond sponsors first,
+ * then every Gold sponsor (up to SPONSOR_SLOTS of each, so at most six).
+ * No tier is tied to a category page. Dashed "+" places leading to /sponsor
  * fill the row up to SPONSOR_SLOTS. Silver has no slot (only the card).
  */
 export const SponsorSlots = ({
-  category,
+  demo = false,
 }: {
-  /** The category page being shown; `undefined` on "All" pages. */
-  category: SponsorCategory | undefined;
+  /**
+   * The /sponsor placement preview: while no Diamond or Gold sponsor is
+   * live, the founding sponsors fill the slots as examples. Clicks track as
+   * "preview".
+   */
+  demo?: boolean;
 }) => {
   const content = useIntlayer("site-header");
   const live = useSponsors();
-  // Diamond (up to its seats), then this category's Gold (up to as many).
-  const taken = [
+  // Diamond (up to its seats), then Gold (up to as many).
+  const paid = [
     ...live
       .filter((sponsor) => sponsor.tier === "diamond")
       .slice(0, SPONSOR_SLOTS),
-    ...(category
-      ? live
-          .filter(
-            (sponsor) =>
-              sponsor.tier === "gold" &&
-              sameCategory(sponsor.category, category)
-          )
-          .slice(0, SPONSOR_SLOTS)
-      : []),
+    ...live
+      .filter((sponsor) => sponsor.tier === "gold")
+      .slice(0, SPONSOR_SLOTS),
   ];
+  const taken = demo && paid.length === 0 ? FOUNDING_SPONSORS : paid;
   // Always SPONSOR_SLOTS places; more only when more sponsors fill them.
   const open = Math.max(0, SPONSOR_SLOTS - taken.length);
   const tooltip = useMemo(() => createTooltipHandle<ReactNode>(), []);
@@ -71,7 +69,7 @@ export const SponsorSlots = ({
                     target="_blank"
                     rel="sponsored noopener"
                     data-track="sponsor_click"
-                    data-track-placement="slot"
+                    data-track-placement={demo ? "preview" : "slot"}
                     data-track-name={sponsor.name}
                     aria-label={`${sponsor.name} (${content.sponsored.value})`}
                   />

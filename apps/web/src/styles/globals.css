@@ -167,6 +167,31 @@
   --push-press: 110ms;
   --push-release: 190ms;
   --push-spring: cubic-bezier(0.22, 1.32, 0.36, 1);
+  --tabs-duration: 250ms;
+  --tabs-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --color-nav-hover: var(--nav-hover);
+  @keyframes popover-flip-in {
+    from {
+      transform: perspective(600px) rotateX(var(--popover-tilt-x, 0deg))
+        rotateY(var(--popover-tilt-y, 0deg)) scale(0.94);
+    }
+  }
+  @keyframes popover-flip-out {
+    to {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+  }
+  @keyframes popover-fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes popover-fade-out {
+    to {
+      opacity: 0;
+    }
+  }
 }
 
 :root {
@@ -214,6 +239,7 @@
   --otp-success-color: oklch(0.68 0.16 240);
   --shell-line-strong: #dcdcdc;
   --skeleton-sweep: rgb(0 0 0 / 6%);
+  --nav-hover: oklch(0.945 0 0);
 }
 
 .dark {
@@ -259,6 +285,7 @@
   --otp-success-color: oklch(0.75 0.15 240);
   --skeleton-sweep: rgb(255 255 255 / 7%);
   --shell-line-strong: #303030;
+  --nav-hover: var(--muted);
 }
 
 /* Site cursor: the kibo-ui pointer arrow (black, white keyline so it reads on
@@ -421,6 +448,61 @@
   .dropzone-edge[data-ground="falling"] > .dropzone-edge-dashed {
     opacity: calc(1 - var(--ground-left));
   }
+  .sliding-tab-pill {
+    transition:
+      transform var(--tabs-duration) var(--tabs-ease),
+      width var(--tabs-duration) var(--tabs-ease);
+    will-change: transform, width;
+  }
+  .sliding-tab-face {
+    background-color: var(--background);
+    box-shadow:
+      0 0 0 0.5px rgb(0 0 0 / 0.04),
+      0 1px 2px rgb(0 0 0 / 0.06);
+  }
+  .dark .sliding-tab-face {
+    background-color: color-mix(in oklch, var(--muted), var(--foreground) 16%);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.07);
+  }
+  .sliding-tab-active-label {
+    transition: clip-path var(--tabs-duration) var(--tabs-ease);
+    will-change: clip-path;
+  }
+  .sliding-tab-icon-slot {
+    transition: width var(--tabs-duration) var(--tabs-ease);
+  }
+  .sliding-tab-icon {
+    opacity: 0;
+    scale: 0.25;
+    filter: blur(4px);
+    transition:
+      opacity calc(var(--tabs-duration) * 0.6) var(--tabs-ease),
+      scale calc(var(--tabs-duration) * 0.6) var(--tabs-ease),
+      filter calc(var(--tabs-duration) * 0.6) var(--tabs-ease);
+  }
+  .sliding-tab-icon-slot[data-shown] .sliding-tab-icon {
+    opacity: 1;
+    scale: 1;
+    filter: blur(0);
+    transition-duration: var(--tabs-duration);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sliding-tab-pill {
+      transition: none;
+    }
+    .sliding-tab-active-label {
+      transition: none;
+    }
+    .sliding-tab-icon-slot {
+      transition: none;
+    }
+    .sliding-tab-icon {
+      scale: 1;
+      filter: none;
+      transition: opacity calc(var(--tabs-duration) * 0.6) linear;
+    }
+  }
 }
 /* Same layer as Tailwind's cursor-default/cursor-pointer, declared later, so the
    keywords map to the site cursor while variants (disabled:…) still win. */
@@ -452,6 +534,40 @@
   --animate-mv-cycle: mv-cycle 6s ease-in-out infinite both;
   /* Sponsored card timer hairline: fills once per rotation. */
   --animate-mv-rotate: mv-rotate 6s linear forwards;
+  /* Header wordmark: sprocket holes running past "Video" (see brand.tsx). */
+  --animate-brand-sprockets: brand-sprockets 500ms linear infinite;
+}
+
+@keyframes brand-sprockets {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: -0.3em;
+  }
+}
+
+/* Header wordmark: an o of "Motion" bounces like a ball. Anticipate (squash),
+   stretch on the way up, squash on landing, settle. */
+@keyframes brand-bounce {
+  0%,
+  100% {
+    transform: none;
+  }
+  14% {
+    transform: scale(1.18, 0.8);
+    animation-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1);
+  }
+  46% {
+    transform: translateY(-0.5em) scale(0.88, 1.14);
+    animation-timing-function: cubic-bezier(0.33, 0, 0.66, 0.34);
+  }
+  70% {
+    transform: scale(1.22, 0.78);
+  }
+  86% {
+    transform: scale(0.96, 1.05);
+  }
 }
 
 /* `mv-delay-<ms>`: staggers the looping demo animations. */
@@ -595,6 +711,9 @@ media-theme-sutro {
   --media-background-color: var(--background);
   /* Scrub thumb depth, in place of media-chrome's default hairline shadow. */
   --media-range-thumb-box-shadow: 0 1px 2px oklch(0 0 0 / 0.4);
+  /* Keyboard focus ring on buttons and sliders: the brand accent instead of
+     media-chrome's default blue (rgb(27 127 204)). */
+  --media-focus-box-shadow: inset 0 0 0 2px var(--primary);
 }
 
 /* Route view transitions (`viewTransition` on gallery ↔ /videos/$slug links):
@@ -654,6 +773,12 @@ media-theme-sutro {
   }
   .t-raise:not(.t-flat)::before {
     transition-duration: 0ms;
+  }
+  .popover-panel[data-open] {
+    animation: popover-fade-in 140ms var(--ease-out);
+  }
+  .popover-panel[data-closed] {
+    animation: popover-fade-out 140ms var(--ease-exit) forwards;
   }
 }
 
@@ -774,6 +899,9 @@ media-theme-sutro {
     outline-offset;
   transition-duration: var(--ring-duration);
   transition-timing-function: var(--ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0ms;
+  }
   @media (prefers-reduced-motion: reduce) {
     transition-duration: 0ms;
   }
@@ -1136,4 +1264,32 @@ media-theme-sutro {
   --raise-shade: transparent;
   --raise-edge: color-mix(in srgb, currentColor 24%, transparent);
   --raise-contact: transparent;
+}
+.popover-panel[data-side="bottom"] {
+  --popover-tilt-x: -20deg;
+}
+.popover-panel[data-side="top"] {
+  --popover-tilt-x: 20deg;
+}
+.popover-panel[data-side="right"],
+.popover-panel[data-side="inline-end"] {
+  --popover-tilt-y: 20deg;
+}
+.popover-panel[data-side="left"],
+.popover-panel[data-side="inline-start"] {
+  --popover-tilt-y: -20deg;
+}
+.popover-panel[data-side="inline-end"]:dir(rtl) {
+  --popover-tilt-y: -20deg;
+}
+.popover-panel[data-side="inline-start"]:dir(rtl) {
+  --popover-tilt-y: 20deg;
+}
+.popover-panel[data-open] {
+  animation:
+    popover-flip-in 300ms var(--ease-out),
+    popover-fade-in 160ms var(--ease-out);
+}
+.popover-panel[data-closed] {
+  animation: popover-flip-out 160ms var(--ease-exit) forwards;
 }

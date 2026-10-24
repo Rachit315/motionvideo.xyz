@@ -50,8 +50,6 @@ export const ResourceDirectory = ({
   const filtered = category
     ? entries.filter((entry) => entry.category === category.id)
     : entries;
-  // Gold and Silver sponsors of this category page.
-  const sponsorCategory = category && { kind, slug: category.slug };
 
   const surprise = () => {
     const entry = filtered[Math.floor(Math.random() * filtered.length)];
@@ -75,7 +73,6 @@ export const ResourceDirectory = ({
           submitSearch={{ kind, category: category?.slug }}
         />
       }
-      sponsorCategory={sponsorCategory}
     />
   );
 
@@ -106,7 +103,7 @@ export const ResourceDirectory = ({
   items.splice(sponsoredIndex, 0, {
     key: "sponsored",
     aspectRatio: DIRECTORY_COVER_RATIO,
-    node: <SponsoredCard category={sponsorCategory} />,
+    node: <SponsoredCard placement="feed" />,
   });
 
   return (

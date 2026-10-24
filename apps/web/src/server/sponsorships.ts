@@ -3,7 +3,7 @@ import { and, asc, count, eq, gt, inArray, isNull, or } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 
 import { SPONSOR_SLOTS } from "@/constants/sponsors";
-import type { Sponsor } from "@/constants/sponsors";
+import type { Sponsor, SponsorTier } from "@/constants/sponsors";
 
 import { sponsorships } from "./db/sponsorship-schema";
 import { getDodo, sponsorProductOf } from "./dodo";
@@ -156,10 +156,6 @@ export const liveSponsors = async (): Promise<Sponsor[]> => {
             logo: row.logo,
             cover: row.cover,
             tagline: row.tagline ?? undefined,
-            category:
-              row.categoryKind && row.category
-                ? { kind: row.categoryKind, slug: row.category }
-                : undefined,
             darkInvert: row.darkInvert,
           },
         ]
@@ -168,20 +164,23 @@ export const liveSponsors = async (): Promise<Sponsor[]> => {
 };
 
 /**
- * Diamond is capped at SPONSOR_SLOTS seats: paid runs that are not over.
+ * Every tier is capped at SPONSOR_SLOTS seats: paid runs that are not over.
  * Subscriptions on hold keep their seat while the payment is retried.
+ * Returns the tiers whose seats are all taken.
  */
-export const diamondSoldOut = async (): Promise<boolean> => {
-  const [row] = await drizzle(env.DB)
-    .select({ taken: count() })
+export const soldOutTiers = async (): Promise<SponsorTier[]> => {
+  const rows = await drizzle(env.DB)
+    .select({ tier: sponsorships.tier, taken: count() })
     .from(sponsorships)
     .where(
       and(
-        eq(sponsorships.tier, "diamond"),
         inArray(sponsorships.status, ["active", "on_hold"]),
         // One-off runs end at `endsAt`; monthly runs have none.
         or(isNull(sponsorships.endsAt), gt(sponsorships.endsAt, new Date()))
       )
-    );
-  return (row?.taken ?? 0) >= SPONSOR_SLOTS;
+    )
+    .groupBy(sponsorships.tier);
+  return rows.flatMap(({ tier, taken }) =>
+    taken >= SPONSOR_SLOTS ? [tier] : []
+  );
 };

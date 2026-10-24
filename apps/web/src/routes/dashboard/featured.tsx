@@ -35,6 +35,7 @@ import type { MotionVideo } from "@/lib/motion-catalog";
 import { createMetadata } from "@/seo/metadata";
 import type { MySubmission } from "@/server/community-functions";
 import { getMySubmissions } from "@/server/community-functions";
+import { getLandingData } from "@/server/functions";
 
 const routeApi = getRouteApi("/dashboard/featured");
 const videosBySlug = new Map<string, MotionVideo>(
@@ -134,7 +135,7 @@ const SubmissionCard = ({
 const Featured = () => {
   const content = useIntlayer("featured-page");
   const { locale } = useLocale();
-  const submissions = routeApi.useLoaderData();
+  const { submissions } = routeApi.useLoaderData();
   const search = routeApi.useSearch();
   const navigate = routeApi.useNavigate();
   // Videos open over this page, stepping through the featured videos.
@@ -160,7 +161,7 @@ const Featured = () => {
                 video={item.video}
                 paused={openIndex !== -1}
                 open={false}
-                category={undefined}
+                scope={undefined}
                 search={{}}
                 onOpen={() => openVideo(item.video.slug)}
               />
@@ -282,14 +283,18 @@ export const Route = createFileRoute("/dashboard/featured")({
       noIndex: true,
       title: "Featured",
     }),
+  // `sponsors` feeds the video overlay's Diamond sidebar row (useSponsors).
   loader: async () => {
-    const submissions = await getMySubmissions();
+    const [submissions, { sponsors }] = await Promise.all([
+      getMySubmissions(),
+      getLandingData(),
+    ]);
     if (!submissions) {
       throw redirect({
         search: { redirect: ROUTES.DASHBOARD_FEATURED },
         to: ROUTES.SIGN_IN,
       });
     }
-    return submissions;
+    return { submissions, sponsors };
   },
 });

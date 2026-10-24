@@ -5,7 +5,9 @@ import {
   useNavigate,
   useParams,
 } from "@tanstack/react-router";
+import type { UseNavigateResult } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
 import { ChevronDown } from "reicon-react/icons/ChevronDown";
 import { Pause3 } from "reicon-react/icons/Pause3";
@@ -35,34 +37,162 @@ import { buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import type { MasonryItem } from "@/components/virtual-masonry";
-import type { SponsorCategory } from "@/constants/sponsors";
 import catalog from "@/data/motion-catalog.json";
 import { useLaneCount } from "@/hooks/use-lane-count";
 import {
   MOTION_CATEGORIES,
+  MOTION_MODELS,
+  MOTION_TYPES,
   filterMotionVideos,
   findMotionCategory,
+  findMotionModel,
+  findMotionType,
+  motionModelSlug,
+  scopeFilters,
 } from "@/lib/motion-catalog";
-import type { GallerySearch, MotionVideo } from "@/lib/motion-catalog";
+import type {
+  GalleryScope,
+  GallerySearch,
+  MotionCategory,
+  MotionVideo,
+} from "@/lib/motion-catalog";
 import { cn } from "@/lib/utils";
 import { getLandingData } from "@/server/functions";
 import { getJobs } from "@/server/job-functions";
 
 const routeApi = getRouteApi("/_gallery");
 const videos: MotionVideo[] = catalog.videos;
-const TYPES = ["prompt", "skill"] as const;
-const typeCounts = Object.fromEntries(
-  TYPES.map((type) => [
-    type,
-    videos.filter((video) => video.tags.includes(type)).length,
-  ])
+// Only models some video was made with get a filter.
+const MODELS = MOTION_MODELS.filter((model) =>
+  videos.some((video) => video.model === model)
 );
+
+type Navigate = UseNavigateResult<string>;
+
+/** The page a gallery URL is: its category, model or type param, if any. */
+const scopeOf = (params: {
+  category?: string;
+  model?: string;
+  type?: string;
+}): GalleryScope | undefined => {
+  const category = findMotionCategory(params.category);
+  if (category) {
+    return { kind: "category", category };
+  }
+  const model = findMotionModel(params.model);
+  if (model) {
+    return { kind: "model", model };
+  }
+  const type = findMotionType(params.type);
+  return type ? { kind: "type", type } : undefined;
+};
+
+/** Navigates to a gallery page: Discover, or a category/model/type page. */
+const goToPage = (
+  navigate: Navigate,
+  scope: GalleryScope | undefined,
+  search: GallerySearch
+) => {
+  const options = { search, resetScroll: false };
+  switch (scope?.kind) {
+    case "category": {
+      return navigate({
+        to: "/category/$category",
+        params: { category: scope.category },
+        ...options,
+      });
+    }
+    case "model": {
+      return navigate({
+        to: "/model/$model",
+        params: { model: motionModelSlug(scope.model) },
+        ...options,
+      });
+    }
+    case "type": {
+      return navigate({
+        to: "/type/$type",
+        params: { type: scope.type },
+        ...options,
+      });
+    }
+    default: {
+      return navigate({ to: "/", ...options });
+    }
+  }
+};
+
+/** Opens a video's overlay over a gallery page. */
+const goToVideo = (
+  navigate: Navigate,
+  scope: GalleryScope | undefined,
+  search: GallerySearch,
+  slug: string
+) => {
+  const options = { search, resetScroll: false, viewTransition: true };
+  switch (scope?.kind) {
+    case "category": {
+      return navigate({
+        to: "/category/$category/videos/$slug",
+        params: { category: scope.category, slug },
+        ...options,
+      });
+    }
+    case "model": {
+      return navigate({
+        to: "/model/$model/videos/$slug",
+        params: { model: motionModelSlug(scope.model), slug },
+        ...options,
+      });
+    }
+    case "type": {
+      return navigate({
+        to: "/type/$type/videos/$slug",
+        params: { type: scope.type, slug },
+        ...options,
+      });
+    }
+    default: {
+      return navigate({ to: "/videos/$slug", params: { slug }, ...options });
+    }
+  }
+};
+
+/**
+ * Where a Type/Model menu pick goes. On Discover and category pages it is a
+ * search param, as before. On a model or type page, changing that page's own
+ * filter moves to the matching page (or Discover for "All"); the other
+ * filter stays a search param.
+ */
+const pickFilter = (
+  navigate: Navigate,
+  scope: GalleryScope | undefined,
+  search: GallerySearch,
+  patch: GallerySearch
+) => {
+  if (scope?.kind === "model" && "model" in patch) {
+    const model = findMotionModel(patch.model);
+    return goToPage(navigate, model ? { kind: "model", model } : undefined, {
+      ...search,
+      model: undefined,
+    });
+  }
+  if (scope?.kind === "type" && "type" in patch) {
+    return goToPage(
+      navigate,
+      patch.type ? { kind: "type", type: patch.type } : undefined,
+      { ...search, type: undefined }
+    );
+  }
+  return goToPage(navigate, scope, { ...search, ...patch });
+};
 // Pills are outline buttons with rounded-full: default choices read as plain
 // white chips; any other choice turns yellow, keeping the same hairline edge
 // so the pill doesn't look smaller when it fills.
@@ -73,22 +203,163 @@ const chipClass = (active: boolean) =>
     active && "shadow-outline"
   );
 
+// Resource on the left, model on the right: one pick per side, and the menu
+// stays open so both can be set in one go. Each side counts the videos on the
+// current page (category) under the other side's pick.
+const ResourceModelMenu = ({
+  search,
+  category,
+  onChange,
+}: {
+  search: GallerySearch;
+  category: MotionCategory | undefined;
+  onChange: (patch: GallerySearch) => void;
+}) => {
+  const content = useIntlayer("motion-gallery");
+  const model = findMotionModel(search.model);
+  const typeCounts = useMemo(() => {
+    const matching = filterMotionVideos(videos, {
+      model: search.model,
+      category,
+    });
+    return Object.fromEntries([
+      ["all", matching.length],
+      ...MOTION_TYPES.map((type) => [
+        type,
+        matching.filter((video) => video.tags.includes(type)).length,
+      ]),
+    ]);
+  }, [search.model, category]);
+  const modelCounts = useMemo(() => {
+    const matching = filterMotionVideos(videos, {
+      type: search.type,
+      category,
+    });
+    return Object.fromEntries([
+      ["all", matching.length],
+      ...MODELS.map((id) => [
+        id,
+        matching.filter((video) => video.model === id).length,
+      ]),
+    ]);
+  }, [search.type, category]);
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        aria-label={content.filterType.value}
+        className={chipClass(Boolean(search.type || model))}
+      >
+        {search.type && content[search.type]}
+        {search.type && model && " · "}
+        {model}
+        {!search.type && !model && content.all}
+        <ChevronDown aria-hidden="true" className="size-3.5" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="flex w-auto max-w-[calc(100vw-1rem)] gap-1">
+        <DropdownMenuRadioGroup
+          className="min-w-36"
+          value={search.type ?? "all"}
+          onValueChange={(value) => onChange({ type: findMotionType(value) })}
+        >
+          <DropdownMenuLabel>{content.type}</DropdownMenuLabel>
+          <DropdownMenuRadioItem value="all">
+            {content.all}
+            <span className="text-muted-foreground ml-auto text-xs tabular-nums">
+              {typeCounts.all}
+            </span>
+          </DropdownMenuRadioItem>
+          {MOTION_TYPES.map((type) => (
+            <DropdownMenuRadioItem
+              key={type}
+              value={type}
+              disabled={typeCounts[type] === 0 && search.type !== type}
+            >
+              {content[type]}
+              <span className="text-muted-foreground ml-auto text-xs tabular-nums">
+                {typeCounts[type]}
+              </span>
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+        <Separator orientation="vertical" className="-my-1 h-auto" />
+        <DropdownMenuRadioGroup
+          className="min-w-44"
+          value={search.model ?? "all"}
+          onValueChange={(value) =>
+            onChange({ model: findMotionModel(value) && value })
+          }
+        >
+          <DropdownMenuLabel>{content.model}</DropdownMenuLabel>
+          <DropdownMenuRadioItem value="all">
+            {content.all}
+            <span className="text-muted-foreground ml-auto text-xs tabular-nums">
+              {modelCounts.all}
+            </span>
+          </DropdownMenuRadioItem>
+          {MODELS.map((id) => (
+            <DropdownMenuRadioItem
+              key={id}
+              value={motionModelSlug(id)}
+              disabled={modelCounts[id] === 0 && model !== id}
+            >
+              {id}
+              <span className="text-muted-foreground ml-auto text-xs tabular-nums">
+                {modelCounts[id]}
+              </span>
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+/** The intro tile's title and copy for the page: Discover or its scope. */
+const GalleryIntro = ({
+  scope,
+  actions,
+}: {
+  scope: GalleryScope | undefined;
+  actions: ReactNode;
+}) => {
+  const content = useIntlayer("motion-gallery");
+  let title: ReactNode = content.title;
+  let description: ReactNode = content.intro;
+  if (scope?.kind === "category") {
+    title = content.categoryTitles[scope.category];
+    description = content.categoryIntros[scope.category];
+  } else if (scope?.kind === "model") {
+    title = content.modelTitles[scope.model];
+    description = content.modelIntros[scope.model];
+  } else if (scope?.kind === "type") {
+    title = content.typeTitles[scope.type];
+    description = content.typeIntros[scope.type];
+  }
+  return (
+    <CollectionIntro
+      titleId="gallery-intro-title"
+      title={title}
+      description={description}
+      actions={actions}
+    />
+  );
+};
+
 const Gallery = () => {
   const content = useIntlayer("motion-gallery");
   const { signedIn, jobs } = routeApi.useLoaderData();
   const search = routeApi.useSearch();
   const navigate = useNavigate();
   const [paused, setPaused] = useState(false);
-  // The open video renders as a child route overlay on top of this gallery;
-  // on `/category/$category` (and its video overlays) the grid is filtered.
+  // The open video renders as a child route overlay on top of this gallery.
+  // A category, model or type page fixes that filter in the path (`scope`);
+  // the rest are search params, merged under it.
   const params = useParams({ strict: false });
   const openSlug = params.slug;
-  const category = findMotionCategory(params.category);
-  // Gold and Silver sponsors of this category page.
-  const sponsorCategory: SponsorCategory | undefined = category && {
-    kind: "video",
-    slug: category,
-  };
+  const scope = scopeOf(params);
+  const category = scope?.kind === "category" ? scope.category : undefined;
+  const filters: GallerySearch = { ...search, ...scopeFilters(scope) };
   const sort = search.sort ?? "popular";
   const sortLabels = {
     popular: content.popular,
@@ -99,35 +370,38 @@ const Gallery = () => {
   const filtered = useMemo(
     () =>
       filterMotionVideos(videos, {
-        type: search.type,
+        type: filters.type,
+        model: filters.model,
         category,
         sort: search.sort,
       }),
-    [search.type, category, search.sort]
+    [filters.type, filters.model, category, search.sort]
   );
   const categoryCounts = useMemo(() => {
-    const matching = filterMotionVideos(videos, { type: search.type });
+    const matching = filterMotionVideos(videos, {
+      type: filters.type,
+      model: filters.model,
+    });
     return Object.fromEntries(
       MOTION_CATEGORIES.map((id) => [
         id,
         matching.filter((video) => video.contentTags.includes(id)).length,
       ])
     );
-  }, [search.type]);
+  }, [filters.type, filters.model]);
   const previewsPaused = paused || Boolean(openSlug);
   const lanes = useLaneCount();
 
-  // Type and sort stay search params on whichever page is showing.
+  // Type, model and sort stay search params on whichever page is showing,
+  // except a model or type page's own filter (see pickFilter).
   const updateSearch = (patch: GallerySearch) => {
-    const next = { ...search, ...patch };
-    void (category
-      ? navigate({
-          to: "/category/$category",
-          params: { category },
-          search: next,
-          resetScroll: false,
-        })
-      : navigate({ to: "/", search: next, resetScroll: false }));
+    void pickFilter(navigate, scope, search, patch);
+  };
+  // Category chips keep the page's model or type filter as a search param.
+  const chipSearch = {
+    ...search,
+    type: filters.type,
+    model: filters.model,
   };
 
   const surprise = () => {
@@ -137,29 +411,12 @@ const Gallery = () => {
     }
     // Morphs from its card when that card is rendered; fades in otherwise.
     setMorphCard(video.slug);
-    const options = {
-      search,
-      resetScroll: false,
-      viewTransition: true,
-    };
-    void (category
-      ? navigate({
-          to: "/category/$category/videos/$slug",
-          params: { category, slug: video.slug },
-          ...options,
-        })
-      : navigate({
-          to: "/videos/$slug",
-          params: { slug: video.slug },
-          ...options,
-        }));
+    void goToVideo(navigate, scope, search, video.slug);
   };
 
   const intro = (
-    <CollectionIntro
-      titleId="gallery-intro-title"
-      title={category ? content.categoryTitles[category] : content.title}
-      description={category ? content.categoryIntros[category] : content.intro}
+    <GalleryIntro
+      scope={scope}
       actions={
         <SurpriseAndSubmit
           onSurprise={surprise}
@@ -169,7 +426,6 @@ const Gallery = () => {
           submitSearch={{ kind: "video", category }}
         />
       }
-      sponsorCategory={sponsorCategory}
     />
   );
 
@@ -181,7 +437,7 @@ const Gallery = () => {
         video={video}
         paused={previewsPaused}
         open={video.slug === openSlug}
-        category={category}
+        scope={scope}
         search={search}
       />
     ),
@@ -191,7 +447,7 @@ const Gallery = () => {
   items.splice(sponsoredIndex, 0, {
     key: "sponsored",
     aspectRatio: 16 / 9,
-    node: <SponsoredCard category={sponsorCategory} />,
+    node: <SponsoredCard placement="feed" />,
   });
   // Open roles right after the sponsored card: in the same lane on desktop,
   // next in the single column on phones. Only when there are open roles; the
@@ -215,40 +471,11 @@ const Gallery = () => {
       <SiteHeader signedIn={signedIn} />
       <CollectionToolbar label={content.browse.value}>
         <div className="flex min-w-0 flex-1 items-center gap-2 lg:flex-none lg:basis-[65%]">
-          <DropdownMenu>
-            <DropdownMenuTrigger
-              aria-label={content.filterType.value}
-              className={chipClass(Boolean(search.type))}
-            >
-              {search.type ? content[search.type] : content.all}
-              <ChevronDown aria-hidden="true" className="size-3.5" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-44">
-              <DropdownMenuRadioGroup
-                value={search.type ?? "all"}
-                onValueChange={(value) =>
-                  updateSearch({
-                    type: TYPES.find((type) => type === value),
-                  })
-                }
-              >
-                <DropdownMenuRadioItem value="all">
-                  {content.all}
-                  <span className="text-muted-foreground ml-auto text-xs tabular-nums">
-                    {videos.length}
-                  </span>
-                </DropdownMenuRadioItem>
-                {TYPES.map((type) => (
-                  <DropdownMenuRadioItem key={type} value={type}>
-                    {content[type]}
-                    <span className="text-muted-foreground ml-auto text-xs tabular-nums">
-                      {typeCounts[type]}
-                    </span>
-                  </DropdownMenuRadioItem>
-                ))}
-              </DropdownMenuRadioGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <ResourceModelMenu
+            search={filters}
+            category={category}
+            onChange={updateSearch}
+          />
           <Separator orientation="vertical" className="my-1.5" />
           <FadeScroller
             label={content.filterCategory.value}
@@ -261,7 +488,7 @@ const Gallery = () => {
                 <CategoryChip
                   key={id}
                   to="/"
-                  search={search}
+                  search={chipSearch}
                   active
                   label={content.categories[id]}
                   count={categoryCounts[id]}
@@ -271,7 +498,7 @@ const Gallery = () => {
                   key={id}
                   to="/category/$category"
                   params={{ category: id }}
-                  search={search}
+                  search={chipSearch}
                   active={false}
                   label={content.categories[id]}
                   count={categoryCounts[id]}
@@ -377,7 +604,8 @@ export const Route = createFileRoute("/_gallery")({
     return { ...landing, jobs };
   },
   validateSearch: (search): GallerySearch => ({
-    type: z.enum(["prompt", "skill"]).safeParse(search.type).data,
+    type: findMotionType(z.string().safeParse(search.type).data),
+    model: MODELS.map(motionModelSlug).find((slug) => slug === search.model),
     sort: z.enum(["newest", "oldest"]).safeParse(search.sort).data,
   }),
 });

@@ -41,6 +41,7 @@ import type { DirectoryCategory } from "@/lib/directories";
 import { cn } from "@/lib/utils";
 import { createMetadata } from "@/seo/metadata";
 import { getBookmarks } from "@/server/bookmark-functions";
+import { getLandingData } from "@/server/functions";
 
 interface BookmarksSearch {
   kind?: BookmarkKind;
@@ -53,7 +54,7 @@ const routeApi = getRouteApi("/dashboard/bookmarks");
 const Bookmarks = () => {
   const content = useIntlayer("bookmarks-page");
   const directory = useIntlayer("resource-directory");
-  const saved = routeApi.useLoaderData();
+  const { saved } = routeApi.useLoaderData();
   const search = routeApi.useSearch();
   const bookmarks = useBookmarks();
   const navigate = routeApi.useNavigate();
@@ -98,7 +99,7 @@ const Bookmarks = () => {
             video={item.video}
             paused={openIndex !== -1}
             open={false}
-            category={undefined}
+            scope={undefined}
             search={{}}
             onOpen={() => openVideo(item.video.slug)}
             bookmarkAlwaysVisible
@@ -217,14 +218,18 @@ export const Route = createFileRoute("/dashboard/bookmarks")({
     kind: z.enum(BOOKMARK_KINDS).safeParse(search.kind).data,
     video: z.string().min(1).max(200).safeParse(search.video).data,
   }),
+  // `sponsors` feeds the video overlay's Diamond sidebar row (useSponsors).
   loader: async () => {
-    const saved = await getBookmarks();
+    const [saved, { sponsors }] = await Promise.all([
+      getBookmarks(),
+      getLandingData(),
+    ]);
     if (!saved) {
       throw redirect({
         search: { redirect: ROUTES.DASHBOARD_BOOKMARKS },
         to: ROUTES.SIGN_IN,
       });
     }
-    return saved;
+    return { saved, sponsors };
   },
 });

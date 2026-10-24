@@ -2,43 +2,63 @@ import { useEffect, useState } from "react";
 import { useIntlayer } from "react-intlayer";
 
 import { ExternalLinkChip } from "@/components/external-link-chip";
+import { SponsorDetailRow } from "@/components/sponsor-detail-row";
 import { FOUNDING_SPONSORS } from "@/constants/sponsors";
-import type { SponsorCategory } from "@/constants/sponsors";
-import { sameCategory, useSponsors } from "@/lib/sponsorships";
+import { useSponsors } from "@/lib/sponsorships";
 import { cn } from "@/lib/utils";
 import { withUtm } from "@/lib/utm";
 
 // How long each sponsor stays on the card before fading to the next.
 const ROTATE_MS = 6000;
 
+// UTM content and analytics name per placement. The feed keeps its original
+// names ("grid", "card") so earlier click data stays comparable.
+const TRACKING = {
+  feed: { utm: "grid", track: "card" },
+  sidebar: { utm: "sidebar", track: "sidebar" },
+} as const;
+
 /**
- * A sponsored tile for the grid: every Diamond sponsor (or, while there is
- * none, the founding sponsors), then on a category page that category's Gold
- * and Silver sponsors. Each cover fades into the
- * next on a timer, with a progress hairline along the bottom edge. The whole
- * card links straight to the showing sponsor.
+ * A sponsored placement: every Diamond sponsor first (or, while there is
+ * none, the founding sponsors), then Gold and Silver in the feed, as a cover
+ * card that fades to the next on a timer with a progress hairline along its
+ * bottom edge. No tier is tied to a category page. The detail sidebar shows
+ * only live Diamond sponsors, as the "Sponsored by" row of its details list
+ * (render it inside that `<dl>`), and nothing while there is none.
  */
 export const SponsoredCard = ({
-  category,
+  placement,
+  demo = false,
+  rowClassName,
 }: {
-  /** The category page being shown; `undefined` on "All" pages. */
-  category: SponsorCategory | undefined;
+  /** The video grid feed, or a detail view's sidebar. */
+  placement: keyof typeof TRACKING;
+  /**
+   * The /sponsor placement previews: the sidebar falls back to the founding
+   * sponsors too, so the preview is never empty. Clicks track as "preview".
+   */
+  demo?: boolean;
+  /** Sidebar only: spacing/type overrides for the row (compact previews). */
+  rowClassName?: string;
 }) => {
   const content = useIntlayer("motion-gallery");
   const live = useSponsors();
-  // Always Diamond first (the founding sponsors while there is none), then
-  // this category's Gold, then its Silver.
   const diamond = live.filter((entry) => entry.tier === "diamond");
-  const sponsors = [
-    ...(diamond.length > 0 ? diamond : FOUNDING_SPONSORS),
-    ...(["gold", "silver"] as const).flatMap((tier) =>
-      live.filter(
-        (entry) => entry.tier === tier && sameCategory(entry.category, category)
-      )
-    ),
-  ].flatMap((entry) => (entry.cover ? [{ ...entry, cover: entry.cover }] : []));
+  const gold = live.filter((entry) => entry.tier === "gold");
+  const silver = live.filter((entry) => entry.tier === "silver");
+  const fallback = diamond.length > 0 ? diamond : FOUNDING_SPONSORS;
+  // Founding sponsors fill the feed card on the live site; the sidebar only
+  // borrows them in the /sponsor preview.
+  const sidebar = demo ? fallback : diamond;
+  const sponsors =
+    placement === "sidebar"
+      ? [...sidebar]
+      : [...fallback, ...gold, ...silver].flatMap((entry) =>
+          entry.cover ? [{ ...entry, cover: entry.cover }] : []
+        );
+  const track = demo ? "preview" : TRACKING[placement].track;
   const [active, setActive] = useState(0);
-  // The list changes between category pages; stay within it.
+  // The list changes between pages; stay within it.
   const showing = active % Math.max(sponsors.length, 1);
   const sponsor = sponsors[showing];
 
@@ -59,13 +79,39 @@ export const SponsoredCard = ({
     return null;
   }
 
+  if (placement === "sidebar") {
+    // A "Sponsored by" row in the details list. With several Diamond
+    // sponsors, its hairline counts down each turn and the value fades to
+    // the next; the row itself (and its label) stays mounted.
+    return (
+      <SponsorDetailRow
+        label={content.sponsoredBy}
+        logo={sponsor.logo}
+        name={sponsor.name}
+        tagline={sponsor.tagline}
+        darkInvert={sponsor.darkInvert}
+        rotation={sponsors.length > 1 ? { key: active } : undefined}
+        className={rowClassName}
+        link={{
+          href: withUtm(sponsor.url, TRACKING.sidebar.utm),
+          target: "_blank",
+          rel: "sponsored noopener",
+          "data-track": "sponsor_click",
+          "data-track-placement": track,
+          "data-track-name": sponsor.name,
+          "aria-label": `${sponsor.name} (${content.sponsored.value})`,
+        }}
+      />
+    );
+  }
+
   return (
     <a
-      href={withUtm(sponsor.url, "grid")}
+      href={withUtm(sponsor.url, TRACKING[placement].utm)}
       target="_blank"
       rel="sponsored noopener"
       data-track="sponsor_click"
-      data-track-placement="card"
+      data-track-placement={track}
       data-track-name={sponsor.name}
       aria-label={`${sponsor.name} (${content.sponsored.value})`}
       className="group focus-visible:ring-ring shadow-outline relative block aspect-video overflow-hidden rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
@@ -73,7 +119,7 @@ export const SponsoredCard = ({
       {sponsors.map((entry, index) => (
         <img
           key={`${entry.name}:${entry.url}`}
-          src={entry.cover}
+          src={entry.cover ?? undefined}
           alt=""
           loading="lazy"
           decoding="async"
@@ -95,9 +141,11 @@ export const SponsoredCard = ({
         </span>
       </span>
       <span className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-linear-to-t from-black/70 to-transparent p-2.5 pt-6">
+        {/* Same chip as the slots and sidebar: white in light, inverse in
+            dark, with dark-on-transparent marks inverted to match. */}
         <span
           key={`${sponsor.name}:${sponsor.url}`}
-          className="flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white p-1 shadow-sm"
+          className="bg-background dark:bg-popover flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-full p-1 shadow-sm"
         >
           <img
             src={sponsor.logo}
@@ -107,7 +155,10 @@ export const SponsoredCard = ({
             loading="lazy"
             decoding="async"
             referrerPolicy="no-referrer"
-            className="size-full object-contain"
+            className={cn(
+              "size-full object-contain",
+              sponsor.darkInvert && "dark:invert"
+            )}
           />
         </span>
         <span className="flex min-w-0 flex-1 flex-col">
@@ -125,11 +176,11 @@ export const SponsoredCard = ({
       {sponsors.length > 1 && (
         <span
           aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-[3px] bg-white/20 motion-reduce:hidden"
+          className="absolute inset-x-0 bottom-0 h-0.5 bg-white/15 motion-reduce:hidden"
         >
           <span
             key={active}
-            className="animate-mv-rotate block h-full bg-white/90"
+            className="animate-mv-rotate bg-primary block h-full"
           />
         </span>
       )}

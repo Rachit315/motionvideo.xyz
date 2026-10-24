@@ -32,6 +32,22 @@ const SOURCES = [
   "Adamdesgns/status/2108994182312243442",
   "cesaralvarezll/status/2108198909977805148",
   "seeconvm/status/2106096193235259564",
+  "humzaakhalid/status/2105947929290936331",
+  "Khazix0918/status/2110587546271191166",
+  "AdrianPunk115/status/2110591812536803373",
+  "zhu185178/status/2110385140837056621",
+  "RaphaelAubryy/status/2111331094650069115",
+  "sleepclip/status/2112181238907769216",
+  "socialwithaayan/status/2112162508891201962",
+  "zhu185178/status/2112127321905762500",
+  "Mileson07/status/2112473015439208688",
+  "tkz_aiart/status/2112755280392212536",
+  "humzaakhalid/status/2112801267710095825",
+  "lemomo_ai/status/2113195080517562646",
+  "tobiadonadon_/status/2113352372001054721",
+  "rubenhassid/status/2110250601032659233",
+  "0xjmori/status/2111793914206171234",
+  "aiedge_/status/2112552093483671966",
 ];
 
 const output = path.resolve(

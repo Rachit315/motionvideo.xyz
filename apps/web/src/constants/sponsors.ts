@@ -1,5 +1,3 @@
-import type { SubmissionKind } from "@/lib/community";
-
 export const SPONSOR_TIERS = ["diamond", "gold", "silver"] as const;
 
 export type SponsorTier = (typeof SPONSOR_TIERS)[number];
@@ -19,12 +17,6 @@ export const SPONSOR_PRICE_USD: Record<SponsorTier, number> = {
 /** Days a one-off sponsorship stays live, counted from approval. */
 export const SPONSOR_ONCE_DAYS = 30;
 
-/** A section and one of its category slugs, e.g. `{ kind: "tool", slug: "ai" }`. */
-export interface SponsorCategory {
-  kind: SubmissionKind;
-  slug: string;
-}
-
 export interface Sponsor {
   name: string;
   tier: SponsorTier;
@@ -34,15 +26,14 @@ export interface Sponsor {
   /** Cover of the sponsored grid card (every tier). */
   cover: string | null;
   tagline?: string;
-  /** Gold and Silver: the category page the placement shows on. */
-  category?: SponsorCategory;
   /** Dark-on-transparent mark: invert it so it reads on dark backgrounds. */
   darkInvert?: boolean;
 }
 
 /**
  * A founding sponsor: credited on /sponsor, and shown in the sponsored grid
- * card only while no Diamond sponsor is live. Never in the sponsor slots.
+ * card only while no Diamond sponsor is live. Never in the live slots or
+ * sidebar; the /sponsor placement previews show them there as examples.
  */
 export type FoundingSponsor = Pick<
   Sponsor,
@@ -68,5 +59,8 @@ export const FOUNDING_SPONSORS: readonly FoundingSponsor[] = [
   },
 ];
 
-/** Diamond seats: the header shows this many marks or open invite slots. */
+/**
+ * Seats per tier (Diamond, Gold and Silver each): a tier sells out at this
+ * many paid runs. Also the number of slots under each page intro.
+ */
 export const SPONSOR_SLOTS = 3;

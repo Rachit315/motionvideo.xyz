@@ -10,7 +10,7 @@ import { XIcon } from "@/components/brand-icons";
 import { HeroHeader, PageMain } from "@/components/page";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { SponsorAudience } from "@/components/sponsor-audience";
+import { SponsorAudienceSection } from "@/components/sponsor-audience";
 import { SponsorPlacements } from "@/components/sponsor-placements";
 import {
   Accordion,
@@ -38,10 +38,7 @@ import { cn } from "@/lib/utils";
 import { withUtm } from "@/lib/utm";
 import { createMetadata } from "@/seo/metadata";
 import { getLandingData } from "@/server/functions";
-import {
-  getAudienceStats,
-  getDiamondSoldOut,
-} from "@/server/sponsorship-functions";
+import { getSoldOutTiers } from "@/server/sponsorship-functions";
 
 // Matches PageSection headings on the other company pages.
 const sectionTitle = "text-xl font-semibold tracking-tight";
@@ -88,8 +85,7 @@ const SponsorLink = ({ sponsor }: { sponsor: FoundingSponsor }) => (
 
 const Sponsor = () => {
   const content = useIntlayer("sponsor");
-  const { signedIn, sponsors, diamondSoldOut, audience } =
-    routeApi.useLoaderData();
+  const { signedIn, sponsors, soldOutTiers } = routeApi.useLoaderData();
 
   return (
     <>
@@ -118,22 +114,7 @@ const Sponsor = () => {
         />
 
         {/* Only real numbers: left out when analytics can't be read. */}
-        {audience && (
-          <section
-            aria-labelledby="audience"
-            className="flex w-full max-w-4xl flex-col gap-6"
-          >
-            <div className="flex flex-col items-center gap-2 text-center">
-              <h2 id="audience" className={sectionTitle}>
-                {content.audience}
-              </h2>
-              <p className="text-muted-foreground max-w-2xl text-sm text-pretty">
-                {content.audienceIntro}
-              </p>
-            </div>
-            <SponsorAudience stats={audience} />
-          </section>
-        )}
+        <SponsorAudienceSection />
 
         <section
           aria-labelledby="placements"
@@ -178,7 +159,7 @@ const Sponsor = () => {
               const tierSponsors = sponsors.filter(
                 (sponsor) => sponsor.tier === id
               );
-              const full = id === "diamond" && diamondSoldOut;
+              const full = soldOutTiers.includes(id);
               return (
                 <li
                   key={id}
@@ -286,7 +267,7 @@ const Sponsor = () => {
                       </ul>
                     </CardContent>
                     <CardFooter className="border-t-0 bg-transparent pt-0">
-                      {featured && diamondSoldOut ? (
+                      {soldOutTiers.includes(id) ? (
                         <Button
                           size="lg"
                           variant="outline"
@@ -386,12 +367,13 @@ const Sponsor = () => {
 export const Route = createFileRoute("/sponsor")({
   component: Sponsor,
   loader: async () => {
-    const [landing, diamondSoldOut, audience] = await Promise.all([
+    // The audience numbers are fetched in the browser with a skeleton: a slow
+    // PostHog query must never hold up navigation to this page.
+    const [landing, soldOutTiers] = await Promise.all([
       getLandingData(),
-      getDiamondSoldOut(),
-      getAudienceStats(),
+      getSoldOutTiers(),
     ]);
-    return { ...landing, diamondSoldOut, audience };
+    return { ...landing, soldOutTiers };
   },
   head: () =>
     createMetadata({

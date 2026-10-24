@@ -32,18 +32,6 @@ A directory of motion videos made with AI and code, with the prompts and skills 
 | Analytics | [PostHog](https://posthog.com) |
 | Tooling | [pnpm](https://pnpm.io), [Vite](https://vite.dev), [Oxlint](https://oxc.rs) + [Oxfmt](https://oxc.rs) via [Ultracite](https://www.ultracite.ai), [Lefthook](https://lefthook.dev) |
 
-## Repository
-
-A [pnpm workspace](https://pnpm.io/workspaces):
-
-| Path | What |
-| --- | --- |
-| `apps/web` | The motionvideo.xyz site (TanStack Start on Cloudflare Workers) |
-| `apps/videos` | Our own films ([Remotion](https://www.remotion.dev)): the launch film and every product update video. Each video lives in `src/<video>/` and registers its composition in `src/Root.tsx`. |
-| `docs` | Internal notes |
-
-Linting, formatting and git hooks run from the root (`pnpm check`, `pnpm fix`).
-
 ## Getting started
 
 ```bash

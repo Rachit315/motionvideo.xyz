@@ -7,6 +7,7 @@
     "predev": "node scripts/pull-fonts.mjs",
     "build": "vite build",
     "prebuild": "node scripts/pull-fonts.mjs",
+    "postbuild": "node scripts/link-root-deploy-config.mjs",
     "fonts:pull": "node scripts/pull-fonts.mjs",
     "dodo:setup": "node scripts/setup-dodo.mjs",
     "preview": "vite preview",

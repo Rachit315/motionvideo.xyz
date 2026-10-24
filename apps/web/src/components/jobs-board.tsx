@@ -54,7 +54,6 @@ export const JobsBoard = ({
           <ArrowRightUp aria-hidden="true" />
         </Link>
       }
-      sponsorCategory={undefined}
     />
   );
   const cards: MasonryItem[] = [
@@ -80,7 +79,7 @@ export const JobsBoard = ({
   items.splice(sponsoredIndex, 0, {
     key: "sponsored",
     aspectRatio: DIRECTORY_COVER_RATIO,
-    node: <SponsoredCard category={undefined} />,
+    node: <SponsoredCard placement="feed" />,
   });
 
   return (
