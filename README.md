@@ -14,6 +14,10 @@ A directory of motion videos made with AI and code, with the prompts and skills 
 
 [![GitHub stars](https://img.shields.io/github/stars/motionvideohq/motionvideo.xyz?style=flat-square)](https://github.com/motionvideohq/motionvideo.xyz/stargazers) [![CI](https://github.com/motionvideohq/motionvideo.xyz/actions/workflows/ci.yml/badge.svg)](https://github.com/motionvideohq/motionvideo.xyz/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/github/license/motionvideohq/motionvideo.xyz?style=flat-square)](LICENSE) [![Follow on X](https://img.shields.io/badge/Follow-%40motionvideohq-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/motionvideohq)
 
+<p align="center">
+  <sub><a href="docs/readme/README.zh-CN.md">中文</a> · <a href="docs/readme/README.ja.md">日本語</a> · <a href="docs/readme/README.ko.md">한국어</a> · <a href="docs/readme/README.es.md">Español</a> · <a href="docs/readme/README.fr.md">Français</a> · <a href="docs/readme/README.pt.md">Português</a> · <a href="docs/readme/README.de.md">Deutsch</a> · <a href="docs/readme/README.ru.md">Русский</a></sub>
+</p>
+
 </div>
 
 ---
@@ -23,7 +27,7 @@ A directory of motion videos made with AI and code, with the prompts and skills 
 | Area | Tools |
 | --- | --- |
 | Framework | [TanStack Start](https://tanstack.com/start) (React 19, file-based routing, server functions) |
-| UI | [shadcn/ui](https://ui.shadcn.com) on [Base UI](https://base-ui.com), [Tailwind CSS v4](https://tailwindcss.com), [intlayer](https://intlayer.org) (en, es, fr) |
+| UI | [shadcn/ui](https://ui.shadcn.com) on [Base UI](https://base-ui.com), [Tailwind CSS v4](https://tailwindcss.com), [intlayer](https://intlayer.org) |
 | Hosting | [Cloudflare Workers](https://workers.cloudflare.com) with Durable Objects (live presence), deployed with [Wrangler](https://developers.cloudflare.com/workers/wrangler/) and Workers Builds |
 | Data | [Cloudflare D1](https://developers.cloudflare.com/d1/) (SQLite) with [Drizzle ORM](https://orm.drizzle.team), [R2](https://developers.cloudflare.com/r2/) for video assets and uploads |
 | Auth | [Better Auth](https://www.better-auth.com) (email sign-in codes), [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/) |
