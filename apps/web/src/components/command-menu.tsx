@@ -18,6 +18,7 @@ import { Plug } from "reicon-react/icons/Plug";
 import { Plus } from "reicon-react/icons/Plus";
 import { Scroll } from "reicon-react/icons/Scroll";
 import { Search } from "reicon-react/icons/Search";
+import { Sliders } from "reicon-react/icons/Sliders";
 import { Sparkles } from "reicon-react/icons/Sparkles";
 import { Sun } from "reicon-react/icons/Sun";
 import { Undo } from "reicon-react/icons/Undo";
@@ -51,6 +52,7 @@ type PagePath =
   | "/creatives"
   | "/skills"
   | "/extras"
+  | "/customize"
   | "/jobs"
   | "/sponsor"
   | "/moves"
@@ -240,6 +242,12 @@ export const CommandMenu = () => {
             <Sparkles aria-hidden="true" />
           ),
           page("/extras", content.extras.value, <Plus aria-hidden="true" />),
+          page(
+            "/customize",
+            content.customize.value,
+            <Sliders aria-hidden="true" />,
+            ["prompt", "customize", "personalize"]
+          ),
           page("/jobs", content.jobs.value, <Briefcase aria-hidden="true" />, [
             "hiring",
             "career",

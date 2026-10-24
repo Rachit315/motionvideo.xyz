@@ -10,6 +10,7 @@ export const ROUTES = {
   CONSENT: "/consent",
   CONTACT: "/contact",
   CREATIVES: "/creatives",
+  CUSTOMIZE: "/customize",
   DASHBOARD: "/dashboard",
   DASHBOARD_BILLING: "/dashboard/billing",
   DASHBOARD_BOOKMARKS: "/dashboard/bookmarks",

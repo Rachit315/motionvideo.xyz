@@ -16,6 +16,7 @@ import { Route as BookmarksRouteImport } from './routes/bookmarks'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ConsentRouteImport } from './routes/consent'
 import { Route as CreativesRouteImport } from './routes/creatives'
+import { Route as CustomizeRouteImport } from './routes/customize'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ExtrasRouteImport } from './routes/extras'
 import { Route as FeaturedRouteImport } from './routes/featured'
@@ -51,6 +52,8 @@ import { Route as AdminSubmissionsRouteImport } from './routes/admin/submissions
 import { Route as ApiUploadRouteImport } from './routes/api/upload'
 import { Route as CreativesIndexRouteImport } from './routes/creatives/index'
 import { Route as CreativesCategoryRouteImport } from './routes/creatives/$category'
+import { Route as CustomizeIndexRouteImport } from './routes/customize/index'
+import { Route as CustomizeSlugRouteImport } from './routes/customize/$slug'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as DashboardBillingRouteImport } from './routes/dashboard/billing'
 import { Route as DashboardBookmarksRouteImport } from './routes/dashboard/bookmarks'
@@ -130,6 +133,11 @@ const ConsentRoute = ConsentRouteImport.update({
 const CreativesRoute = CreativesRouteImport.update({
   id: '/creatives',
   path: '/creatives',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomizeRoute = CustomizeRouteImport.update({
+  id: '/customize',
+  path: '/customize',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -306,6 +314,16 @@ const CreativesCategoryRoute = CreativesCategoryRouteImport.update({
   id: '/$category',
   path: '/$category',
   getParentRoute: () => CreativesRoute,
+} as any)
+const CustomizeIndexRoute = CustomizeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CustomizeRoute,
+} as any)
+const CustomizeSlugRoute = CustomizeSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => CustomizeRoute,
 } as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/',
@@ -556,6 +574,7 @@ export interface FileRoutesByFullPath {
   '/checkout': typeof CheckoutRoute
   '/consent': typeof ConsentRoute
   '/creatives': typeof CreativesRouteWithChildren
+  '/customize': typeof CustomizeRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
   '/extras': typeof ExtrasRouteWithChildren
   '/featured': typeof FeaturedRoute
@@ -588,6 +607,7 @@ export interface FileRoutesByFullPath {
   '/admin/submissions': typeof AdminSubmissionsRoute
   '/api/upload': typeof ApiUploadRoute
   '/creatives/$category': typeof CreativesCategoryRoute
+  '/customize/$slug': typeof CustomizeSlugRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/bookmarks': typeof DashboardBookmarksRoute
   '/dashboard/featured': typeof DashboardFeaturedRoute
@@ -605,6 +625,7 @@ export interface FileRoutesByFullPath {
   '/tools/$category': typeof ToolsCategoryRoute
   '/admin/': typeof AdminIndexRoute
   '/creatives/': typeof CreativesIndexRoute
+  '/customize/': typeof CustomizeIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/extras/': typeof ExtrasIndexRoute
@@ -670,6 +691,7 @@ export interface FileRoutesByTo {
   '/admin/submissions': typeof AdminSubmissionsRoute
   '/api/upload': typeof ApiUploadRoute
   '/creatives/$category': typeof CreativesCategoryRoute
+  '/customize/$slug': typeof CustomizeSlugRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/bookmarks': typeof DashboardBookmarksRoute
   '/dashboard/featured': typeof DashboardFeaturedRoute
@@ -686,6 +708,7 @@ export interface FileRoutesByTo {
   '/tools/$category': typeof ToolsCategoryRoute
   '/admin': typeof AdminIndexRoute
   '/creatives': typeof CreativesIndexRoute
+  '/customize': typeof CustomizeIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/docs': typeof DocsIndexRoute
   '/extras': typeof ExtrasIndexRoute
@@ -725,6 +748,7 @@ export interface FileRoutesById {
   '/checkout': typeof CheckoutRoute
   '/consent': typeof ConsentRoute
   '/creatives': typeof CreativesRouteWithChildren
+  '/customize': typeof CustomizeRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
   '/extras': typeof ExtrasRouteWithChildren
   '/featured': typeof FeaturedRoute
@@ -757,6 +781,7 @@ export interface FileRoutesById {
   '/admin/submissions': typeof AdminSubmissionsRoute
   '/api/upload': typeof ApiUploadRoute
   '/creatives/$category': typeof CreativesCategoryRoute
+  '/customize/$slug': typeof CustomizeSlugRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/bookmarks': typeof DashboardBookmarksRoute
   '/dashboard/featured': typeof DashboardFeaturedRoute
@@ -775,6 +800,7 @@ export interface FileRoutesById {
   '/_gallery/': typeof GalleryIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/creatives/': typeof CreativesIndexRoute
+  '/customize/': typeof CustomizeIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/extras/': typeof ExtrasIndexRoute
@@ -817,6 +843,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/consent'
     | '/creatives'
+    | '/customize'
     | '/dashboard'
     | '/extras'
     | '/featured'
@@ -849,6 +876,7 @@ export interface FileRouteTypes {
     | '/admin/submissions'
     | '/api/upload'
     | '/creatives/$category'
+    | '/customize/$slug'
     | '/dashboard/billing'
     | '/dashboard/bookmarks'
     | '/dashboard/featured'
@@ -866,6 +894,7 @@ export interface FileRouteTypes {
     | '/tools/$category'
     | '/admin/'
     | '/creatives/'
+    | '/customize/'
     | '/dashboard/'
     | '/docs/'
     | '/extras/'
@@ -931,6 +960,7 @@ export interface FileRouteTypes {
     | '/admin/submissions'
     | '/api/upload'
     | '/creatives/$category'
+    | '/customize/$slug'
     | '/dashboard/billing'
     | '/dashboard/bookmarks'
     | '/dashboard/featured'
@@ -947,6 +977,7 @@ export interface FileRouteTypes {
     | '/tools/$category'
     | '/admin'
     | '/creatives'
+    | '/customize'
     | '/dashboard'
     | '/docs'
     | '/extras'
@@ -985,6 +1016,7 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/consent'
     | '/creatives'
+    | '/customize'
     | '/dashboard'
     | '/extras'
     | '/featured'
@@ -1017,6 +1049,7 @@ export interface FileRouteTypes {
     | '/admin/submissions'
     | '/api/upload'
     | '/creatives/$category'
+    | '/customize/$slug'
     | '/dashboard/billing'
     | '/dashboard/bookmarks'
     | '/dashboard/featured'
@@ -1035,6 +1068,7 @@ export interface FileRouteTypes {
     | '/_gallery/'
     | '/admin/'
     | '/creatives/'
+    | '/customize/'
     | '/dashboard/'
     | '/docs/'
     | '/extras/'
@@ -1077,6 +1111,7 @@ export interface RootRouteChildren {
   CheckoutRoute: typeof CheckoutRoute
   ConsentRoute: typeof ConsentRoute
   CreativesRoute: typeof CreativesRouteWithChildren
+  CustomizeRoute: typeof CustomizeRouteWithChildren
   DashboardRoute: typeof DashboardRouteWithChildren
   ExtrasRoute: typeof ExtrasRouteWithChildren
   FeaturedRoute: typeof FeaturedRoute
@@ -1165,6 +1200,13 @@ declare module '@tanstack/react-router' {
       path: '/creatives'
       fullPath: '/creatives'
       preLoaderRoute: typeof CreativesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customize': {
+      id: '/customize'
+      path: '/customize'
+      fullPath: '/customize'
+      preLoaderRoute: typeof CustomizeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -1411,6 +1453,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/creatives/$category'
       preLoaderRoute: typeof CreativesCategoryRouteImport
       parentRoute: typeof CreativesRoute
+    }
+    '/customize/': {
+      id: '/customize/'
+      path: '/'
+      fullPath: '/customize/'
+      preLoaderRoute: typeof CustomizeIndexRouteImport
+      parentRoute: typeof CustomizeRoute
+    }
+    '/customize/$slug': {
+      id: '/customize/$slug'
+      path: '/$slug'
+      fullPath: '/customize/$slug'
+      preLoaderRoute: typeof CustomizeSlugRouteImport
+      parentRoute: typeof CustomizeRoute
     }
     '/dashboard/': {
       id: '/dashboard/'
@@ -1859,6 +1915,20 @@ const CreativesRouteWithChildren = CreativesRoute._addFileChildren(
   CreativesRouteChildren,
 )
 
+interface CustomizeRouteChildren {
+  CustomizeSlugRoute: typeof CustomizeSlugRoute
+  CustomizeIndexRoute: typeof CustomizeIndexRoute
+}
+
+const CustomizeRouteChildren: CustomizeRouteChildren = {
+  CustomizeSlugRoute: CustomizeSlugRoute,
+  CustomizeIndexRoute: CustomizeIndexRoute,
+}
+
+const CustomizeRouteWithChildren = CustomizeRoute._addFileChildren(
+  CustomizeRouteChildren,
+)
+
 interface DashboardRouteChildren {
   DashboardBillingRoute: typeof DashboardBillingRoute
   DashboardBookmarksRoute: typeof DashboardBookmarksRoute
@@ -1963,6 +2033,7 @@ const rootRouteChildren: RootRouteChildren = {
   CheckoutRoute: CheckoutRoute,
   ConsentRoute: ConsentRoute,
   CreativesRoute: CreativesRouteWithChildren,
+  CustomizeRoute: CustomizeRouteWithChildren,
   DashboardRoute: DashboardRouteWithChildren,
   ExtrasRoute: ExtrasRouteWithChildren,
   FeaturedRoute: FeaturedRoute,
