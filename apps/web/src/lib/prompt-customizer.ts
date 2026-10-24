@@ -81,6 +81,13 @@ const DIAL_LINES: Record<DialKey, readonly string[]> = {
   ],
 };
 
+/** The lines a set of dials adds, in dial order. */
+const dialLines = (dials: Dials) =>
+  DIAL_KEYS.flatMap((dial) => {
+    const line = DIAL_LINES[dial][dials[dial]];
+    return line ? [line] : [];
+  });
+
 /**
  * The reader's details and dials as one `<my-brief>` block, to append after
  * a prompt from the gallery; empty when they change nothing. Where they
@@ -92,13 +99,101 @@ export const promptBrief = (details: Details, dials: Dials) => {
       const value = details[key]?.trim();
       return value ? [DETAIL_LINES[key](value)] : [];
     }),
-    ...DIAL_KEYS.flatMap((dial) => {
-      const line = DIAL_LINES[dial][dials[dial]];
-      return line ? [line] : [];
-    }),
+    ...dialLines(dials),
   ];
   if (lines.length === 0) {
     return "";
   }
   return `<my-brief>\nUse the prompt above with these changes. Where they conflict with it, follow these:\n${lines.map((line) => `- ${line}`).join("\n")}\n</my-brief>`;
+};
+
+/** A slot in a template prompt, written `{{key}}` in its text. */
+export interface TemplateField {
+  key: string;
+  label: string;
+  /** What the prompt says when the field is left empty. */
+  placeholder: string;
+  hint: string;
+  kind: "text" | "number" | "size";
+}
+
+/**
+ * A run of filled-in template text. `mark`: a field's value (`filled`), its
+ * placeholder (`placeholder`), or the dial lines (`dials`); plain text has
+ * none.
+ */
+export interface PromptSegment {
+  /** Unique within one fill: where the run starts in the template. */
+  key: string;
+  text: string;
+  mark?: "filled" | "placeholder" | "dials";
+}
+
+// Plain text and slots of one stretch of a template, `offset` characters in.
+const fillSlots = (
+  text: string,
+  offset: number,
+  fields: ReadonlyMap<string, TemplateField>,
+  values: Readonly<Record<string, string>>
+): PromptSegment[] => {
+  const segments: PromptSegment[] = [];
+  let last = 0;
+  for (const match of text.matchAll(/\{\{(?<key>\w+)\}\}/gu)) {
+    const field = fields.get(match.groups?.key ?? "");
+    if (!field) {
+      // Not a field: the braces stay in the text as written.
+      continue;
+    }
+    if (match.index > last) {
+      segments.push({
+        key: String(offset + last),
+        text: text.slice(last, match.index),
+      });
+    }
+    const value = values[field.key]?.trim();
+    segments.push({
+      key: String(offset + match.index),
+      mark: value ? "filled" : "placeholder",
+      text: value || field.placeholder,
+    });
+    last = match.index + match[0].length;
+  }
+  if (last < text.length) {
+    segments.push({ key: String(offset + last), text: text.slice(last) });
+  }
+  return segments;
+};
+
+/**
+ * Fills a template's slots with the reader's values (or each field's
+ * placeholder), split into runs so the page can highlight what the fields
+ * and dials changed. The dial lines go at the end of the `dialSection`
+ * section, or after the prompt when it has no such section.
+ */
+export const fillTemplate = (
+  template: string,
+  fields: readonly TemplateField[],
+  values: Readonly<Record<string, string>>,
+  dials: Dials,
+  dialSection: string
+): PromptSegment[] => {
+  const byKey = new Map(fields.map((field) => [field.key, field]));
+  const lines = dialLines(dials);
+  if (lines.length === 0) {
+    return fillSlots(template, 0, byKey, values);
+  }
+  const dialText = lines.join("\n");
+  const closing = template.indexOf(`</${dialSection}>`);
+  if (closing === -1) {
+    return [
+      ...fillSlots(template.trimEnd(), 0, byKey, values),
+      { key: "gap", text: "\n\n" },
+      { key: "dials", mark: "dials", text: dialText },
+    ];
+  }
+  return [
+    ...fillSlots(template.slice(0, closing), 0, byKey, values),
+    { key: "dials", mark: "dials", text: `${dialText}\n` },
+    ...fillSlots(template.slice(closing), closing, byKey, values),
+  ];
 };

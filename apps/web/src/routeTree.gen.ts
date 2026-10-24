@@ -34,6 +34,7 @@ import { Route as SkillsRouteImport } from './routes/skills'
 import { Route as SponsorRouteImport } from './routes/sponsor'
 import { Route as StudiosRouteImport } from './routes/studios'
 import { Route as SubmitRouteImport } from './routes/submit'
+import { Route as TemplatesRouteImport } from './routes/templates'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as WelcomeRouteImport } from './routes/welcome'
 import { Route as DotwellKnownSplatRouteImport } from './routes/[.]well-known.$'
@@ -75,6 +76,7 @@ import { Route as SkillsIndexRouteImport } from './routes/skills/index'
 import { Route as SkillsCategoryRouteImport } from './routes/skills/$category'
 import { Route as SponsorshipsIndexRouteImport } from './routes/sponsorships/index'
 import { Route as SponsorshipsNewRouteImport } from './routes/sponsorships/new'
+import { Route as TemplatesIndexRouteImport } from './routes/templates/index'
 import { Route as ToolsIndexRouteImport } from './routes/tools/index'
 import { Route as ToolsCategoryRouteImport } from './routes/tools/$category'
 import { Route as GalleryCategoryCategoryRouteImport } from './routes/_gallery/category.$category'
@@ -93,6 +95,8 @@ import { Route as DashboardSponsorshipsIndexRouteImport } from './routes/dashboa
 import { Route as DashboardSponsorshipsNewRouteImport } from './routes/dashboard/sponsorships/new'
 import { Route as MovesFamilyIndexRouteImport } from './routes/moves/$family.index'
 import { Route as MovesFamilySlugRouteImport } from './routes/moves/$family.$slug'
+import { Route as TemplatesTemplateIdIndexRouteImport } from './routes/templates/$templateId.index'
+import { Route as TemplatesTemplateIdCustomizeRouteImport } from './routes/templates/$templateId.customize'
 import { Route as GalleryCategoryCategoryIndexRouteImport } from './routes/_gallery/category.$category.index'
 import { Route as GalleryModelModelIndexRouteImport } from './routes/_gallery/model.$model.index'
 import { Route as GalleryTypeTypeIndexRouteImport } from './routes/_gallery/type.$type.index'
@@ -223,6 +227,11 @@ const StudiosRoute = StudiosRouteImport.update({
 const SubmitRoute = SubmitRouteImport.update({
   id: '/submit',
   path: '/submit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TemplatesRoute = TemplatesRouteImport.update({
+  id: '/templates',
+  path: '/templates',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ToolsRoute = ToolsRouteImport.update({
@@ -430,6 +439,11 @@ const SponsorshipsNewRoute = SponsorshipsNewRouteImport.update({
   path: '/sponsorships/new',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TemplatesIndexRoute = TemplatesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TemplatesRoute,
+} as any)
 const ToolsIndexRoute = ToolsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -522,6 +536,18 @@ const MovesFamilySlugRoute = MovesFamilySlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => MovesFamilyRoute,
 } as any)
+const TemplatesTemplateIdIndexRoute =
+  TemplatesTemplateIdIndexRouteImport.update({
+    id: '/$templateId/',
+    path: '/$templateId/',
+    getParentRoute: () => TemplatesRoute,
+  } as any)
+const TemplatesTemplateIdCustomizeRoute =
+  TemplatesTemplateIdCustomizeRouteImport.update({
+    id: '/$templateId/customize',
+    path: '/$templateId/customize',
+    getParentRoute: () => TemplatesRoute,
+  } as any)
 const GalleryCategoryCategoryIndexRoute =
   GalleryCategoryCategoryIndexRouteImport.update({
     id: '/',
@@ -592,6 +618,7 @@ export interface FileRoutesByFullPath {
   '/sponsor': typeof SponsorRoute
   '/studios': typeof StudiosRoute
   '/submit': typeof SubmitRoute
+  '/templates': typeof TemplatesRouteWithChildren
   '/tools': typeof ToolsRouteWithChildren
   '/welcome': typeof WelcomeRoute
   '/.well-known/$': typeof DotwellKnownSplatRoute
@@ -633,6 +660,7 @@ export interface FileRoutesByFullPath {
   '/moves/': typeof MovesIndexRoute
   '/skills/': typeof SkillsIndexRoute
   '/sponsorships/': typeof SponsorshipsIndexRoute
+  '/templates/': typeof TemplatesIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/category/$category': typeof GalleryCategoryCategoryRouteWithChildren
   '/model/$model': typeof GalleryModelModelRouteWithChildren
@@ -646,10 +674,12 @@ export interface FileRoutesByFullPath {
   '/dashboard/jobs/post': typeof DashboardJobsPostRoute
   '/dashboard/sponsorships/new': typeof DashboardSponsorshipsNewRoute
   '/moves/$family/$slug': typeof MovesFamilySlugRoute
+  '/templates/$templateId/customize': typeof TemplatesTemplateIdCustomizeRoute
   '/api/catalog/': typeof ApiCatalogIndexRoute
   '/api/moves/': typeof ApiMovesIndexRoute
   '/dashboard/sponsorships/': typeof DashboardSponsorshipsIndexRoute
   '/moves/$family/': typeof MovesFamilyIndexRoute
+  '/templates/$templateId/': typeof TemplatesTemplateIdIndexRoute
   '/api/mcp/moves/$slug': typeof ApiMcpMovesSlugRoute
   '/category/$category/': typeof GalleryCategoryCategoryIndexRoute
   '/model/$model/': typeof GalleryModelModelIndexRoute
@@ -716,6 +746,7 @@ export interface FileRoutesByTo {
   '/moves': typeof MovesIndexRoute
   '/skills': typeof SkillsIndexRoute
   '/sponsorships': typeof SponsorshipsIndexRoute
+  '/templates': typeof TemplatesIndexRoute
   '/tools': typeof ToolsIndexRoute
   '/videos/$slug': typeof GalleryVideosSlugRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -726,10 +757,12 @@ export interface FileRoutesByTo {
   '/dashboard/jobs/post': typeof DashboardJobsPostRoute
   '/dashboard/sponsorships/new': typeof DashboardSponsorshipsNewRoute
   '/moves/$family/$slug': typeof MovesFamilySlugRoute
+  '/templates/$templateId/customize': typeof TemplatesTemplateIdCustomizeRoute
   '/api/catalog': typeof ApiCatalogIndexRoute
   '/api/moves': typeof ApiMovesIndexRoute
   '/dashboard/sponsorships': typeof DashboardSponsorshipsIndexRoute
   '/moves/$family': typeof MovesFamilyIndexRoute
+  '/templates/$templateId': typeof TemplatesTemplateIdIndexRoute
   '/api/mcp/moves/$slug': typeof ApiMcpMovesSlugRoute
   '/category/$category': typeof GalleryCategoryCategoryIndexRoute
   '/model/$model': typeof GalleryModelModelIndexRoute
@@ -766,6 +799,7 @@ export interface FileRoutesById {
   '/sponsor': typeof SponsorRoute
   '/studios': typeof StudiosRoute
   '/submit': typeof SubmitRoute
+  '/templates': typeof TemplatesRouteWithChildren
   '/tools': typeof ToolsRouteWithChildren
   '/welcome': typeof WelcomeRoute
   '/.well-known/$': typeof DotwellKnownSplatRoute
@@ -808,6 +842,7 @@ export interface FileRoutesById {
   '/moves/': typeof MovesIndexRoute
   '/skills/': typeof SkillsIndexRoute
   '/sponsorships/': typeof SponsorshipsIndexRoute
+  '/templates/': typeof TemplatesIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/_gallery/category/$category': typeof GalleryCategoryCategoryRouteWithChildren
   '/_gallery/model/$model': typeof GalleryModelModelRouteWithChildren
@@ -821,10 +856,12 @@ export interface FileRoutesById {
   '/dashboard/jobs/post': typeof DashboardJobsPostRoute
   '/dashboard/sponsorships/new': typeof DashboardSponsorshipsNewRoute
   '/moves/$family/$slug': typeof MovesFamilySlugRoute
+  '/templates/$templateId/customize': typeof TemplatesTemplateIdCustomizeRoute
   '/api/catalog/': typeof ApiCatalogIndexRoute
   '/api/moves/': typeof ApiMovesIndexRoute
   '/dashboard/sponsorships/': typeof DashboardSponsorshipsIndexRoute
   '/moves/$family/': typeof MovesFamilyIndexRoute
+  '/templates/$templateId/': typeof TemplatesTemplateIdIndexRoute
   '/api/mcp/moves/$slug': typeof ApiMcpMovesSlugRoute
   '/_gallery/category/$category/': typeof GalleryCategoryCategoryIndexRoute
   '/_gallery/model/$model/': typeof GalleryModelModelIndexRoute
@@ -861,6 +898,7 @@ export interface FileRouteTypes {
     | '/sponsor'
     | '/studios'
     | '/submit'
+    | '/templates'
     | '/tools'
     | '/welcome'
     | '/.well-known/$'
@@ -902,6 +940,7 @@ export interface FileRouteTypes {
     | '/moves/'
     | '/skills/'
     | '/sponsorships/'
+    | '/templates/'
     | '/tools/'
     | '/category/$category'
     | '/model/$model'
@@ -915,10 +954,12 @@ export interface FileRouteTypes {
     | '/dashboard/jobs/post'
     | '/dashboard/sponsorships/new'
     | '/moves/$family/$slug'
+    | '/templates/$templateId/customize'
     | '/api/catalog/'
     | '/api/moves/'
     | '/dashboard/sponsorships/'
     | '/moves/$family/'
+    | '/templates/$templateId/'
     | '/api/mcp/moves/$slug'
     | '/category/$category/'
     | '/model/$model/'
@@ -985,6 +1026,7 @@ export interface FileRouteTypes {
     | '/moves'
     | '/skills'
     | '/sponsorships'
+    | '/templates'
     | '/tools'
     | '/videos/$slug'
     | '/api/auth/$'
@@ -995,10 +1037,12 @@ export interface FileRouteTypes {
     | '/dashboard/jobs/post'
     | '/dashboard/sponsorships/new'
     | '/moves/$family/$slug'
+    | '/templates/$templateId/customize'
     | '/api/catalog'
     | '/api/moves'
     | '/dashboard/sponsorships'
     | '/moves/$family'
+    | '/templates/$templateId'
     | '/api/mcp/moves/$slug'
     | '/category/$category'
     | '/model/$model'
@@ -1034,6 +1078,7 @@ export interface FileRouteTypes {
     | '/sponsor'
     | '/studios'
     | '/submit'
+    | '/templates'
     | '/tools'
     | '/welcome'
     | '/.well-known/$'
@@ -1076,6 +1121,7 @@ export interface FileRouteTypes {
     | '/moves/'
     | '/skills/'
     | '/sponsorships/'
+    | '/templates/'
     | '/tools/'
     | '/_gallery/category/$category'
     | '/_gallery/model/$model'
@@ -1089,10 +1135,12 @@ export interface FileRouteTypes {
     | '/dashboard/jobs/post'
     | '/dashboard/sponsorships/new'
     | '/moves/$family/$slug'
+    | '/templates/$templateId/customize'
     | '/api/catalog/'
     | '/api/moves/'
     | '/dashboard/sponsorships/'
     | '/moves/$family/'
+    | '/templates/$templateId/'
     | '/api/mcp/moves/$slug'
     | '/_gallery/category/$category/'
     | '/_gallery/model/$model/'
@@ -1129,6 +1177,7 @@ export interface RootRouteChildren {
   SponsorRoute: typeof SponsorRoute
   StudiosRoute: typeof StudiosRoute
   SubmitRoute: typeof SubmitRoute
+  TemplatesRoute: typeof TemplatesRouteWithChildren
   ToolsRoute: typeof ToolsRouteWithChildren
   WelcomeRoute: typeof WelcomeRoute
   DotwellKnownSplatRoute: typeof DotwellKnownSplatRoute
@@ -1326,6 +1375,13 @@ declare module '@tanstack/react-router' {
       path: '/submit'
       fullPath: '/submit'
       preLoaderRoute: typeof SubmitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/templates': {
+      id: '/templates'
+      path: '/templates'
+      fullPath: '/templates'
+      preLoaderRoute: typeof TemplatesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tools': {
@@ -1615,6 +1671,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SponsorshipsNewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/templates/': {
+      id: '/templates/'
+      path: '/'
+      fullPath: '/templates/'
+      preLoaderRoute: typeof TemplatesIndexRouteImport
+      parentRoute: typeof TemplatesRoute
+    }
     '/tools/': {
       id: '/tools/'
       path: '/'
@@ -1740,6 +1803,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/moves/$family/$slug'
       preLoaderRoute: typeof MovesFamilySlugRouteImport
       parentRoute: typeof MovesFamilyRoute
+    }
+    '/templates/$templateId/': {
+      id: '/templates/$templateId/'
+      path: '/$templateId'
+      fullPath: '/templates/$templateId/'
+      preLoaderRoute: typeof TemplatesTemplateIdIndexRouteImport
+      parentRoute: typeof TemplatesRoute
+    }
+    '/templates/$templateId/customize': {
+      id: '/templates/$templateId/customize'
+      path: '/$templateId/customize'
+      fullPath: '/templates/$templateId/customize'
+      preLoaderRoute: typeof TemplatesTemplateIdCustomizeRouteImport
+      parentRoute: typeof TemplatesRoute
     }
     '/_gallery/category/$category/': {
       id: '/_gallery/category/$category/'
@@ -2013,6 +2090,22 @@ const SkillsRouteChildren: SkillsRouteChildren = {
 const SkillsRouteWithChildren =
   SkillsRoute._addFileChildren(SkillsRouteChildren)
 
+interface TemplatesRouteChildren {
+  TemplatesIndexRoute: typeof TemplatesIndexRoute
+  TemplatesTemplateIdCustomizeRoute: typeof TemplatesTemplateIdCustomizeRoute
+  TemplatesTemplateIdIndexRoute: typeof TemplatesTemplateIdIndexRoute
+}
+
+const TemplatesRouteChildren: TemplatesRouteChildren = {
+  TemplatesIndexRoute: TemplatesIndexRoute,
+  TemplatesTemplateIdCustomizeRoute: TemplatesTemplateIdCustomizeRoute,
+  TemplatesTemplateIdIndexRoute: TemplatesTemplateIdIndexRoute,
+}
+
+const TemplatesRouteWithChildren = TemplatesRoute._addFileChildren(
+  TemplatesRouteChildren,
+)
+
 interface ToolsRouteChildren {
   ToolsCategoryRoute: typeof ToolsCategoryRoute
   ToolsIndexRoute: typeof ToolsIndexRoute
@@ -2051,6 +2144,7 @@ const rootRouteChildren: RootRouteChildren = {
   SponsorRoute: SponsorRoute,
   StudiosRoute: StudiosRoute,
   SubmitRoute: SubmitRoute,
+  TemplatesRoute: TemplatesRouteWithChildren,
   ToolsRoute: ToolsRouteWithChildren,
   WelcomeRoute: WelcomeRoute,
   DotwellKnownSplatRoute: DotwellKnownSplatRoute,

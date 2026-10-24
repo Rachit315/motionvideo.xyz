@@ -51,7 +51,9 @@ import type {
   GallerySearch,
   MotionVideo,
 } from "@/lib/motion-catalog";
+import { templateForVideo } from "@/lib/prompt-templates";
 import { promptFor } from "@/lib/prompt-translations";
+import type { PromptLanguage } from "@/lib/prompt-translations";
 import { relativeDate } from "@/lib/relative-date";
 import { cn } from "@/lib/utils";
 
@@ -750,6 +752,37 @@ export const OverlayPlayer = ({
   );
 };
 
+/** Which language a translated prompt came from, and a switch back to it. */
+const TranslationToggle = ({
+  language,
+  showOriginal,
+  onToggle,
+}: {
+  language: PromptLanguage;
+  showOriginal: boolean;
+  onToggle: () => void;
+}) => {
+  const content = useIntlayer("motion-gallery");
+  return (
+    <p className="text-muted-foreground flex items-center gap-2 text-xs">
+      <span
+        title={
+          showOriginal
+            ? content.originalIn[language].value
+            : content.translatedFrom[language].value
+        }
+      >
+        {LANGUAGE_NAMES[language]}
+        {!showOriginal && " → EN"}
+      </span>
+      <span aria-hidden="true">·</span>
+      <button type="button" className={PROMPT_LINK} onClick={onToggle}>
+        {showOriginal ? content.showTranslation : content.showOriginal}
+      </button>
+    </p>
+  );
+};
+
 /**
  * The detail view's prompt: copy button and folded text. English visitors
  * get a translation of non-English prompts, with "Show original" to switch
@@ -763,6 +796,7 @@ const PromptSection = ({ video }: { video: MotionVideo }) => {
   >("idle");
   const [showOriginal, setShowOriginal] = useState(false);
   const translated = promptFor(video, locale);
+  const template = templateForVideo(video.slug);
   const prompt =
     translated?.translatedFrom && showOriginal
       ? { text: video.prompt ?? translated.text }
@@ -810,29 +844,31 @@ const PromptSection = ({ video }: { video: MotionVideo }) => {
           prompt={prompt.text}
           lang={prompt.translatedFrom ? "en" : translated?.translatedFrom}
           aside={
-            translated?.translatedFrom && (
-              <p className="text-muted-foreground flex items-center gap-2 text-xs">
-                <span
-                  title={
-                    showOriginal
-                      ? content.originalIn[translated.translatedFrom].value
-                      : content.translatedFrom[translated.translatedFrom].value
-                  }
-                >
-                  {LANGUAGE_NAMES[translated.translatedFrom]}
-                  {!showOriginal && " → EN"}
-                </span>
-                <span aria-hidden="true">·</span>
-                <button
-                  type="button"
-                  className={PROMPT_LINK}
-                  onClick={() => setShowOriginal(!showOriginal)}
-                >
-                  {showOriginal
-                    ? content.showTranslation
-                    : content.showOriginal}
-                </button>
-              </p>
+            (translated?.translatedFrom || template) && (
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+                {translated?.translatedFrom && (
+                  <TranslationToggle
+                    language={translated.translatedFrom}
+                    showOriginal={showOriginal}
+                    onToggle={() => setShowOriginal(!showOriginal)}
+                  />
+                )}
+                {/* Made with the prompt a template grew from: link to it. */}
+                {template && (
+                  <Link
+                    to="/templates/$templateId"
+                    params={{ templateId: template.id }}
+                    title={template.name}
+                    data-track="template_link_click"
+                    data-track-template={template.id}
+                    data-track-slug={video.slug}
+                    className={PROMPT_LINK}
+                  >
+                    {content.template}
+                    <ArrowRightUp aria-hidden="true" className="size-3.5" />
+                  </Link>
+                )}
+              </div>
             )
           }
         />

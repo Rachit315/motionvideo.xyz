@@ -9,6 +9,7 @@ import { Designtools } from "reicon-react/icons/Designtools";
 import { Docs } from "reicon-react/icons/Docs";
 import { Envelope } from "reicon-react/icons/Envelope";
 import { HandHeart } from "reicon-react/icons/HandHeart";
+import { Layout } from "reicon-react/icons/Layout";
 import { Lock } from "reicon-react/icons/Lock";
 import { Monitor } from "reicon-react/icons/Monitor";
 import { Moon } from "reicon-react/icons/Moon";
@@ -56,6 +57,7 @@ type PagePath =
   | "/jobs"
   | "/sponsor"
   | "/moves"
+  | "/templates"
   | "/docs"
   | "/motionvideo-mcp"
   | "/motionvideo-skill"
@@ -258,6 +260,12 @@ export const CommandMenu = () => {
             "prompts",
             "easing",
           ]),
+          page(
+            "/templates",
+            content.templates.value,
+            <Layout aria-hidden="true" />,
+            ["prompt", "template", "pro"]
+          ),
           page(
             "/motionvideo-mcp",
             content.mcp.value,

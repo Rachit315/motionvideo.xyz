@@ -391,6 +391,18 @@ export default {
       pt: "O prompt não está publicado nesta coleção. Consulta a publicação original do criador para mais contexto.",
       ru: "Промпт не опубликован в этой коллекции. Подробности смотрите в оригинальном посте автора.",
     }),
+    // Below a prompt that a template grew from: links to the template.
+    template: t({
+      en: "Template",
+      es: "Plantilla",
+      fr: "Modèle",
+      zh: "模板",
+      ko: "템플릿",
+      ja: "テンプレート",
+      de: "Vorlage",
+      pt: "Modelo",
+      ru: "Шаблон",
+    }),
     // Above a prompt shown in English translation (English locale only),
     // by the original's language.
     translatedFrom: {

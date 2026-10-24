@@ -162,6 +162,18 @@ export default {
       pt: "Como no prompt",
       ru: "Как в промпте",
     }),
+    // A template's size field left empty: the template's own size follows.
+    sizeDefault: t({
+      en: "Default",
+      es: "Predeterminado",
+      fr: "Par défaut",
+      zh: "默认",
+      ko: "기본값",
+      ja: "デフォルト",
+      de: "Standard",
+      pt: "Predefinição",
+      ru: "По умолчанию",
+    }),
     sizeNames: {
       "1920x1080": t({
         en: "Landscape 16:9",
@@ -461,6 +473,17 @@ export default {
       de: "Der markierte Teil am Ende stammt aus deinen Angaben und Reglern. Wo er dem Prompt widerspricht, hat er Vorrang.",
       pt: "A parte destacada no fim é acrescentada a partir dos teus dados e controlos. Quando entra em conflito com o prompt, é ela que prevalece.",
       ru: "Выделенная часть в конце добавлена из ваших данных и регуляторов. Если она расходится с промптом, приоритет у неё.",
+    }),
+    templateIntro: t({
+      en: "Highlighted parts come from your fields and dials. Empty fields keep the default, shown faintly in the prompt.",
+      es: "Las partes resaltadas salen de tus campos y controles. Los campos vacíos mantienen el valor predeterminado, que se ve atenuado en la instrucción.",
+      fr: "Les parties surlignées viennent de vos champs et réglages. Un champ vide garde la valeur par défaut, affichée en clair dans l’instruction.",
+      zh: "高亮部分来自你填写的字段和调节。留空的字段保留默认值，在提示词中以浅色显示。",
+      ko: "강조 표시된 부분은 입력한 필드와 다이얼에서 가져온 내용입니다. 빈 필드는 프롬프트에 흐리게 표시된 기본값을 유지합니다.",
+      ja: "ハイライト部分は、入力したフィールドとダイヤルの内容です。空欄のフィールドは、プロンプト内に薄く表示されたデフォルトのままになります。",
+      de: "Markierte Teile stammen aus deinen Feldern und Reglern. Leere Felder behalten den Standardwert, der im Prompt blass angezeigt wird.",
+      pt: "As partes destacadas vêm dos teus campos e controlos. Os campos vazios mantêm o valor predefinido, mostrado mais claro no prompt.",
+      ru: "Выделенные части взяты из ваших полей и регуляторов. Пустые поля сохраняют значение по умолчанию — оно показано в промпте бледным.",
     }),
     runWith: t({
       en: "For best results, run it with",

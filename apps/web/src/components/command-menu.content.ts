@@ -246,6 +246,17 @@ export default {
       pt: "Moves",
       ru: "Приёмы",
     }),
+    templates: t({
+      en: "Templates",
+      es: "Plantillas",
+      fr: "Modèles",
+      zh: "模板",
+      ko: "템플릿",
+      ja: "テンプレート",
+      de: "Vorlagen",
+      pt: "Modelos",
+      ru: "Шаблоны",
+    }),
     about: t({
       en: "About",
       es: "Acerca de",
