@@ -6,17 +6,18 @@
 
 # MotionVideo
 
-**Motion design, written in code.**
-
-A directory of motion videos made with AI and code, with the prompts and skills behind them.<br /> Plus agent skills that teach your coding agent timing, easing, and choreography.
-
-[Website](https://motionvideo.xyz) · [About](https://motionvideo.xyz/about) · [Contact](https://motionvideo.xyz/contact) · [Sponsor](https://motionvideo.xyz/sponsor)
-
-[![GitHub stars](https://img.shields.io/github/stars/motionvideohq/motionvideo.xyz?style=flat-square)](https://github.com/motionvideohq/motionvideo.xyz/stargazers) [![CI](https://github.com/motionvideohq/motionvideo.xyz/actions/workflows/ci.yml/badge.svg)](https://github.com/motionvideohq/motionvideo.xyz/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/github/license/motionvideohq/motionvideo.xyz?style=flat-square)](LICENSE) [![Follow on X](https://img.shields.io/badge/Follow-%40motionvideohq-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/motionvideohq)
+[![GitHub stars](https://img.shields.io/github/stars/motionvideohq/motionvideo.xyz?style=flat)](https://github.com/motionvideohq/motionvideo.xyz/stargazers) [![CI](https://github.com/motionvideohq/motionvideo.xyz/actions/workflows/ci.yml/badge.svg)](https://github.com/motionvideohq/motionvideo.xyz/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/github/license/motionvideohq/motionvideo.xyz?style=flat)](LICENSE) [![Follow on X](https://img.shields.io/badge/Follow-%40motionvideohq-000000?style=flat&logo=x&logoColor=white)](https://x.com/motionvideohq)
 
 <p align="center">
   <sub><a href="docs/readme/README.zh-CN.md">中文</a> · <a href="docs/readme/README.ja.md">日本語</a> · <a href="docs/readme/README.ko.md">한국어</a> · <a href="docs/readme/README.es.md">Español</a> · <a href="docs/readme/README.fr.md">Français</a> · <a href="docs/readme/README.pt.md">Português</a> · <a href="docs/readme/README.de.md">Deutsch</a> · <a href="docs/readme/README.ru.md">Русский</a></sub>
 </p>
+
+<p align="center">
+  <strong>Motion design, written in code.</strong><br/>
+  A directory of motion videos made with AI and code, with the prompts and skills behind them.<br /> Plus agent skills that teach your coding agent timing, easing, and choreography.
+</p>
+
+[Website](https://motionvideo.xyz) · [About](https://motionvideo.xyz/about) · [Contact](https://motionvideo.xyz/contact) · [Sponsor](https://motionvideo.xyz/sponsor)
 
 </div>
 
