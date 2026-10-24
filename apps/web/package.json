@@ -8,6 +8,7 @@
     "build": "vite build",
     "prebuild": "node scripts/pull-fonts.mjs",
     "postinstall": "fumadocs-mdx",
+    "postbuild": "node scripts/link-root-deploy-config.mjs",
     "fonts:pull": "node scripts/pull-fonts.mjs",
     "dodo:setup": "node scripts/setup-dodo.mjs",
     "moves:check": "node scripts/check-moves.mjs",

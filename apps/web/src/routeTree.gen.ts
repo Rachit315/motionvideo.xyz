@@ -75,6 +75,8 @@ import { Route as SponsorshipsNewRouteImport } from './routes/sponsorships/new'
 import { Route as ToolsIndexRouteImport } from './routes/tools/index'
 import { Route as ToolsCategoryRouteImport } from './routes/tools/$category'
 import { Route as GalleryCategoryCategoryRouteImport } from './routes/_gallery/category.$category'
+import { Route as GalleryModelModelRouteImport } from './routes/_gallery/model.$model'
+import { Route as GalleryTypeTypeRouteImport } from './routes/_gallery/type.$type'
 import { Route as GalleryVideosSlugRouteImport } from './routes/_gallery/videos.$slug'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ApiCatalogIndexRouteImport } from './routes/api/catalog/index'
@@ -89,9 +91,13 @@ import { Route as DashboardSponsorshipsNewRouteImport } from './routes/dashboard
 import { Route as MovesFamilyIndexRouteImport } from './routes/moves/$family.index'
 import { Route as MovesFamilySlugRouteImport } from './routes/moves/$family.$slug'
 import { Route as GalleryCategoryCategoryIndexRouteImport } from './routes/_gallery/category.$category.index'
+import { Route as GalleryModelModelIndexRouteImport } from './routes/_gallery/model.$model.index'
+import { Route as GalleryTypeTypeIndexRouteImport } from './routes/_gallery/type.$type.index'
 import { Route as ApiMcpMovesIndexRouteImport } from './routes/api/mcp/moves/index'
 import { Route as ApiMcpMovesSlugRouteImport } from './routes/api/mcp/moves/$slug'
 import { Route as GalleryCategoryCategoryVideosSlugRouteImport } from './routes/_gallery/category.$category.videos.$slug'
+import { Route as GalleryModelModelVideosSlugRouteImport } from './routes/_gallery/model.$model.videos.$slug'
+import { Route as GalleryTypeTypeVideosSlugRouteImport } from './routes/_gallery/type.$type.videos.$slug'
 
 const GalleryRoute = GalleryRouteImport.update({
   id: '/_gallery',
@@ -421,6 +427,16 @@ const GalleryCategoryCategoryRoute = GalleryCategoryCategoryRouteImport.update({
   path: '/category/$category',
   getParentRoute: () => GalleryRoute,
 } as any)
+const GalleryModelModelRoute = GalleryModelModelRouteImport.update({
+  id: '/model/$model',
+  path: '/model/$model',
+  getParentRoute: () => GalleryRoute,
+} as any)
+const GalleryTypeTypeRoute = GalleryTypeTypeRouteImport.update({
+  id: '/type/$type',
+  path: '/type/$type',
+  getParentRoute: () => GalleryRoute,
+} as any)
 const GalleryVideosSlugRoute = GalleryVideosSlugRouteImport.update({
   id: '/videos/$slug',
   path: '/videos/$slug',
@@ -494,6 +510,16 @@ const GalleryCategoryCategoryIndexRoute =
     path: '/',
     getParentRoute: () => GalleryCategoryCategoryRoute,
   } as any)
+const GalleryModelModelIndexRoute = GalleryModelModelIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GalleryModelModelRoute,
+} as any)
+const GalleryTypeTypeIndexRoute = GalleryTypeTypeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GalleryTypeTypeRoute,
+} as any)
 const ApiMcpMovesIndexRoute = ApiMcpMovesIndexRouteImport.update({
   id: '/api/mcp/moves/',
   path: '/api/mcp/moves/',
@@ -509,6 +535,18 @@ const GalleryCategoryCategoryVideosSlugRoute =
     id: '/videos/$slug',
     path: '/videos/$slug',
     getParentRoute: () => GalleryCategoryCategoryRoute,
+  } as any)
+const GalleryModelModelVideosSlugRoute =
+  GalleryModelModelVideosSlugRouteImport.update({
+    id: '/videos/$slug',
+    path: '/videos/$slug',
+    getParentRoute: () => GalleryModelModelRoute,
+  } as any)
+const GalleryTypeTypeVideosSlugRoute =
+  GalleryTypeTypeVideosSlugRouteImport.update({
+    id: '/videos/$slug',
+    path: '/videos/$slug',
+    getParentRoute: () => GalleryTypeTypeRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -576,6 +614,8 @@ export interface FileRoutesByFullPath {
   '/sponsorships/': typeof SponsorshipsIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/category/$category': typeof GalleryCategoryCategoryRouteWithChildren
+  '/model/$model': typeof GalleryModelModelRouteWithChildren
+  '/type/$type': typeof GalleryTypeTypeRouteWithChildren
   '/videos/$slug': typeof GalleryVideosSlugRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/catalog/directories': typeof ApiCatalogDirectoriesRoute
@@ -591,8 +631,12 @@ export interface FileRoutesByFullPath {
   '/moves/$family/': typeof MovesFamilyIndexRoute
   '/api/mcp/moves/$slug': typeof ApiMcpMovesSlugRoute
   '/category/$category/': typeof GalleryCategoryCategoryIndexRoute
+  '/model/$model/': typeof GalleryModelModelIndexRoute
+  '/type/$type/': typeof GalleryTypeTypeIndexRoute
   '/api/mcp/moves/': typeof ApiMcpMovesIndexRoute
   '/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
+  '/model/$model/videos/$slug': typeof GalleryModelModelVideosSlugRoute
+  '/type/$type/videos/$slug': typeof GalleryTypeTypeVideosSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof GalleryIndexRoute
@@ -665,8 +709,12 @@ export interface FileRoutesByTo {
   '/moves/$family': typeof MovesFamilyIndexRoute
   '/api/mcp/moves/$slug': typeof ApiMcpMovesSlugRoute
   '/category/$category': typeof GalleryCategoryCategoryIndexRoute
+  '/model/$model': typeof GalleryModelModelIndexRoute
+  '/type/$type': typeof GalleryTypeTypeIndexRoute
   '/api/mcp/moves': typeof ApiMcpMovesIndexRoute
   '/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
+  '/model/$model/videos/$slug': typeof GalleryModelModelVideosSlugRoute
+  '/type/$type/videos/$slug': typeof GalleryTypeTypeVideosSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -736,6 +784,8 @@ export interface FileRoutesById {
   '/sponsorships/': typeof SponsorshipsIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/_gallery/category/$category': typeof GalleryCategoryCategoryRouteWithChildren
+  '/_gallery/model/$model': typeof GalleryModelModelRouteWithChildren
+  '/_gallery/type/$type': typeof GalleryTypeTypeRouteWithChildren
   '/_gallery/videos/$slug': typeof GalleryVideosSlugRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/catalog/directories': typeof ApiCatalogDirectoriesRoute
@@ -751,8 +801,12 @@ export interface FileRoutesById {
   '/moves/$family/': typeof MovesFamilyIndexRoute
   '/api/mcp/moves/$slug': typeof ApiMcpMovesSlugRoute
   '/_gallery/category/$category/': typeof GalleryCategoryCategoryIndexRoute
+  '/_gallery/model/$model/': typeof GalleryModelModelIndexRoute
+  '/_gallery/type/$type/': typeof GalleryTypeTypeIndexRoute
   '/api/mcp/moves/': typeof ApiMcpMovesIndexRoute
   '/_gallery/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
+  '/_gallery/model/$model/videos/$slug': typeof GalleryModelModelVideosSlugRoute
+  '/_gallery/type/$type/videos/$slug': typeof GalleryTypeTypeVideosSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -821,6 +875,8 @@ export interface FileRouteTypes {
     | '/sponsorships/'
     | '/tools/'
     | '/category/$category'
+    | '/model/$model'
+    | '/type/$type'
     | '/videos/$slug'
     | '/api/auth/$'
     | '/api/catalog/directories'
@@ -836,8 +892,12 @@ export interface FileRouteTypes {
     | '/moves/$family/'
     | '/api/mcp/moves/$slug'
     | '/category/$category/'
+    | '/model/$model/'
+    | '/type/$type/'
     | '/api/mcp/moves/'
     | '/category/$category/videos/$slug'
+    | '/model/$model/videos/$slug'
+    | '/type/$type/videos/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -910,8 +970,12 @@ export interface FileRouteTypes {
     | '/moves/$family'
     | '/api/mcp/moves/$slug'
     | '/category/$category'
+    | '/model/$model'
+    | '/type/$type'
     | '/api/mcp/moves'
     | '/category/$category/videos/$slug'
+    | '/model/$model/videos/$slug'
+    | '/type/$type/videos/$slug'
   id:
     | '__root__'
     | '/_gallery'
@@ -980,6 +1044,8 @@ export interface FileRouteTypes {
     | '/sponsorships/'
     | '/tools/'
     | '/_gallery/category/$category'
+    | '/_gallery/model/$model'
+    | '/_gallery/type/$type'
     | '/_gallery/videos/$slug'
     | '/api/auth/$'
     | '/api/catalog/directories'
@@ -995,8 +1061,12 @@ export interface FileRouteTypes {
     | '/moves/$family/'
     | '/api/mcp/moves/$slug'
     | '/_gallery/category/$category/'
+    | '/_gallery/model/$model/'
+    | '/_gallery/type/$type/'
     | '/api/mcp/moves/'
     | '/_gallery/category/$category/videos/$slug'
+    | '/_gallery/model/$model/videos/$slug'
+    | '/_gallery/type/$type/videos/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1510,6 +1580,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryCategoryCategoryRouteImport
       parentRoute: typeof GalleryRoute
     }
+    '/_gallery/model/$model': {
+      id: '/_gallery/model/$model'
+      path: '/model/$model'
+      fullPath: '/model/$model'
+      preLoaderRoute: typeof GalleryModelModelRouteImport
+      parentRoute: typeof GalleryRoute
+    }
+    '/_gallery/type/$type': {
+      id: '/_gallery/type/$type'
+      path: '/type/$type'
+      fullPath: '/type/$type'
+      preLoaderRoute: typeof GalleryTypeTypeRouteImport
+      parentRoute: typeof GalleryRoute
+    }
     '/_gallery/videos/$slug': {
       id: '/_gallery/videos/$slug'
       path: '/videos/$slug'
@@ -1608,6 +1692,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryCategoryCategoryIndexRouteImport
       parentRoute: typeof GalleryCategoryCategoryRoute
     }
+    '/_gallery/model/$model/': {
+      id: '/_gallery/model/$model/'
+      path: '/'
+      fullPath: '/model/$model/'
+      preLoaderRoute: typeof GalleryModelModelIndexRouteImport
+      parentRoute: typeof GalleryModelModelRoute
+    }
+    '/_gallery/type/$type/': {
+      id: '/_gallery/type/$type/'
+      path: '/'
+      fullPath: '/type/$type/'
+      preLoaderRoute: typeof GalleryTypeTypeIndexRouteImport
+      parentRoute: typeof GalleryTypeTypeRoute
+    }
     '/api/mcp/moves/': {
       id: '/api/mcp/moves/'
       path: '/api/mcp/moves'
@@ -1629,6 +1727,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryCategoryCategoryVideosSlugRouteImport
       parentRoute: typeof GalleryCategoryCategoryRoute
     }
+    '/_gallery/model/$model/videos/$slug': {
+      id: '/_gallery/model/$model/videos/$slug'
+      path: '/videos/$slug'
+      fullPath: '/model/$model/videos/$slug'
+      preLoaderRoute: typeof GalleryModelModelVideosSlugRouteImport
+      parentRoute: typeof GalleryModelModelRoute
+    }
+    '/_gallery/type/$type/videos/$slug': {
+      id: '/_gallery/type/$type/videos/$slug'
+      path: '/videos/$slug'
+      fullPath: '/type/$type/videos/$slug'
+      preLoaderRoute: typeof GalleryTypeTypeVideosSlugRouteImport
+      parentRoute: typeof GalleryTypeTypeRoute
+    }
   }
 }
 
@@ -1649,15 +1761,46 @@ const GalleryCategoryCategoryRouteWithChildren =
     GalleryCategoryCategoryRouteChildren,
   )
 
+interface GalleryModelModelRouteChildren {
+  GalleryModelModelIndexRoute: typeof GalleryModelModelIndexRoute
+  GalleryModelModelVideosSlugRoute: typeof GalleryModelModelVideosSlugRoute
+}
+
+const GalleryModelModelRouteChildren: GalleryModelModelRouteChildren = {
+  GalleryModelModelIndexRoute: GalleryModelModelIndexRoute,
+  GalleryModelModelVideosSlugRoute: GalleryModelModelVideosSlugRoute,
+}
+
+const GalleryModelModelRouteWithChildren =
+  GalleryModelModelRoute._addFileChildren(GalleryModelModelRouteChildren)
+
+interface GalleryTypeTypeRouteChildren {
+  GalleryTypeTypeIndexRoute: typeof GalleryTypeTypeIndexRoute
+  GalleryTypeTypeVideosSlugRoute: typeof GalleryTypeTypeVideosSlugRoute
+}
+
+const GalleryTypeTypeRouteChildren: GalleryTypeTypeRouteChildren = {
+  GalleryTypeTypeIndexRoute: GalleryTypeTypeIndexRoute,
+  GalleryTypeTypeVideosSlugRoute: GalleryTypeTypeVideosSlugRoute,
+}
+
+const GalleryTypeTypeRouteWithChildren = GalleryTypeTypeRoute._addFileChildren(
+  GalleryTypeTypeRouteChildren,
+)
+
 interface GalleryRouteChildren {
   GalleryIndexRoute: typeof GalleryIndexRoute
   GalleryCategoryCategoryRoute: typeof GalleryCategoryCategoryRouteWithChildren
+  GalleryModelModelRoute: typeof GalleryModelModelRouteWithChildren
+  GalleryTypeTypeRoute: typeof GalleryTypeTypeRouteWithChildren
   GalleryVideosSlugRoute: typeof GalleryVideosSlugRoute
 }
 
 const GalleryRouteChildren: GalleryRouteChildren = {
   GalleryIndexRoute: GalleryIndexRoute,
   GalleryCategoryCategoryRoute: GalleryCategoryCategoryRouteWithChildren,
+  GalleryModelModelRoute: GalleryModelModelRouteWithChildren,
+  GalleryTypeTypeRoute: GalleryTypeTypeRouteWithChildren,
   GalleryVideosSlugRoute: GalleryVideosSlugRoute,
 }
 

@@ -50,6 +50,25 @@ const extensionOf = (url) => {
   const ext = match?.groups.ext.toLowerCase();
   return ext && Object.hasOwn(EXTENSIONS, ext) ? ext : null;
 };
+
+// Extension for a MIME type; `jpg` (not `jpeg`) for JPEGs.
+const EXTENSION_BY_TYPE = new Map(
+  Object.entries(EXTENSIONS)
+    .filter(([ext]) => ext !== "jpeg")
+    .map(([ext, type]) => [type, ext])
+);
+
+// For URLs without an extension (X profile banners, generated og images):
+// ask the server what it serves. GET, not HEAD: some hosts reject HEAD.
+const sniffExtension = async (url) => {
+  const response = await fetch(url, { signal: AbortSignal.timeout(30_000) });
+  await response.body?.cancel();
+  if (!response.ok) {
+    return null;
+  }
+  const type = response.headers.get("content-type")?.split(";")[0].trim();
+  return (type && EXTENSION_BY_TYPE.get(type)) ?? null;
+};
 const slugPart = (value) =>
   value
     .toLowerCase()
@@ -64,13 +83,18 @@ const articles = JSON.parse(await readFile(articlesPath, "utf-8"));
 
 // source URL → object key (first reference names it; duplicates share it).
 const jobs = new Map();
+// Extension-less URLs, resolved below by asking each server.
+const unresolved = [];
 const plan = (url, prefix) => {
   if (!url || url.startsWith(`${ORIGIN}/`) || jobs.has(url)) {
     return;
   }
   const ext = extensionOf(url);
   if (!ext) {
-    throw new Error(`Unknown file type for ${url}`);
+    // Placeholder keeps the first reference's spot and dedupes later ones.
+    jobs.set(url, null);
+    unresolved.push([url, prefix]);
+    return;
   }
   jobs.set(url, `${prefix}-${hashOf(url)}.${ext}`);
 };
@@ -93,6 +117,15 @@ for (const [group, { entries }] of Object.entries({
 for (const entry of articles.entries) {
   plan(entry.cover, `directories/articles/${slugPart(entry.id)}`);
 }
+await Promise.all(
+  unresolved.map(async ([url, prefix]) => {
+    const ext = await sniffExtension(url);
+    if (!ext) {
+      throw new Error(`Unknown file type for ${url}`);
+    }
+    jobs.set(url, `${prefix}-${hashOf(url)}.${ext}`);
+  })
+);
 
 console.log(`${jobs.size} remote files referenced.`);
 if (dryRun) {

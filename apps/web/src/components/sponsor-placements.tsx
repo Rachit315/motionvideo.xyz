@@ -7,6 +7,7 @@ import { ChevronRight } from "reicon-react/icons/ChevronRight";
 import { Ufo } from "reicon-react/icons/Ufo";
 import { Xmark } from "reicon-react/icons/Xmark";
 
+import { CopyIcon } from "@/components/copy-icon";
 import { SponsorSlots } from "@/components/sponsor-slots";
 import { SponsoredCard } from "@/components/sponsored-card";
 import { Badge } from "@/components/ui/badge";
@@ -18,6 +19,8 @@ import { cn } from "@/lib/utils";
 interface PreviewVideo {
   title: string;
   handle: string;
+  /** Display name on X, for the detail sidebar's creator line. */
+  creatorName?: string;
   avatar: string;
   poster: string;
   width: number;
@@ -48,6 +51,7 @@ const VIDEOS = {
   jellyfish: {
     title: "Translucent jellyfish motion loop",
     handle: "AntSeed",
+    creatorName: "Antseed",
     avatar: `${ASSETS}/avatars/antseed-b6b3f312bd.jpg`,
     poster: `${ASSETS}/motion/antseed-3a1534/poster-161dc42cc9.jpg`,
     width: 1920,
@@ -136,7 +140,7 @@ const DetailRow = ({
 }) => (
   <div
     aria-hidden="true"
-    className="flex items-start justify-between gap-3 border-t border-dashed py-1.5 first:border-t-0"
+    className="flex items-start justify-between gap-3 border-t border-dashed py-1.5 last:border-b"
   >
     <dt className="text-muted-foreground">{label}</dt>
     <dd className="flex min-w-0 flex-col items-end text-right">{children}</dd>
@@ -314,6 +318,25 @@ export const SponsorPlacements = () => {
               <p className="text-sm leading-tight font-semibold tracking-tight text-balance">
                 {DETAIL.video.title}
               </p>
+              {/* The creator under the title: avatar, then name over @handle. */}
+              <span className="flex items-center gap-2">
+                <img
+                  src={DETAIL.video.avatar}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                  className="size-7 shrink-0 rounded-full"
+                />
+                <span className="flex min-w-0 flex-col leading-tight">
+                  <span className="truncate font-medium">
+                    {DETAIL.video.creatorName ?? `@${DETAIL.video.handle}`}
+                  </span>
+                  <span className="text-muted-foreground truncate">
+                    @{DETAIL.video.handle}
+                  </span>
+                </span>
+              </span>
               <span
                 className={cn(
                   buttonVariants({ variant: "gradient", size: "sm" }),
@@ -330,19 +353,6 @@ export const SponsorPlacements = () => {
                 demo
                 rowClassName="gap-3 py-1.5 text-xs"
               />
-              <DetailRow label={gallery.creator}>
-                <span className="flex items-center gap-1.5">
-                  <img
-                    src={DETAIL.video.avatar}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                    referrerPolicy="no-referrer"
-                    className="size-4 rounded-full"
-                  />
-                  @{DETAIL.video.handle}
-                </span>
-              </DetailRow>
               <DetailRow label={gallery.category}>
                 {DETAIL.categories.map((category) => (
                   <span key={category}>{gallery.categories[category]}</span>
@@ -351,11 +361,16 @@ export const SponsorPlacements = () => {
               <DetailRow label={gallery.type}>{gallery.prompt}</DetailRow>
               <DetailRow label={gallery.model}>{DETAIL.model}</DetailRow>
             </dl>
-            <div
-              aria-hidden="true"
-              className="flex flex-col gap-2 border-t border-dashed pt-2.5"
-            >
-              <p className="font-medium">{gallery.prompt}</p>
+            <div aria-hidden="true" className="flex flex-col gap-2">
+              <div className="flex items-center justify-between gap-2">
+                <p className="font-medium">{gallery.prompt}</p>
+                <span
+                  className={buttonVariants({ variant: "outline", size: "xs" })}
+                >
+                  <CopyIcon copied={false} />
+                  {gallery.copyShort}
+                </span>
+              </div>
               <p className="bg-muted rounded-lg p-2.5 font-serif leading-relaxed">
                 {DETAIL.prompt}
               </p>

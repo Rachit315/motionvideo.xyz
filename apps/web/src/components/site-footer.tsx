@@ -30,7 +30,12 @@ import { LINK } from "@/constants/links";
 import { OTHER_PRODUCTS, SHADCN_LABS_PROJECTS } from "@/constants/products";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
-import { MOTION_CATEGORIES } from "@/lib/motion-catalog";
+import {
+  MOTION_CATEGORIES,
+  MOTION_MODELS,
+  MOTION_MODEL_NAMES,
+  motionModelSlug,
+} from "@/lib/motion-catalog";
 import { MOVE_FAMILIES } from "@/lib/move-families";
 import { cn } from "@/lib/utils";
 import { withUtm } from "@/lib/utm";
@@ -199,7 +204,7 @@ export const SiteFooter = () => {
 
   return (
     <footer className="mx-auto mt-auto w-full max-w-[1800px] px-4 pt-16 text-sm sm:px-6">
-      <div className="grid gap-x-8 gap-y-12 lg:grid-cols-[minmax(0,1.4fr)_repeat(4,minmax(0,1fr))]">
+      <div className="grid gap-x-8 gap-y-12 lg:grid-cols-[minmax(0,1.4fr)_repeat(5,minmax(0,1fr))]">
         <div className="flex max-w-xs flex-col items-start gap-4">
           {/* text-base: the logo at the header's size (the footer is text-sm). */}
           <div className="text-base">
@@ -214,7 +219,7 @@ export const SiteFooter = () => {
         </div>
         <nav
           aria-label={content.footer.value}
-          className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4 lg:col-span-4"
+          className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-3 lg:col-span-5 lg:grid-cols-5"
         >
           <Column>
             <LinkGroup heading={content.product}>{links(product)}</LinkGroup>
@@ -227,8 +232,19 @@ export const SiteFooter = () => {
             </LinkGroup>
           </Column>
           <Column>
-            <LinkGroup heading={header.explore}>{links(resources)}</LinkGroup>
-            <LinkGroup heading={content.company}>{links(company)}</LinkGroup>
+            <LinkGroup heading={content.explore}>{links(resources)}</LinkGroup>
+            <LinkGroup heading={content.byModel}>
+              {MOTION_MODELS.map((model) => (
+                <Link
+                  key={model}
+                  to="/model/$model"
+                  params={{ model: motionModelSlug(model) }}
+                  className={linkClass}
+                >
+                  {MOTION_MODEL_NAMES[model]}
+                </Link>
+              ))}
+            </LinkGroup>
           </Column>
           <Column>
             <LinkGroup heading={content.categories}>
@@ -243,6 +259,25 @@ export const SiteFooter = () => {
                 </Link>
               ))}
             </LinkGroup>
+            <LinkGroup heading={content.byType}>
+              <Link
+                to="/type/$type"
+                params={{ type: "prompt" }}
+                className={linkClass}
+              >
+                {content.prompts}
+              </Link>
+              <Link
+                to="/type/$type"
+                params={{ type: "skill" }}
+                className={linkClass}
+              >
+                {content.skillVideos}
+              </Link>
+            </LinkGroup>
+          </Column>
+          <Column>
+            <LinkGroup heading={content.company}>{links(company)}</LinkGroup>
             <LinkGroup heading={content.legal}>{links(legal)}</LinkGroup>
           </Column>
           <Column>

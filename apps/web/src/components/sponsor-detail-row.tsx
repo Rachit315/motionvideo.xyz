@@ -9,6 +9,11 @@ import { cn } from "@/lib/utils";
  * Creator / Category rows under it so it reads as part of the page. Render
  * it inside a `<dl>`. With `link`, the logo and name link out to the
  * sponsor; without, it is a static preview.
+ *
+ * A solid hairline closes the row in place of the next row's dashed border.
+ * While several sponsors rotate (`rotation`), it fills with the primary
+ * color over each turn, and only the value fades to the next sponsor: the
+ * label stays put.
  */
 export const SponsorDetailRow = ({
   label,
@@ -17,6 +22,7 @@ export const SponsorDetailRow = ({
   tagline,
   darkInvert = false,
   link,
+  rotation,
   className,
 }: {
   label: ReactNode;
@@ -26,6 +32,11 @@ export const SponsorDetailRow = ({
   darkInvert?: boolean;
   /** Anchor props, including `data-track*` analytics attributes. */
   link?: ComponentPropsWithoutRef<"a"> & Record<`data-${string}`, string>;
+  /**
+   * Set while sponsors rotate: `key` changes on every turn (restarting the
+   * fill and the value's fade).
+   */
+  rotation?: { key: number };
   /** Overrides the row's spacing and type size (e.g. compact previews). */
   className?: string;
 }) => {
@@ -58,12 +69,21 @@ export const SponsorDetailRow = ({
   return (
     <div
       className={cn(
-        "flex items-start justify-between gap-4 border-t border-dashed py-2.5 text-sm first:border-t-0",
+        // Dashed above, like every details row (the first included); the
+        // next row drops its dashed border: this row's hairline closes it.
+        "relative flex items-start justify-between gap-4 border-t border-dashed py-2.5 text-sm [&+*]:border-t-0",
         className
       )}
     >
       <dt className="text-muted-foreground shrink-0">{label}</dt>
-      <dd className="flex min-w-0 flex-col items-end text-right">
+      <dd
+        key={rotation?.key}
+        className={cn(
+          "flex min-w-0 flex-col items-end text-right",
+          rotation &&
+            "animate-in fade-in duration-500 motion-reduce:animate-none"
+        )}
+      >
         {link ? (
           <a
             {...link}
@@ -82,6 +102,17 @@ export const SponsorDetailRow = ({
           </span>
         )}
       </dd>
+      <span
+        aria-hidden="true"
+        className="bg-border absolute inset-x-0 bottom-0 h-px overflow-hidden"
+      >
+        {rotation && (
+          <span
+            key={rotation.key}
+            className="animate-mv-rotate bg-primary block h-full motion-reduce:hidden"
+          />
+        )}
+      </span>
     </div>
   );
 };

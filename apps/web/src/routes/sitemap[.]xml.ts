@@ -5,7 +5,12 @@ import { ROUTES, STATIC_PAGES } from "@/constants/routes";
 import { absoluteUrl } from "@/constants/url";
 import catalog from "@/data/motion-catalog.json";
 import { DIRECTORY_CATEGORIES } from "@/lib/directories";
-import { MOTION_CATEGORIES } from "@/lib/motion-catalog";
+import {
+  MOTION_CATEGORIES,
+  MOTION_MODELS,
+  MOTION_TYPES,
+  motionModelSlug,
+} from "@/lib/motion-catalog";
 import { MOVE_FAMILIES } from "@/lib/move-families";
 import { MOVES, movePath } from "@/lib/moves";
 
@@ -17,6 +22,15 @@ const PAGES: { lastmod?: string; path: string }[] = [
   ...MOTION_CATEGORIES.map((category) => ({
     path: `${ROUTES.HOME}category/${category}`,
   })),
+  // One page per model and per type, for those with videos.
+  ...MOTION_MODELS.filter((model) =>
+    catalog.videos.some((video) => video.model === model)
+  ).map((model) => ({
+    path: `${ROUTES.HOME}model/${motionModelSlug(model)}`,
+  })),
+  ...MOTION_TYPES.filter((type) =>
+    catalog.videos.some((video) => video.tags.includes(type))
+  ).map((type) => ({ path: `${ROUTES.HOME}type/${type}` })),
   ...catalog.videos.map((video) => ({
     lastmod: video.date,
     path: `${ROUTES.HOME}videos/${video.slug}`,

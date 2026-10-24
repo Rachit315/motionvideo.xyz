@@ -2,6 +2,7 @@ import { Dialog } from "@base-ui/react/dialog";
 import { Link } from "@tanstack/react-router";
 import MediaThemeSutro from "player.style/sutro/react";
 import {
+  Fragment,
   useCallback,
   useId,
   useEffect,
@@ -42,12 +43,14 @@ import {
   findEffort,
   findIterations,
   findMotionCategory,
+  motionModelSlug,
 } from "@/lib/motion-catalog";
 import type {
+  GalleryScope,
   GallerySearch,
-  MotionCategory,
   MotionVideo,
 } from "@/lib/motion-catalog";
+import { promptFor } from "@/lib/prompt-translations";
 import { relativeDate } from "@/lib/relative-date";
 import { cn } from "@/lib/utils";
 
@@ -98,37 +101,51 @@ const stepPlayer = (go: () => void) => {
   go();
 };
 
-// Opens a video's overlay route over the page it was opened from: Discover
-// (`/videos/$slug`) or a category page (`/category/$category/videos/$slug`).
+/** Opens a video's overlay over the page the grid belongs to (`scope`). */
 const VideoLink = ({
   slug,
-  category,
+  scope,
   search,
   ...props
 }: Omit<ComponentPropsWithRef<"a">, "href"> & {
   slug: string;
-  category: MotionCategory | undefined;
+  scope: GalleryScope | undefined;
   search: GallerySearch;
-}) =>
-  category ? (
-    <Link
-      to="/category/$category/videos/$slug"
-      params={{ category, slug }}
-      search={search}
-      resetScroll={false}
-      viewTransition
-      {...props}
-    />
-  ) : (
-    <Link
-      to="/videos/$slug"
-      params={{ slug }}
-      search={search}
-      resetScroll={false}
-      viewTransition
-      {...props}
-    />
-  );
+}) => {
+  const shared = { search, resetScroll: false, viewTransition: true, ...props };
+  switch (scope?.kind) {
+    case "category": {
+      return (
+        <Link
+          to="/category/$category/videos/$slug"
+          params={{ category: scope.category, slug }}
+          {...shared}
+        />
+      );
+    }
+    case "model": {
+      return (
+        <Link
+          to="/model/$model/videos/$slug"
+          params={{ model: motionModelSlug(scope.model), slug }}
+          {...shared}
+        />
+      );
+    }
+    case "type": {
+      return (
+        <Link
+          to="/type/$type/videos/$slug"
+          params={{ type: scope.type, slug }}
+          {...shared}
+        />
+      );
+    }
+    default: {
+      return <Link to="/videos/$slug" params={{ slug }} {...shared} />;
+    }
+  }
+};
 
 /** A creator's photo, or the user glyph when there is none or it fails to load. */
 const CreatorAvatar = ({
@@ -308,6 +325,8 @@ const VideoActions = ({
   // One tooltip for both buttons: moving between them slides it across and
   // morphs the label instead of closing one and opening another.
   const tooltip = useMemo(() => createTooltipHandle<ReactNode>(), []);
+  const { locale } = useLocale();
+  const prompt = promptFor(video, locale);
   const bookmark = (
     <BookmarkButton
       kind="video"
@@ -318,8 +337,8 @@ const VideoActions = ({
       tooltip={tooltip}
     />
   );
-  const copyPrompt = video.prompt ? (
-    <CopyPromptButton prompt={video.prompt} size={size} tooltip={tooltip} />
+  const copyPrompt = prompt ? (
+    <CopyPromptButton prompt={prompt.text} size={size} tooltip={tooltip} />
   ) : null;
 
   if (bookmarkAlwaysVisible) {
@@ -351,7 +370,7 @@ export const MotionVideoCard = ({
   video,
   paused,
   open,
-  category,
+  scope,
   search,
   onOpen,
   bookmarkAlwaysVisible = false,
@@ -360,8 +379,8 @@ export const MotionVideoCard = ({
   paused: boolean;
   /** This video's overlay route is showing; it owns the shared element. */
   open: boolean;
-  /** The category page the grid shows, if any; the overlay opens over it. */
-  category: MotionCategory | undefined;
+  /** The page the grid shows (Discover when undefined); the overlay opens over it. */
+  scope: GalleryScope | undefined;
   search: GallerySearch;
   /**
    * Opens the overlay over the current page (Bookmarks, Featured) instead of
@@ -384,7 +403,7 @@ export const MotionVideoCard = ({
     <article className="group/card relative">
       <VideoLink
         slug={video.slug}
-        category={category}
+        scope={scope}
         search={search}
         aria-label={label}
         onClick={(event) => {
@@ -493,8 +512,9 @@ export const DetailRow = ({
   label: ReactNode;
   children: ReactNode;
 }) => (
-  <div className="flex items-start justify-between gap-4 border-t border-dashed py-2.5 text-sm first:border-t-0">
-    <dt className="text-muted-foreground shrink-0">{label}</dt>
+  // Dashed lines between rows, and above the first and below the last.
+  <div className="flex items-start justify-between gap-4 border-t border-dashed py-2.5 text-sm last:border-b">
+    <dt className="text-muted-foreground">{label}</dt>
     <dd className="flex min-w-0 flex-col items-end text-right">{children}</dd>
   </div>
 );
@@ -524,13 +544,26 @@ const MakingRows = ({ video }: { video: MotionVideo }) => {
   );
 };
 
+// Text-link style for the small actions under the prompt.
+const PROMPT_LINK =
+  "text-foreground focus-visible:ring-ring/50 inline-flex items-center gap-1 rounded-sm text-xs font-medium outline-none hover:underline focus-visible:ring-3";
+
 /**
  * The detail view's prompt. Long prompts fold to a fixed height with a fade
- * and a Show all toggle, so the details below stay in reach without a
- * scroll box inside the scrolling panel. Key it by video: each prompt starts
- * folded and is measured once.
+ * and a Show all link, so the details below stay in reach without a scroll
+ * box inside the scrolling panel. `aside` sits on the same row, at the end
+ * (the translation switch). Key it by video: each prompt starts folded and
+ * is measured once.
  */
-const PromptText = ({ prompt }: { prompt: string }) => {
+const PromptText = ({
+  prompt,
+  lang,
+  aside,
+}: {
+  prompt: string;
+  lang?: string;
+  aside?: ReactNode;
+}) => {
   const content = useIntlayer("motion-gallery");
   const id = useId();
   const [expanded, setExpanded] = useState(false);
@@ -543,11 +576,12 @@ const PromptText = ({ prompt }: { prompt: string }) => {
     }
   }, []);
   return (
-    <div className="flex flex-col items-start gap-1">
+    <div className="flex flex-col gap-2">
       <div className="relative w-full">
         <pre
           id={id}
           ref={measure}
+          lang={lang}
           className={cn(
             "bg-muted rounded-xl p-4 font-serif text-sm leading-relaxed whitespace-pre-wrap",
             !expanded && "max-h-72 overflow-hidden"
@@ -562,28 +596,37 @@ const PromptText = ({ prompt }: { prompt: string }) => {
           />
         )}
       </div>
-      {overflows && (
-        <Button
-          variant="ghost"
-          size="sm"
-          aria-expanded={expanded}
-          aria-controls={id}
-          onClick={() => setExpanded(!expanded)}
-          className="-ml-2"
-        >
-          {expanded ? content.showLess : content.showAll}
-          <ChevronDown
-            aria-hidden="true"
-            className={cn(
-              "transition-transform motion-reduce:transition-none",
-              expanded && "rotate-180"
-            )}
-          />
-        </Button>
+      {(overflows || aside) && (
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+          {overflows ? (
+            <button
+              type="button"
+              aria-expanded={expanded}
+              aria-controls={id}
+              onClick={() => setExpanded(!expanded)}
+              className={PROMPT_LINK}
+            >
+              {expanded ? content.showLess : content.showAll}
+              <ChevronDown
+                aria-hidden="true"
+                className={cn(
+                  "size-3.5 transition-transform motion-reduce:transition-none",
+                  expanded && "rotate-180"
+                )}
+              />
+            </button>
+          ) : (
+            <span />
+          )}
+          {aside}
+        </div>
       )}
     </div>
   );
 };
+
+// The original's language in its own script: "中文 → EN" reads in any locale.
+const LANGUAGE_NAMES = { zh: "中文", ja: "日本語" } as const;
 
 // Hosts the detail view's source button names, by registrable domain.
 const SOURCE_ACTIONS = {
@@ -743,6 +786,92 @@ export const OverlayPlayer = ({
 };
 
 /**
+ * The detail view's prompt: copy button and folded text. English visitors
+ * get a translation of non-English prompts, with "Show original" to switch
+ * back. Key it by video so each one starts on the translation.
+ */
+const PromptSection = ({ video }: { video: MotionVideo }) => {
+  const content = useIntlayer("motion-gallery");
+  const { locale } = useLocale();
+  const [copyStatus, setCopyStatus] = useTransientStatus<
+    "idle" | "copied" | "failed"
+  >("idle");
+  const [showOriginal, setShowOriginal] = useState(false);
+  const translated = promptFor(video, locale);
+  const prompt =
+    translated?.translatedFrom && showOriginal
+      ? { text: video.prompt ?? translated.text }
+      : translated;
+
+  const copyPrompt = async () => {
+    if (!prompt) {
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(prompt.text);
+      track("prompt_copy", { from: "detail", slug: video.slug });
+      setCopyStatus("copied");
+    } catch {
+      setCopyStatus("failed");
+    }
+  };
+
+  return (
+    <section className="flex flex-col gap-3" aria-label={content.prompt.value}>
+      <div className="flex items-center justify-between gap-3">
+        <h2 className="text-sm font-medium">{content.prompt}</h2>
+        {prompt && (
+          <Button variant="outline" size="sm" onClick={copyPrompt}>
+            <CopyIcon copied={copyStatus === "copied"} />
+            {copyStatus === "copied" ? content.copied : content.copyShort}
+          </Button>
+        )}
+      </div>
+      {prompt ? (
+        <PromptText
+          key={showOriginal ? "original" : "shown"}
+          prompt={prompt.text}
+          lang={prompt.translatedFrom ? "en" : translated?.translatedFrom}
+          aside={
+            translated?.translatedFrom && (
+              <p className="text-muted-foreground flex items-center gap-2 text-xs">
+                <span
+                  title={
+                    showOriginal
+                      ? content.originalIn[translated.translatedFrom].value
+                      : content.translatedFrom[translated.translatedFrom].value
+                  }
+                >
+                  {LANGUAGE_NAMES[translated.translatedFrom]}
+                  {!showOriginal && " → EN"}
+                </span>
+                <span aria-hidden="true">·</span>
+                <button
+                  type="button"
+                  className={PROMPT_LINK}
+                  onClick={() => setShowOriginal(!showOriginal)}
+                >
+                  {showOriginal
+                    ? content.showTranslation
+                    : content.showOriginal}
+                </button>
+              </p>
+            )
+          }
+        />
+      ) : (
+        <p className="text-muted-foreground text-sm">
+          {content.unavailablePrompt}
+        </p>
+      )}
+      <output className="text-muted-foreground text-xs">
+        {copyStatus === "failed" && content.copyError}
+      </output>
+    </section>
+  );
+};
+
+/**
  * The detail overlay shared by videos and moves: a full-bleed frosted stage
  * (clicking its empty space closes) with the media centred over a soft glow
  * in the media's own colours, and a details sidebar beside it.
@@ -813,6 +942,90 @@ export const DetailOverlay = ({
 };
 
 /**
+ * The detail view's skill, for videos made with one: a link to its
+ * repository and the command that installs it. Key it by video.
+ */
+const SkillSection = ({ video }: { video: MotionVideo }) => {
+  const content = useIntlayer("motion-gallery");
+  const [copyStatus, setCopyStatus] = useTransientStatus<
+    "idle" | "copied" | "failed"
+  >("idle");
+  if (!video.skillUrl) {
+    return null;
+  }
+  const { skillInstall } = video;
+  const copyLabel =
+    copyStatus === "copied" ? content.copied.value : content.copyCommand.value;
+
+  const copyInstall = async () => {
+    if (!skillInstall) {
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(skillInstall);
+      track("skill_install_copy", { slug: video.slug });
+      setCopyStatus("copied");
+    } catch {
+      setCopyStatus("failed");
+    }
+  };
+
+  return (
+    <section className="flex flex-col gap-3" aria-label={content.skill.value}>
+      {/* Same header row as the prompt: View repo where Copy sits there. */}
+      <div className="flex items-center justify-between gap-3">
+        <h2 className="text-sm font-medium">{content.skill}</h2>
+        <a
+          href={video.skillUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-track="skill_click"
+          data-track-slug={video.slug}
+          className={buttonVariants({ variant: "outline", size: "sm" })}
+        >
+          {content.viewRepo}
+          <ArrowRightUp aria-hidden="true" />
+        </a>
+      </div>
+      {skillInstall && (
+        <div className="bg-muted flex items-start gap-2 rounded-xl py-1.5 pr-1.5 pl-4">
+          {/* Wraps between words only (never at a hyphen), so a long command
+              stays readable in full. Words in a command don't repeat. */}
+          <code className="min-w-0 flex-1 py-1.5 font-mono text-xs leading-relaxed">
+            {skillInstall.split(" ").map((word) => (
+              <Fragment key={word}>
+                <span className="whitespace-nowrap">{word}</span>{" "}
+              </Fragment>
+            ))}
+          </code>
+          <Tooltip>
+            <TooltipTrigger
+              delay={TOOLTIP_DELAY}
+              // Its label changes to "Copied" on click: stay open.
+              closeOnClick={false}
+              render={
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
+                  onClick={copyInstall}
+                  aria-label={copyLabel}
+                />
+              }
+            >
+              <CopyIcon copied={copyStatus === "copied"} />
+            </TooltipTrigger>
+            <TooltipContent>{copyLabel}</TooltipContent>
+          </Tooltip>
+        </div>
+      )}
+      <output className="text-muted-foreground text-xs">
+        {copyStatus === "failed" && content.copyError}
+      </output>
+    </section>
+  );
+};
+
+/**
  * Route overlay for `/videos/$slug`: the player floats over the blurred
  * gallery with details beside it. The player shares a view-transition name
  * with the card it opened from, so the card morphs into place.
@@ -830,9 +1043,6 @@ export const MotionVideoOverlay = ({
   next?: () => void;
 }) => {
   const content = useIntlayer("motion-gallery");
-  const [copyStatus, setCopyStatus] = useTransientStatus<
-    "idle" | "copied" | "failed"
-  >("idle");
   const [failed, setFailed] = useState(false);
   // One event per video shown, however it was opened (card, arrows, link).
   useEffect(() => {
@@ -846,20 +1056,6 @@ export const MotionVideoOverlay = ({
   useArrowSteps(previous, next);
   const types = video.tags.filter((tag) => tag === "prompt" || tag === "skill");
   const { locale } = useLocale();
-
-  const copyPrompt = async () => {
-    if (!video.prompt) {
-      return;
-    }
-    try {
-      await navigator.clipboard.writeText(video.prompt);
-      track("prompt_copy", { from: "detail", slug: video.slug });
-      setCopyStatus("copied");
-    } catch {
-      setCopyStatus("failed");
-    }
-  };
-
   return (
     <DetailOverlay
       onClose={onClose}
@@ -904,6 +1100,28 @@ export const MotionVideoOverlay = ({
         <Dialog.Title className="text-xl leading-tight font-semibold tracking-tight text-balance">
           {video.title}
         </Dialog.Title>
+        {/* Avatar, then name over @handle: the two lines match the
+            avatar's 40px height. */}
+        <a
+          href={`https://x.com/${video.handle}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group/creator flex items-center gap-3 self-start"
+        >
+          <CreatorAvatar
+            src={video.avatar}
+            size={40}
+            className="size-10 shrink-0 rounded-full"
+          />
+          <span className="flex h-10 min-w-0 flex-col justify-center text-sm leading-5">
+            <span className="truncate font-medium group-hover/creator:underline">
+              {video.creatorName ?? `@${video.handle}`}
+            </span>
+            <span className="text-muted-foreground truncate">
+              @{video.handle}
+            </span>
+          </span>
+        </a>
       </div>
       {video.description && (
         <Dialog.Description className="text-sm leading-relaxed text-pretty">
@@ -939,42 +1157,11 @@ export const MotionVideoOverlay = ({
             <ArrowRightUp aria-hidden="true" />
           </a>
         )}
-        {video.skillUrl && (
-          <a
-            href={video.skillUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-track="skill_click"
-            data-track-slug={video.slug}
-            className={buttonVariants({
-              variant: "outline",
-              size: "lg",
-            })}
-          >
-            {content.viewSkill}
-            <ArrowRightUp aria-hidden="true" />
-          </a>
-        )}
       </div>
       <dl>
         {/* Diamond's third placement: the first details row, beside
-                    every video. Renders nothing until a Diamond is live. */}
+            every video. Renders nothing until a Diamond is live. */}
         <SponsoredCard placement="sidebar" />
-        <DetailRow label={content.creator}>
-          <a
-            href={`https://x.com/${video.handle}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 hover:underline"
-          >
-            <CreatorAvatar
-              src={video.avatar}
-              size={20}
-              className="size-5 rounded-full"
-            />
-            @{video.handle}
-          </a>
-        </DetailRow>
         {video.contentTags.length > 0 && (
           <DetailRow label={content.category}>
             {video.contentTags.map((tag) => {
@@ -1005,32 +1192,15 @@ export const MotionVideoOverlay = ({
         )}
         <MakingRows video={video} />
       </dl>
-      <section
-        className="flex flex-col gap-3 border-t border-dashed pt-4"
-        aria-label={content.prompt.value}
-      >
-        <div className="flex items-center justify-between gap-3">
-          <h2 className="text-sm font-medium">{content.prompt}</h2>
-          {video.prompt && (
-            <Button variant="outline" size="sm" onClick={copyPrompt}>
-              <CopyIcon copied={copyStatus === "copied"} />
-              {copyStatus === "copied" ? content.copied : content.copyShort}
-            </Button>
-          )}
-        </div>
-        {video.prompt ? (
-          <PromptText key={video.slug} prompt={video.prompt} />
-        ) : (
-          <p className="text-muted-foreground text-sm">
-            {content.unavailablePrompt}
-          </p>
-        )}
-        <output className="text-muted-foreground text-xs">
-          {copyStatus === "failed" && content.copyError}
-        </output>
-      </section>
+      {/* A skill video without a prompt shows only the skill. */}
+      {(video.prompt || !video.skillUrl) && (
+        <PromptSection key={video.slug} video={video} />
+      )}
+      {video.skillUrl && (
+        <SkillSection key={`${video.slug}-skill`} video={video} />
+      )}
       {/* Quiet, at the bottom: questions, credit or removal requests
-                  land on /contact with this video already filled in. */}
+          land on /contact with this video already filled in. */}
       <p className="text-muted-foreground mt-auto pt-2 text-xs">
         {content.questions}{" "}
         <Link

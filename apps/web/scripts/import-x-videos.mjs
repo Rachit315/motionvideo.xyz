@@ -74,7 +74,11 @@ const statusSchema = z.object({
   id: z.string(),
   text: z.string(),
   created_timestamp: z.number(),
-  author: z.object({ screen_name: z.string(), avatar_url: z.url() }),
+  author: z.object({
+    screen_name: z.string(),
+    name: z.string(),
+    avatar_url: z.url(),
+  }),
   media: z
     .object({
       all: z.array(
@@ -214,6 +218,7 @@ const buildVideo = async (source) => {
     contentTags: source.contentTags,
     promptShared: Boolean(prompt),
     handle,
+    creatorName: status.author.name,
     avatar: status.author.avatar_url,
     poster: media.thumbnail_url,
   };

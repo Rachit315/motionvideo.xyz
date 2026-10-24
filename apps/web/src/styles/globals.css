@@ -170,10 +170,31 @@
   --push-press: 110ms;
   --push-release: 190ms;
   --push-spring: cubic-bezier(0.22, 1.32, 0.36, 1);
-  /* Navigation menu: the hover pill's slide and its fill. */
   --tabs-duration: 250ms;
   --tabs-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --color-nav-hover: var(--nav-hover);
+  @keyframes popover-flip-in {
+    from {
+      transform: perspective(600px) rotateX(var(--popover-tilt-x, 0deg))
+        rotateY(var(--popover-tilt-y, 0deg)) scale(0.94);
+    }
+  }
+  @keyframes popover-flip-out {
+    to {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+  }
+  @keyframes popover-fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes popover-fade-out {
+    to {
+      opacity: 0;
+    }
+  }
 }
 
 :root {
@@ -266,8 +287,8 @@
   --otp-trail-color: rgb(255 255 255 / 55%);
   --otp-success-color: oklch(0.75 0.15 240);
   --skeleton-sweep: rgb(255 255 255 / 7%);
-  --nav-hover: var(--muted);
   --shell-line-strong: #303030;
+  --nav-hover: var(--muted);
 }
 
 /* Site cursor: the kibo-ui pointer arrow (black, white keyline so it reads on
@@ -430,6 +451,61 @@
   .dropzone-edge[data-ground="falling"] > .dropzone-edge-dashed {
     opacity: calc(1 - var(--ground-left));
   }
+  .sliding-tab-pill {
+    transition:
+      transform var(--tabs-duration) var(--tabs-ease),
+      width var(--tabs-duration) var(--tabs-ease);
+    will-change: transform, width;
+  }
+  .sliding-tab-face {
+    background-color: var(--background);
+    box-shadow:
+      0 0 0 0.5px rgb(0 0 0 / 0.04),
+      0 1px 2px rgb(0 0 0 / 0.06);
+  }
+  .dark .sliding-tab-face {
+    background-color: color-mix(in oklch, var(--muted), var(--foreground) 16%);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.07);
+  }
+  .sliding-tab-active-label {
+    transition: clip-path var(--tabs-duration) var(--tabs-ease);
+    will-change: clip-path;
+  }
+  .sliding-tab-icon-slot {
+    transition: width var(--tabs-duration) var(--tabs-ease);
+  }
+  .sliding-tab-icon {
+    opacity: 0;
+    scale: 0.25;
+    filter: blur(4px);
+    transition:
+      opacity calc(var(--tabs-duration) * 0.6) var(--tabs-ease),
+      scale calc(var(--tabs-duration) * 0.6) var(--tabs-ease),
+      filter calc(var(--tabs-duration) * 0.6) var(--tabs-ease);
+  }
+  .sliding-tab-icon-slot[data-shown] .sliding-tab-icon {
+    opacity: 1;
+    scale: 1;
+    filter: blur(0);
+    transition-duration: var(--tabs-duration);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sliding-tab-pill {
+      transition: none;
+    }
+    .sliding-tab-active-label {
+      transition: none;
+    }
+    .sliding-tab-icon-slot {
+      transition: none;
+    }
+    .sliding-tab-icon {
+      scale: 1;
+      filter: none;
+      transition: opacity calc(var(--tabs-duration) * 0.6) linear;
+    }
+  }
 }
 /* Same layer as Tailwind's cursor-default/cursor-pointer, declared later, so the
    keywords map to the site cursor while variants (disabled:…) still win. */
@@ -494,33 +570,6 @@
   }
   86% {
     transform: scale(0.96, 1.05);
-  }
-}
-
-/* /pro hero "Pro": the brand yellow as a slow-moving amber gradient clipped
-   to the text. The gradient starts and ends on the same stop and travels its
-   own width, so the loop is seamless. Static under reduced motion. */
-@utility text-pro-gradient {
-  background-image: linear-gradient(
-    100deg,
-    color-mix(in oklab, var(--primary) 60%, oklch(0.666 0.179 58.318)),
-    var(--primary),
-    color-mix(in oklab, var(--primary) 55%, white),
-    var(--primary),
-    color-mix(in oklab, var(--primary) 60%, oklch(0.666 0.179 58.318))
-  );
-  background-size: 200% 100%;
-  background-clip: text;
-  color: transparent;
-  animation: pro-gradient 6s linear infinite;
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-}
-
-@keyframes pro-gradient {
-  to {
-    background-position-x: 200%;
   }
 }
 
@@ -728,38 +777,11 @@ media-theme-sutro {
   .t-raise:not(.t-flat)::before {
     transition-duration: 0ms;
   }
-}
-
-/* Navigation menu popup: tips in from the side it opens on, fades out. */
-@keyframes popover-flip-in {
-  from {
-    opacity: 0;
-    transform: perspective(600px) rotateX(var(--popover-tilt-x, 0deg))
-      rotateY(var(--popover-tilt-y, 0deg)) scale(0.94);
+  .popover-panel[data-open] {
+    animation: popover-fade-in 140ms var(--ease-out);
   }
-}
-@keyframes popover-flip-out {
-  to {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-}
-.popover-panel[data-side="bottom"] {
-  --popover-tilt-x: -20deg;
-}
-.popover-panel[data-side="top"] {
-  --popover-tilt-x: 20deg;
-}
-.popover-panel[data-open] {
-  animation: popover-flip-in 300ms var(--ease-out);
-}
-.popover-panel[data-closed] {
-  animation: popover-flip-out 160ms var(--ease-exit) forwards;
-}
-@media (prefers-reduced-motion: reduce) {
-  .popover-panel[data-open],
   .popover-panel[data-closed] {
-    animation: none;
+    animation: popover-fade-out 140ms var(--ease-exit) forwards;
   }
 }
 
@@ -880,6 +902,9 @@ media-theme-sutro {
     outline-offset;
   transition-duration: var(--ring-duration);
   transition-timing-function: var(--ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0ms;
+  }
   @media (prefers-reduced-motion: reduce) {
     transition-duration: 0ms;
   }
@@ -1242,4 +1267,59 @@ media-theme-sutro {
   --raise-shade: transparent;
   --raise-edge: color-mix(in srgb, currentColor 24%, transparent);
   --raise-contact: transparent;
+}
+.popover-panel[data-side="bottom"] {
+  --popover-tilt-x: -20deg;
+}
+.popover-panel[data-side="top"] {
+  --popover-tilt-x: 20deg;
+}
+.popover-panel[data-side="right"],
+.popover-panel[data-side="inline-end"] {
+  --popover-tilt-y: 20deg;
+}
+.popover-panel[data-side="left"],
+.popover-panel[data-side="inline-start"] {
+  --popover-tilt-y: -20deg;
+}
+.popover-panel[data-side="inline-end"]:dir(rtl) {
+  --popover-tilt-y: -20deg;
+}
+.popover-panel[data-side="inline-start"]:dir(rtl) {
+  --popover-tilt-y: 20deg;
+}
+.popover-panel[data-open] {
+  animation:
+    popover-flip-in 300ms var(--ease-out),
+    popover-fade-in 160ms var(--ease-out);
+}
+.popover-panel[data-closed] {
+  animation: popover-flip-out 160ms var(--ease-exit) forwards;
+}
+
+/* /pro hero "Pro": the brand yellow as a slow-moving amber gradient clipped
+   to the text. The gradient starts and ends on the same stop and travels its
+   own width, so the loop is seamless. Static under reduced motion. */
+@utility text-pro-gradient {
+  background-image: linear-gradient(
+    100deg,
+    color-mix(in oklab, var(--primary) 60%, oklch(0.666 0.179 58.318)),
+    var(--primary),
+    color-mix(in oklab, var(--primary) 55%, white),
+    var(--primary),
+    color-mix(in oklab, var(--primary) 60%, oklch(0.666 0.179 58.318))
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  color: transparent;
+  animation: pro-gradient 6s linear infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes pro-gradient {
+  to {
+    background-position-x: 200%;
+  }
 }
