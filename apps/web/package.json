@@ -23,8 +23,7 @@
     "assets:mirror": "node scripts/mirror-assets.mjs",
     "catalog:discover": "node scripts/discover-x-posts.mjs",
     "catalog:import:articles": "node scripts/import-x-articles.mjs",
-    "catalog:import:videos": "node scripts/import-x-videos.mjs",
-    "repos:build": "node scripts/build-awesome-repos.mjs"
+    "catalog:import:videos": "node scripts/import-x-videos.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
