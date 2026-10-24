@@ -480,17 +480,6 @@ export default {
       pt: "Espaços",
       ru: "Размещения",
     }),
-    placementsIntro: t({
-      en: "Every place your brand can show, exactly as visitors see them. All are labelled as sponsored.",
-      es: "Todos los lugares donde puede aparecer tu marca, tal como los ven los visitantes. Todos se indican como patrocinados.",
-      fr: "Tous les endroits où votre marque peut apparaître, tels que les visiteurs les voient. Tous sont signalés comme sponsorisés.",
-      zh: "你的品牌可能展示的所有位置，与访客看到的完全一致。全部标注为赞助。",
-      ko: "브랜드가 노출될 수 있는 모든 위치를 방문자가 보는 그대로 보여 드립니다. 모두 스폰서 표시가 붙습니다.",
-      ja: "ブランドが表示されるすべての場所を、訪問者が見るそのままの形で。すべてスポンサー表示が付きます。",
-      de: "Alle Stellen, an denen deine Marke erscheinen kann, genau so, wie Besucher sie sehen. Alle sind als gesponsert gekennzeichnet.",
-      pt: "Todos os lugares onde a tua marca pode aparecer, exatamente como os visitantes os veem. Todos estão identificados como patrocinados.",
-      ru: "Все места, где может появиться ваш бренд, — ровно так, как их видят посетители. Все помечены как спонсорские.",
-    }),
     placementItems: {
       card: {
         title: t({

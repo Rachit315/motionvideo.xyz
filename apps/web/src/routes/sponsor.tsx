@@ -120,14 +120,9 @@ const Sponsor = () => {
           aria-labelledby="placements"
           className="flex w-full max-w-4xl flex-col gap-6"
         >
-          <div className="flex flex-col items-center gap-2 text-center">
-            <h2 id="placements" className={sectionTitle}>
-              {content.placements}
-            </h2>
-            <p className="text-muted-foreground max-w-2xl text-sm text-pretty">
-              {content.placementsIntro}
-            </p>
-          </div>
+          <h2 id="placements" className={cn(sectionTitle, "text-center")}>
+            {content.placements}
+          </h2>
           <SponsorPlacements />
         </section>
 
