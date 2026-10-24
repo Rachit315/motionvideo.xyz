@@ -12,7 +12,7 @@ A directory of motion videos made with AI and code, with the prompts and skills 
 
 [Website](https://motionvideo.xyz) · [About](https://motionvideo.xyz/about) · [Contact](https://motionvideo.xyz/contact)
 
-[![GitHub stars](https://img.shields.io/github/stars/motionvideohq/motionvideo.xyz?style=flat-square)](https://github.com/motionvideohq/motionvideo.xyz/stargazers) [![License: MIT](https://img.shields.io/github/license/motionvideohq/motionvideo.xyz?style=flat-square)](LICENSE) [![Follow on X](https://img.shields.io/badge/Follow-%40alaymanguy-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/alaymanguy)
+[![GitHub stars](https://img.shields.io/github/stars/motionvideohq/motionvideo.xyz?style=flat-square)](https://github.com/motionvideohq/motionvideo.xyz/stargazers) [![CI](https://github.com/motionvideohq/motionvideo.xyz/actions/workflows/ci.yml/badge.svg)](https://github.com/motionvideohq/motionvideo.xyz/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/github/license/motionvideohq/motionvideo.xyz?style=flat-square)](LICENSE) [![Sponsor](https://img.shields.io/badge/Sponsor-Aniket--508-ea4aaa?style=flat-square&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/Aniket-508) [![Follow on X](https://img.shields.io/badge/Follow-%40alaymanguy-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/alaymanguy)
 
 </div>
 
@@ -32,18 +32,17 @@ A directory of motion videos made with AI and code, with the prompts and skills 
 | Analytics | [PostHog](https://posthog.com) |
 | Tooling | [pnpm](https://pnpm.io), [Vite](https://vite.dev), [Oxlint](https://oxc.rs) + [Oxfmt](https://oxc.rs) via [Ultracite](https://www.ultracite.ai), [Lefthook](https://lefthook.dev) |
 
-## Getting started
+## Contributing
 
-```bash
-pnpm install
-cp apps/web/.env.example apps/web/.env
-pnpm --filter @motionvideo/web db:migrate:local
-pnpm dev
-```
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for local setup, checks, generated files, and the pull request process. Use [issues](https://github.com/motionvideohq/motionvideo.xyz/issues) for bugs and feature requests. By participating, you agree to the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-Email templates are React Email components in `apps/web/src/emails`. Preview them with `pnpm --filter @motionvideo/web email:dev` (port 3001).
+## Security
 
-Open the videos in Remotion Studio with `pnpm studio`.
+Please do not open public issues for security vulnerabilities. Follow [SECURITY.md](SECURITY.md) and report them privately through GitHub Security Advisories.
+
+## Contributors
+
+[![Contributors](https://contrib.rocks/image?repo=motionvideohq/motionvideo.xyz)](https://github.com/motionvideohq/motionvideo.xyz/graphs/contributors)
 
 ## License
 

@@ -1,0 +1,81 @@
+name: Bug report
+description: Report a reproducible bug in MotionVideo.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug report. Before opening a new issue:
+
+        - [Search existing issues](https://github.com/motionvideohq/motionvideo.xyz/issues) and upvote instead of duplicating — it gets bugs fixed faster.
+        - Verify the bug still reproduces on [motionvideo.xyz](https://motionvideo.xyz) and on the latest `main`.
+        - For questions or feedback, use the [contact page](https://motionvideo.xyz/contact) instead.
+        - For security issues, **do not open a public issue** — follow [SECURITY.md](https://github.com/motionvideohq/motionvideo.xyz/blob/main/SECURITY.md).
+  - type: input
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: |
+        A link to a **public** repository, StackBlitz/CodeSandbox, or the exact page URL where the bug happens. Include only the setup needed to trigger the bug.
+      placeholder: "https://motionvideo.xyz/..."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: A step-by-step description of how to trigger the bug using the link above.
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. See error
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Current vs. expected behavior
+      description: What happens today (including exact error output), and what you expected to happen instead.
+      placeholder: "Following the steps above, I expected A, but observed B instead."
+    validations:
+      required: true
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Where does the bug occur?
+      multiple: true
+      options:
+        - Local dev (`pnpm dev`)
+        - Build (`pnpm build`)
+        - Production (motionvideo.xyz)
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Your OS, Node.js version (`node --version`), pnpm version, and browser.
+      render: shell
+      placeholder: |
+        OS: macOS 15.5 (arm64)
+        Node: v22.23.3
+        pnpm: 10.28.2
+        Browser: Chrome 141
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Browser console output, terminal output, or server logs around the failure.
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Screenshots or recordings, whether it only happens when signed in, the first date or commit where you noticed it, etc.
+    validations:
+      required: false
