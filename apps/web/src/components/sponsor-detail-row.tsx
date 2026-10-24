@@ -69,8 +69,9 @@ export const SponsorDetailRow = ({
   return (
     <div
       className={cn(
-        // The next row drops its dashed border: this row's hairline closes it.
-        "relative flex items-start justify-between gap-4 border-t border-dashed py-2.5 text-sm first:border-t-0 [&+*]:border-t-0",
+        // Dashed above, like every details row (the first included); the
+        // next row drops its dashed border: this row's hairline closes it.
+        "relative flex items-start justify-between gap-4 border-t border-dashed py-2.5 text-sm [&+*]:border-t-0",
         className
       )}
     >

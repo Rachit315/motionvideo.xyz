@@ -7,6 +7,9 @@
   "observability": {
     "enabled": true,
   },
+  // Branch previews: Workers Builds runs `wrangler preview`, which requires
+  // this block (empty inherits the top-level settings).
+  "previews": {},
   // Prerendered content pages (STATIC_PAGES in src/constants/routes.ts) run the
   // Worker first so it can apply the www redirect, then it serves the static
   // HTML through ASSETS. Scripts, styles, and images skip the Worker.

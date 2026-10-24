@@ -1373,22 +1373,6 @@
         "cover": "https://pbs.twimg.com/profile_banners/26650185/1567391285"
       },
       {
-        "id": "studio-dumbar-dept",
-        "name": "Studio Dumbar/DEPT®",
-        "description": "Visual identity, motion and sound",
-        "category": "Studio",
-        "url": "http://studiodumbar.com",
-        "cover": "https://pbs.twimg.com/profile_banners/8098712/1617884027"
-      },
-      {
-        "id": "jett-collective",
-        "name": "Jett Collective",
-        "description": "AI commercials for Google and Coca-Cola",
-        "category": "Studio",
-        "url": "https://x.com/Jett_Collective",
-        "cover": "https://pbs.twimg.com/profile_banners/1354498921419030529/1792761932"
-      },
-      {
         "id": "abdullah-skromatic",
         "name": "Abdullah (Skromatic)",
         "description": "Launch videos for founders and brands",
@@ -1427,22 +1411,6 @@
         "category": "Designers",
         "url": "http://reallygoodvideos.com",
         "cover": ""
-      },
-      {
-        "id": "jeremiah-warren",
-        "name": "Jeremiah Warren",
-        "description": "Films for AI companies",
-        "category": "Designers",
-        "url": "http://www.jeremiahwarren.com",
-        "cover": "https://pbs.twimg.com/profile_banners/17681644/1717105502"
-      },
-      {
-        "id": "ben-fryc",
-        "name": "Ben Fryc",
-        "description": "3D and motion design",
-        "category": "Designers",
-        "url": "https://www.benfryc.com",
-        "cover": "https://pbs.twimg.com/profile_banners/16310533/1780087241"
       },
       {
         "id": "bartek-radziejewski",
@@ -1531,14 +1499,6 @@
         "category": "Designers",
         "url": "https://www.vikpat.com",
         "cover": "https://pbs.twimg.com/profile_banners/786769147/1768206296"
-      },
-      {
-        "id": "christopher-fryant",
-        "name": "Christopher Fryant",
-        "description": "2D/3D and AI films for xAI and Luma",
-        "category": "Designers",
-        "url": "https://www.chrisfryant.com/",
-        "cover": "https://pbs.twimg.com/profile_banners/39125372/1745284963"
       }
     ]
   }
