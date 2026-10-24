@@ -6,7 +6,7 @@
     "fonts": "mkdir -p public/fonts && cp -R ../web/public/fonts/timeless public/fonts/",
     "prestudio": "pnpm fonts",
     "studio": "remotion studio",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "node scripts/typecheck.mjs",
     "launch:render": "pnpm fonts && remotion render MotionVideoLaunch out/picture.mp4 --scale=1.5 --crf=16 --muted",
     "launch:audio:cues": "node --experimental-strip-types --no-warnings audio/write-cues.ts",
     "launch:audio:forge": "${EARSHOT:-$HOME/.local/share/earshot}/.venv/bin/python audio/forge_sfx.py",
