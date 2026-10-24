@@ -1,3 +1,4 @@
+import { ScriptOnce } from "@tanstack/react-router";
 import {
   useEffect,
   useId,
@@ -198,6 +199,8 @@ export const VirtualMasonry = ({ items }: { items: MasonryItem[] }) => {
   const start = viewport.scrollY - layout.top - OVERSCAN;
   const end = viewport.scrollY - layout.top + viewport.height + OVERSCAN;
 
+  // The parser-time script rewrites the server's styles (and the browser
+  // rounds them when serialized), so these styles never match on hydration.
   return (
     <>
       <div
@@ -206,6 +209,7 @@ export const VirtualMasonry = ({ items }: { items: MasonryItem[] }) => {
         data-masonry-layout={initialLayout && JSON.stringify(initialLayout)}
         className="relative w-full"
         style={{ height: totalHeight }}
+        suppressHydrationWarning
       >
         {placements
           .filter(({ item, top, height }) =>
@@ -219,6 +223,7 @@ export const VirtualMasonry = ({ items }: { items: MasonryItem[] }) => {
               ref={item.aspectRatio ? undefined : observe}
               data-key={item.key}
               className="absolute top-0 left-0"
+              suppressHydrationWarning
               style={{
                 width: laneWidth,
                 transform: `translate(${lane * (laneWidth + GAP)}px, ${top}px)`,
@@ -228,7 +233,9 @@ export const VirtualMasonry = ({ items }: { items: MasonryItem[] }) => {
             </div>
           ))}
       </div>
-      <script>{script}</script>
+      {/* SSR only, removing itself: client bundles serialize layoutMasonry
+          differently, and client-rendered scripts never run. */}
+      <ScriptOnce>{script}</ScriptOnce>
     </>
   );
 };
