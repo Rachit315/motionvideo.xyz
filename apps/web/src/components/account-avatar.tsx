@@ -22,8 +22,8 @@ import { User } from "reicon-react/icons/User";
 import { VolumeCross } from "reicon-react/icons/VolumeCross";
 import { VolumeHigh } from "reicon-react/icons/VolumeHigh";
 
-import { GitHubIcon, XIcon } from "@/components/brand-icons";
 import { useFeedbackDialog } from "@/components/feedback-dialog";
+import { GitHubIcon, XIcon } from "@/components/icons";
 import { useKeyboardShortcuts } from "@/components/keyboard-shortcuts";
 import { useSignInDialog } from "@/components/sign-in-dialog";
 import { toggleTheme } from "@/components/theme-toggle";

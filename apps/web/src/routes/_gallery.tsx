@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-router";
 import type { UseNavigateResult } from "@tanstack/react-router";
 import { useMemo } from "react";
-import type { ReactNode } from "react";
+import type { ComponentType, ReactNode, SVGProps } from "react";
 import { useIntlayer } from "react-intlayer";
 import type { IconComponent } from "reicon-react";
 import { ChevronDown } from "reicon-react/icons/ChevronDown";
@@ -30,6 +30,7 @@ import {
   CollectionToolbar,
 } from "@/components/collection-toolbar";
 import { FadeScroller } from "@/components/fade-scroller";
+import { Claude, Codex, Gemini } from "@/components/icons";
 import { JobsWidget } from "@/components/jobs-widget";
 import { MotionVideoCard, setMorphCard } from "@/components/motion-video";
 import { SiteFooter } from "@/components/site-footer";
@@ -62,6 +63,7 @@ import type {
   GalleryScope,
   GallerySearch,
   MotionCategory,
+  MotionModel,
   MotionVideo,
 } from "@/lib/motion-catalog";
 import { cn } from "@/lib/utils";
@@ -213,10 +215,21 @@ type Sort = (typeof SORTS)[number];
 const TYPE_ICONS: Record<"all" | (typeof MOTION_TYPES)[number], IconComponent> =
   { all: Layers, prompt: Text, skill: Code };
 
+// Model options carry standalone brand marks; sort options carry no icon.
+const MODEL_ICONS: Record<
+  MotionModel,
+  ComponentType<SVGProps<SVGSVGElement>>
+> = {
+  "Opus 5.5": Claude,
+  "Fable 5.5": Claude,
+  "Gemini 4 Argon": Gemini,
+  "GPT-6 Astra": Codex,
+};
+
 interface FilterOption {
   value: string;
   label: ReactNode;
-  icon?: IconComponent;
+  icon?: ComponentType<SVGProps<SVGSVGElement>>;
   disabled?: boolean;
 }
 
@@ -285,10 +298,11 @@ const GalleryFilters = ({
       value: search.model ?? "all",
       onSelect: (value) => onChange({ model: findMotionModel(value) && value }),
       options: [
-        { value: "all", label: content.all },
+        { value: "all", label: content.all, icon: Layers },
         ...MODELS.map((id) => ({
           value: motionModelSlug(id),
           label: id,
+          icon: MODEL_ICONS[id],
           disabled: !modelsInView.has(id) && model !== id,
         })),
       ],
@@ -306,6 +320,7 @@ const GalleryFilters = ({
   ];
 
   const TypeIcon = TYPE_ICONS[search.type ?? "all"];
+  const ModelIcon = model ? MODEL_ICONS[model] : undefined;
   const triggerClass = chipClass(Boolean(search.type || model || search.sort));
   const summary = (
     <>
@@ -313,9 +328,11 @@ const GalleryFilters = ({
       <span aria-hidden="true" className="opacity-60">
         ·
       </span>
-      {model && (
+      {ModelIcon && (
         <>
-          <span className="max-w-28 truncate">{model}</span>
+          <span title={model}>
+            <ModelIcon aria-hidden="true" />
+          </span>
           <span aria-hidden="true" className="opacity-60">
             ·
           </span>
@@ -353,6 +370,7 @@ const GalleryFilters = ({
                     key={option.value}
                     value={option.value}
                     disabled={option.disabled}
+                    indicator={section.id === "sort" ? "radio" : "check"}
                   >
                     {Icon && (
                       <Icon

@@ -3,8 +3,31 @@ import { useMemo } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer, useLocale } from "react-intlayer";
 import type { IntlayerNode } from "react-intlayer";
+import type { IconComponent } from "reicon-react";
+import { Archive } from "reicon-react/icons/Archive";
+import { Award } from "reicon-react/icons/Award";
+import { BadgePercent } from "reicon-react/icons/BadgePercent";
+import { Bolt } from "reicon-react/icons/Bolt";
+import { BrowserCode } from "reicon-react/icons/BrowserCode";
 import { ChevronDown } from "reicon-react/icons/ChevronDown";
+import { Clapperboard } from "reicon-react/icons/Clapperboard";
+import { CodeCircle } from "reicon-react/icons/CodeCircle";
+import { Compass } from "reicon-react/icons/Compass";
+import { CreditCard } from "reicon-react/icons/CreditCard";
+import { Folder } from "reicon-react/icons/Folder";
+import { Gallery } from "reicon-react/icons/Gallery";
+import { Gift } from "reicon-react/icons/Gift";
+import { Layers } from "reicon-react/icons/Layers";
+import { Library } from "reicon-react/icons/Library";
+import { PenTool } from "reicon-react/icons/PenTool";
+import { Pointer } from "reicon-react/icons/Pointer";
+import { Presentation } from "reicon-react/icons/Presentation";
 import { Search } from "reicon-react/icons/Search";
+import { TerminalSquare } from "reicon-react/icons/TerminalSquare";
+import { Text } from "reicon-react/icons/Text";
+import { ThreeDCube } from "reicon-react/icons/ThreeDCube";
+import { Video } from "reicon-react/icons/Video";
+import { VideoFrame } from "reicon-react/icons/VideoFrame";
 
 import {
   CollectionEmptyState,
@@ -64,10 +87,49 @@ interface MenuSection {
   id: "filter" | "sort";
   label: ReactNode;
   value: string;
-  options: { value: string; label: ReactNode; disabled?: boolean }[];
+  options: {
+    value: string;
+    label: ReactNode;
+    icon?: IconComponent;
+    disabled?: boolean;
+  }[];
   onSelect: (value: string) => void;
 }
 
+// One icon per facet value, so every filter option is distinct at a glance.
+// Sort options carry no icon: they read as a radio group instead.
+const FILTER_ICONS: Record<DirectoryKind, Record<string, IconComponent>> = {
+  tool: {
+    free: Gift,
+    freemium: BadgePercent,
+    "open-source": CodeCircle,
+    paid: CreditCard,
+  },
+  studio: {
+    "product-films": Clapperboard,
+    explainers: Presentation,
+    "3d": ThreeDCube,
+    brand: Award,
+    "ui-motion": Pointer,
+  },
+  skill: {
+    remotion: VideoFrame,
+    hyperframes: Bolt,
+    html: BrowserCode,
+    manim: Compass,
+    adobe: PenTool,
+    blender: ThreeDCube,
+    "video-models": Video,
+    ffmpeg: TerminalSquare,
+  },
+  extra: {
+    library: Library,
+    examples: Gallery,
+    prompts: Text,
+    directory: Folder,
+    archive: Archive,
+  },
+};
 // The section's facet and its order in one menu, like Discover's filters:
 // "All" and "Featured" (the curated order) are the defaults, and the pill
 // turns yellow once either moves off them. A facet value with no entries in
@@ -104,10 +166,11 @@ const DirectoryFilters = ({
           filter: DIRECTORY_FILTERS[kind].find((filter) => filter === value),
         }),
       options: [
-        { value: "all", label: content.all },
+        { value: "all", label: content.all, icon: Layers },
         ...DIRECTORY_FILTERS[kind].map((value) => ({
           value,
           label: filterLabels[value],
+          icon: FILTER_ICONS[kind][value],
           disabled: !available.has(value) && search.filter !== value,
         })),
       ],
@@ -166,15 +229,25 @@ const DirectoryFilters = ({
               onValueChange={(value) => section.onSelect(String(value))}
             >
               <DropdownMenuLabel>{section.label}</DropdownMenuLabel>
-              {section.options.map((option) => (
-                <DropdownMenuRadioItem
-                  key={option.value}
-                  value={option.value}
-                  disabled={option.disabled}
-                >
-                  {option.label}
-                </DropdownMenuRadioItem>
-              ))}
+              {section.options.map((option) => {
+                const Icon = option.icon;
+                return (
+                  <DropdownMenuRadioItem
+                    key={option.value}
+                    value={option.value}
+                    disabled={option.disabled}
+                    indicator={section.id === "sort" ? "radio" : "check"}
+                  >
+                    {Icon && (
+                      <Icon
+                        aria-hidden="true"
+                        className="text-muted-foreground"
+                      />
+                    )}
+                    {option.label}
+                  </DropdownMenuRadioItem>
+                );
+              })}
             </DropdownMenuRadioGroup>
           </div>
         ))}

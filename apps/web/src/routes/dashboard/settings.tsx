@@ -6,8 +6,8 @@ import { Check } from "reicon-react/icons/Check";
 import { Xmark } from "reicon-react/icons/Xmark";
 
 import { AvatarImage } from "@/components/account-avatar";
-import { GoogleIcon } from "@/components/brand-icons";
 import { DeleteAccountDialog } from "@/components/delete-account-dialog";
+import { GoogleIcon } from "@/components/icons";
 import {
   setLiveCursorsEnabled,
   useLiveCursorsEnabled,

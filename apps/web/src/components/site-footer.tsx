@@ -5,8 +5,8 @@ import { useIntlayer } from "react-intlayer";
 import { ChevronDown } from "reicon-react/icons/ChevronDown";
 
 import { Brand } from "@/components/brand";
-import { GitHubIcon, XIcon } from "@/components/brand-icons";
 import { FooterWordmark } from "@/components/footer-wordmark";
+import { GitHubIcon, XIcon } from "@/components/icons";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { SoundSwitch } from "@/components/sound-switch";
 import { ThemeToggle } from "@/components/theme-toggle";

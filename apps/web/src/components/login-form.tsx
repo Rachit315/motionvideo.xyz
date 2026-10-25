@@ -3,7 +3,7 @@ import type { FormEvent, ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
 
 import { Brand } from "@/components/brand";
-import { GoogleIcon } from "@/components/brand-icons";
+import { GoogleIcon } from "@/components/icons";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Turnstile } from "@/components/turnstile";
 import { Button } from "@/components/ui/button";

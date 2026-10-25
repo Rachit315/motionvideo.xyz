@@ -21,7 +21,7 @@ import { Sun } from "reicon-react/icons/Sun";
 import { Undo } from "reicon-react/icons/Undo";
 import { User2 } from "reicon-react/icons/User2";
 
-import { GitHubIcon, XIcon } from "@/components/brand-icons";
+import { GitHubIcon, XIcon } from "@/components/icons";
 import {
   Command,
   CommandDialog,

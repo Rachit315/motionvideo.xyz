@@ -6,7 +6,7 @@ import { Envelope } from "reicon-react/icons/Envelope";
 import { Plus } from "reicon-react/icons/Plus";
 import { TickCircle } from "reicon-react/icons/TickCircle";
 
-import { XIcon } from "@/components/brand-icons";
+import { XIcon } from "@/components/icons";
 import { HeroHeader, PageMain } from "@/components/page";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
