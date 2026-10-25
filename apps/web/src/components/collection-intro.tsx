@@ -1,8 +1,8 @@
-import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { ArrowRightUp } from "reicon-react/icons/ArrowRightUp";
 import { Ufo } from "reicon-react/icons/Ufo";
 
+import { LocalizedLink as Link } from "@/components/localized-link";
 import { SponsorSlots } from "@/components/sponsor-slots";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";

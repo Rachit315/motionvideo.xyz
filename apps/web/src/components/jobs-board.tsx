@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
 import { ArrowRightUp } from "reicon-react/icons/ArrowRightUp";
 
@@ -11,6 +10,7 @@ import {
 import { DIRECTORY_COVER_RATIO } from "@/components/directory-card";
 import { FadeScroller } from "@/components/fade-scroller";
 import { JobCard, NoJobsCard } from "@/components/job-card";
+import { LocalizedLink as Link } from "@/components/localized-link";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SponsoredCard, sponsoredTileIndex } from "@/components/sponsored-card";

@@ -41,8 +41,11 @@ const [catalog, articles, directories] = await Promise.all([
 ]);
 
 const statusId = (url) => url?.match(/status\/(?<id>\d+)/u)?.groups.id;
+// Removed duplicates count as known, so their posts never come back.
 const knownVideos = new Set(
-  catalog.videos.map((video) => statusId(video.tweetUrl))
+  [...catalog.videos, ...(catalog.removed ?? [])].map((video) =>
+    statusId(video.tweetUrl)
+  )
 );
 const knownArticles = new Set(
   articles.entries.map((entry) => entry.url.split("/").at(-1))

@@ -1,6 +1,13 @@
 import handler from "@tanstack/react-start/server-entry";
 import { env } from "cloudflare:workers";
 
+import {
+  DEFAULT_LOCALE,
+  LOCALE_COOKIE,
+  LOCALES,
+  isLocale,
+  localizedPath,
+} from "@/constants/locales";
 import { STATIC_PAGES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { UPLOAD_PATH_PREFIX } from "@/lib/uploads";
@@ -9,6 +16,80 @@ import { UPLOAD_PATH_PREFIX } from "@/lib/uploads";
 export { Presence } from "@/server/presence";
 
 const PRESENCE_PATH = "/api/presence";
+
+/** Prerendered pages, once per locale (`/en/about`, `/fr/about`, …). */
+const STATIC_PATHS = new Set(
+  LOCALES.flatMap((locale) =>
+    STATIC_PAGES.map((page) => localizedPath(page, locale))
+  )
+);
+
+const HAS_FILE_EXTENSION = /\.[a-z0-9]+$/iu;
+const SKIP_PREFIXES = ["/api/", "/_", "/uploads/"];
+
+/**
+ * Locale for an unprefixed visit: an explicit choice in the cookie first, then
+ * the browser's language list, then the default.
+ */
+const negotiateLocale = (request: Request) => {
+  const cookie = request.headers
+    .get("Cookie")
+    ?.match(
+      new RegExp(String.raw`(?:^|;\s*)${LOCALE_COOKIE}=([^;]+)`, "u")
+    )?.[1];
+  if (isLocale(cookie)) {
+    return cookie;
+  }
+  const accepted = request.headers.get("Accept-Language") ?? "";
+  for (const entry of accepted.split(",")) {
+    const tag = entry.split(";")[0]?.trim().toLowerCase();
+    const language = tag?.split("-")[0];
+    if (isLocale(language)) {
+      return language;
+    }
+  }
+  return DEFAULT_LOCALE;
+};
+
+/**
+ * Old unprefixed pages (`/about`) become the negotiated locale's URL. API,
+ * asset, and framework paths are left alone, as are unknown two-letter
+ * prefixes: those render a translation-aware 404 instead of being rewritten.
+ */
+const localeRedirect = (request: Request): Response | null => {
+  if (request.method !== "GET" && request.method !== "HEAD") {
+    return null;
+  }
+  const url = new URL(request.url);
+  const { pathname } = url;
+  if (
+    pathname === "/" ||
+    (!SKIP_PREFIXES.some((prefix) => pathname.startsWith(prefix)) &&
+      !HAS_FILE_EXTENSION.test(pathname))
+  ) {
+    const [, segment] = pathname.split("/");
+    if (isLocale(segment)) {
+      return null;
+    }
+    // A lowercase two-letter first segment is most likely an attempted locale
+    // (`/xx/about`); let the router show its locale-aware 404.
+    if (segment !== undefined && /^[a-z]{2}$/iu.test(segment)) {
+      return null;
+    }
+    url.pathname = localizedPath(pathname, negotiateLocale(request));
+    // `Response.redirect` has immutable headers in Workers, so build the response
+    // directly to add cache negotiation hints.
+    return new Response(null, {
+      headers: {
+        "Cache-Control": "private, no-store",
+        Location: url.toString(),
+        Vary: "Accept-Language, Cookie",
+      },
+      status: 307,
+    });
+  }
+  return null;
+};
 
 // Sent with every page and API response (not the presence WebSocket). Framing
 // is denied (clickjacking), MIME sniffing is off, and HTTPS is pinned.
@@ -36,6 +117,21 @@ const route = async (request: Request): Promise<Response> => {
     url.hostname = SITE.DOMAIN;
     return Response.redirect(url.toString(), 301);
   }
+  // One URL per page: `/en/tools/` (and `/en/`) move permanently to the
+  // slashless form the router renders, rather than through the router's own
+  // temporary redirect. API and framework paths keep their exact form.
+  if (
+    url.pathname.length > 1 &&
+    url.pathname.endsWith("/") &&
+    !SKIP_PREFIXES.some((prefix) => url.pathname.startsWith(prefix))
+  ) {
+    url.pathname = url.pathname.replace(/\/+$/u, "") || "/";
+    return Response.redirect(url.toString(), 308);
+  }
+  const localized = localeRedirect(request);
+  if (localized) {
+    return localized;
+  }
   // Uploaded logos and covers (POST /api/upload), straight from R2.
   if (request.method === "GET" && url.pathname.startsWith(UPLOAD_PATH_PREFIX)) {
     const object = await env.UPLOADS.get(url.pathname.slice(1));
@@ -52,7 +148,7 @@ const route = async (request: Request): Promise<Response> => {
   }
   // Prerendered at build time: serve the HTML file. It doesn't exist yet
   // while the build itself prerenders these pages, so render instead.
-  if (STATIC_PAGES.includes(url.pathname)) {
+  if (STATIC_PATHS.has(url.pathname)) {
     const page = await env.ASSETS.fetch(request);
     if (page.status !== 404) {
       return page;

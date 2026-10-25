@@ -1,10 +1,10 @@
-import { Link } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
 import { useIntlayer } from "react-intlayer";
 import { Download } from "reicon-react/icons/Download";
 import { Text } from "reicon-react/icons/Text";
 import { Window } from "reicon-react/icons/Window";
 
+import { LocalizedLink as Link } from "@/components/localized-link";
 import { Logomark } from "@/components/logomark";
 import {
   ContextMenu,

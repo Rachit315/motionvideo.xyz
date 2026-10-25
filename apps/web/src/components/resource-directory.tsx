@@ -1,4 +1,4 @@
-import { useNavigate, useSearch } from "@tanstack/react-router";
+import { useSearch } from "@tanstack/react-router";
 import { useMemo } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer, useLocale } from "react-intlayer";
@@ -58,6 +58,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import type { MasonryItem } from "@/components/virtual-masonry";
 import { useLaneCount } from "@/hooks/use-lane-count";
+import { useLocalizedNavigate as useNavigate } from "@/hooks/use-localized-navigate";
 import {
   DIRECTORY_CATEGORIES,
   DIRECTORY_ENTRIES,

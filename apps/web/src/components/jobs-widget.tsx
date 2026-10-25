@@ -1,8 +1,8 @@
-import { Link } from "@tanstack/react-router";
 import { useIntlayer } from "react-intlayer";
 import { ArrowRight } from "reicon-react/icons/ArrowRight";
 
 import { CompanyLogo } from "@/components/company-logo";
+import { LocalizedLink as Link } from "@/components/localized-link";
 import { buttonVariants } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
 import type { JobListing } from "@/server/job-functions";

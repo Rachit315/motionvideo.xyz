@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
-import { useIntlayer } from "react-intlayer";
+import { useIntlayer, useLocale } from "react-intlayer";
 
 import { Brand } from "@/components/brand";
 import { GoogleIcon } from "@/components/icons";
@@ -23,6 +23,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { CAPTCHA_HEADER, WELCOME_HEADER } from "@/constants/auth";
+import { localizedPath } from "@/constants/locales";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { track } from "@/lib/analytics";
@@ -61,6 +62,7 @@ export const AuthCard = ({
   children: ReactNode;
 }) => {
   const content = useIntlayer("account");
+  const { locale } = useLocale();
   return (
     <FieldGroup className={cn(layout === "dialog" && "px-6 pt-12 pb-6")}>
       {layout === "centred" && (
@@ -76,9 +78,9 @@ export const AuthCard = ({
       </div>
       {children}
       <FieldDescription className="text-center">
-        <a href={ROUTES.TERMS}>{content.terms}</a>
+        <a href={localizedPath(ROUTES.TERMS, locale)}>{content.terms}</a>
         {" · "}
-        <a href={ROUTES.PRIVACY}>{content.privacy}</a>
+        <a href={localizedPath(ROUTES.PRIVACY, locale)}>{content.privacy}</a>
       </FieldDescription>
       {layout === "centred" && (
         <div className="flex justify-center">

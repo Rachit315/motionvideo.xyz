@@ -1,4 +1,3 @@
-import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer, useLocale } from "react-intlayer";
@@ -35,6 +34,7 @@ import {
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { LINK } from "@/constants/links";
 import { useHotkey } from "@/hooks/use-hotkey";
+import { useLocalizedNavigate as useNavigate } from "@/hooks/use-localized-navigate";
 import { useIsMac } from "@/hooks/use-mac";
 import { track } from "@/lib/analytics";
 import type { DirectoryEntry, DirectoryKind } from "@/lib/directories";

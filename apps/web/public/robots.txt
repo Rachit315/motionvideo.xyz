@@ -1,12 +1,18 @@
 # https://www.robotstxt.org/robotstxt.html
 # Search and AI crawlers are welcome on public pages; account, admin, and
-# utility paths stay out.
+# utility paths stay out. Pages live under a locale prefix (`/en/admin`), so
+# each private path is blocked both with and without it.
 User-agent: *
 Disallow: /admin
+Disallow: /*/admin
 Disallow: /checkout
+Disallow: /*/checkout
 Disallow: /dashboard
+Disallow: /*/dashboard
 Disallow: /sign-in
+Disallow: /*/sign-in
 Disallow: /welcome
+Disallow: /*/welcome
 Disallow: /api/
 # The catalog JSON is the machine-readable dataset linked from /llms.txt
 # (most-specific rule wins, so the catalog stays crawlable).

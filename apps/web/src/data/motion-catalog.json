@@ -1131,27 +1131,6 @@
       "colors": ["0e0d18", "df262c", "cbbbae", "e5e0e2", "201f32"]
     },
     {
-      "slug": "rossaxbt-94583b",
-      "title": "White ball UI motion loop",
-      "date": "2026-10-10",
-      "tags": ["prompt"],
-      "contentTags": ["product-ui", "music"],
-      "promptShared": true,
-      "handle": "rossaxbt",
-      "prompt": "<inputs>\nAsk me for: a target value for the slider, three short notification messages, a reply to type, one accent color and a royalty-free track around 120 BPM. If I skip anything, use 100, \"Slider - Reached 100\", \"Gravity - Something is falling\", \"Messages - What now?\", \"retry\" and electric blue.\n</inputs>\n\n<direction>\nA 10-second 2D UI motion film in 16:9. Place everything on a near-black canvas with a faint dot grid. Use charcoal controls, sharp white text, one blue accent and a white ball that moves through the entire film. A real cursor makes the opening click feel physical; the ball guides each transition that follows. Keep the UI clean and the impacts precise, with only small spring overshoots. Move the camera through one continuous layout so every interaction fills the frame.\n\nBanned: hard cuts, stock footage, glows, particle bursts, disconnected transitions, excessive bouncing and blurry text during camera moves.\n</direction>\n\n<structure>\nAround 10 seconds, with something happening on every major beat.\n\nToggle: the cursor clicks a blue switch. Its white ball springs free, and the camera follows it toward a horizontal slider.\n\nSlider: the ball lands on the knob and moves it along the track. The blue fill stays attached, while a value bubble above the knob climbs to 100.\n\nNotifications: hitting 100 sends the ball onward and brings in three dark cards: \"Slider\", \"Gravity\" and \"Messages\". Each arrives on its own beat. The camera follows the ball down to \"What now?\".\n\nReply: the small \"Reply\" pill stretches into a text field. A keyboard rises below it as part of the same scene.\n\nKeyboard: the ball strikes the keys while \"retry\" appears in the field. It lands on Return, the blue send button activates and the reply contracts into a small blue message.\n\nReturn: the camera pulls back to show the toggle, slider, cards and keyboard together in one world. The ball travels back to the first switch. Match its position, the cursor and the switch state to the opening frame so the film loops cleanly.\n</structure>\n\n<build>\n1. Make one HTML file at 1920x1080 and 60fps. Calculate every visual from time inside seek(t): no CSS transitions, timers or state carried between frames.\n2. Arrange all UI components in one world. Use a single camera transform with position and log-space zoom, making each close-up a move through that world.\n3. Give the white ball one continuous route between the toggle, slider, cards and keys. Use closed-form springs for landings and a brief squash on impact.\n4. Calculate the slider fill and number from the ball's horizontal position. Keep the tooltip centered over the knob until it reaches 100.\n5. Give every key press a fixed time. Show the reply as the portion typed by that moment, so any frame can be rendered independently.\n6. Align the click, slider movement, card arrivals, key taps, send and return with measured beats. Add a subtle UI sound to each contact.\n7. Render one still per beat to check pacing and readability, then export the full film with Playwright at 60fps. Inspect fast camera moves and the loop boundary frame by frame.\n</build>\n\n<gotchas>\nNever let the ball teleport between components: show the path of every handoff. Keep the value bubble attached to the slider knob. Leave enough space for the notifications to stay readable during camera moves. The keys the ball presses must match the text appearing in the field. Match the first and last frames, including the ball's direction and cursor position, to prevent a loop stutter.\n</gotchas>\n\n<start>\nAsk me for the inputs, then show me the beat map and four stills (toggle, slider, notifications, keyboard) before building the full video.\n</start>",
-      "avatar": "https://assets.motionvideo.xyz/avatars/rossaxbt-99925deb16.webp",
-      "poster": "https://assets.motionvideo.xyz/motion/rossaxbt-94583b/poster-3239ae2e5b.webp",
-      "blur": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACQAQCdASoQAAkAAoBCJaQAAudPjMAA/vxKm6pEst7CGDTuzT20J3RGRQAAAA==",
-      "preview": "https://assets.motionvideo.xyz/motion/rossaxbt-94583b/preview-0b93e05f94.mp4",
-      "video": "https://assets.motionvideo.xyz/motion/rossaxbt-94583b/video-3b9dd1c55e.mp4",
-      "width": 1920,
-      "height": 1078,
-      "tweetUrl": "https://x.com/rossaxbt/status/2108933141406638456",
-      "model": "Opus 5.5",
-      "stack": "HTML",
-      "colors": ["0b0b0c", "242527"]
-    },
-    {
       "slug": "nft_chen-ba901b",
       "title": "Fifteen animated explainer styles",
       "date": "2026-10-07",
@@ -2377,28 +2356,6 @@
       "colors": ["030b19", "0b2340", "1b4369", "747269", "9c9377"]
     },
     {
-      "slug": "chatgptastra-0d95c7",
-      "title": "Motion principles showreel",
-      "date": "2026-09-26",
-      "tags": ["prompt"],
-      "contentTags": ["diagrams", "kinetic-type", "particles"],
-      "promptShared": true,
-      "handle": "ChatGptAstra",
-      "prompt": "以动态设计师的高级审美，制作一段动态的15秒动态图形视频",
-      "avatar": "https://assets.motionvideo.xyz/avatars/chatgptastra-f4825cc28c.webp",
-      "poster": "https://assets.motionvideo.xyz/motion/chatgptastra-0d95c7/poster-c754c696df.webp",
-      "blur": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAABwAQCdASoQAAkAAoBCJaTxqACIAAD+9d3mA/e9p6+kMIgmvKZMscAA",
-      "preview": "https://assets.motionvideo.xyz/motion/chatgptastra-0d95c7/preview-6cbc699a7e.mp4",
-      "video": "https://assets.motionvideo.xyz/motion/chatgptastra-0d95c7/video-88a175ecf6.mp4",
-      "width": 1920,
-      "height": 1080,
-      "tweetUrl": "https://x.com/ChatGptAstra/status/2103834787647807540",
-      "model": "Opus 5.5",
-      "iterations": "one-shot",
-      "creatorName": "摸鱼巨匠🔨",
-      "colors": ["ececee", "1b1c20", "3d7ae4"]
-    },
-    {
       "slug": "ulyssexbt-cd08ca",
       "title": "Self-referential code-made film",
       "date": "2026-10-03",
@@ -2936,29 +2893,6 @@
       "colors": ["151413"]
     },
     {
-      "slug": "roundtablespace-d3a1be",
-      "title": "Easing and morphing showreel",
-      "date": "2026-09-28",
-      "tags": ["prompt"],
-      "contentTags": ["kinetic-type", "shapes", "music"],
-      "promptShared": true,
-      "handle": "RoundtableSpace",
-      "prompt": "make a 15-second motion graphics showreel that proves what an incredible motion designer you are, go all out.",
-      "avatar": "https://assets.motionvideo.xyz/avatars/roundtablespace-117d314fe4.webp",
-      "poster": "https://assets.motionvideo.xyz/motion/roundtablespace-d3a1be/poster-9ee21a6591.webp",
-      "blur": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAAAwAQCdASoQAAkAAoBCJZwAA3AA/vhFoHeXAMvl50Xzx1TOS+ixn4fsDcDIAjAsAAA=",
-      "preview": "https://assets.motionvideo.xyz/motion/roundtablespace-d3a1be/preview-8fcc843ff1.mp4",
-      "video": "https://assets.motionvideo.xyz/motion/roundtablespace-d3a1be/video-5f07e9d4e3.mp4",
-      "width": 1920,
-      "height": 1080,
-      "tweetUrl": "https://x.com/RoundtableSpace/status/2104424611010232366",
-      "model": "Opus 5.5",
-      "effort": "max",
-      "iterations": "one-shot",
-      "creatorName": "0xMarioNawfal - The Roundtable Show",
-      "colors": ["0d0d10", "ed4938", "8b0703"]
-    },
-    {
       "slug": "qianqiongge-3915fd",
       "title": "Vertical product how-to video",
       "date": "2026-10-02",
@@ -3396,27 +3330,6 @@
       "model": "Opus 5.5",
       "creatorName": "Arjun Sharma",
       "colors": ["000000", "0444df", "2f2f28", "101410", "575144"]
-    },
-    {
-      "slug": "q970270495-1257d4",
-      "title": "Inference startup promo film",
-      "date": "2026-09-30",
-      "tags": ["prompt"],
-      "contentTags": ["product-ui", "kinetic-type"],
-      "promptShared": true,
-      "handle": "q970270495",
-      "avatar": "https://assets.motionvideo.xyz/avatars/q970270495-4eb1e1187a.jpg",
-      "poster": "https://assets.motionvideo.xyz/motion/q970270495-1257d4/poster-1230809fe7.jpg",
-      "blur": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAKCAIAAAAy3EnLAAAACXBIWXMAAAAKAAAACQDtO74dAAAAVElEQVR4nM2RwQrAMAhDl9n//2FRm+lldKvnvoNQSUowUFV3FxEAV4uZUTPupJcW/JRzNIqIeD8rwtYQybJ8Iu0MSL77LtIvJxp4CjbSF0dBXYyNTcEOHikQcHERAAAAAElFTkSuQmCC",
-      "preview": "https://assets.motionvideo.xyz/motion/q970270495-1257d4/preview-a3f741cb92.mp4",
-      "video": "https://assets.motionvideo.xyz/motion/q970270495-1257d4/video-8028fa5391.mp4",
-      "width": 1920,
-      "height": 1080,
-      "tweetUrl": "https://x.com/q970270495/status/2105233470574497923",
-      "prompt": "make a modern slick and punchy video for a modern startup that works on inference",
-      "model": "Opus 5.5",
-      "creatorName": "布布BUBU",
-      "colors": ["fcfdfd", "e1e0ec"]
     },
     {
       "slug": "codestackr-c071bf",
@@ -3971,25 +3884,6 @@
       "stack": "WebGL",
       "creatorName": "Obydul",
       "colors": ["e5e5ce"]
-    },
-    {
-      "slug": "rossaxbt-b85583",
-      "title": "Orange dot motion system",
-      "date": "2026-10-09",
-      "tags": ["prompt"],
-      "contentTags": ["shapes", "kinetic-type", "charts"],
-      "promptShared": true,
-      "handle": "rossaxbt",
-      "avatar": "https://assets.motionvideo.xyz/avatars/rossaxbt-1e08540769.jpg",
-      "poster": "https://assets.motionvideo.xyz/motion/rossaxbt-b85583/poster-54c0823599.jpg",
-      "blur": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACwAQCdASoQAAkABABoJZACdADDcFu8AP7wc12khO/0j/D0ayHXJbKMcmqrKNIbWnRrFTp53MOR7sLSg1g3gndQ6QAAAA==",
-      "preview": "https://assets.motionvideo.xyz/motion/rossaxbt-b85583/preview-08b099ea3e.mp4",
-      "video": "https://assets.motionvideo.xyz/motion/rossaxbt-b85583/video-497ba1ccab.mp4",
-      "width": 1923,
-      "height": 1080,
-      "tweetUrl": "https://x.com/rossaxbt/status/2108570705692357094",
-      "prompt": "<inputs>\nAsk me for: a short label for the opening toggle, one hero word, a percentage for the graph, the text for the final card, one accent color, and a track with a clear beat.\n</inputs>\n\n<direction>\nA 2D motion design film in 16:9. Use a warm off-white canvas, near-black backgrounds, bold typography and one vivid orange accent. The orange dot connects every scene: it starts in the UI, becomes the dot over a letter, traces a spring graph, grows into a shape and returns on the end card. A cursor makes the opening click feel real. Keep the motion sharp and controlled, with small spring overshoots and no dead time.\nBanned: stock footage, gradients, glows, particle bursts, random transitions and motion that isn't connected to an element already on screen.\n</direction>\n\n<structure>\nAround 15 seconds, with a visual change on every major beat.\nOpen: a cursor clicks the orange toggle beside \"Reduce Motion\". The letters bend and move into place until only \"Motion\" remains, with the orange dot above the \"i\".\nSpring: the dot jumps away from the word and lands on a graph. Its path draws a spring response, overshoots the target and settles beside a \"+22%\" callout.\nShape: the dot shoots across a line, grows into an orange circle and fills the frame. A black rounded square rotates inside it, then stretches into a pill. The scene contracts to a single orange dot on black.\nType: words like \"SPRINGS\", \"EASING\", \"KINETIC TYPE\", \"3D\" and \"SOUND\" orbit the dot. The circle of type opens out into a field of tiny dots.\nReveal: the halftone field expands and flips to black, revealing the final card: \"Opus 5.5\", \"Motion designer.\" and \"0 keyframes\".\nReturn: the orange dot moves back through the halftone, graph and toggle. Match the final frame to the first so the video loops cleanly.\n</structure>\n\n<build>\n1. One HTML file, 1920x1080 at 60fps. Compute every visual from time inside seek(t): no CSS transitions, timers or state carried between frames.\n2. Use closed-form springs for the toggle, bouncing dot and graph. Draw the graph from the same spring function that moves the dot.\n3. Animate letters individually for the \"Reduce Motion\" to \"Motion\" transformation. Keep the orange dot attached to the \"i\" until it begins its jump.\n4. Make the orange circle, rotating square and pill different states of the same shape. Preserve its position and motion through each transformation.\n5. Place the orbiting words along a circular path, then move their letters outward to hand the frame over to the halftone grid.\n6. Draw the halftone as a grid of dots whose sizes respond to the orange dot. Let it grow past the frame edges before revealing the end card.\n7. Sync the click, dot landing, graph peak, shape changes and final title to measured beats. Render one frame per beat to check the pacing before the full export.\n</build>\n\n<gotchas>\nThe graph and dot must follow the same motion or the spring will feel fake. Keep the orange accent consistent across every scene. Give outgoing and incoming text separate timing so letters don't overlap. When a shape fills the screen, scale it past all four corners. Match the cursor, dot and typography in the first and last frames to avoid a loop stutter.\n</gotchas>\n\n<start>\nAsk me for the inputs, then show me the beat map and four stills (toggle, graph, kinetic type, end card) before building the full video.\n</start>",
-      "colors": ["ebe9e2", "161310", "fc4e1e"]
     },
     {
       "slug": "lalulu_create-61f462",
@@ -5590,30 +5484,6 @@
       "colors": ["11212d", "f0efdf", "2b3838", "afde97", "af6353"]
     },
     {
-      "slug": "mdaman010-e7226a",
-      "title": "AI data centre 3D film",
-      "date": "2026-09-26",
-      "tags": ["prompt"],
-      "contentTags": ["diagrams"],
-      "promptShared": true,
-      "handle": "mdaman010",
-      "prompt": "Show me what goes on inside an AI data centre.",
-      "avatar": "https://assets.motionvideo.xyz/avatars/mdaman010-22ea27d674.webp",
-      "poster": "https://assets.motionvideo.xyz/motion/mdaman010-e7226a/poster-f4c5104bab.webp",
-      "blur": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACQAQCdASoQAAgAAoBCJZwAAuZtqsAA/vjI659qzR5atQq5BAZNCYTxvFwAAA==",
-      "preview": "https://assets.motionvideo.xyz/motion/mdaman010-e7226a/preview-73fe460318.mp4",
-      "video": "https://assets.motionvideo.xyz/motion/mdaman010-e7226a/video-e37739ca06.mp4",
-      "width": 1920,
-      "height": 982,
-      "tweetUrl": "https://x.com/mdaman010/status/2103845689713111079",
-      "model": "Opus 5.5",
-      "stack": "HTML",
-      "effort": "high",
-      "iterations": "one-shot",
-      "creatorName": "Aman",
-      "colors": ["d9ddde", "23282e", "858b8e"]
-    },
-    {
       "slug": "gouthamjay8-6ee290",
       "title": "SaaS product launch film",
       "date": "2026-09-26",
@@ -5895,27 +5765,6 @@
       "colors": ["050208", "eae6e1", "928d8d", "190614", "d3174e"]
     },
     {
-      "slug": "niebin_gg-33cc8b",
-      "title": "Shapes morphing into UI components",
-      "date": "2026-09-28",
-      "tags": ["prompt"],
-      "contentTags": ["shapes", "product-ui", "music"],
-      "promptShared": true,
-      "handle": "niebin_gg",
-      "avatar": "https://assets.motionvideo.xyz/avatars/niebin-gg-75a5ebd62d.jpg",
-      "poster": "https://assets.motionvideo.xyz/motion/niebin-gg-33cc8b/poster-c1ba18d198.jpg",
-      "blur": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAAABAAAAAQBPJcTWAAABJElEQVR4nH1SS07DMBC1Iysf6CpVbpB1u0XpgYAdiF0OkB2Cy+UOIFopizrNR5lhkqkcxyXMwrLH7/mN34z8/vnypBRCSOmJ9UAEWgFREfp/KAdjPAHKRstJ6q/n0dCUA73lEJqTTFNLXelwGG0UrgSDo/B9f/rU9CT9EbHrOpu5UKBzWZZN05hMGIZpmtqYmRDdRR/vn3mex3EcRRFltNZVVRVF8fr2UuvaJVC0bcsbLoylTHImcH2X+vL0/JgdHs5nzb+k5GZzv9vt6cp1iQ9BEGTZwXGp73uc4qpAPefecZY9cZyw9sAlgem3fb2kAZlMc6SGAch1GhKxPn+EJtjxdEySRI1PghgEjs3CwbsZDWADPLmNtzCAmmsYNUbmigjy+gtotLGiFPOnxQAAAABJRU5ErkJggg==",
-      "preview": "https://assets.motionvideo.xyz/motion/niebin-gg-33cc8b/preview-0aca0e2b17.mp4",
-      "video": "https://assets.motionvideo.xyz/motion/niebin-gg-33cc8b/video-fab59f36c6.mp4",
-      "width": 1440,
-      "height": 1440,
-      "tweetUrl": "https://x.com/niebin_gg/status/2104481398157701262",
-      "prompt": "<inputs> 向我询问：8 到 12 个我希望形状变成的 UI 状态（例如按钮、加载器、播放器、滑块、开关、标签、图表、命令面板、通知），纯黑白或一种强调色，以及一首约 120 BPM 的免版税歌曲（例如 Mixkit，商业使用免费）。 </inputs>\n\n<direction> Dribbble 级别的 UI 动效视频。让基础几何形状平滑变形为指定的 UI 组件，保持极简主义美学，动作流畅且富有弹性，与音乐节奏完美同步。输出为可播放的视频文件。",
-      "model": "Opus 5.5",
-      "creatorName": "Nebula | AI 航海家",
-      "colors": ["ebede8", "000000", "d2d3cf", "ef6e69"]
-    },
-    {
       "slug": "rames-jusso-589f80",
       "title": "UK dubstep track with ASCII visuals",
       "date": "2026-09-24",
@@ -6088,47 +5937,6 @@
       "iterations": "one-shot",
       "creatorName": "Manuel Ogomigo",
       "colors": ["f4f3f2", "d96848", "ef9073"]
-    },
-    {
-      "slug": "sahilvermaai-5b7888",
-      "title": "Poster breaking its frame",
-      "date": "2026-09-26",
-      "tags": ["prompt"],
-      "contentTags": ["shapes", "kinetic-type"],
-      "promptShared": true,
-      "handle": "sahilvermaai",
-      "avatar": "https://assets.motionvideo.xyz/avatars/sahilvermaai-80c41e6afa.png",
-      "poster": "https://assets.motionvideo.xyz/motion/sahilvermaai-5b7888/poster-be307eec5d.jpg",
-      "blur": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAKCAIAAAAy3EnLAAAACXBIWXMAAAAKAAAACQDtO74dAAAAkElEQVR4nI2RvQ7DIAyE8Q9Fat7/9bJ26ZgOSLbpRVRBqhJaD2Ch72zjo+djrbWmlIhIVJg4nYWZRUQpRT28tSYieEXizU8FPQArrnzLKjrhPk3ccA4O5Sc0Bu7J78Jf8a/g6D8EaDqfagjCIyi65ph1JtheG7YEFGsmvhS4uWaFVbLcF9DwhYWvjNu/wQ3wG74HNwx9c7Y1AAAAAElFTkSuQmCC",
-      "preview": "https://assets.motionvideo.xyz/motion/sahilvermaai-5b7888/preview-5596d63bfb.mp4",
-      "video": "https://assets.motionvideo.xyz/motion/sahilvermaai-5b7888/video-1c72d89597.mp4",
-      "width": 1280,
-      "height": 720,
-      "tweetUrl": "https://x.com/sahilvermaai/status/2103725292095189237",
-      "prompt": "create a motion design video of a poster breaking out of its own frame.",
-      "model": "Opus 5.5",
-      "creatorName": "Sahil Verma",
-      "colors": ["eceae0", "13130e"]
-    },
-    {
-      "slug": "mrtanviir-132457",
-      "title": "Claude motion designer showreel",
-      "date": "2026-09-25",
-      "tags": ["prompt"],
-      "contentTags": ["kinetic-type", "shapes", "music"],
-      "promptShared": true,
-      "handle": "mrtanviir",
-      "prompt": "make a dynamic 15-second motion graphics video that shows what an incredible motion designer you are, like it's your showreel for a résumé. go all out.",
-      "avatar": "https://assets.motionvideo.xyz/avatars/mrtanviir-b8663f740a.webp",
-      "poster": "https://assets.motionvideo.xyz/motion/mrtanviir-132457/poster-62399dc308.webp",
-      "blur": "data:image/webp;base64,UklGRiYAAABXRUJQVlA4IBoAAAAwAQCdASoQAAkAAoBCJaQAA3AA/vhBnHAAAA==",
-      "preview": "https://assets.motionvideo.xyz/motion/mrtanviir-132457/preview-4882086386.mp4",
-      "video": "https://assets.motionvideo.xyz/motion/mrtanviir-132457/video-66fe0e0e14.mp4",
-      "width": 1280,
-      "height": 720,
-      "tweetUrl": "https://x.com/mrtanviir/status/2103608767309132205",
-      "model": "Opus 5.5",
-      "colors": ["101011", "e93f33", "880504", "b64e47"]
     },
     {
       "slug": "punit_io-97672c",
@@ -6584,27 +6392,6 @@
       "model": "Opus 5.5",
       "effort": "max",
       "colors": ["f1efe5", "ed5427", "0c0b10", "3f38f1", "e6fa66"]
-    },
-    {
-      "slug": "aiaircle34052-17efe4",
-      "title": "Motion designer showreel",
-      "date": "2026-09-26",
-      "tags": ["prompt"],
-      "contentTags": ["kinetic-type", "shapes"],
-      "promptShared": true,
-      "handle": "AiAircle34052",
-      "avatar": "https://assets.motionvideo.xyz/avatars/aiaircle34052-5bf1c0682d.jpg",
-      "poster": "https://assets.motionvideo.xyz/motion/aiaircle34052-17efe4/poster-e7d939f4ef.jpg",
-      "blur": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAKCAIAAAAy3EnLAAAACXBIWXMAAAAKAAAACQDtO74dAAAAbklEQVR4nH1QWxKAIAiUkQs43f+mGZnUtiETH8hj2QWltc3MyjQEIoIKYq8rQMDZNE8Z7S0NHEFhNV1LAw0F5vZUE7LeVev17r3UGjQThdReBY/YD9b9mCs99Ny9V2K/Ho2rPiul38UzceAHzYAT42g+gOTMBPUAAAAASUVORK5CYII=",
-      "preview": "https://assets.motionvideo.xyz/motion/aiaircle34052-17efe4/preview-55ec29d93a.mp4",
-      "video": "https://assets.motionvideo.xyz/motion/aiaircle34052-17efe4/video-00baffa725.mp4",
-      "width": 1920,
-      "height": 1080,
-      "tweetUrl": "https://x.com/AiAircle34052/status/2103663848846950750",
-      "prompt": "Make me a 15-second moving video that shows how amazing of a motion designer you are. Like a showreel for your resume. Go all out.",
-      "model": "Opus 5.5",
-      "creatorName": "Aircle｜AIコミュニティ",
-      "colors": ["101012", "e83f33", "c54137", "840804"]
     },
     {
       "slug": "ryzoft-4f85bd",
@@ -7772,28 +7559,6 @@
       "model": "Opus 5.5",
       "creatorName": "Rafael",
       "colors": ["f6f6f4"]
-    },
-    {
-      "slug": "yankis0x-97c584",
-      "title": "Beat-synced UI states animation",
-      "date": "2026-09-25",
-      "tags": ["prompt"],
-      "contentTags": ["product-ui", "music"],
-      "promptShared": true,
-      "handle": "yankis0x",
-      "avatar": "https://assets.motionvideo.xyz/avatars/yankis0x-eadb79fa14.jpg",
-      "poster": "https://assets.motionvideo.xyz/motion/yankis0x-97c584/poster-fa5bb90ed0.jpg",
-      "blur": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAAABAAAAAQBPJcTWAAABMklEQVR4nH1SvU7EMAxOgmkbYOqpb9D5bkJC5XEYYEI3A+PBfOLd+ghIh9ShA6V/qoMbQ8jldOchTezPX21/lrvPD6mkEELJ+TxmaAydBg0Q+jSUjTGoBARoeZBsLLdLgxNQ3+/SIEDL2ZRHjwwlL1/AJ1PqLIrO5dzULyslDMOIODkM+PQULsuy6zoXTpIkz3Om5xOYiR5aX2y3789PL2maaq3J3zRNXdevb5v1+rFtv/d6YBv6kS9RFBEF/8o593qgR9e19w93N8V189VSbbZUdXmlV8slhcIpkSFiHMe3RRGMdRypafxvmsbmtKNA3/e+IL5qwi4I8EcdBzkoSUIDB/oIuyRsh3vFa4cTVlWVZRmQKLO0f0WiCvCCGanOxSIlMFg5J66bMs1kguWxd3SeH6VGtJM+jhLSAAAAAElFTkSuQmCC",
-      "preview": "https://assets.motionvideo.xyz/motion/yankis0x-97c584/preview-87518ef0ca.mp4",
-      "video": "https://assets.motionvideo.xyz/motion/yankis0x-97c584/video-99adda27c5.mp4",
-      "width": 1440,
-      "height": 1440,
-      "tweetUrl": "https://x.com/yankis0x/status/2103502194578174321",
-      "prompt": "every frame is a pure function of time.\n\nsong -> numpy beat grid -> Opus 5.5 writes one HTML file -> Playwright renders -> ffmpeg blends\n\nstep 1 -> pick a royalty-free track around 120 BPM\n\nstep 2 -> give Opus 5.5 8 to 12 UI states: button, loader, toggle, chart, command palette\n\nstep 3 -> one HTML file, 1440x1440, every style computed inside seek(t). no CSS transitions, no timers\n\nstep 4 -> springs as closed-form math, so any frame renders in any order\n\nstep 5 -> numpy finds the beats, every UI sound lands on a measured peak\n\nstep 6 -> Playwright shoots 4 subframes per frame, ffmpeg tmix blends them into 60fps motion blur\n\nstep 7 -> render one frame per beat first, fix what is off the grid, then the full render\n\nthe math:\n\n120 BPM x 7 bars = 28 beats = 14 seconds\n14 s x 60 fps x 4 subframes = 3,360 browser renders",
-      "model": "Opus 5.5",
-      "stack": "HTML + Playwright",
-      "creatorName": "yankis",
-      "colors": ["ecede8", "000000", "d2d3cf", "ee6e69"]
     },
     {
       "slug": "gautam-mer1-2ae354",
@@ -10737,27 +10502,6 @@
       "colors": ["241b52", "0b0723", "503853"]
     },
     {
-      "slug": "umangratani-57f86a",
-      "title": "Shape and dot motion showreel",
-      "date": "2026-09-25",
-      "tags": ["prompt"],
-      "contentTags": ["kinetic-type", "shapes", "music"],
-      "promptShared": true,
-      "handle": "umangratani",
-      "prompt": "make a dynamic 15-second motion graphics video that shows what an incredible motion designer you are, like it's your showreel for a résumé. go all out.",
-      "avatar": "https://assets.motionvideo.xyz/avatars/umangratani-f3d2767c6e.webp",
-      "poster": "https://assets.motionvideo.xyz/motion/umangratani-57f86a/poster-5ea314fdb1.webp",
-      "blur": "data:image/webp;base64,UklGRiYAAABXRUJQVlA4IBoAAAAwAQCdASoQAAkAAoBCJaQAA3AA/vhBnHAAAA==",
-      "preview": "https://assets.motionvideo.xyz/motion/umangratani-57f86a/preview-b85cab669a.mp4",
-      "video": "https://assets.motionvideo.xyz/motion/umangratani-57f86a/video-fd7e2a3109.mp4",
-      "width": 1280,
-      "height": 720,
-      "tweetUrl": "https://x.com/umangratani/status/2103486881136840800",
-      "model": "Opus 5.5",
-      "creatorName": "Dr CA Umang Ratani",
-      "colors": ["101012", "e93f33", "8c0705", "c94640"]
-    },
-    {
       "slug": "anilraok-eff262",
       "title": "Scrabble tile character story",
       "date": "2026-09-24",
@@ -11039,6 +10783,68 @@
       "skillInstall": "npx skills add alchaincyf/huashu-art-motion",
       "creatorName": "geekzen",
       "colors": ["f1ecdf", "3b2617", "ba997b", "5e4835", "8a725d"]
+    }
+  ],
+  "removed": [
+    {
+      "slug": "rossaxbt-94583b",
+      "duplicateOf": "rossaxbt-4e066d",
+      "tweetUrl": "https://x.com/rossaxbt/status/2108933141406638456"
+    },
+    {
+      "slug": "chatgptastra-0d95c7",
+      "duplicateOf": "himanshutwtxs-5f4b43",
+      "tweetUrl": "https://x.com/ChatGptAstra/status/2103834787647807540"
+    },
+    {
+      "slug": "roundtablespace-d3a1be",
+      "duplicateOf": "stephanlivera-df17a2",
+      "tweetUrl": "https://x.com/RoundtableSpace/status/2104424611010232366"
+    },
+    {
+      "slug": "q970270495-1257d4",
+      "duplicateOf": "deedydas-3fcc91",
+      "tweetUrl": "https://x.com/q970270495/status/2105233470574497923"
+    },
+    {
+      "slug": "rossaxbt-b85583",
+      "duplicateOf": "ultimaxbt-bbebf5",
+      "tweetUrl": "https://x.com/rossaxbt/status/2108570705692357094"
+    },
+    {
+      "slug": "mdaman010-e7226a",
+      "duplicateOf": "sayan-shanky-f850d8",
+      "tweetUrl": "https://x.com/mdaman010/status/2103845689713111079"
+    },
+    {
+      "slug": "niebin_gg-33cc8b",
+      "duplicateOf": "twoclipping-5cba86",
+      "tweetUrl": "https://x.com/niebin_gg/status/2104481398157701262"
+    },
+    {
+      "slug": "sahilvermaai-5b7888",
+      "duplicateOf": "pankajkumar-dev-0bee87",
+      "tweetUrl": "https://x.com/sahilvermaai/status/2103725292095189237"
+    },
+    {
+      "slug": "mrtanviir-132457",
+      "duplicateOf": "ajith-io-b5626e",
+      "tweetUrl": "https://x.com/mrtanviir/status/2103608767309132205"
+    },
+    {
+      "slug": "aiaircle34052-17efe4",
+      "duplicateOf": "ajith-io-b5626e",
+      "tweetUrl": "https://x.com/AiAircle34052/status/2103663848846950750"
+    },
+    {
+      "slug": "yankis0x-97c584",
+      "duplicateOf": "twoclipping-5cba86",
+      "tweetUrl": "https://x.com/yankis0x/status/2103502194578174321"
+    },
+    {
+      "slug": "umangratani-57f86a",
+      "duplicateOf": "ajith-io-b5626e",
+      "tweetUrl": "https://x.com/umangratani/status/2103486881136840800"
     }
   ]
 }

@@ -4,6 +4,7 @@ import type { CheckoutSessionCreateParams } from "dodopayments/resources/checkou
 
 import { JOB_PLANS } from "@/constants/jobs";
 import type { JobPlan } from "@/constants/jobs";
+import { DEFAULT_LOCALE, isLocale, localizedPath } from "@/constants/locales";
 import {
   BASE_PRICE_CENTS,
   LAUNCH_LIMIT,
@@ -27,6 +28,12 @@ export const getDodo = (): DodoPayments => {
     webhookKey: env.DODO_PAYMENTS_WEBHOOK_KEY,
   });
   return client;
+};
+
+/** Absolute app URL for the browser redirects Dodo sends buyers back to. */
+const appUrl = (path: string, locale?: string): string => {
+  const resolved = isLocale(locale) ? locale : DEFAULT_LOCALE;
+  return `${env.BETTER_AUTH_URL}${localizedPath(path, resolved)}`;
 };
 
 /** Sponsorship products, by tier and billing. */
@@ -171,18 +178,18 @@ export interface Buyer {
 
 /** Checkout for the skill bundle, with the launch code while it lasts. */
 export const createCheckoutUrl = async (
-  buyer: Buyer | null
+  buyer: Buyer | null,
+  locale?: string
 ): Promise<string> => {
-  const base = env.BETTER_AUTH_URL;
   const params: CheckoutSessionCreateParams = {
-    cancel_url: `${base}${ROUTES.PRICING}`,
+    cancel_url: appUrl(ROUTES.PRICING, locale),
     customer: buyer ? { email: buyer.email } : undefined,
     // No code field at checkout: only the server applies the launch code.
     feature_flags: { allow_discount_code: false },
     metadata: { product: "skill" },
     product_cart: [{ product_id: env.DODO_PRODUCT_SKILL, quantity: 1 }],
     // Dodo appends `payment_id`.
-    return_url: `${base}${ROUTES.WELCOME}`,
+    return_url: appUrl(ROUTES.WELCOME, locale),
   };
   const { code, offer } = await launchDiscount();
   if (!offer.active) {
@@ -224,7 +231,8 @@ export const createSponsorCheckoutUrl = (
   tier: SponsorTier,
   billing: SponsorBilling,
   sponsorshipId: string,
-  buyer: Buyer
+  buyer: Buyer,
+  locale?: string
 ): Promise<string> => {
   const productId = SPONSOR_PRODUCT_IDS[tier][billing];
   if (!productId) {
@@ -232,7 +240,7 @@ export const createSponsorCheckoutUrl = (
   }
   const query = `?sponsorship=${encodeURIComponent(sponsorshipId)}`;
   return checkoutUrl({
-    cancel_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_SPONSORSHIPS_NEW}${query}`,
+    cancel_url: `${appUrl(ROUTES.DASHBOARD_SPONSORSHIPS_NEW, locale)}${query}`,
     customer: { email: buyer.email },
     feature_flags: { allow_discount_code: false },
     metadata: {
@@ -241,7 +249,7 @@ export const createSponsorCheckoutUrl = (
       user_id: buyer.userId,
     },
     product_cart: [{ product_id: productId, quantity: 1 }],
-    return_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_SPONSORSHIPS}${query}`,
+    return_url: `${appUrl(ROUTES.DASHBOARD_SPONSORSHIPS, locale)}${query}`,
   });
 };
 
@@ -280,22 +288,28 @@ export const completedCheckout = async (
   };
 };
 
-export const customerPortalUrl = async (email: string): Promise<string> => {
+export const customerPortalUrl = async (
+  email: string,
+  locale?: string
+): Promise<string> => {
   const customer = await skillCustomer(email);
   if (!customer) {
     throw new Error("No Dodo customer with a purchase for this email");
   }
   const session = await getDodo().customers.customerPortal.create(
     customer.customer_id,
-    { return_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_SKILL}` }
+    { return_url: appUrl(ROUTES.DASHBOARD_SKILL, locale) }
   );
   return session.link;
 };
 
 /** Dodo's billing portal for one sponsor, returning to /sponsorships. */
-export const sponsorPortalUrl = async (customerId: string): Promise<string> => {
+export const sponsorPortalUrl = async (
+  customerId: string,
+  locale?: string
+): Promise<string> => {
   const session = await getDodo().customers.customerPortal.create(customerId, {
-    return_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_SPONSORSHIPS}`,
+    return_url: appUrl(ROUTES.DASHBOARD_SPONSORSHIPS, locale),
   });
   return session.link;
 };
@@ -307,7 +321,8 @@ export const sponsorPortalUrl = async (customerId: string): Promise<string> => {
 export const createJobCheckoutUrl = (
   plan: JobPlan,
   jobId: string,
-  buyer: Buyer
+  buyer: Buyer,
+  locale?: string
 ): Promise<string> => {
   const productId = JOB_PRODUCT_IDS[plan];
   if (!productId) {
@@ -315,11 +330,11 @@ export const createJobCheckoutUrl = (
   }
   const query = `?job=${encodeURIComponent(jobId)}`;
   return checkoutUrl({
-    cancel_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_JOBS_POST}${query}`,
+    cancel_url: `${appUrl(ROUTES.DASHBOARD_JOBS_POST, locale)}${query}`,
     customer: { email: buyer.email },
     feature_flags: { allow_discount_code: false },
     metadata: { product: `job-${plan}`, job_id: jobId, user_id: buyer.userId },
     product_cart: [{ product_id: productId, quantity: 1 }],
-    return_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_LISTINGS}${query}`,
+    return_url: `${appUrl(ROUTES.DASHBOARD_LISTINGS, locale)}${query}`,
   });
 };

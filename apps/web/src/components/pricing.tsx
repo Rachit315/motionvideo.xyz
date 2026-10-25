@@ -1,4 +1,4 @@
-import { useIntlayer } from "react-intlayer";
+import { useIntlayer, useLocale } from "react-intlayer";
 import { Check } from "reicon-react/icons/Check";
 
 import { buttonVariants } from "@/components/ui/button";
@@ -8,6 +8,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { localizedPath } from "@/constants/locales";
 import {
   BASE_PRICE_CENTS,
   formatUsd,
@@ -15,16 +16,18 @@ import {
   LAUNCH_PRICE_CENTS,
 } from "@/constants/pricing";
 import type { Offer } from "@/constants/pricing";
+import { ROUTES } from "@/constants/routes";
 
 const launchTicks = Array.from({ length: LAUNCH_LIMIT }, (_, index) => index);
 const tickViewBox = `0 0 ${LAUNCH_LIMIT * 4 - 1} 20`;
 
 export const BuyButton = ({ offer }: { offer: Offer }) => {
   const content = useIntlayer("pricing");
+  const { locale } = useLocale();
   return (
     <div className="flex flex-wrap items-center gap-4">
       <a
-        href="/checkout"
+        href={localizedPath(ROUTES.CHECKOUT, locale)}
         data-track="checkout_start"
         data-track-product="skill"
         className={buttonVariants({ size: "lg", variant: "gradient" })}
@@ -43,6 +46,7 @@ export const BuyButton = ({ offer }: { offer: Offer }) => {
 
 export const PriceCard = ({ offer }: { offer: Offer }) => {
   const content = useIntlayer("pricing");
+  const { locale } = useLocale();
   const remaining = Math.max(0, offer.limit - offer.sold);
   return (
     <Card size="lg" className="mx-auto w-full max-w-sm">
@@ -127,7 +131,7 @@ export const PriceCard = ({ offer }: { offer: Offer }) => {
       </CardContent>
       <CardFooter className="border-t-0 bg-transparent pt-0">
         <a
-          href="/checkout"
+          href={localizedPath(ROUTES.CHECKOUT, locale)}
           data-track="checkout_start"
           data-track-product="skill"
           className={buttonVariants({

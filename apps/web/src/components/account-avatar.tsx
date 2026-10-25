@@ -1,9 +1,5 @@
-import {
-  ClientOnly,
-  Link,
-  useNavigate,
-  useRouter,
-} from "@tanstack/react-router";
+import { ClientOnly, useRouter } from "@tanstack/react-router";
+import { getPathWithoutLocale } from "intlayer";
 import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
@@ -25,6 +21,7 @@ import { VolumeHigh } from "reicon-react/icons/VolumeHigh";
 import { useFeedbackDialog } from "@/components/feedback-dialog";
 import { GitHubIcon, XIcon } from "@/components/icons";
 import { useKeyboardShortcuts } from "@/components/keyboard-shortcuts";
+import { LocalizedLink as Link } from "@/components/localized-link";
 import { useSignInDialog } from "@/components/sign-in-dialog";
 import { toggleTheme } from "@/components/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
@@ -41,6 +38,7 @@ import { setSoundMuted, useSoundMuted } from "@/components/ui/sound";
 import { LINK } from "@/constants/links";
 import { ACCOUNT_PAGES, ROUTES } from "@/constants/routes";
 import { SHORTCUT_KEYS, keyLabel } from "@/constants/shortcuts";
+import { useLocalizedNavigate as useNavigate } from "@/hooks/use-localized-navigate";
 import { authClient, useSession } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 
@@ -173,7 +171,9 @@ export const useAccount = (initialSignedIn = false) => {
   const signOut = async () => {
     await authClient.signOut();
     // The session listener in SignInDialogProvider reruns the loaders.
-    if (ACCOUNT_PAGES.has(router.state.location.pathname)) {
+    if (
+      ACCOUNT_PAGES.has(getPathWithoutLocale(router.state.location.pathname))
+    ) {
       await navigate({ to: ROUTES.HOME });
     }
   };

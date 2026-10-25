@@ -1,93 +1,73 @@
+import { useLocation } from "@tanstack/react-router";
+import {
+  getHTMLTextDir,
+  getLocalizedUrl,
+  getPathWithoutLocale,
+} from "intlayer";
 import type { LocalesValues } from "intlayer";
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect } from "react";
 import type { ReactNode } from "react";
-import { IntlayerProvider, useLocale } from "react-intlayer";
+import { IntlayerProvider } from "react-intlayer";
 
-export const LOCALE_STORAGE_KEY = "motionvideo-locale";
-export const SUPPORTED_LOCALES = [
-  "en",
-  "es",
-  "fr",
-  "zh",
-  "ko",
-  "ja",
-  "de",
-  "pt",
-  "ru",
-] as const;
+import {
+  DEFAULT_LOCALE,
+  I18N_ROUTING,
+  LOCALE_COOKIE,
+} from "@/constants/locales";
 
-const isSupportedLocale = (
-  value: string | null
-): value is (typeof SUPPORTED_LOCALES)[number] =>
-  SUPPORTED_LOCALES.some((locale) => locale === value);
-
-let sessionLocale: LocalesValues = "en";
-const localeListeners = new Set<() => void>();
-
-const getServerLocale = (): LocalesValues => "en";
-
-const getBrowserLocale = (): LocalesValues => {
-  try {
-    const saved = localStorage.getItem(LOCALE_STORAGE_KEY);
-    return isSupportedLocale(saved) ? saved : "en";
-  } catch {
-    return sessionLocale;
-  }
-};
-
-const subscribeLocale = (onChange: () => void) => {
-  localeListeners.add(onChange);
-  const onStorage = (event: StorageEvent) => {
-    if (event.key === LOCALE_STORAGE_KEY || event.key === null) {
-      onChange();
-    }
-  };
-  window.addEventListener("storage", onStorage);
-  return () => {
-    localeListeners.delete(onChange);
-    window.removeEventListener("storage", onStorage);
-  };
-};
-
-const setLocale = (nextLocale: LocalesValues) => {
-  if (!isSupportedLocale(nextLocale)) {
+const rememberLocale = (locale: LocalesValues) => {
+  if (typeof document === "undefined") {
     return;
   }
-  sessionLocale = nextLocale;
-  try {
-    localStorage.setItem(LOCALE_STORAGE_KEY, nextLocale);
-  } catch {
-    // Private browsing may disable persistence without disabling translation.
-  }
-  for (const onChange of localeListeners) {
-    onChange();
-  }
+  // The Worker reads this cookie to negotiate a locale for unprefixed requests.
+  // oxlint-disable-next-line unicorn/no-document-cookie
+  document.cookie = `${LOCALE_COOKIE}=${locale}; Path=/; Max-Age=31536000; SameSite=Lax`;
 };
 
-const DocumentLanguage = () => {
-  const { locale } = useLocale();
+/**
+ * Locale comes from the route (`/$locale/...`), so switching languages is a
+ * navigation to the same page with a different prefix rather than local state.
+ */
+const LocaleEffect = ({ locale }: { locale: LocalesValues }) => {
   useEffect(() => {
     document.documentElement.lang = locale;
+    document.documentElement.dir = getHTMLTextDir(locale);
+    rememberLocale(locale);
   }, [locale]);
   return null;
 };
 
-export const LocaleProvider = ({ children }: { children: ReactNode }) => {
-  // Server rendering and initial hydration use the same English snapshot.
-  // React adopts the browser snapshot only after hydration.
-  const locale = useSyncExternalStore(
-    subscribeLocale,
-    getBrowserLocale,
-    getServerLocale
-  );
+export const LocaleProvider = ({
+  children,
+  locale,
+}: {
+  children: ReactNode;
+  locale: LocalesValues;
+}) => {
+  const location = useLocation();
+
+  const setLocale = (nextLocale: LocalesValues) => {
+    if (typeof window === "undefined" || nextLocale === locale) {
+      return;
+    }
+    const path = getLocalizedUrl(
+      getPathWithoutLocale(location.pathname),
+      nextLocale,
+      I18N_ROUTING
+    );
+    // A full load keeps the server-rendered document, loaders, and `<html
+    // lang>` in sync with the new prefix.
+    window.location.assign(`${path}${location.searchStr}${location.hash}`);
+  };
 
   return (
     <IntlayerProvider
+      defaultLocale={DEFAULT_LOCALE}
+      isCookieEnabled={false}
       locale={locale}
       setLocale={setLocale}
-      isCookieEnabled={false}
     >
-      <DocumentLanguage />
+      <LocaleEffect locale={locale} />
       {children}
     </IntlayerProvider>
   );

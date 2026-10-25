@@ -1,8 +1,8 @@
-import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
 
+import { LocalizedLink as Link } from "@/components/localized-link";
 import {
   SharedTooltip,
   TooltipProvider,

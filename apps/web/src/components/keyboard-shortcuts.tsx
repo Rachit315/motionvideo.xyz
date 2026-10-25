@@ -1,4 +1,3 @@
-import { useNavigate } from "@tanstack/react-router";
 import { createContext, use, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
@@ -22,6 +21,7 @@ import { setSoundMuted, useSoundMuted } from "@/components/ui/sound";
 import { ACCOUNT_PAGES, ROUTES } from "@/constants/routes";
 import { SHORTCUT_KEYS, keyLabel } from "@/constants/shortcuts";
 import { useHotkey } from "@/hooks/use-hotkey";
+import { useLocalizedNavigate as useNavigate } from "@/hooks/use-localized-navigate";
 import { useIsMac } from "@/hooks/use-mac";
 import { useSession } from "@/lib/auth-client";
 

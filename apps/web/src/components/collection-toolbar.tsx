@@ -1,6 +1,6 @@
-import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
+import { LocalizedLink as Link } from "@/components/localized-link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 

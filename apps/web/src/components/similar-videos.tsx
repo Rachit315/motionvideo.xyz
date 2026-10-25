@@ -9,7 +9,7 @@ import type { MotionVideo } from "@/lib/motion-catalog";
 
 const videos: MotionVideo[] = catalog.videos;
 const COUNT = 6;
-// The floating preview's largest size, and its gap to the viewport and panel.
+// The floating preview's largest size, and its gap to the viewport edges.
 const PREVIEW_MAX_WIDTH = 560;
 const PREVIEW_MAX_HEIGHT = 440;
 const PREVIEW_MARGIN = 24;
@@ -26,16 +26,25 @@ interface Preview {
  * Where the preview of `video` goes: as large as fits at its aspect ratio,
  * just left of the panel, vertically centred on the whole grid of tiles (kept
  * inside the viewport), so it stays put, only resizing, whichever tile is
- * hovered.
+ * hovered. Its gap to the panel is the panel's own padding, read from the
+ * panel, so the preview sits as far from the sidebar's edge as the sidebar's
+ * content does.
  */
 const placePreview = (video: MotionVideo, tile: HTMLElement): Preview => {
-  const panelLeft =
-    tile.closest("aside")?.getBoundingClientRect().left ?? innerWidth;
+  const panel = tile.closest("aside");
+  const panelLeft = panel?.getBoundingClientRect().left ?? innerWidth;
+  // Padding reads as "20px": parseFloat stops at the unit, where Number()
+  // would give NaN.
+  // oxlint-disable-next-line unicorn/prefer-number-coercion
+  const padding = Number.parseFloat(
+    panel ? getComputedStyle(panel).paddingLeft : ""
+  );
+  const gap = Number.isNaN(padding) ? PREVIEW_MARGIN : padding;
   const grid = (tile.closest("ul") ?? tile).getBoundingClientRect();
   const aspect = video.width / video.height;
   const width = Math.min(
     PREVIEW_MAX_WIDTH,
-    panelLeft - 2 * PREVIEW_MARGIN,
+    panelLeft - gap - PREVIEW_MARGIN,
     Math.min(PREVIEW_MAX_HEIGHT, innerHeight - 2 * PREVIEW_MARGIN) * aspect
   );
   const height = width / aspect;
@@ -45,7 +54,7 @@ const placePreview = (video: MotionVideo, tile: HTMLElement): Preview => {
   );
   return {
     video,
-    box: { left: panelLeft - PREVIEW_MARGIN - width, top, width, height },
+    box: { left: panelLeft - gap - width, top, width, height },
   };
 };
 

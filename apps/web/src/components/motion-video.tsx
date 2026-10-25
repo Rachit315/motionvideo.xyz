@@ -1,5 +1,4 @@
 import { Dialog } from "@base-ui/react/dialog";
-import { Link } from "@tanstack/react-router";
 import MediaThemeSutro from "player.style/sutro/react";
 import {
   Fragment,
@@ -24,6 +23,7 @@ import { Xmark } from "reicon-react/icons/Xmark";
 
 import { BookmarkButton } from "@/components/bookmark-button";
 import { CopyIcon } from "@/components/copy-icon";
+import { LocalizedLink as Link } from "@/components/localized-link";
 import { SimilarVideos } from "@/components/similar-videos";
 import { SponsoredCard } from "@/components/sponsored-card";
 import { Button, buttonVariants } from "@/components/ui/button";

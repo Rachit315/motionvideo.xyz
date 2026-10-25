@@ -1,4 +1,5 @@
 import { useRouter } from "@tanstack/react-router";
+import { getPathWithoutLocale } from "intlayer";
 import {
   createContext,
   use,
@@ -8,11 +9,12 @@ import {
   useState,
 } from "react";
 import type { ReactNode } from "react";
-import { useIntlayer } from "react-intlayer";
+import { useIntlayer, useLocale } from "react-intlayer";
 
 import { LoginForm } from "@/components/login-form";
 import { SignInFan } from "@/components/sign-in-fan";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { ensureLocalizedPath } from "@/constants/locales";
 import { ACCOUNT_PAGES } from "@/constants/routes";
 import { useSession } from "@/lib/auth-client";
 import { syncBookmarks } from "@/lib/bookmarks";
@@ -51,6 +53,7 @@ interface DialogState {
  */
 export const SignInDialogProvider = ({ children }: { children: ReactNode }) => {
   const content = useIntlayer("account");
+  const { locale } = useLocale();
   const router = useRouter();
   const [state, setState] = useState<DialogState>({
     open: false,
@@ -70,7 +73,9 @@ export const SignInDialogProvider = ({ children }: { children: ReactNode }) => {
     if (userId) {
       setState((current) => ({ ...current, open: false, next: undefined }));
       if (state.open && state.next) {
-        void router.navigate({ to: state.next });
+        void router.navigate({
+          to: ensureLocalizedPath(state.next, locale),
+        });
       }
     }
   }
@@ -129,7 +134,7 @@ export const SignInDialogProvider = ({ children }: { children: ReactNode }) => {
       if (!url || url.origin !== location.origin) {
         return;
       }
-      if (!ACCOUNT_PAGES.has(url.pathname)) {
+      if (!ACCOUNT_PAGES.has(getPathWithoutLocale(url.pathname))) {
         return;
       }
       event.preventDefault();
@@ -157,7 +162,7 @@ export const SignInDialogProvider = ({ children }: { children: ReactNode }) => {
             key={state.key}
             layout="dialog"
             description={state.reason}
-            returnTo={state.next}
+            returnTo={state.next && ensureLocalizedPath(state.next, locale)}
           />
           <SignInFan />
         </DialogContent>

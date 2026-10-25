@@ -1,5 +1,5 @@
 import { Dialog } from "@base-ui/react/dialog";
-import { Link, useMatch } from "@tanstack/react-router";
+import { useMatch } from "@tanstack/react-router";
 import type { VariantProps } from "class-variance-authority";
 import { useState } from "react";
 import { useIntlayer } from "react-intlayer";
@@ -11,6 +11,7 @@ import { AccountMenu } from "@/components/account-avatar";
 import { Brand } from "@/components/brand";
 import { CommandMenu } from "@/components/command-menu";
 import { OnlineCount } from "@/components/live-presence";
+import { LocalizedLink as Link } from "@/components/localized-link";
 import { buttonVariants } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
@@ -68,7 +69,7 @@ const DiscoverLink = ({
   onClick?: () => void;
 }) => {
   const content = useIntlayer("site-header");
-  const inGallery = useMatch({ from: "/_gallery", shouldThrow: false });
+  const inGallery = useMatch({ from: "/$locale/_gallery", shouldThrow: false });
   return (
     <Link
       to={ROUTES.HOME}

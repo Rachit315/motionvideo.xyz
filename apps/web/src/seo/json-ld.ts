@@ -1,5 +1,7 @@
-import { FAQS } from "@/constants/faqs";
+import { getIntlayer } from "intlayer";
+
 import { LINK } from "@/constants/links";
+import { DEFAULT_LOCALE, isLocale, localizedPath } from "@/constants/locales";
 import {
   BASE_PRICE_CENTS,
   LAUNCH_PRICE_CENTS,
@@ -36,7 +38,12 @@ const jsonLdScript = (data: JsonLd) => ({
   type: "application/ld+json",
 });
 
+// A stable id, so every page's nodes point at one organization instead of
+// repeating it (and search engines merge them into one entity).
+const ORGANIZATION_ID = `${SITE.URL}/#organization`;
+
 const organization = {
+  "@id": ORGANIZATION_ID,
   "@type": "Organization",
   email: LINK.EMAIL,
   founder: {
@@ -50,26 +57,37 @@ const organization = {
   url: SITE.URL,
 };
 
-export const websiteJsonLd = () =>
-  jsonLdScript({
+const resolveLocale = (locale?: string) =>
+  isLocale(locale) ? locale : DEFAULT_LOCALE;
+
+// The site in the page's language: one node per locale home (its own `@id`,
+// so the nine language versions never claim conflicting values), described
+// as that locale's home page is.
+export const websiteJsonLd = (locale?: string) => {
+  const resolved = resolveLocale(locale);
+  const url = absoluteUrl(localizedPath("/", resolved));
+  return jsonLdScript({
+    "@id": `${url}#website`,
     "@type": "WebSite",
-    description: SITE.DESCRIPTION.SHORT,
-    inLanguage: "en-US",
+    description: getIntlayer("gallery-meta", resolved).home.description,
+    inLanguage: resolved,
     name: SITE.NAME,
-    publisher: organization,
-    url: SITE.URL,
+    publisher: { "@id": ORGANIZATION_ID },
+    url,
   });
+};
 
 export const organizationJsonLd = () => jsonLdScript(organization);
 
-export const productJsonLd = (offer?: Offer) =>
-  jsonLdScript({
+export const productJsonLd = (offer?: Offer, locale?: string) => {
+  const resolved = resolveLocale(locale);
+  return jsonLdScript({
     "@type": "Product",
     brand: { "@type": "Brand", name: SITE.NAME },
-    description: SITE.DESCRIPTION.LONG,
+    description: getIntlayer("directory-meta", resolved).skill.description,
     image: absoluteUrl("/og.jpg"),
     name: PRODUCT_NAME,
-    url: absoluteUrl(ROUTES.MOTIONVIDEO_SKILL),
+    url: absoluteUrl(localizedPath(ROUTES.MOTIONVIDEO_SKILL, resolved)),
     offers: {
       "@type": "Offer",
       availability: "https://schema.org/InStock",
@@ -77,50 +95,78 @@ export const productJsonLd = (offer?: Offer) =>
         (offer?.active ? LAUNCH_PRICE_CENTS : BASE_PRICE_CENTS) / 100
       ).toFixed(2),
       priceCurrency: "USD",
-      url: absoluteUrl(ROUTES.PRICING),
+      url: absoluteUrl(localizedPath(ROUTES.PRICING, resolved)),
     },
   });
+};
 
-export const faqJsonLd = () =>
+// The skill page's FAQ, in the language the page shows it in: FAQ markup
+// must match the visible questions and answers.
+export const faqJsonLd = (locale?: string) =>
   jsonLdScript({
     "@type": "FAQPage",
-    mainEntity: FAQS.map((faq) => ({
+    inLanguage: resolveLocale(locale),
+    mainEntity: getIntlayer("faqs", resolveLocale(locale)).faqs.map((faq) => ({
       "@type": "Question",
       acceptedAnswer: { "@type": "Answer", text: faq.answer },
       name: faq.question,
     })),
   });
 
+/** A page one level below home: its footer link label and app path. */
 export interface BreadcrumbItem {
-  name: string;
+  page: "about" | "brand" | "contact" | "privacy" | "refunds" | "terms";
   path: string;
 }
 
-const HOME_BREADCRUMB: BreadcrumbItem = { name: "Home", path: ROUTES.HOME };
-
-// One gallery video, for its /videos/$slug page.
-export const videoJsonLd = (video: MotionVideo) =>
+/**
+ * One gallery video, for its /videos/$slug page. `description` is the page's
+ * own meta description (already in the page's language). No `inLanguage`:
+ * the video has no spoken language of its own, and the page's language says
+ * nothing about it.
+ */
+export const videoJsonLd = (
+  video: MotionVideo,
+  description: string,
+  locale?: string
+) =>
   jsonLdScript({
     "@type": "VideoObject",
     contentUrl: absoluteUrl(video.video),
-    creator: { "@type": "Person", name: `@${video.handle}` },
-    description:
-      video.description ??
-      `${video.title}, a motion video by @${video.handle} on ${SITE.NAME}.`,
+    creator: {
+      "@type": "Person",
+      name: video.creatorName ?? `@${video.handle}`,
+      url: `https://x.com/${video.handle}`,
+    },
+    description: video.description ?? description,
     keywords: video.contentTags.join(", "),
     name: video.title,
+    publisher: { "@id": ORGANIZATION_ID },
     thumbnailUrl: absoluteUrl(video.poster),
     uploadDate: video.date,
+    url: absoluteUrl(
+      localizedPath(`/videos/${video.slug}`, resolveLocale(locale))
+    ),
   });
 
-// Home › <page>, for pages one level below the home page.
-export const breadcrumbJsonLd = (current: BreadcrumbItem) =>
-  jsonLdScript({
+// Home › <page>, for pages one level below the home page, named in the
+// page's language (the footer's link labels).
+export const breadcrumbJsonLd = (current: BreadcrumbItem, locale?: string) => {
+  const resolved = resolveLocale(locale);
+  const crumbs = [
+    { name: getIntlayer("json-ld", resolved).home, path: ROUTES.HOME },
+    {
+      name: getIntlayer("site-footer", resolved)[current.page],
+      path: current.path,
+    },
+  ];
+  return jsonLdScript({
     "@type": "BreadcrumbList",
-    itemListElement: [HOME_BREADCRUMB, current].map((item, index) => ({
+    itemListElement: crumbs.map((item, index) => ({
       "@type": "ListItem",
-      item: absoluteUrl(item.path),
+      item: absoluteUrl(localizedPath(item.path, resolved)),
       name: item.name,
       position: index + 1,
     })),
   });
+};

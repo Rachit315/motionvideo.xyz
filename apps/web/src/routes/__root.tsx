@@ -1,6 +1,12 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
-import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
+import {
+  HeadContent,
+  Scripts,
+  createRootRoute,
+  useRouterState,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { getHTMLTextDir } from "intlayer";
 
 import { ClickTracking } from "@/components/click-tracking";
 import { FeedbackDialogProvider } from "@/components/feedback-dialog";
@@ -11,47 +17,58 @@ import { NotFound } from "@/components/not-found";
 import { ProgressiveBlur } from "@/components/progressive-blur";
 import { SignInDialogProvider } from "@/components/sign-in-dialog";
 import { SoundEffects } from "@/components/ui/sound";
+import { localeFromPath } from "@/constants/locales";
 import { themeScript } from "@/lib/theme";
-import { organizationJsonLd, websiteJsonLd } from "@/seo/json-ld";
+import { organizationJsonLd } from "@/seo/json-ld";
 import { baseMetadata } from "@/seo/metadata";
 
 import fontsCss from "../styles/fonts.css?url";
 import appCss from "../styles/globals.css?url";
 
-const RootDocument = ({ children }: { children: React.ReactNode }) => (
-  <html lang="en" suppressHydrationWarning>
-    <head>
-      <HeadContent />
-    </head>
-    <body className="flex min-h-svh flex-col antialiased">
-      <LocaleProvider>
-        <SignInDialogProvider>
-          <FeedbackDialogProvider>
-            <KeyboardShortcutsProvider>
-              <LivePresenceProvider>
-                <SoundEffects>{children}</SoundEffects>
-              </LivePresenceProvider>
-            </KeyboardShortcutsProvider>
-          </FeedbackDialogProvider>
-        </SignInDialogProvider>
-      </LocaleProvider>
-      <ProgressiveBlur />
-      <ClickTracking />
-      <TanStackDevtools
-        config={{
-          position: "bottom-right",
-        }}
-        plugins={[
-          {
-            name: "Tanstack Router",
-            render: <TanStackRouterDevtoolsPanel />,
-          },
-        ]}
-      />
-      <Scripts />
-    </body>
-  </html>
-);
+const RootDocument = ({ children }: { children: React.ReactNode }) => {
+  // The locale is a route param on every page (`/$locale/...`); reading the
+  // pathname here also covers dialogs and error pages rendered above the
+  // locale layout.
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  });
+  const locale = localeFromPath(pathname);
+
+  return (
+    <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>
+      <head>
+        <HeadContent />
+      </head>
+      <body className="flex min-h-svh flex-col antialiased">
+        <LocaleProvider locale={locale}>
+          <SignInDialogProvider>
+            <FeedbackDialogProvider>
+              <KeyboardShortcutsProvider>
+                <LivePresenceProvider>
+                  <SoundEffects>{children}</SoundEffects>
+                </LivePresenceProvider>
+              </KeyboardShortcutsProvider>
+            </FeedbackDialogProvider>
+          </SignInDialogProvider>
+        </LocaleProvider>
+        <ProgressiveBlur />
+        <ClickTracking />
+        <TanStackDevtools
+          config={{
+            position: "bottom-right",
+          }}
+          plugins={[
+            {
+              name: "Tanstack Router",
+              render: <TanStackRouterDevtoolsPanel />,
+            },
+          ]}
+        />
+        <Scripts />
+      </body>
+    </html>
+  );
+};
 
 export const Route = createRootRoute({
   head: () => ({
@@ -71,7 +88,7 @@ export const Route = createRootRoute({
       ...baseMetadata.links,
     ],
     meta: baseMetadata.meta,
-    scripts: [{ children: themeScript }, websiteJsonLd(), organizationJsonLd()],
+    scripts: [{ children: themeScript }, organizationJsonLd()],
   }),
   notFoundComponent: NotFound,
   shellComponent: RootDocument,

@@ -262,8 +262,9 @@ const catalog = JSON.parse(await readFile(catalogPath, "utf-8"));
 const sources = z
   .array(sourceSchema)
   .parse(JSON.parse(await readFile(sourcesPath, "utf-8")));
+// Removed duplicates count as known, so their posts are never re-imported.
 const known = new Set(
-  catalog.videos.map(
+  [...catalog.videos, ...(catalog.removed ?? [])].map(
     (video) => video.tweetUrl?.match(/status\/(?<id>\d+)/u)?.groups.id
   )
 );
@@ -306,7 +307,7 @@ videos.push(...added.slice(next));
 if (added.length > 0) {
   await writeFile(
     catalogPath,
-    `${JSON.stringify({ importedAt: new Date().toISOString(), videos }, null, 2)}\n`
+    `${JSON.stringify({ ...catalog, importedAt: new Date().toISOString(), videos }, null, 2)}\n`
   );
 }
 console.log(

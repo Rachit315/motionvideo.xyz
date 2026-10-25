@@ -43,15 +43,15 @@ export const getAccount = createServerFn({ method: "GET" }).handler(
   }
 );
 
-export const getPortalUrl = createServerFn({ method: "POST" }).handler(
-  async () => {
+export const getPortalUrl = createServerFn({ method: "POST" })
+  .validator(z.object({ locale: z.string().optional() }))
+  .handler(async ({ data }) => {
     const session = await getCurrentSession();
     if (!session) {
       throw new Error("Unauthorized");
     }
-    return customerPortalUrl(session.user.email);
-  }
-);
+    return customerPortalUrl(session.user.email, data.locale);
+  });
 
 // Dodo's return redirect lands on /welcome with the payment id; the email on
 // that payment is where the buyer's sign-in code goes.

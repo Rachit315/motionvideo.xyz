@@ -22,8 +22,10 @@
     "email:dev": "email dev --dir src/emails --port 3001",
     "assets:mirror": "node scripts/mirror-assets.mjs",
     "catalog:discover": "node scripts/discover-x-posts.mjs",
+    "catalog:duplicates": "node scripts/find-duplicates.mjs",
     "catalog:import:articles": "node scripts/import-x-articles.mjs",
     "catalog:import:videos": "node scripts/import-x-videos.mjs",
+    "catalog:remove": "node scripts/remove-videos.mjs",
     "catalog:refresh:colors": "node scripts/refresh-colors.mjs",
     "catalog:refresh:skills": "node scripts/refresh-skill-stats.mjs"
   },
