@@ -13,6 +13,16 @@ import { CommandMenu } from "@/components/command-menu";
 import { OnlineCount } from "@/components/live-presence";
 import { buttonVariants } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
+import { cn } from "@/lib/utils";
+
+// The header's frame, shared with BrandHeader so the logo lands on the same
+// spot on every page.
+const headerFrameClass = "mx-auto w-full max-w-[1800px] px-4 py-3 sm:px-6";
+// The header's row height: below lg the 36px menu button sets it, from lg the
+// 32px controls do. A fixed grid row (not left to the tallest control), so
+// BrandHeader can match it exactly at every width.
+const headerRowClass =
+  "grid grid-rows-[2.25rem] items-center lg:grid-rows-[2rem]";
 
 const linkClass =
   "text-muted-foreground hover:text-foreground [&[aria-current=page]]:text-foreground focus-visible:ring-ring rounded-md px-2 py-1.5 text-sm font-medium transition-colors outline-none focus-visible:ring-2";
@@ -143,7 +153,13 @@ const MobileMenu = () => {
 export const SiteHeader = ({ signedIn }: { signedIn?: boolean }) => {
   const content = useIntlayer("site-header");
   return (
-    <header className="mx-auto grid w-full max-w-[1800px] grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2 px-4 py-3 sm:px-6 md:gap-x-3">
+    <header
+      className={cn(
+        headerFrameClass,
+        headerRowClass,
+        "grid-cols-[minmax(0,1fr)_auto] gap-x-2 md:gap-x-3"
+      )}
+    >
       <div className="flex min-w-0 items-center gap-x-3 lg:gap-x-4">
         <Brand />
         <nav
@@ -183,3 +199,21 @@ export const SiteHeader = ({ signedIn }: { signedIn?: boolean }) => {
     </header>
   );
 };
+
+/**
+ * Just the brand, for pages without navigation (/sign-in). Same frame and
+ * row height as SiteHeader, so the logo sits exactly where it does on every
+ * other page, at every width.
+ */
+export const BrandHeader = ({ className }: { className?: string }) => (
+  <header
+    className={cn(
+      headerFrameClass,
+      headerRowClass,
+      "justify-items-start",
+      className
+    )}
+  >
+    <Brand />
+  </header>
+);

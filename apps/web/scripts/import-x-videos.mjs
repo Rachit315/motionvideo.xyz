@@ -27,6 +27,7 @@ import {
   MOTION_CATEGORIES,
   MOTION_MODELS,
 } from "../src/lib/motion-catalog.ts";
+import { paletteOf } from "./palette.mjs";
 
 const run = promisify(execFile);
 const catalogPath = fileURLToPath(
@@ -209,7 +210,10 @@ const buildVideo = async (source) => {
   );
   const handle = status.author.screen_name;
   const prompt = findPrompt(source, conversation);
-  const blur = await blurOf(media.thumbnail_url);
+  const [blur, colors] = await Promise.all([
+    blurOf(media.thumbnail_url),
+    paletteOf(preview.url),
+  ]);
   const video = {
     slug: `${handle.toLowerCase()}-${createHash("sha1").update(status.id).digest("hex").slice(0, 6)}`,
     title: source.title,
@@ -232,6 +236,9 @@ const buildVideo = async (source) => {
     height: media.height,
     tweetUrl: `https://x.com/${handle}/status/${status.id}`,
   });
+  if (colors) {
+    video.colors = colors;
+  }
   if (prompt) {
     video.tags.push("prompt");
     video.prompt = prompt;

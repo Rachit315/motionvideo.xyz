@@ -11,6 +11,7 @@ import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
 
 import { LoginForm } from "@/components/login-form";
+import { SignInFan } from "@/components/sign-in-fan";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { ACCOUNT_PAGES } from "@/constants/routes";
 import { useSession } from "@/lib/auth-client";
@@ -145,14 +146,20 @@ export const SignInDialogProvider = ({ children }: { children: ReactNode }) => {
         open={state.open}
         onOpenChange={(open) => setState((current) => ({ ...current, open }))}
       >
-        <DialogContent aria-label={content.signInTitle.value}>
+        <DialogContent
+          aria-label={content.signInTitle.value}
+          // The sections (heading, form card, fan) run edge to edge.
+          className="gap-0 p-0 sm:max-w-md"
+        >
           {/* Signing in closes the dialog (and goes to `next`) via the
               session change above. */}
           <LoginForm
             key={state.key}
+            layout="dialog"
             description={state.reason}
             returnTo={state.next}
           />
+          <SignInFan />
         </DialogContent>
       </Dialog>
     </SignInDialogContext>

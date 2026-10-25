@@ -19,12 +19,14 @@ const layerStyle = (index: number): CSSProperties => {
 /**
  * A fixed blur that softens content as it scrolls under the bottom edge.
  * Half height on mobile, where the footer wordmark is only ~45px tall and
- * the full ramp would blur it away entirely.
+ * the full ramp would blur it away entirely. A page without scrolling
+ * content under it (e.g. /sign-in) opts out with `data-no-bottom-blur`;
+ * CSS, so it is gone from the first paint.
  */
 export const ProgressiveBlur = () => (
   <div
     aria-hidden="true"
-    className="pointer-events-none fixed inset-x-0 bottom-0 z-35 h-12 transition-opacity duration-200 in-data-overlay-open:opacity-0 md:h-24"
+    className="pointer-events-none fixed inset-x-0 bottom-0 z-35 h-12 transition-opacity duration-200 in-data-overlay-open:opacity-0 md:h-24 [body:has([data-no-bottom-blur])_&]:hidden"
   >
     {Array.from({ length: LAYERS }, (_, index) => (
       <div

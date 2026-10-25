@@ -11,6 +11,7 @@ import {
   MOTION_TYPES,
   motionModelSlug,
 } from "@/lib/motion-catalog";
+import { COLOR_PAGES } from "@/lib/motion-video-route";
 
 // Public, canonical pages only: signed-in pages (/dashboard/…), redirects
 // (/studios, /tools/skills), and utility pages (/checkout, /welcome) stay out.
@@ -29,6 +30,10 @@ const PAGES: { lastmod?: string; path: string }[] = [
   ...MOTION_TYPES.filter((type) =>
     catalog.videos.some((video) => video.tags.includes(type))
   ).map((type) => ({ path: `${ROUTES.HOME}type/${type}` })),
+  // Colour pages already leave out colours too rare to have one.
+  ...COLOR_PAGES.map((color) => ({
+    path: `${ROUTES.HOME}color/${color.slug}`,
+  })),
   ...catalog.videos.map((video) => ({
     lastmod: video.date,
     path: `${ROUTES.HOME}videos/${video.slug}`,

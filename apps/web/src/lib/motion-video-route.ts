@@ -1,14 +1,25 @@
 import { notFound } from "@tanstack/react-router";
 
 import catalog from "@/data/motion-catalog.json";
-import { filterMotionVideos } from "@/lib/motion-catalog";
+import { MOTION_COLORS, filterMotionVideos } from "@/lib/motion-catalog";
 import type { MotionFilters, MotionVideo } from "@/lib/motion-catalog";
 import { videoJsonLd } from "@/seo/json-ld";
 import { createMetadata } from "@/seo/metadata";
 
-// Loader and head shared by the video overlay routes: `/videos/$slug` over
-// Discover and `/category/$category/videos/$slug` over a category page.
+// Shared by the gallery routes: the video overlays' loader and head
+// (`/videos/$slug` over Discover, `/category/$category/videos/$slug` over a
+// category page…) and which colours have a page of their own.
 const videos: MotionVideo[] = catalog.videos;
+
+// A colour page with only a handful of videos is too thin to be worth a URL.
+const MIN_COLOR_PAGE_VIDEOS = 6;
+
+/** The named colours with enough videos for a page, `/color/$color`. */
+export const COLOR_PAGES = MOTION_COLORS.filter(
+  (color) =>
+    filterMotionVideos(videos, { color: color.hex }).length >=
+    MIN_COLOR_PAGE_VIDEOS
+);
 
 export const loadMotionVideo = ({ params }: { params: { slug: string } }) => {
   const video = videos.find((entry) => entry.slug === params.slug);

@@ -24,6 +24,7 @@
     "catalog:discover": "node scripts/discover-x-posts.mjs",
     "catalog:import:articles": "node scripts/import-x-articles.mjs",
     "catalog:import:videos": "node scripts/import-x-videos.mjs",
+    "catalog:refresh:colors": "node scripts/refresh-colors.mjs",
     "catalog:refresh:skills": "node scripts/refresh-skill-stats.mjs"
   },
   "dependencies": {

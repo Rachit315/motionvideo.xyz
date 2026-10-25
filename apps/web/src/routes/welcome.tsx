@@ -9,7 +9,7 @@ import { Loader } from "reicon-react/icons/Loader";
 import { z } from "zod";
 
 import { ConfettiSideCannons } from "@/components/confetti";
-import { AuthCard, AuthHeading, LoginForm } from "@/components/login-form";
+import { AuthCard, LoginForm } from "@/components/login-form";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
@@ -43,11 +43,8 @@ const Welcome = () => {
             />
           </>
         ) : (
-          <AuthCard>
+          <AuthCard title={content.confirming} description={content.seconds}>
             <div className="flex flex-col items-center gap-6">
-              <AuthHeading title={content.confirming}>
-                {content.seconds}
-              </AuthHeading>
               <Loader aria-hidden className="size-8 animate-spin" />
               <Button
                 variant="outline"

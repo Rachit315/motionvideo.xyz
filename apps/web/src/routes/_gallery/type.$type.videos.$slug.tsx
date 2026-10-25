@@ -29,6 +29,7 @@ const TypeVideoRoute = () => {
   return (
     <MotionVideoOverlay
       video={video}
+      openVideo={open}
       previous={previous ? () => open(previous) : undefined}
       next={next ? () => open(next) : undefined}
       onClose={() =>

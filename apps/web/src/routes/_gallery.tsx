@@ -6,7 +6,7 @@ import {
   useParams,
 } from "@tanstack/react-router";
 import type { UseNavigateResult } from "@tanstack/react-router";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import type { ComponentType, ReactNode, SVGProps } from "react";
 import { useIntlayer } from "react-intlayer";
 import type { IconComponent } from "reicon-react";
@@ -29,14 +29,16 @@ import {
   CategoryChip,
   CollectionToolbar,
 } from "@/components/collection-toolbar";
+import { ColorPicker } from "@/components/color-picker";
 import { FadeScroller } from "@/components/fade-scroller";
-import { Claude, Codex, Gemini } from "@/components/icons";
+import { Claude, Codex, ColorDots, Gemini } from "@/components/icons";
 import { JobsWidget } from "@/components/jobs-widget";
 import { MotionVideoCard, setMorphCard } from "@/components/motion-video";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SponsoredCard, sponsoredTileIndex } from "@/components/sponsored-card";
 import { buttonVariants } from "@/components/ui/button";
+import { ButtonGroup } from "@/components/ui/button-group";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -45,18 +47,26 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import type { MasonryItem } from "@/components/virtual-masonry";
 import catalog from "@/data/motion-catalog.json";
 import { useLaneCount } from "@/hooks/use-lane-count";
 import {
+  MAX_FILTER_COLORS,
   MOTION_CATEGORIES,
   MOTION_MODELS,
   MOTION_TYPES,
   filterMotionVideos,
   findMotionCategory,
+  findMotionColor,
   findMotionModel,
   findMotionType,
   motionModelSlug,
+  parseFilterColors,
   scopeFilters,
 } from "@/lib/motion-catalog";
 import type {
@@ -66,6 +76,7 @@ import type {
   MotionModel,
   MotionVideo,
 } from "@/lib/motion-catalog";
+import { COLOR_PAGES } from "@/lib/motion-video-route";
 import { cn } from "@/lib/utils";
 import { getLandingData } from "@/server/functions";
 import { getJobs } from "@/server/job-functions";
@@ -79,15 +90,20 @@ const MODELS = MOTION_MODELS.filter((model) =>
 
 type Navigate = UseNavigateResult<string>;
 
-/** The page a gallery URL is: its category, model or type param, if any. */
+/** The page a gallery URL is: its category, colour, model or type param, if any. */
 const scopeOf = (params: {
   category?: string;
+  color?: string;
   model?: string;
   type?: string;
 }): GalleryScope | undefined => {
   const category = findMotionCategory(params.category);
   if (category) {
     return { kind: "category", category };
+  }
+  const color = findMotionColor(params.color);
+  if (color) {
+    return { kind: "color", color };
   }
   const model = findMotionModel(params.model);
   if (model) {
@@ -97,7 +113,7 @@ const scopeOf = (params: {
   return type ? { kind: "type", type } : undefined;
 };
 
-/** Navigates to a gallery page: Discover, or a category/model/type page. */
+/** Navigates to a gallery page: Discover, or a category/colour/model/type page. */
 const goToPage = (
   navigate: Navigate,
   scope: GalleryScope | undefined,
@@ -109,6 +125,13 @@ const goToPage = (
       return navigate({
         to: "/category/$category",
         params: { category: scope.category },
+        ...options,
+      });
+    }
+    case "color": {
+      return navigate({
+        to: "/color/$color",
+        params: { color: scope.color.slug },
         ...options,
       });
     }
@@ -148,6 +171,13 @@ const goToVideo = (
         ...options,
       });
     }
+    case "color": {
+      return navigate({
+        to: "/color/$color/videos/$slug",
+        params: { color: scope.color.slug, slug },
+        ...options,
+      });
+    }
     case "model": {
       return navigate({
         to: "/model/$model/videos/$slug",
@@ -169,10 +199,11 @@ const goToVideo = (
 };
 
 /**
- * Where a Type/Model menu pick goes. On Discover and category pages it is a
- * search param, as before. On a model or type page, changing that page's own
- * filter moves to the matching page (or Discover for "All"); the other
- * filter stays a search param.
+ * Where a Type/Model menu or colour pick goes. On Discover and category pages
+ * it is a search param, as before. On a colour, model or type page, changing
+ * that page's own filter moves to the matching page (or Discover for "All",
+ * or for colours no page is named after); the other filters stay search
+ * params.
  */
 const pickFilter = (
   navigate: Navigate,
@@ -180,6 +211,13 @@ const pickFilter = (
   search: GallerySearch,
   patch: GallerySearch
 ) => {
+  if (scope?.kind === "color" && "color" in patch) {
+    const color = COLOR_PAGES.find((page) => page.hex === patch.color);
+    return goToPage(navigate, color ? { kind: "color", color } : undefined, {
+      ...search,
+      color: color ? undefined : patch.color,
+    });
+  }
   if (scope?.kind === "model" && "model" in patch) {
     const model = findMotionModel(patch.model);
     return goToPage(navigate, model ? { kind: "model", model } : undefined, {
@@ -209,9 +247,8 @@ const chipClass = (active: boolean) =>
 const SORTS = ["featured", "newest", "oldest"] as const;
 type Sort = (typeof SORTS)[number];
 
-// The filter chip reads "type icon · model · sort": the type as an icon (a
-// handful of fixed choices), the model only when one is picked, and the sort
-// order, which always has a value.
+// The filter chip shows icons only for selected type/model filters, followed
+// by the sort order, which always has a value.
 const TYPE_ICONS: Record<"all" | (typeof MOTION_TYPES)[number], IconComponent> =
   { all: Layers, prompt: Text, skill: Code };
 
@@ -260,20 +297,24 @@ const GalleryFilters = ({
   const typesInView = useMemo(
     () =>
       new Set(
-        filterMotionVideos(videos, { model: search.model, category }).flatMap(
-          (video) => video.tags
-        )
+        filterMotionVideos(videos, {
+          model: search.model,
+          color: search.color,
+          category,
+        }).flatMap((video) => video.tags)
       ),
-    [search.model, category]
+    [search.model, search.color, category]
   );
   const modelsInView = useMemo(
     () =>
       new Set(
-        filterMotionVideos(videos, { type: search.type, category }).map(
-          (video) => video.model
-        )
+        filterMotionVideos(videos, {
+          type: search.type,
+          color: search.color,
+          category,
+        }).map((video) => video.model)
       ),
-    [search.type, category]
+    [search.type, search.color, category]
   );
 
   const sections: FilterSection[] = [
@@ -319,15 +360,19 @@ const GalleryFilters = ({
     },
   ];
 
-  const TypeIcon = TYPE_ICONS[search.type ?? "all"];
+  const TypeIcon = search.type ? TYPE_ICONS[search.type] : undefined;
   const ModelIcon = model ? MODEL_ICONS[model] : undefined;
   const triggerClass = chipClass(Boolean(search.type || model || search.sort));
   const summary = (
     <>
-      <TypeIcon aria-hidden="true" />
-      <span aria-hidden="true" className="opacity-60">
-        ·
-      </span>
+      {TypeIcon && (
+        <>
+          <TypeIcon aria-hidden="true" />
+          <span aria-hidden="true" className="opacity-60">
+            ·
+          </span>
+        </>
+      )}
       {ModelIcon && (
         <>
           <span title={model}>
@@ -390,6 +435,55 @@ const GalleryFilters = ({
   );
 };
 
+// The first half of the filters' button group: an icon-only colour trigger.
+// It shows the palette mark, or the picked colours once a filter is set.
+const ColorFilter = ({
+  color,
+  onChange,
+}: {
+  color: string | undefined;
+  onChange: (color: string | undefined) => void;
+}) => {
+  const content = useIntlayer("motion-gallery");
+  const [open, setOpen] = useState(false);
+  const colors = parseFilterColors(color);
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger
+        aria-label={content.filterColor.value}
+        className={cn(chipClass(colors.length > 0), "px-2.5")}
+      >
+        {colors.length > 0 ? (
+          <span aria-hidden="true" className="flex -space-x-1.5">
+            {colors.map((hex) => (
+              <span
+                key={hex}
+                // Inset edge: black still shows on the dark chip.
+                className="ring-primary inset-ring-foreground/20 size-4 rounded-full ring-2 inset-ring"
+                style={{ backgroundColor: `#${hex}` }}
+              />
+            ))}
+          </span>
+        ) : (
+          <ColorDots aria-hidden="true" />
+        )}
+      </PopoverTrigger>
+      <PopoverContent align="end" className="p-0">
+        {/* Keyed so each opening starts from the applied colours. */}
+        <ColorPicker
+          key={color ?? ""}
+          colors={colors}
+          max={MAX_FILTER_COLORS}
+          onApply={(picked) => {
+            setOpen(false);
+            onChange(picked.length > 0 ? picked.join(",") : undefined);
+          }}
+        />
+      </PopoverContent>
+    </Popover>
+  );
+};
+
 /** The intro tile's title and copy for the page: Discover or its scope. */
 const GalleryIntro = ({
   scope,
@@ -404,6 +498,9 @@ const GalleryIntro = ({
   if (scope?.kind === "category") {
     title = content.categoryTitles[scope.category];
     description = content.categoryIntros[scope.category];
+  } else if (scope?.kind === "color") {
+    title = content.colorTitles[scope.color.slug];
+    description = content.colorIntros[scope.color.slug];
   } else if (scope?.kind === "model") {
     title = content.modelTitles[scope.model];
     description = content.modelIntros[scope.model];
@@ -427,8 +524,8 @@ const Gallery = () => {
   const search = routeApi.useSearch();
   const navigate = useNavigate();
   // The open video renders as a child route overlay on top of this gallery.
-  // A category, model or type page fixes that filter in the path (`scope`);
-  // the rest are search params, merged under it.
+  // A category, colour, model or type page fixes that filter in the path
+  // (`scope`); the rest are search params, merged under it.
   const params = useParams({ strict: false });
   const openSlug = params.slug;
   const scope = scopeOf(params);
@@ -440,25 +537,29 @@ const Gallery = () => {
       filterMotionVideos(videos, {
         type: filters.type,
         model: filters.model,
+        color: filters.color,
         category,
         sort: search.sort,
       }),
-    [filters.type, filters.model, category, search.sort]
+    [filters.type, filters.model, filters.color, category, search.sort]
   );
   // Previews pause while a video's overlay covers the grid.
   const previewsPaused = Boolean(openSlug);
   const lanes = useLaneCount();
 
-  // Type, model and sort stay search params on whichever page is showing,
-  // except a model or type page's own filter (see pickFilter).
+  // Type, model, colour and sort stay search params on whichever page is
+  // showing, except a colour, model or type page's own filter (see
+  // pickFilter).
   const updateSearch = (patch: GallerySearch) => {
     void pickFilter(navigate, scope, search, patch);
   };
-  // Category chips keep the page's model or type filter as a search param.
+  // Category chips keep the page's colour, model or type filter as a search
+  // param.
   const chipSearch = {
     ...search,
     type: filters.type,
     model: filters.model,
+    color: filters.color,
   };
 
   const surprise = () => {
@@ -559,13 +660,20 @@ const Gallery = () => {
             );
           })}
         </FadeScroller>
-        <div className="ml-auto flex shrink-0 items-center">
+        {/* The chips are pills: the group's last button (Featured) keeps a
+            fully rounded right end instead of the group's default radius. */}
+        <ButtonGroup className="ml-auto shrink-0 [&>[data-slot]:not(:has(~[data-slot]))]:rounded-r-full!">
+          {/* A colour page shows its colour as the applied filter. */}
+          <ColorFilter
+            color={filters.color}
+            onChange={(color) => updateSearch({ color })}
+          />
           <GalleryFilters
             search={filters}
             category={category}
             onChange={updateSearch}
           />
-        </div>
+        </ButtonGroup>
       </CollectionToolbar>
       <CollectionGrid
         items={items}
@@ -585,18 +693,22 @@ const Gallery = () => {
   );
 };
 
-// Pathless layout: `/`, `/category/$category`, and their `videos/$slug`
-// overlays share the gallery, so a video opens as an overlay route while the
-// grid (and its scroll position) stays mounted.
+// Pathless layout: `/`, the category, colour, model and type pages, and their
+// `videos/$slug` overlays share the gallery, so a video opens as an overlay
+// route while the grid (and its scroll position) stays mounted.
 export const Route = createFileRoute("/_gallery")({
   component: Gallery,
   loader: async () => {
     const [landing, jobs] = await Promise.all([getLandingData(), getJobs()]);
     return { ...landing, jobs };
   },
-  validateSearch: (search): GallerySearch => ({
-    type: findMotionType(z.string().safeParse(search.type).data),
-    model: MODELS.map(motionModelSlug).find((slug) => slug === search.model),
-    sort: z.enum(["newest", "oldest"]).safeParse(search.sort).data,
-  }),
+  validateSearch: (search): GallerySearch => {
+    const colors = parseFilterColors(z.string().safeParse(search.color).data);
+    return {
+      type: findMotionType(z.string().safeParse(search.type).data),
+      model: MODELS.map(motionModelSlug).find((slug) => slug === search.model),
+      sort: z.enum(["newest", "oldest"]).safeParse(search.sort).data,
+      color: colors.length > 0 ? colors.join(",") : undefined,
+    };
+  },
 });

@@ -64,6 +64,7 @@ import { Route as SponsorshipsNewRouteImport } from './routes/sponsorships/new'
 import { Route as ToolsIndexRouteImport } from './routes/tools/index'
 import { Route as ToolsCategoryRouteImport } from './routes/tools/$category'
 import { Route as GalleryCategoryCategoryRouteImport } from './routes/_gallery/category.$category'
+import { Route as GalleryColorColorRouteImport } from './routes/_gallery/color.$color'
 import { Route as GalleryModelModelRouteImport } from './routes/_gallery/model.$model'
 import { Route as GalleryTypeTypeRouteImport } from './routes/_gallery/type.$type'
 import { Route as GalleryVideosSlugRouteImport } from './routes/_gallery/videos.$slug'
@@ -75,9 +76,11 @@ import { Route as DashboardJobsPostRouteImport } from './routes/dashboard/jobs/p
 import { Route as DashboardSponsorshipsIndexRouteImport } from './routes/dashboard/sponsorships/index'
 import { Route as DashboardSponsorshipsNewRouteImport } from './routes/dashboard/sponsorships/new'
 import { Route as GalleryCategoryCategoryIndexRouteImport } from './routes/_gallery/category.$category.index'
+import { Route as GalleryColorColorIndexRouteImport } from './routes/_gallery/color.$color.index'
 import { Route as GalleryModelModelIndexRouteImport } from './routes/_gallery/model.$model.index'
 import { Route as GalleryTypeTypeIndexRouteImport } from './routes/_gallery/type.$type.index'
 import { Route as GalleryCategoryCategoryVideosSlugRouteImport } from './routes/_gallery/category.$category.videos.$slug'
+import { Route as GalleryColorColorVideosSlugRouteImport } from './routes/_gallery/color.$color.videos.$slug'
 import { Route as GalleryModelModelVideosSlugRouteImport } from './routes/_gallery/model.$model.videos.$slug'
 import { Route as GalleryTypeTypeVideosSlugRouteImport } from './routes/_gallery/type.$type.videos.$slug'
 
@@ -354,6 +357,11 @@ const GalleryCategoryCategoryRoute = GalleryCategoryCategoryRouteImport.update({
   path: '/category/$category',
   getParentRoute: () => GalleryRoute,
 } as any)
+const GalleryColorColorRoute = GalleryColorColorRouteImport.update({
+  id: '/color/$color',
+  path: '/color/$color',
+  getParentRoute: () => GalleryRoute,
+} as any)
 const GalleryModelModelRoute = GalleryModelModelRouteImport.update({
   id: '/model/$model',
   path: '/model/$model',
@@ -412,6 +420,11 @@ const GalleryCategoryCategoryIndexRoute =
     path: '/',
     getParentRoute: () => GalleryCategoryCategoryRoute,
   } as any)
+const GalleryColorColorIndexRoute = GalleryColorColorIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GalleryColorColorRoute,
+} as any)
 const GalleryModelModelIndexRoute = GalleryModelModelIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -427,6 +440,12 @@ const GalleryCategoryCategoryVideosSlugRoute =
     id: '/videos/$slug',
     path: '/videos/$slug',
     getParentRoute: () => GalleryCategoryCategoryRoute,
+  } as any)
+const GalleryColorColorVideosSlugRoute =
+  GalleryColorColorVideosSlugRouteImport.update({
+    id: '/videos/$slug',
+    path: '/videos/$slug',
+    getParentRoute: () => GalleryColorColorRoute,
   } as any)
 const GalleryModelModelVideosSlugRoute =
   GalleryModelModelVideosSlugRouteImport.update({
@@ -495,6 +514,7 @@ export interface FileRoutesByFullPath {
   '/sponsorships/': typeof SponsorshipsIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/category/$category': typeof GalleryCategoryCategoryRouteWithChildren
+  '/color/$color': typeof GalleryColorColorRouteWithChildren
   '/model/$model': typeof GalleryModelModelRouteWithChildren
   '/type/$type': typeof GalleryTypeTypeRouteWithChildren
   '/videos/$slug': typeof GalleryVideosSlugRoute
@@ -506,9 +526,11 @@ export interface FileRoutesByFullPath {
   '/api/catalog/': typeof ApiCatalogIndexRoute
   '/dashboard/sponsorships/': typeof DashboardSponsorshipsIndexRoute
   '/category/$category/': typeof GalleryCategoryCategoryIndexRoute
+  '/color/$color/': typeof GalleryColorColorIndexRoute
   '/model/$model/': typeof GalleryModelModelIndexRoute
   '/type/$type/': typeof GalleryTypeTypeIndexRoute
   '/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
+  '/color/$color/videos/$slug': typeof GalleryColorColorVideosSlugRoute
   '/model/$model/videos/$slug': typeof GalleryModelModelVideosSlugRoute
   '/type/$type/videos/$slug': typeof GalleryTypeTypeVideosSlugRoute
 }
@@ -568,9 +590,11 @@ export interface FileRoutesByTo {
   '/api/catalog': typeof ApiCatalogIndexRoute
   '/dashboard/sponsorships': typeof DashboardSponsorshipsIndexRoute
   '/category/$category': typeof GalleryCategoryCategoryIndexRoute
+  '/color/$color': typeof GalleryColorColorIndexRoute
   '/model/$model': typeof GalleryModelModelIndexRoute
   '/type/$type': typeof GalleryTypeTypeIndexRoute
   '/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
+  '/color/$color/videos/$slug': typeof GalleryColorColorVideosSlugRoute
   '/model/$model/videos/$slug': typeof GalleryModelModelVideosSlugRoute
   '/type/$type/videos/$slug': typeof GalleryTypeTypeVideosSlugRoute
 }
@@ -631,6 +655,7 @@ export interface FileRoutesById {
   '/sponsorships/': typeof SponsorshipsIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/_gallery/category/$category': typeof GalleryCategoryCategoryRouteWithChildren
+  '/_gallery/color/$color': typeof GalleryColorColorRouteWithChildren
   '/_gallery/model/$model': typeof GalleryModelModelRouteWithChildren
   '/_gallery/type/$type': typeof GalleryTypeTypeRouteWithChildren
   '/_gallery/videos/$slug': typeof GalleryVideosSlugRoute
@@ -642,9 +667,11 @@ export interface FileRoutesById {
   '/api/catalog/': typeof ApiCatalogIndexRoute
   '/dashboard/sponsorships/': typeof DashboardSponsorshipsIndexRoute
   '/_gallery/category/$category/': typeof GalleryCategoryCategoryIndexRoute
+  '/_gallery/color/$color/': typeof GalleryColorColorIndexRoute
   '/_gallery/model/$model/': typeof GalleryModelModelIndexRoute
   '/_gallery/type/$type/': typeof GalleryTypeTypeIndexRoute
   '/_gallery/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
+  '/_gallery/color/$color/videos/$slug': typeof GalleryColorColorVideosSlugRoute
   '/_gallery/model/$model/videos/$slug': typeof GalleryModelModelVideosSlugRoute
   '/_gallery/type/$type/videos/$slug': typeof GalleryTypeTypeVideosSlugRoute
 }
@@ -704,6 +731,7 @@ export interface FileRouteTypes {
     | '/sponsorships/'
     | '/tools/'
     | '/category/$category'
+    | '/color/$color'
     | '/model/$model'
     | '/type/$type'
     | '/videos/$slug'
@@ -715,9 +743,11 @@ export interface FileRouteTypes {
     | '/api/catalog/'
     | '/dashboard/sponsorships/'
     | '/category/$category/'
+    | '/color/$color/'
     | '/model/$model/'
     | '/type/$type/'
     | '/category/$category/videos/$slug'
+    | '/color/$color/videos/$slug'
     | '/model/$model/videos/$slug'
     | '/type/$type/videos/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -777,9 +807,11 @@ export interface FileRouteTypes {
     | '/api/catalog'
     | '/dashboard/sponsorships'
     | '/category/$category'
+    | '/color/$color'
     | '/model/$model'
     | '/type/$type'
     | '/category/$category/videos/$slug'
+    | '/color/$color/videos/$slug'
     | '/model/$model/videos/$slug'
     | '/type/$type/videos/$slug'
   id:
@@ -839,6 +871,7 @@ export interface FileRouteTypes {
     | '/sponsorships/'
     | '/tools/'
     | '/_gallery/category/$category'
+    | '/_gallery/color/$color'
     | '/_gallery/model/$model'
     | '/_gallery/type/$type'
     | '/_gallery/videos/$slug'
@@ -850,9 +883,11 @@ export interface FileRouteTypes {
     | '/api/catalog/'
     | '/dashboard/sponsorships/'
     | '/_gallery/category/$category/'
+    | '/_gallery/color/$color/'
     | '/_gallery/model/$model/'
     | '/_gallery/type/$type/'
     | '/_gallery/category/$category/videos/$slug'
+    | '/_gallery/color/$color/videos/$slug'
     | '/_gallery/model/$model/videos/$slug'
     | '/_gallery/type/$type/videos/$slug'
   fileRoutesById: FileRoutesById
@@ -1278,6 +1313,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryCategoryCategoryRouteImport
       parentRoute: typeof GalleryRoute
     }
+    '/_gallery/color/$color': {
+      id: '/_gallery/color/$color'
+      path: '/color/$color'
+      fullPath: '/color/$color'
+      preLoaderRoute: typeof GalleryColorColorRouteImport
+      parentRoute: typeof GalleryRoute
+    }
     '/_gallery/model/$model': {
       id: '/_gallery/model/$model'
       path: '/model/$model'
@@ -1355,6 +1397,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryCategoryCategoryIndexRouteImport
       parentRoute: typeof GalleryCategoryCategoryRoute
     }
+    '/_gallery/color/$color/': {
+      id: '/_gallery/color/$color/'
+      path: '/'
+      fullPath: '/color/$color/'
+      preLoaderRoute: typeof GalleryColorColorIndexRouteImport
+      parentRoute: typeof GalleryColorColorRoute
+    }
     '/_gallery/model/$model/': {
       id: '/_gallery/model/$model/'
       path: '/'
@@ -1375,6 +1424,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/category/$category/videos/$slug'
       preLoaderRoute: typeof GalleryCategoryCategoryVideosSlugRouteImport
       parentRoute: typeof GalleryCategoryCategoryRoute
+    }
+    '/_gallery/color/$color/videos/$slug': {
+      id: '/_gallery/color/$color/videos/$slug'
+      path: '/videos/$slug'
+      fullPath: '/color/$color/videos/$slug'
+      preLoaderRoute: typeof GalleryColorColorVideosSlugRouteImport
+      parentRoute: typeof GalleryColorColorRoute
     }
     '/_gallery/model/$model/videos/$slug': {
       id: '/_gallery/model/$model/videos/$slug'
@@ -1410,6 +1466,19 @@ const GalleryCategoryCategoryRouteWithChildren =
     GalleryCategoryCategoryRouteChildren,
   )
 
+interface GalleryColorColorRouteChildren {
+  GalleryColorColorIndexRoute: typeof GalleryColorColorIndexRoute
+  GalleryColorColorVideosSlugRoute: typeof GalleryColorColorVideosSlugRoute
+}
+
+const GalleryColorColorRouteChildren: GalleryColorColorRouteChildren = {
+  GalleryColorColorIndexRoute: GalleryColorColorIndexRoute,
+  GalleryColorColorVideosSlugRoute: GalleryColorColorVideosSlugRoute,
+}
+
+const GalleryColorColorRouteWithChildren =
+  GalleryColorColorRoute._addFileChildren(GalleryColorColorRouteChildren)
+
 interface GalleryModelModelRouteChildren {
   GalleryModelModelIndexRoute: typeof GalleryModelModelIndexRoute
   GalleryModelModelVideosSlugRoute: typeof GalleryModelModelVideosSlugRoute
@@ -1440,6 +1509,7 @@ const GalleryTypeTypeRouteWithChildren = GalleryTypeTypeRoute._addFileChildren(
 interface GalleryRouteChildren {
   GalleryIndexRoute: typeof GalleryIndexRoute
   GalleryCategoryCategoryRoute: typeof GalleryCategoryCategoryRouteWithChildren
+  GalleryColorColorRoute: typeof GalleryColorColorRouteWithChildren
   GalleryModelModelRoute: typeof GalleryModelModelRouteWithChildren
   GalleryTypeTypeRoute: typeof GalleryTypeTypeRouteWithChildren
   GalleryVideosSlugRoute: typeof GalleryVideosSlugRoute
@@ -1448,6 +1518,7 @@ interface GalleryRouteChildren {
 const GalleryRouteChildren: GalleryRouteChildren = {
   GalleryIndexRoute: GalleryIndexRoute,
   GalleryCategoryCategoryRoute: GalleryCategoryCategoryRouteWithChildren,
+  GalleryColorColorRoute: GalleryColorColorRouteWithChildren,
   GalleryModelModelRoute: GalleryModelModelRouteWithChildren,
   GalleryTypeTypeRoute: GalleryTypeTypeRouteWithChildren,
   GalleryVideosSlugRoute: GalleryVideosSlugRoute,
