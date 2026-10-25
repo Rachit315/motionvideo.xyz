@@ -33,7 +33,6 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
 import type { MasonryItem } from "@/components/virtual-masonry";
 import { useLaneCount } from "@/hooks/use-lane-count";
 import {
@@ -157,16 +156,10 @@ const DirectoryFilters = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="flex w-auto max-w-[calc(100vw-1rem)] gap-1 max-sm:flex-col"
+        className="flex w-auto max-w-[calc(100vw-1rem)] flex-col gap-1"
       >
-        {sections.map((section, index) => (
+        {sections.map((section) => (
           <div key={section.id} className="contents">
-            {index > 0 && (
-              <Separator
-                orientation="vertical"
-                className="-my-1 h-auto max-sm:hidden"
-              />
-            )}
             <DropdownMenuRadioGroup
               className="min-w-44"
               value={section.value}

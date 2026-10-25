@@ -11,7 +11,7 @@
 // gist, a gallery). Every video needs a prompt or a skill, so a source with
 // neither is rejected. Posts already in the catalog are skipped, so the list
 // can keep growing; find new posts with `pnpm catalog:discover`. New videos are
-// spread evenly through the default (popular) order. Run `pnpm assets:mirror`
+// spread evenly through the default (featured) order. Run `pnpm assets:mirror`
 // afterwards to move the media onto assets.motionvideo.xyz.
 import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";

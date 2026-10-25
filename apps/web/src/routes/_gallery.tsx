@@ -37,15 +37,6 @@ import { SiteHeader } from "@/components/site-header";
 import { SponsoredCard, sponsoredTileIndex } from "@/components/sponsored-card";
 import { buttonVariants } from "@/components/ui/button";
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
@@ -53,7 +44,6 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
 import type { MasonryItem } from "@/components/virtual-masonry";
 import catalog from "@/data/motion-catalog.json";
 import { useLaneCount } from "@/hooks/use-lane-count";
@@ -214,7 +204,7 @@ const chipClass = (active: boolean) =>
     active && "shadow-outline"
   );
 
-const SORTS = ["popular", "newest", "oldest"] as const;
+const SORTS = ["featured", "newest", "oldest"] as const;
 type Sort = (typeof SORTS)[number];
 
 // The filter chip reads "type icon · model · sort": the type as an icon (a
@@ -238,10 +228,10 @@ interface FilterSection {
   onSelect: (value: string) => void;
 }
 
-// One control for type, model and order: a dropdown from `sm` up, a bottom
-// drawer on phones. Picks apply at once and the menu stays open, so all three
-// can be set in one go. A type or model with no videos on the current page
-// (category) under the other's pick is disabled.
+// One control for type, model and order: a single dropdown at every size,
+// with the groups stacked vertically. Picks apply at once and the menu stays
+// open, so all three can be set in one go. A type or model with no videos on
+// the current page (category) under the other's pick is disabled.
 const GalleryFilters = ({
   search,
   category,
@@ -253,7 +243,7 @@ const GalleryFilters = ({
 }) => {
   const content = useIntlayer("motion-gallery");
   const model = findMotionModel(search.model);
-  const sort: Sort = search.sort ?? "popular";
+  const sort: Sort = search.sort ?? "featured";
   const typesInView = useMemo(
     () =>
       new Set(
@@ -337,99 +327,48 @@ const GalleryFilters = ({
   );
 
   return (
-    <>
-      <DropdownMenu>
-        <DropdownMenuTrigger
-          aria-label={content.filters.value}
-          className={cn(triggerClass, "max-sm:hidden")}
-        >
-          {summary}
-        </DropdownMenuTrigger>
-        <DropdownMenuContent
-          align="end"
-          className="flex w-auto max-w-[calc(100vw-1rem)] gap-1"
-        >
-          {sections.map((section, index) => (
-            <div key={section.id} className="contents">
-              {index > 0 && (
-                <Separator orientation="vertical" className="-my-1 h-auto" />
-              )}
-              <DropdownMenuRadioGroup
-                className={section.id === "model" ? "min-w-44" : "min-w-40"}
-                value={section.value}
-                onValueChange={(value) => section.onSelect(String(value))}
-              >
-                <DropdownMenuLabel>{section.label}</DropdownMenuLabel>
-                {section.options.map((option) => {
-                  const Icon = option.icon;
-                  return (
-                    <DropdownMenuRadioItem
-                      key={option.value}
-                      value={option.value}
-                      disabled={option.disabled}
-                    >
-                      {Icon && (
-                        <Icon
-                          aria-hidden="true"
-                          className="text-muted-foreground"
-                        />
-                      )}
-                      {option.label}
-                    </DropdownMenuRadioItem>
-                  );
-                })}
-              </DropdownMenuRadioGroup>
-            </div>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
-      <Drawer shouldScaleBackground={false}>
-        <DrawerTrigger
-          aria-label={content.filters.value}
-          className={cn(triggerClass, "sm:hidden")}
-        >
-          {summary}
-        </DrawerTrigger>
-        <DrawerContent className="h-auto max-h-[85svh]">
-          <DrawerHeader className="pb-2">
-            <DrawerTitle>{content.filters}</DrawerTitle>
-          </DrawerHeader>
-          <div className="flex flex-col gap-5 overflow-y-auto px-4 pb-2">
-            {sections.map((section) => (
-              <fieldset key={section.id}>
-                <legend className="text-muted-foreground mb-2 text-xs font-medium">
-                  {section.label}
-                </legend>
-                <div className="flex flex-wrap gap-2">
-                  {section.options.map((option) => {
-                    const Icon = option.icon;
-                    const checked = section.value === option.value;
-                    return (
-                      <button
-                        key={option.value}
-                        type="button"
-                        aria-pressed={checked}
-                        disabled={option.disabled}
-                        onClick={() => section.onSelect(option.value)}
-                        className={chipClass(checked)}
-                      >
-                        {Icon && <Icon aria-hidden="true" />}
-                        {option.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </fieldset>
-            ))}
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        aria-label={content.filters.value}
+        className={triggerClass}
+      >
+        {summary}
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        align="end"
+        className="flex w-auto max-w-[calc(100vw-1rem)] flex-col gap-1"
+      >
+        {sections.map((section) => (
+          <div key={section.id} className="contents">
+            <DropdownMenuRadioGroup
+              className={section.id === "model" ? "min-w-44" : "min-w-40"}
+              value={section.value}
+              onValueChange={(value) => section.onSelect(String(value))}
+            >
+              <DropdownMenuLabel>{section.label}</DropdownMenuLabel>
+              {section.options.map((option) => {
+                const Icon = option.icon;
+                return (
+                  <DropdownMenuRadioItem
+                    key={option.value}
+                    value={option.value}
+                    disabled={option.disabled}
+                  >
+                    {Icon && (
+                      <Icon
+                        aria-hidden="true"
+                        className="text-muted-foreground"
+                      />
+                    )}
+                    {option.label}
+                  </DropdownMenuRadioItem>
+                );
+              })}
+            </DropdownMenuRadioGroup>
           </div>
-          <DrawerFooter className="pb-[calc(1rem+env(safe-area-inset-bottom,0px))]">
-            <DrawerClose className={buttonVariants({ size: "lg" })}>
-              {content.done}
-            </DrawerClose>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    </>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
