@@ -1,5 +1,5 @@
 {
-  "importedAt": "2026-10-23T19:50:56.307Z",
+  "importedAt": "2026-10-24T20:08:01.578Z",
   "entries": [
     {
       "id": "tobiadonadon_-2113352372001054721",
@@ -182,6 +182,15 @@
       "publishedAt": "2026-10-08T14:12:43.000Z"
     },
     {
+      "id": "johncodunayo-2107473577024872944",
+      "name": "How to Use Opus 5.5 to Edit in After Effects",
+      "description": "@johncodunayo · 6 Oct 2026 · @JohnCOdunayo Hi. I'm John. I've always believed AI can help us express ourselves better creatively. Not replace the craft, bu…",
+      "category": "Articles",
+      "url": "https://x.com/johncodunayo/article/2107473577024872944",
+      "cover": "https://pbs.twimg.com/media/HT8_ku2WIAAFx6-.jpg",
+      "publishedAt": "2026-10-06T14:10:30.000Z"
+    },
+    {
       "id": "seeconvm-2106096193235259564",
       "name": "Opus 5.5 Motion Design: What the Viral 'One-Prompt' Videos Are Hiding",
       "description": "@seeconvm · Opus 5.5 dropped on September 22 and within hours people were posting launch films, showreels and full music videos, all rendered from code…",
@@ -236,6 +245,24 @@
       "publishedAt": "2026-09-30T07:50:36.000Z"
     },
     {
+      "id": "dotey-2105181393638531536",
+      "name": "Claude Opus 5.5 是怎么做出视频的",
+      "description": "@dotey · 先说结论：视频是 Opus 5.5 写的程序画出来的 2026 年 9 月 22 日，Anthropic 发布了 Claude Opus 5.5。之后一周，社交媒体上冒出一大批“一句话做出来”的动画视频：15",
+      "category": "Articles",
+      "url": "https://x.com/dotey/article/2105181393638531536",
+      "cover": "https://pbs.twimg.com/media/HTcafqtWUAE0h11.jpg",
+      "publishedAt": "2026-09-30T06:22:11.000Z"
+    },
+    {
+      "id": "fareanfts-2104903211090112621",
+      "name": "How to Create Motion Design Videos with Claude Opus 5.5 (full guide)",
+      "description": "@FareaNFts · I thought the viral Opus 5.5 videos were coming from one monster prompt. They are not. One creator got 2.07 million views from a 15-second…",
+      "category": "Articles",
+      "url": "https://x.com/FareaNFts/article/2104903211090112621",
+      "cover": "https://pbs.twimg.com/media/HTYBqbbbEAAzLJu.jpg",
+      "publishedAt": "2026-09-29T11:56:47.000Z"
+    },
+    {
       "id": "liu8in-2104707129101988095",
       "name": "Opus 5.5 tops our Code2Video Bench - and it's trained on HyperFrames",
       "description": "@liu8in · Code2Video is our open benchmark - launched in collaboration with Google DeepMind and Kaggle: the model gets a video brief and writes the c…",
@@ -245,6 +272,15 @@
       "publishedAt": "2026-09-28T22:57:37.000Z"
     },
     {
+      "id": "notdwd-2104684539142648062",
+      "name": "how to motionmaxx with opus 5.5 (complete course)",
+      "description": "@notdwd · I’ve tested Opus 5.5 for motion FAR more than anybody else I’ve seen on X, and I’ve managed to get results I really haven’t seen anyone els…",
+      "category": "Articles",
+      "url": "https://x.com/notdwd/article/2104684539142648062",
+      "cover": "https://pbs.twimg.com/media/HTVXIVAaEAALbCe.jpg",
+      "publishedAt": "2026-09-28T21:27:51.000Z"
+    },
+    {
       "id": "socialwithaayan-2104519430814482644",
       "name": "How to Make Product Launch Videos With Opus 5.5 (Full Guide)",
       "description": "@socialwithaayan · A good studio charges $5,000 for a 60-second animated launch video. I made my agency's with Opus 5.5: 66 seconds. 60 fps. Real UI. Here's w…",
@@ -252,6 +288,15 @@
       "url": "https://x.com/socialwithaayan/article/2104519430814482644",
       "cover": "https://assets.motionvideo.xyz/directories/articles/socialwithaayan-2104519430814482644-79165a6c49.jpg",
       "publishedAt": "2026-09-28T10:31:47.000Z"
+    },
+    {
+      "id": "raphaelaubryy-2104502744010629269",
+      "name": "i made 10+ motion videos with opus 5.5 in 3 days. here's the whole pipeline (open source)",
+      "description": "@RaphaelAubryy · Most people trying motion design with Opus 5.5 hit the same wall: ↳ the first render is \"mid\": centered text, a gradient, everything fading…",
+      "category": "Articles",
+      "url": "https://x.com/RaphaelAubryy/article/2104502744010629269",
+      "cover": "https://pbs.twimg.com/media/HTP9tWVX0AAydmG.jpg",
+      "publishedAt": "2026-09-28T09:25:28.000Z"
     },
     {
       "id": "twoclipping-2104446706741825818",
@@ -270,6 +315,15 @@
       "url": "https://x.com/0xMovez/article/2104216919033192746",
       "cover": "https://assets.motionvideo.xyz/directories/articles/0xmovez-2104216919033192746-5b9d7a9847.jpg",
       "publishedAt": "2026-09-27T14:29:42.000Z"
+    },
+    {
+      "id": "charliejhills-2104204601553777129",
+      "name": "Claude Opus 5.5 = your motion designer",
+      "description": "@charliejhills · Three weeks ago I told you to move to Codex. I wrote a whole edition on it. Then a full beginner-to-advanced guide last Sunday. Two days la…",
+      "category": "Articles",
+      "url": "https://x.com/charliejhills/article/2104204601553777129",
+      "cover": "https://pbs.twimg.com/media/HTOcpR0awAAbSG5.jpg",
+      "publishedAt": "2026-09-27T13:40:45.000Z"
     },
     {
       "id": "neil_xbt-2103862582041874854",

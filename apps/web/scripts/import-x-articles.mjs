@@ -48,6 +48,12 @@ const SOURCES = [
   "rubenhassid/status/2110250601032659233",
   "0xjmori/status/2111793914206171234",
   "aiedge_/status/2112552093483671966",
+  "charliejhills/status/2104204601553777129",
+  "dotey/status/2105181393638531536",
+  "FareaNFts/status/2104903211090112621",
+  "johncodunayo/status/2107473577024872944",
+  "notdwd/status/2104684539142648062",
+  "RaphaelAubryy/status/2104502744010629269",
 ];
 
 const output = path.resolve(

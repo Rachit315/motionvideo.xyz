@@ -1103,6 +1103,887 @@
         "url": "https://aiblewmymind.substack.com/p/claude-opus-5-5-video-animations",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-aiblewmymind-substack-com-how-to-make-videos-with-claude-opus-5-5-10-examples-with-eve-88838be7ff.jpeg",
         "publishedAt": "2026-10-01T00:00:00.000Z"
+      },
+      {
+        "id": "motion-design-skills",
+        "name": "Motion Design Skills",
+        "description": "Animation principles, type and composition for agents",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/motion-design-skills",
+        "cover": "https://raw.githubusercontent.com/iart-ai/motion-design-skills/main/showcase.gif"
+      },
+      {
+        "id": "bang-motion",
+        "name": "Bang Motion",
+        "description": "Openers, promos and type as self-contained HTML",
+        "category": "Skills",
+        "url": "https://github.com/bangtutorial/bang-motion",
+        "cover": "https://raw.githubusercontent.com/bangtutorial/bang-motion/main/docs/gallery/hero.jpg"
+      },
+      {
+        "id": "opus-video-skills",
+        "name": "Opus Video Skills",
+        "description": "Painted animation and kinetic reels, storyboard to encode",
+        "category": "Skills",
+        "url": "https://github.com/tuzhechen2005/opus-video-skills",
+        "cover": "https://raw.githubusercontent.com/tuzhechen2005/opus-video-skills/main/skills/painted-animation/docs/xiaozhen-sheet.jpg"
+      },
+      {
+        "id": "claude-animation",
+        "name": "Claude Animation",
+        "description": "Hand-drawn 2D scenes with coded rigs and sound",
+        "category": "Skills",
+        "url": "https://github.com/buildwithhanif/claude-animation-skill",
+        "cover": "https://raw.githubusercontent.com/buildwithhanif/claude-animation-skill/main/docs/colony-nest.jpg"
+      },
+      {
+        "id": "remotion-workflow-skills",
+        "name": "Remotion Workflow Skills",
+        "description": "A Chinese-language Remotion reference for agents",
+        "category": "Skills",
+        "url": "https://github.com/buainoai/remotion-skills",
+        "cover": null
+      },
+      {
+        "id": "remotion-brand-motion",
+        "name": "Remotion Brand Motion",
+        "description": "Typography, logo and brand promos in Remotion",
+        "category": "Skills",
+        "url": "https://github.com/Boriwatopal/agent-skill-remotion-motion-graphics",
+        "cover": null
+      },
+      {
+        "id": "apple-motion-study",
+        "name": "Apple Motion Study",
+        "description": "Apple-style recap pacing and kinetic type in Remotion",
+        "category": "Skills",
+        "url": "https://github.com/IskakovDamir/apple-motion",
+        "cover": "https://raw.githubusercontent.com/IskakovDamir/apple-motion/main/docs/demo.gif"
+      },
+      {
+        "id": "kinetic-typography-skills",
+        "name": "Kinetic Typography Skills",
+        "description": "Animated headlines and staggered text",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/kinetic-typography-skills",
+        "cover": "https://raw.githubusercontent.com/iart-ai/kinetic-typography-skills/main/showcase.gif"
+      },
+      {
+        "id": "motion-anything",
+        "name": "Motion Anything",
+        "description": "A motion engine with 230 agent skills and recipes",
+        "category": "Skills",
+        "url": "https://github.com/nexu-io/motion-anything",
+        "cover": "https://raw.githubusercontent.com/nexu-io/motion-anything/main/docs/assets/hero.jpg"
+      },
+      {
+        "id": "data-animation-skills",
+        "name": "Data Animation Skills",
+        "description": "Animated charts that keep the numbers right",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/data-animation-skills",
+        "cover": "https://raw.githubusercontent.com/iart-ai/data-animation-skills/main/showcase.gif"
+      },
+      {
+        "id": "explainer-video-skills",
+        "name": "Explainer Video Skills",
+        "description": "Scripts, storyboards and diagrams for explainers",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/explainer-video-skills",
+        "cover": "https://raw.githubusercontent.com/iart-ai/explainer-video-skills/main/showcase.gif"
+      },
+      {
+        "id": "javascript-animation-skills",
+        "name": "JavaScript Animation Skills",
+        "description": "Code-drawn Canvas films with procedural sound",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/javascript-animation-skills",
+        "cover": "https://raw.githubusercontent.com/iart-ai/javascript-animation-skills/main/showcase.gif"
+      },
+      {
+        "id": "manim-animation-skills",
+        "name": "Manim Animation Skills",
+        "description": "Math explainers rendered with Manim",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/manim-skills",
+        "cover": "https://raw.githubusercontent.com/iart-ai/manim-skills/main/showcase.gif"
+      },
+      {
+        "id": "map-animation-skills",
+        "name": "Map Animation Skills",
+        "description": "Editorial map zooms, routes and pins",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/map-animation-skills",
+        "cover": "https://raw.githubusercontent.com/iart-ai/map-animation-skills/main/showcase.gif"
+      },
+      {
+        "id": "webgl-animation-skills",
+        "name": "WebGL Animation Skills",
+        "description": "Three.js scenes, shaders and particles",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/webgl-animation-skills",
+        "cover": "https://raw.githubusercontent.com/iart-ai/webgl-animation-skills/main/showcase.gif"
+      },
+      {
+        "id": "anything-to-explainer",
+        "name": "Anything to Explainer",
+        "description": "Narrated, code-rendered explainers with subtitles",
+        "category": "Skills",
+        "url": "https://github.com/Vincentwei1021/anything2explainer",
+        "cover": null
+      },
+      {
+        "id": "video-talkcraft",
+        "name": "Video Talkcraft",
+        "description": "Voiceover-led explainers timed to the word",
+        "category": "Skills",
+        "url": "https://github.com/Vincentwei1021/video-talkcraft",
+        "cover": "https://raw.githubusercontent.com/Vincentwei1021/video-talkcraft/main/assets/gallery-zh.png"
+      },
+      {
+        "id": "anidoodle",
+        "name": "Anidoodle",
+        "description": "Code-drawn animation and scored films",
+        "category": "Skills",
+        "url": "https://github.com/alexgreensh/anidoodle",
+        "cover": "https://raw.githubusercontent.com/alexgreensh/anidoodle/main/assets/banner.gif"
+      },
+      {
+        "id": "motion-graphics-music-video",
+        "name": "Motion Graphics Music Video",
+        "description": "Music-driven animation, planned and assembled",
+        "category": "Skills",
+        "url": "https://github.com/makevoid/motion-graphics-music-video-skill",
+        "cover": null
+      },
+      {
+        "id": "claude-video-kit",
+        "name": "Claude Video Kit",
+        "description": "Vertical explainers with narration and captions",
+        "category": "Skills",
+        "url": "https://github.com/runesleo/claude-video-kit",
+        "cover": null
+      },
+      {
+        "id": "persian-motion-director",
+        "name": "Persian Motion Director",
+        "description": "Right-to-left Persian type in motion",
+        "category": "Skills",
+        "url": "https://github.com/atmirrr/persian-motion-director",
+        "cover": "https://raw.githubusercontent.com/atmirrr/persian-motion-director/main/media/01-oner.gif"
+      },
+      {
+        "id": "mort1d-motion-graphics",
+        "name": "Mort1d Motion Graphics",
+        "description": "HTML motion graphics with camera moves and motion blur",
+        "category": "Skills",
+        "url": "https://github.com/Mort1d/motion-graphics-skills",
+        "cover": "https://raw.githubusercontent.com/Mort1d/motion-graphics-skills/main/media/banner.png"
+      },
+      {
+        "id": "lemo-wake",
+        "name": "Lemo Wake",
+        "description": "Split an image into layers and loop them",
+        "category": "Skills",
+        "url": "https://github.com/lemomo-ai/lemo-wake",
+        "cover": "https://github.com/lemomo-ai/lemo-wake/raw/gallery/assets/readme/cover.webp"
+      },
+      {
+        "id": "hyperframes-motion-reel",
+        "name": "HyperFrames Motion Reel",
+        "description": "A theme in, a beat-locked HyperFrames showreel out",
+        "category": "Skills",
+        "url": "https://github.com/Sunwood-ai-labs/hyperframes-motion-reel-skill",
+        "cover": null
+      },
+      {
+        "id": "motion-video-director",
+        "name": "Motion Video Director",
+        "description": "Plan, animate, caption and score videos locally",
+        "category": "Skills",
+        "url": "https://github.com/Miftahul-Islam-Efaz/Motion-graphics-skill",
+        "cover": null
+      },
+      {
+        "id": "papercut-explainer",
+        "name": "Papercut Explainer",
+        "description": "Cut-paper explainer reels in Remotion",
+        "category": "Skills",
+        "url": "https://github.com/0xS4N4TG/papercut-explainer",
+        "cover": "https://raw.githubusercontent.com/0xS4N4TG/papercut-explainer/main/docs/img/hello-reel.gif"
+      },
+      {
+        "id": "extreme-motion-design",
+        "name": "Extreme Motion Design",
+        "description": "Remotion motion design with narration and sound",
+        "category": "Skills",
+        "url": "https://github.com/dev-isaacmello/extreme-motion-design",
+        "cover": "https://raw.githubusercontent.com/dev-isaacmello/extreme-motion-design/main/docs/media/apresentacao-2.0.gif"
+      },
+      {
+        "id": "mashhad",
+        "name": "Mashhad",
+        "description": "Motion direction with Arabic typography",
+        "category": "Skills",
+        "url": "https://github.com/SultanAlfaifi/mashhad-video",
+        "cover": "https://raw.githubusercontent.com/SultanAlfaifi/mashhad-video/main/docs/media/poster.jpg"
+      },
+      {
+        "id": "video-shotcraft",
+        "name": "Video Shotcraft",
+        "description": "Shot recipes and Remotion templates for product videos",
+        "category": "Skills",
+        "url": "https://github.com/Vincentwei1021/video-shotcraft",
+        "cover": "https://raw.githubusercontent.com/Vincentwei1021/video-shotcraft/main/assets/readme/cover.webp"
+      },
+      {
+        "id": "agentic-product-demo",
+        "name": "Agentic Product Demo",
+        "description": "Product demos as React compositions",
+        "category": "Skills",
+        "url": "https://github.com/Alexwtlf/agentic-product-demo",
+        "cover": "https://raw.githubusercontent.com/Alexwtlf/agentic-product-demo/main/docs/demo.gif"
+      },
+      {
+        "id": "saas-motion-kit",
+        "name": "SaaS Motion Kit",
+        "description": "Software promos built with HyperFrames",
+        "category": "Skills",
+        "url": "https://github.com/tugrawork-creator/saas-motion-kit",
+        "cover": "https://raw.githubusercontent.com/tugrawork-creator/saas-motion-kit/main/docs/theme-101.jpg"
+      },
+      {
+        "id": "brand-motion-design",
+        "name": "Brand Motion Design",
+        "description": "Launch films with HyperFrames and Three.js",
+        "category": "Skills",
+        "url": "https://github.com/ouerf-man/brand-motion-design-skill",
+        "cover": null
+      },
+      {
+        "id": "appshot",
+        "name": "Appshot",
+        "description": "App previews, demo videos and store screenshots",
+        "category": "Skills",
+        "url": "https://github.com/trunghaiy/appshot",
+        "cover": "https://raw.githubusercontent.com/trunghaiy/appshot/main/examples/bookstreak/app-preview.gif"
+      },
+      {
+        "id": "ai-promo-video-maker",
+        "name": "AI Promo Video Maker",
+        "description": "Researches a product, then cuts a beat-synced promo",
+        "category": "Skills",
+        "url": "https://github.com/liyupi/ai-promo-video-maker",
+        "cover": "https://raw.githubusercontent.com/liyupi/ai-promo-video-maker/main/docs/images/showcase.gif"
+      },
+      {
+        "id": "ad-video-skills",
+        "name": "Ad Video Skills",
+        "description": "Ad variations, launch films and testimonials",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/ad-video-skills",
+        "cover": "https://raw.githubusercontent.com/iart-ai/ad-video-skills/main/showcase.gif"
+      },
+      {
+        "id": "e-commerce-video-skills",
+        "name": "E-commerce Video Skills",
+        "description": "Product demos, sale promos and slideshows",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/ecommerce-video-skills",
+        "cover": "https://raw.githubusercontent.com/iart-ai/ecommerce-video-skills/main/showcase.gif"
+      },
+      {
+        "id": "claude-youtube-editor",
+        "name": "Claude YouTube Editor",
+        "description": "Edit recordings, add visuals, voice and captions",
+        "category": "Skills",
+        "url": "https://github.com/hassancs91/claude-youtube-editor",
+        "cover": null
+      },
+      {
+        "id": "claude-faceless-shorts-creator",
+        "name": "Claude Faceless Shorts Creator",
+        "description": "Narrated shorts with synced captions",
+        "category": "Skills",
+        "url": "https://github.com/hassancs91/claude-faceless-shorts-creator",
+        "cover": null
+      },
+      {
+        "id": "take-one",
+        "name": "Take One",
+        "description": "One-line idea to launch video, ad or music video",
+        "category": "Skills",
+        "url": "https://github.com/talsiach/take-one",
+        "cover": null
+      },
+      {
+        "id": "openvideoharness",
+        "name": "OpenVideoHarness",
+        "description": "A video workbench with production checkpoints",
+        "category": "Skills",
+        "url": "https://github.com/ZLHad/OpenVideoHarness",
+        "cover": "https://raw.githubusercontent.com/ZLHad/OpenVideoHarness/main/styles/gallery.jpg"
+      },
+      {
+        "id": "motion-design-for-agents",
+        "name": "Motion Design for Agents",
+        "description": "Visual references into motion films with Higgsfield",
+        "category": "Skills",
+        "url": "https://github.com/cth9191/motion-design",
+        "cover": "https://raw.githubusercontent.com/cth9191/motion-design/main/docs/images/glass-ui-launch.png"
+      },
+      {
+        "id": "aiev-video-skills",
+        "name": "AIEV Video Skills",
+        "description": "Supervised HyperFrames, GSAP and Remotion workflow",
+        "category": "Skills",
+        "url": "https://github.com/notivn/AIEV",
+        "cover": null
+      },
+      {
+        "id": "cutdirector",
+        "name": "CutDirector",
+        "description": "Explanatory graphics over talking-head footage",
+        "category": "Skills",
+        "url": "https://github.com/Fangx-AI/cut-director",
+        "cover": "https://raw.githubusercontent.com/Fangx-AI/cut-director/main/assets/subtitle-styles/standard.jpg"
+      },
+      {
+        "id": "remotion-koubo-workflow",
+        "name": "Remotion Koubo Workflow",
+        "description": "Talking-head footage to a finished Remotion video",
+        "category": "Skills",
+        "url": "https://github.com/jincheng2026/jc-remotion-skills",
+        "cover": null
+      },
+      {
+        "id": "short-form-video-skills",
+        "name": "Short-Form Video Skills",
+        "description": "Vertical video for TikTok, Reels and Shorts",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/tiktok-video-skills",
+        "cover": "https://raw.githubusercontent.com/iart-ai/tiktok-video-skills/main/showcase.gif"
+      },
+      {
+        "id": "remotion",
+        "name": "Remotion",
+        "description": "Make videos programmatically with React",
+        "category": "Resources",
+        "url": "https://www.remotion.dev/",
+        "cover": "https://www.remotion.dev/img/social-preview.png"
+      },
+      {
+        "id": "motion-canvas",
+        "name": "Motion Canvas",
+        "description": "Code-driven animations with a live preview editor",
+        "category": "Resources",
+        "url": "https://motioncanvas.io/",
+        "cover": "https://motion-canvas.github.io/img/banner.png"
+      },
+      {
+        "id": "manim",
+        "name": "Manim",
+        "description": "Python engine for math explainer videos",
+        "category": "Resources",
+        "url": "https://www.manim.community/",
+        "cover": "https://www.manim.community/banner.png"
+      },
+      {
+        "id": "gsap",
+        "name": "GSAP",
+        "description": "Timeline animation for the web",
+        "category": "Resources",
+        "url": "https://gsap.com/",
+        "cover": "https://gsap.com/GSAP-share-image.png"
+      },
+      {
+        "id": "three-js",
+        "name": "Three.js",
+        "description": "Animated 3D scenes in the browser",
+        "category": "Resources",
+        "url": "https://threejs.org/",
+        "cover": "https://threejs.org/files/share.png"
+      },
+      {
+        "id": "anime-js",
+        "name": "Anime.js",
+        "description": "Lightweight JavaScript animation engine",
+        "category": "Resources",
+        "url": "https://animejs.com/",
+        "cover": "https://animejs.com/media/pages/home/066c76f87b-1787698629/generated-og-image.en.png"
+      },
+      {
+        "id": "lottie-web",
+        "name": "Lottie Web",
+        "description": "Play After Effects animations on the web",
+        "category": "Resources",
+        "url": "https://github.com/airbnb/lottie-web",
+        "cover": "https://raw.githubusercontent.com/airbnb/lottie-web/master/gifs/Example1.gif"
+      },
+      {
+        "id": "openchatcut",
+        "name": "OpenChatCut",
+        "description": "An open video timeline your coding agent can edit",
+        "category": "Editor",
+        "url": "https://github.com/0xsline/openchatcut",
+        "cover": null
+      },
+      {
+        "id": "mortiflix",
+        "name": "Mortiflix",
+        "description": "A local motion studio, from brief to animatic",
+        "category": "Motion",
+        "url": "https://github.com/gtkottman/mortiflix-oss",
+        "cover": null
+      },
+      {
+        "id": "pv-tool",
+        "name": "PV Tool",
+        "description": "Kinetic type and lyric videos in the browser",
+        "category": "Motion",
+        "url": "https://github.com/dantealighieri13210914/pv-tool",
+        "cover": null
+      },
+      {
+        "id": "motion-canvas-examples",
+        "name": "Motion Canvas Examples",
+        "description": "Example projects with source code",
+        "category": "Resources",
+        "url": "https://github.com/motion-canvas/examples",
+        "cover": "https://img.youtube.com/vi/s1ZQnS_tOg0/maxresdefault.jpg"
+      },
+      {
+        "id": "15-motion-design-styles",
+        "name": "15 Motion Design Styles",
+        "description": "15 coded motion films with their prompts",
+        "category": "Resources",
+        "url": "https://github.com/vincentwei1021/mg-styles-15",
+        "cover": "https://raw.githubusercontent.com/Vincentwei1021/mg-styles-15/main/docs/readme/cover.webp"
+      },
+      {
+        "id": "motion-skills-directory",
+        "name": "Motion Skills Directory",
+        "description": "A directory of agent packs for motion and video",
+        "category": "Resources",
+        "url": "https://github.com/iart-ai/motion-skills",
+        "cover": "https://raw.githubusercontent.com/iart-ai/motion-skills/master/showcase.gif"
+      },
+      {
+        "id": "awesome-claude-video-skills",
+        "name": "Awesome Claude Video Skills",
+        "description": "Coding-agent video skills and frameworks, listed",
+        "category": "Resources",
+        "url": "https://github.com/zhuyansen/awesome-claude-video-skills",
+        "cover": null
+      },
+      {
+        "id": "awesome-claude-video",
+        "name": "Awesome Claude Video",
+        "description": "Claude-made videos with their shared prompts",
+        "category": "Resources",
+        "url": "https://github.com/zhuyansen/awesome-opus-5.5-video",
+        "cover": "https://pbs.twimg.com/amplify_video_thumb/2102799458031534086/img/GBhRZ7O3fCXn59dk.jpg"
+      },
+      {
+        "id": "opus-video-prompts",
+        "name": "Opus Video Prompts",
+        "description": "Attributed prompts for code-rendered videos",
+        "category": "Resources",
+        "url": "https://github.com/joeseesun/opus-video-prompts",
+        "cover": null
+      },
+      {
+        "id": "createmotion",
+        "name": "motif",
+        "description": "Thousands of Claude motion videos with their prompts",
+        "category": "Resources",
+        "url": "https://createmotion.io/",
+        "cover": "https://createmotion.io/og.png"
+      },
+      {
+        "id": "article-pixel8production-com-opus-5-5-motion-graphics-what-39-review-notes-taught-us",
+        "name": "Opus 5.5 Motion Graphics: What 39 Review Notes Taught Us",
+        "description": "Prakhar Mehta · Opus 5.5 motion graphics tested on two real briefs: 39 review notes, three to five versions each, and why a style reference does most of th…",
+        "category": "Articles",
+        "url": "https://www.pixel8production.com/blog/opus-5-5-motion-graphics",
+        "cover": "https://www.pixel8production.com/blog/opus-5-5-motion-graphics/image-1.webp?v=67c8e53e",
+        "publishedAt": "2026-09-30T00:00:00.000Z"
+      },
+      {
+        "id": "article-dev-to-how-to-render-a-motion-graphics-video-with-claude-opus-5-5",
+        "name": "How to Render a Motion Graphics Video with Claude Opus 5.5: Prompt, Frame Renderer, ffmpeg and Real Cost",
+        "description": "Super Lewis · Claude Opus 5.5 cannot output a single pixel, yet people keep posting motion-graphics videos \"made by...",
+        "category": "Articles",
+        "url": "https://dev.to/super_lewis/how-to-render-a-motion-graphics-video-with-claude-opus-55-prompt-frame-renderer-ffmpeg-and-real-3e1g",
+        "cover": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fly6yho3exp8dvsttipb4.png",
+        "publishedAt": "2026-10-07T00:00:00.000Z"
+      },
+      {
+        "id": "article-tau-home-com-generating-apple-style-motion-design-videos-purely-with-code",
+        "name": "Generating Apple-Style Motion Design Videos Purely with Code and Claude Opus 5.5",
+        "description": "Tauvision · A complete Claude Opus 5.5 prompt workflow for creating Apple-keynote-style 2D motion graphics in pure code using single-file HTML, SVG dis…",
+        "category": "Articles",
+        "url": "https://tau-home.com/en/post/claude-opus-code-driven-apple-style-motion-design-prompt",
+        "cover": "https://tau-home.com/images/radar-drafts/claude-opus-code-driven-apple-style-motion-design-prompt/hero.jpg",
+        "publishedAt": "2026-10-05T00:00:00.000Z"
+      },
+      {
+        "id": "article-aiidelist-com-opus-5-5-motion-design-prompts-examples-workflow",
+        "name": "Opus 5.5 Motion Design: Prompts, Examples & Workflow",
+        "description": "aiidelist.com · Learn Opus 5.5 motion design with 20+ copy-ready prompts, workflows, Remotion and HyperFrames setup, QA tips, examples, and advanced techni…",
+        "category": "Articles",
+        "url": "https://aiidelist.com/blog/opus-5-5-motion-design",
+        "cover": "https://cdn.aiidelist.com/api/image/fWnMeCn5epuw6eAQfxD-z.webp",
+        "publishedAt": "2026-10-05T00:00:00.000Z"
+      },
+      {
+        "id": "article-codewithnishant-dev-claude-opus-5-5-motion-videos-8-resources-setup-prompts",
+        "name": "Claude Opus 5.5 Motion Videos: 8 Resources, Setup & Prompts",
+        "description": "Nishant Gupta · Make a motion video with Claude Opus 5.5: eight GitHub resources, a kinetic-reel walkthrough, three prompts, creator video previews and a f…",
+        "category": "Articles",
+        "url": "https://codewithnishant.dev/free/claude-opus-motion-video",
+        "cover": "https://codewithnishant.dev/img/og-claude-opus-motion-video.png",
+        "publishedAt": "2026-10-04T00:00:00.000Z"
+      },
+      {
+        "id": "article-blog-laozhang-ai-claude-opus-5-5-video-generation-code-in-rendered-mp4-out",
+        "name": "Claude Opus 5.5 Video Generation: Code In, Rendered MP4 Out",
+        "description": "LaoZhang AI Team · Opus 5.5 outputs text, not video. It writes animation code that a headless browser captures frame by frame, which suits motion graphics and…",
+        "category": "Articles",
+        "url": "https://blog.laozhang.ai/en/posts/claude-opus-5-5-video-generation",
+        "cover": "https://blog.laozhang.ai/posts/en/claude-opus-5-5-video-generation/img/cover.webp",
+        "publishedAt": "2026-10-01T00:00:00.000Z"
+      },
+      {
+        "id": "article-growwithaiguide-substack-com-claude-makes-the-best-motion-graphics-i-ve-ever-seen",
+        "name": "Claude Makes the Best Motion Graphics I've Ever Seen",
+        "description": "Aniket Chhetri · The full guide: setup, 6 viral examples and every prompt",
+        "category": "Articles",
+        "url": "https://growwithaiguide.substack.com/p/claude-makes-the-best-motion-graphics",
+        "cover": "https://substackcdn.com/image/fetch/$s_!IA29!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F49856c18-c66b-4955-996a-c37837e231f2_1456x1058.png",
+        "publishedAt": "2026-09-30T00:00:00.000Z"
+      },
+      {
+        "id": "article-quantslant-com-claude-opus-5-5-motion-graphics-60s-showreel-from-one-promp",
+        "name": "Claude Opus 5.5 Motion Graphics: 60s Showreel from One Prompt",
+        "description": "Editorial team · Claude Opus 5.5 motion graphics test: 60-second showreel from one prompt, 18 minutes of work, $3 API cost. What the viral posts don't show.",
+        "category": "Articles",
+        "url": "https://quantslant.com/claude-opus-5-5-motion-graphics",
+        "cover": "https://quantslant.com/wp-content/uploads/2026/09/claude-opus-5-5-motion-graphics-cover-v2.webp",
+        "publishedAt": "2026-09-30T00:00:00.000Z"
+      },
+      {
+        "id": "article-wps-com-how-claude-opus-5-5-generates-videos-with-code",
+        "name": "How Claude Opus 5.5 Generates Videos with Code",
+        "description": "Algirdas Jasaitis · Explore Claude Opus 5.5 video generation, the code-to-MP4 workflow behind viral demos, practical prompts, costs, limits, and use cases.",
+        "category": "Articles",
+        "url": "https://www.wps.com/blog/how-claude-opus-5-5-generates-videos-with-code",
+        "cover": "https://res-academy.cache.wpscdn.com/upload/seo-engine-admin/2026-09-30/f1f4524495678bc057814c1174a148b5.png",
+        "publishedAt": "2026-09-30T00:00:00.000Z"
+      },
+      {
+        "id": "article-theblueprintai-substack-com-how-to-build-your-own-motion-design-studio-with-claude-opus",
+        "name": "How to Build Your Own Motion Design Studio with Claude Opus 5.5",
+        "description": "The AI Blueprint · Turn simple prompts into polished motion graphics, animations, and ready-to-publish videos without a traditional design team.",
+        "category": "Articles",
+        "url": "https://theblueprintai.substack.com/p/how-to-build-your-own-motion-design",
+        "cover": "https://substackcdn.com/image/fetch/$s_!Egum!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fee1be869-369f-4b23-bd92-f586468872c6_3840x2160.gif",
+        "publishedAt": "2026-09-30T00:00:00.000Z"
+      },
+      {
+        "id": "article-vibemotionai-net-how-to-create-motion-graphics-with-claude-opus-5-5",
+        "name": "How to Create Motion Graphics with Claude Opus 5.5",
+        "description": "Vibe Motion AI · Turn a creative brief into an editable motion graphics video with Claude Opus 5.5 and Vibe Motion. Includes example prompts, revision tips…",
+        "category": "Articles",
+        "url": "https://vibemotionai.net/blog/claude-opus-5-5-motion-graphics",
+        "cover": null,
+        "publishedAt": "2026-09-30T00:00:00.000Z"
+      },
+      {
+        "id": "article-avilevi-co-il-motion-graphics-with-opus-5-5-55-styles-and-a-prompt-for-ea",
+        "name": "Motion Graphics with Opus 5.5: 55 Styles and a Prompt for Each",
+        "description": "avilevi.co.il · A live showreel of 55 motion graphics styles that Claude Opus 5.5 made from code, with a copy-ready prompt for each so you can make your ow…",
+        "category": "Articles",
+        "url": "https://www.avilevi.co.il/en/blog/opus-5-5-motion-graphics-prompts",
+        "cover": "https://www.avilevi.co.il/uploads/articles/opus-5-5-motion-graphics-prompts-og.jpg",
+        "publishedAt": "2026-09-30T00:00:00.000Z"
+      },
+      {
+        "id": "article-apimaster-ai-claude-opus-5-5-video-prompts-that-actually-look-good",
+        "name": "Claude Opus 5.5 Video Prompts That Actually Look Good",
+        "description": "apimaster.ai · Skip the giant prompt dump. These five visually distinctive Claude Opus 5.5 video prompts focus on beat-synced motion design, real-footage…",
+        "category": "Articles",
+        "url": "https://apimaster.ai/blog/claude-opus-5-5-video-prompts",
+        "cover": "https://apimaster.ai/opengraph-image?v=4",
+        "publishedAt": "2026-09-29T00:00:00.000Z"
+      },
+      {
+        "id": "article-friction-com-my-claude-opus-5-5-motion-design-what-the-demos-show",
+        "name": "Claude Opus 5.5 motion design: what the demos show",
+        "description": "Friction Research · See how Claude Opus 5.5 can help write motion code, what creator examples demonstrate, and how to review the rendered animation.",
+        "category": "Articles",
+        "url": "https://friction.com.my/insights/claude-opus-5-5-motion-design",
+        "cover": "https://friction.com.my/media/opus55-motion-design-editorial-2026-09.jpg",
+        "publishedAt": "2026-09-29T00:00:00.000Z"
+      },
+      {
+        "id": "article-apimaster-ai-how-to-make-better-claude-opus-5-5-videos-storyboards-rend",
+        "name": "How to Make Better Claude Opus 5.5 Videos: Storyboards, Rendering, and Debugging",
+        "description": "apimaster.ai · A practical Claude Opus 5.5 video workflow: choose the right rendering stack, plan shots, preview cheaply, keep assets licensed, and debug…",
+        "category": "Articles",
+        "url": "https://apimaster.ai/blog/claude-opus-5-5-video-guide",
+        "cover": "https://apimaster.ai/opengraph-image?v=4",
+        "publishedAt": "2026-09-29T00:00:00.000Z"
+      },
+      {
+        "id": "article-aiartimind-com-how-to-make-motion-graphics-with-claude-opus-5-5-without-the",
+        "name": "How to Make Motion Graphics With Claude Opus 5.5 Without the AI-Slop Look",
+        "description": "aiartimind.com · A step-by-step Claude Opus 5.5 motion graphics workflow, shown with real renders: pick a deterministic engine, add taste rules, brief with…",
+        "category": "Articles",
+        "url": "https://aiartimind.com/how-to-make-motion-graphics-with-claude-opus-5-5",
+        "cover": "https://aiartimind.com/wp-content/uploads/2026/09/featured-preview-claude-opus-5-5-motion-graphics-1024x576.png",
+        "publishedAt": "2026-09-29T00:00:00.000Z"
+      },
+      {
+        "id": "article-medium-com-i-made-10-motion-videos-with-opus-5-5-in-3-days",
+        "name": "I made 10+ motion videos with Opus 5.5 in 3 days.",
+        "description": "Gajanan Rajput · A three-day run of 10+ Opus 5.5 motion videos, and the workflow behind them",
+        "category": "Articles",
+        "url": "https://medium.com/@rajputgajanan50/claude-opus-5-5-motion-design-how-i-made-10-videos-in-3-days-365bfd0e68eb",
+        "cover": "https://cdn-images-1.medium.com/max/1672/1*eXgPD1hLZK0ZzUx5l5pGPQ.png",
+        "publishedAt": "2026-09-29T00:00:00.000Z"
+      },
+      {
+        "id": "article-gaznil-com-make-a-motion-graphics-video-with-claude-ai-free-prompt",
+        "name": "Make a Motion Graphics Video With Claude AI (Free Prompt)",
+        "description": "gaznil.com · Claude built a full motion graphics film with sound from code, not AI video. Copy the exact prompt and workflow and try it yourself today.",
+        "category": "Articles",
+        "url": "https://gaznil.com/make-motion-graphics-video-with-claude-ai",
+        "cover": null,
+        "publishedAt": "2026-09-29T00:00:00.000Z"
+      },
+      {
+        "id": "article-aiformortals-co-make-the-launch-video-for-sonnet-5-5",
+        "name": "Make the launch video for Sonnet 5.5",
+        "description": "Pat Simmons · A 30 to 60 second launch video for Sonnet 5.5 built from Anthropic's launch page, following my free Launch Video Clone skill.",
+        "category": "Articles",
+        "url": "https://www.aiformortals.co/built-by-pat/make-the-launch-video-for-sonnet-5-5-5koom8",
+        "cover": "https://uzgqbjufkfadoprvamcs.supabase.co/storage/v1/object/public/simmonsbench/shots/launch-video-sonnet-5-5.jpg",
+        "publishedAt": "2026-09-29T00:00:00.000Z"
+      },
+      {
+        "id": "article-ofox-ai-make-videos-with-opus-5-5-prompts-and-mp4-export",
+        "name": "Make videos with Opus 5.5: prompts and MP4 export",
+        "description": "Ofox · Use Opus 5.5 video prompts for motion graphics, understand the rendering workflow, and try an editable Remotion starter with an MP4 export…",
+        "category": "Articles",
+        "url": "https://ofox.ai/blog/opus-5-5-video-prompts-mp4-guide",
+        "cover": "https://ofox.ai/blog/_assets/en-opus-5-5-video-prompts-mp4-guide-hero.CNbvP-11.png",
+        "publishedAt": "2026-09-29T00:00:00.000Z"
+      },
+      {
+        "id": "article-capitalandcompute-net-claude-opus-5-5-motion-graphics-best-tools-free-and-paid",
+        "name": "Claude Opus 5.5 Motion Graphics: Best Tools, Free and Paid",
+        "description": "Capital and Compute · Opus 5.5 writes the code, a render engine makes the video. Ten open-source tools, five paid ones, and two free defaults that are not open source.",
+        "category": "Articles",
+        "url": "https://capitalandcompute.net/blog/claude-motion-graphics-tools",
+        "cover": null,
+        "publishedAt": "2026-09-28T00:00:00.000Z"
+      },
+      {
+        "id": "article-grainzilla-com-higgsfield-x-claude-opus-5-5-editable-ae-motion-design",
+        "name": "Higgsfield x Claude Opus 5.5: Editable AE Motion Design",
+        "description": "Grainzilla · Higgsfield paired Claude Opus 5.5 with its After Effects pipeline, so editors describe a title sequence and get an editable AE project inst…",
+        "category": "Articles",
+        "url": "https://grainzilla.com/higgsfield-pairs-claude-opus-5-5-with-its-after-effects-pipeline-for-editable-motion-design",
+        "cover": "https://grainzilla.com/wp-content/uploads/2026/09/higgsfield-claude-opus-after-effects-16x9-1.jpg",
+        "publishedAt": "2026-09-28T00:00:00.000Z"
+      },
+      {
+        "id": "article-ciyo-ai-opus-5-5-video-guide-how-the-one-prompt-motion-graphics-are",
+        "name": "Opus 5.5 Video Guide: How the One-Prompt Motion Graphics Are Made",
+        "description": "Ciyo editorial team · Those one-prompt Opus 5.5 videos are real, sort of. A friendly guide from one-line showreel to overnight film, plus a teaser we rendered an…",
+        "category": "Articles",
+        "url": "https://ciyo.ai/blog/opus-5-5-video-motion-graphics-guide",
+        "cover": "https://assets.ciyo.ai/blog/8e17ff7fbc3da10a5bfe1670d66805f3e50a5915efdb873282b7ccdd267f897d/opus-video-guide-cover.jpg",
+        "publishedAt": "2026-09-28T00:00:00.000Z"
+      },
+      {
+        "id": "article-intelligentartifact-com-sonnet-5-5-making-videos-seven-examples-peter-yang",
+        "name": "Sonnet 5.5 Making Videos: Seven Examples",
+        "description": "intelligentartifact.com · Peter Yang tests code-generated motion graphics, product launches, talking-head edits, music videos, and anime—then extracts a practical wo…",
+        "category": "Articles",
+        "url": "https://intelligentartifact.com/posts/sonnet-5-5-making-videos-seven-examples",
+        "cover": null,
+        "publishedAt": "2026-09-28T00:00:00.000Z"
+      },
+      {
+        "id": "article-ai-joaoqueiros-com-sonnet-5-5-video-making-seven-creator-tests-and-two-prompts",
+        "name": "Sonnet 5.5 Video Making: Seven Creator Tests and Two Prompts",
+        "description": "João Queirós · Peter Yang builds seven videos with Claude Sonnet 5.5: coded motion, a mascot story, branded launch film, vertical short, talking-head over…",
+        "category": "Articles",
+        "url": "https://www.ai.joaoqueiros.com/blog/sonnet-5-5-video-making-seven-examples-prompts",
+        "cover": "https://www.ai.joaoqueiros.com/images/og/og-post-sonnet-5-5-video-making-seven-examples-prompts.png",
+        "publishedAt": "2026-09-28T00:00:00.000Z"
+      },
+      {
+        "id": "article-frontiernow-dev-the-prompt-behind-opus-5-5-s-viral-videos",
+        "name": "The prompt behind Opus 5.5's viral videos",
+        "description": "Frontier Now Editorial · The prompts behind Opus 5.5's viral videos, from the Skillry prompt gallery.",
+        "category": "Articles",
+        "url": "https://frontiernow.dev/en/resources/articles/skillry-opus-55-prompt-gallery",
+        "cover": "https://frontiernow.dev/images/articles/skillry-opus-55-prompt-gallery.jpg",
+        "publishedAt": "2026-09-28T00:00:00.000Z"
+      },
+      {
+        "id": "article-charliehills-substack-com-claude-code-motion-graphics-and-video-with-opus-5-5",
+        "name": "Claude Code motion graphics and video with Opus 5.5",
+        "description": "Charlie Hills · How to create studio-quality motion from one prompt",
+        "category": "Articles",
+        "url": "https://charliehills.substack.com/p/claude-code-motion-graphics",
+        "cover": "https://substackcdn.com/image/fetch/$s_!OVRs!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fafc04e64-e7dc-4fc7-8794-48084d693381_896x640.gif",
+        "publishedAt": "2026-09-27T00:00:00.000Z"
+      },
+      {
+        "id": "article-getreely-co-claude-opus-5-5-motion-design-for-saas-and-mobile-apps",
+        "name": "Claude Opus 5.5 Motion Design for SaaS and Mobile Apps",
+        "description": "Georgii Emelianov · Claude Opus 5.5 motion design, applied to a real product: what to give the agent for a SaaS web app vs a native mobile app, the brief, and…",
+        "category": "Articles",
+        "url": "https://getreely.co/blog/claude-opus-5-5-motion-design",
+        "cover": "https://cdn.sanity.io/images/p7hkenak/production/33ecb8c3b4bf69603a506618130089a650db8810-1536x864.webp?rect=0,29,1536,806&w=1200&h=630&fit=crop&auto=format",
+        "publishedAt": "2026-09-27T00:00:00.000Z"
+      },
+      {
+        "id": "article-agent-signal-ai-claude-video-generation-seven-workflows-compared",
+        "name": "Claude video generation: seven workflows compared",
+        "description": "Shogo Mizushima · Compare seven Claude video workflows. Start with motion graphics written by Claude Code alone, with no external video generation or MCP, th…",
+        "category": "Articles",
+        "url": "https://agent-signal.ai/en/blog/claude-video-generation-workflows",
+        "cover": "https://agent-signal.ai/blog/media/312/9817b9bb66396914afcf7a97104e859e358990d55ead2c42a068d21c585a3e47.webp",
+        "publishedAt": "2026-09-27T00:00:00.000Z"
+      },
+      {
+        "id": "article-beatapi-io-how-to-make-videos-with-claude-opus-5-5-2026-guide",
+        "name": "How to Make Videos with Claude Opus 5.5 (2026 Guide)",
+        "description": "Beat API Team · Turn Claude Opus 5.5 HTML animations into MP4 with Playwright and ffmpeg. Includes prompts, a render loop, limitations and a cost example.",
+        "category": "Articles",
+        "url": "https://beatapi.io/blog/how-to-make-videos-with-claude-opus-5-5",
+        "cover": "https://cdn.beatapi.io/blog/how-to-make-videos-with-claude-opus-5-5/cover-v3.webp",
+        "publishedAt": "2026-09-27T00:00:00.000Z"
+      },
+      {
+        "id": "article-blog-cosine-ren-making-videos-with-opus-5-5-workflow-and-prompt-resources",
+        "name": "Making Videos with Opus 5.5: Workflow and Prompt Resources",
+        "description": "cos @cosine · Notes on how I used Opus 5.5 to make a long tutorial video, plus a collection of showcase works, prompts, Skills and tools I came across, f…",
+        "category": "Articles",
+        "url": "https://blog.cosine.ren/en/post/opus-5-5-motion-video-resources",
+        "cover": null,
+        "publishedAt": "2026-09-27T00:00:00.000Z"
+      },
+      {
+        "id": "article-100-school-beehiiv-com-claude-became-a-motion-designer",
+        "name": "💯 Claude became a motion designer",
+        "description": "Max Haining · This weird Opus 5.5 moment changed how I think we should learn AI.",
+        "category": "Articles",
+        "url": "https://100-school.beehiiv.com/p/opus-5-5",
+        "cover": "https://beehiiv-images-production.s3.amazonaws.com/uploads/asset/file/1496529b-272d-460d-a16f-1c48a6396788/Opus_5.5_Newsletter_Thumbnail.png?t=1790546280",
+        "publishedAt": "2026-09-27T00:00:00.000Z"
+      },
+      {
+        "id": "article-getaitopia-io-claude-code-motion-graphics-16-free-opus-5-5-animation-prom",
+        "name": "Claude Code Motion Graphics: 16 Free Opus 5.5 Animation Prompts",
+        "description": "Joon Ahn · Make motion graphics with Claude Code and Opus 5.5. 16 HTML animations on one 8-second loop, all 16 copy-paste prompts, and a free kit down…",
+        "category": "Articles",
+        "url": "https://getaitopia.io/blog/claude-code-motion-graphics",
+        "cover": "https://keepylabs.com/blog-images/claude-code-motion-graphics/hero.jpg",
+        "publishedAt": "2026-09-26T00:00:00.000Z"
+      },
+      {
+        "id": "article-news-lavx-hu-generating-video-by-writing-code-inside-launchvideo",
+        "name": "Generating Video by Writing Code: Inside LaunchVideo",
+        "description": "Elena Varga · A new project called LaunchVideo generates MP4 clips from URLs or text prompts. It uses Claude Opus 5.5 to write an HTML animation, then re…",
+        "category": "Articles",
+        "url": "https://news.lavx.hu/article/generating-video-by-writing-code-inside-launchvideo",
+        "cover": null,
+        "publishedAt": "2026-09-25T00:00:00.000Z"
+      },
+      {
+        "id": "article-moderncreator-app-opus-5-5-just-changed-video-editing-forever-free-skills",
+        "name": "Opus 5.5 Just Changed Video Editing Forever (free skills)",
+        "description": "Nate Herk · A screen-recorded walkthrough of the exact prompts behind five one-shot AI edits, and the five-step process behind all of them.",
+        "category": "Articles",
+        "url": "https://moderncreator.app/2026-09-25-nate-herk-ai-automation-opus-5-5-just-changed-video-editing-forever-free-skills",
+        "cover": "https://modcreator-cdn.b-cdn.net/2026-09-25-nate-herk-ai-automation-opus-5-5-just-changed-video-editing-forever-free-skills/thumbnail.jpg",
+        "publishedAt": "2026-09-25T00:00:00.000Z"
+      },
+      {
+        "id": "article-vuela-ai-can-claude-make-videos-yes-here-s-how-it-works-2026",
+        "name": "Can Claude make videos? Yes, here's how it works (2026)",
+        "description": "vuela.ai · Claude Motion turns content into animated MP4s on Team and Enterprise plans.",
+        "category": "Articles",
+        "url": "https://vuela.ai/blog/can-claude-make-videos",
+        "cover": "https://vuela.ai/og-image.png",
+        "publishedAt": "2026-09-24T00:00:00.000Z"
+      },
+      {
+        "id": "article-iart-ai-claude-motion-graphics-5-opus-5-5-prompts",
+        "name": "Claude Motion Graphics: 5 Opus 5.5 Prompts",
+        "description": "Zhangcan Ding · Five Claude Opus 5.5 motion graphics prompts: a showreel, logo reveal, kinetic type, a seamless 3D loop and a data story, with the film eac…",
+        "category": "Articles",
+        "url": "https://www.iart.ai/blog/claude-motion-graphics",
+        "cover": "https://www.iart.ai/api/og?title=Claude%20Motion%20Graphics%3A%205%20Opus%205.5%20Prompts&eyebrow=BLOG",
+        "publishedAt": "2026-09-29T00:00:00.000Z"
+      },
+      {
+        "id": "article-nateszerotoai-substack-com-how-to-make-animations-with-opus-5-5",
+        "name": "How to Make Animations With Opus 5.5",
+        "description": "Nate · The best part about AI, for me, is that it opens up skills that used to be out of reach if you weren’t technical.",
+        "category": "Articles",
+        "url": "https://nateszerotoai.substack.com/p/make-animations-opus-5-5",
+        "cover": "https://substackcdn.com/image/fetch/$s_!iiuI!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Feed4f976-3d0b-4b8c-bf84-e1d3f1b4bbbb_640x404.gif",
+        "publishedAt": "2026-10-02T00:00:00.000Z"
+      },
+      {
+        "id": "article-opus5video-com-how-to-make-videos-with-claude-opus-5-5-step-by-step-2026",
+        "name": "How to Make Videos with Claude Opus 5.5 (Step-by-Step, 2026)",
+        "description": "opus5video.com · How to make motion-graphics videos with Claude Opus 5.5: how it works, Remotion vs HyperFrames vs HTML, the 6-step workflow, real costs and…",
+        "category": "Articles",
+        "url": "https://opus5video.com/how-to-make-videos-with-claude",
+        "cover": "https://opus5video.com/og.jpg"
+      },
+      {
+        "id": "article-movez-substack-com-how-to-build-motion-design-studio-with-opus-5-5-full-cours",
+        "name": "How to build motion design studio with Opus 5.5 ( Full-course )",
+        "description": "0xMovez AI · Most people who try motion design with Opus 5.5 end up with the same video: centered text on a gradient, everything fading in, a logo at th…",
+        "category": "Articles",
+        "url": "https://movez.substack.com/p/how-to-build-motion-design-studio",
+        "cover": "https://substackcdn.com/image/fetch/$s_!QGkW!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F08a7e1bc-f294-42e4-925c-17759e7c75ff_1200x630.png",
+        "publishedAt": "2026-10-04T00:00:00.000Z"
+      },
+      {
+        "id": "article-learnwithmeai-com-i-built-a-claude-skill-that-makes-the-viral-opus-5-5-motion",
+        "name": "I Built a Claude Skill That Makes the Viral Opus 5.5 Motion Videos (3 Movies, Never Left Claude Code)",
+        "description": "Gencay · The videos generated by Opus 5.5 went viral.",
+        "category": "Articles",
+        "url": "https://www.learnwithmeai.com/p/claude-code-motion-skill",
+        "cover": "https://substackcdn.com/image/fetch/$s_!7TwG!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff3793456-36e1-4db1-ad1a-7b8d2afa909b_1232x928.png",
+        "publishedAt": "2026-10-05T00:00:00.000Z"
+      },
+      {
+        "id": "article-cybercorsairs-com-motion-graphics-code-professional-videos-made-easy",
+        "name": "Motion Graphics Code: Professional Videos Made Easy",
+        "description": "cybercorsairs.com · Create professional motion graphics with Claude Code. No video models needed. Debunk AI animation myths and discover it's easier than you t…",
+        "category": "Articles",
+        "url": "https://cybercorsairs.com/claude-sonnet-5-5-codes-promo-videos-with-no-video-model",
+        "cover": null
+      },
+      {
+        "id": "article-iart-ai-opus-5-5-animation-every-frame-in-javascript",
+        "name": "Opus 5.5 Animation: Every Frame in JavaScript",
+        "description": "Zhangcan Ding · How to make a JavaScript animation with Claude Opus 5.5: every frame drawn on a canvas, music in Web Audio. Two ways, with Claude Code or n…",
+        "category": "Articles",
+        "url": "https://www.iart.ai/blog/ai-javascript-animation",
+        "cover": "https://www.iart.ai/api/og?title=Opus%205.5%20Animation%3A%20Every%20Frame%20in%20JavaScript&eyebrow=BLOG",
+        "publishedAt": "2026-09-24T00:00:00.000Z"
       }
     ]
   },
