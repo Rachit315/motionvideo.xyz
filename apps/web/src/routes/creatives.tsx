@@ -7,7 +7,7 @@ import {
 import { ResourceDirectory } from "@/components/resource-directory";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { findDirectoryCategory } from "@/lib/directories";
+import { directorySearch, findDirectoryCategory } from "@/lib/directories";
 import { getLandingData } from "@/server/functions";
 
 const routeApi = getRouteApi("/creatives");
@@ -33,4 +33,6 @@ const Creatives = () => {
 export const Route = createFileRoute("/creatives")({
   component: Creatives,
   loader: () => getLandingData(),
+  // `?filter=` (specialty) and `?sort=`, on any category page.
+  validateSearch: directorySearch("studio"),
 });

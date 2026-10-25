@@ -105,7 +105,9 @@ const fetchArticle = async (source) => {
   };
 };
 
-// Covers already mirrored by `pnpm assets:mirror` keep their mirrored URL.
+// Covers already mirrored by `pnpm assets:mirror` keep their mirrored URL,
+// and every article keeps the day it first joined the list (`addedAt`, for
+// the "Recently added" sort); new ones get today.
 const previous = await readFile(output, "utf-8")
   .then((text) => JSON.parse(text).entries)
   .catch(() => []);
@@ -116,12 +118,15 @@ const mirrored = new Map(
     )
     .map((entry) => [entry.id, entry.cover])
 );
+const addedAt = new Map(previous.map((entry) => [entry.id, entry.addedAt]));
+const today = new Date().toISOString().slice(0, 10);
 
 const entries = await Promise.all(SOURCES.map(fetchArticle));
 // Newest first.
 entries.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 for (const entry of entries) {
   entry.cover = mirrored.get(entry.id) ?? entry.cover;
+  entry.addedAt = addedAt.get(entry.id) ?? today;
 }
 
 await writeFile(

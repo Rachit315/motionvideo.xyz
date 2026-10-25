@@ -7,7 +7,7 @@ import {
 import { ResourceDirectory } from "@/components/resource-directory";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { findDirectoryCategory } from "@/lib/directories";
+import { directorySearch, findDirectoryCategory } from "@/lib/directories";
 import { getLandingData } from "@/server/functions";
 
 const routeApi = getRouteApi("/tools");
@@ -33,4 +33,6 @@ const Tools = () => {
 export const Route = createFileRoute("/tools")({
   component: Tools,
   loader: () => getLandingData(),
+  // `?filter=` (pricing) and `?sort=`, on any category page.
+  validateSearch: directorySearch("tool"),
 });

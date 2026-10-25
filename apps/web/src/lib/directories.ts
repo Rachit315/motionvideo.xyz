@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 import directories from "@/data/resource-directories.json";
 import xArticles from "@/data/x-articles.json";
 
@@ -8,11 +10,135 @@ export interface DirectoryEntry {
   category: string;
   url: string;
   cover: string | null;
+  /** The day the entry joined the directory (YYYY-MM-DD), for "Recently added". */
+  addedAt: string;
+  /** Articles only: when the article was published (ISO). */
+  publishedAt?: string;
+  /** Skills only: GitHub stars, from `pnpm catalog:refresh:skills`. */
+  stars?: number;
+  /** Skills only: the repository's last push (ISO), from the same script. */
+  updatedAt?: string;
+  /** Tools only: one of DIRECTORY_FILTERS.tool. */
+  pricing?: string;
+  /** Skills only: what renders the video, most central first. */
+  renderers?: string[];
+  /** Creatives only: what they're known for, strongest first. */
+  specialties?: string[];
+  /** Resources (under /extras) only: one of DIRECTORY_FILTERS.extra. */
+  resourceType?: string;
 }
 
 // Each kind is its own section: `tool` lists /tools, `studio` lists /creatives
 // (studios and designers), `skill` lists /skills, and `extra` lists /extras.
 export type DirectoryKind = "tool" | "studio" | "skill" | "extra";
+
+// Orders each section can switch to with `?sort=`; without one it keeps the
+// curated order (newest article first, on /extras).
+export const DIRECTORY_SORTS = {
+  tool: ["added"],
+  studio: ["added"],
+  skill: ["stars", "updated", "added"],
+  extra: ["newest", "oldest", "added"],
+} as const satisfies Record<DirectoryKind, readonly string[]>;
+export type DirectorySort = (typeof DIRECTORY_SORTS)[DirectoryKind][number];
+
+// One facet per section, picked with `?filter=`: pricing on /tools, renderer
+// on /skills, specialty on /creatives, resource type on /extras.
+export const DIRECTORY_FILTERS = {
+  tool: ["free", "freemium", "open-source", "paid"],
+  studio: ["product-films", "explainers", "3d", "brand", "ui-motion"],
+  skill: [
+    "remotion",
+    "hyperframes",
+    "html",
+    "manim",
+    "adobe",
+    "blender",
+    "video-models",
+    "ffmpeg",
+  ],
+  extra: ["library", "examples", "prompts", "directory", "archive"],
+} as const satisfies Record<DirectoryKind, readonly string[]>;
+export type DirectoryFilter = (typeof DIRECTORY_FILTERS)[DirectoryKind][number];
+
+export interface DirectorySearch {
+  sort?: DirectorySort;
+  filter?: DirectoryFilter;
+}
+
+/**
+ * `validateSearch` for a section's layout route: values outside the section's
+ * own sorts and filters are dropped rather than rejected.
+ */
+export const directorySearch = (kind: DirectoryKind) =>
+  z.object({
+    sort: z
+      .unknown()
+      .optional()
+      .transform((value) => DIRECTORY_SORTS[kind].find((id) => id === value)),
+    filter: z
+      .unknown()
+      .optional()
+      .transform((value) => DIRECTORY_FILTERS[kind].find((id) => id === value)),
+  }) satisfies z.ZodType<DirectorySearch>;
+
+/** The facet values an entry carries in `kind`'s section. */
+export const filterValuesOf = (
+  kind: DirectoryKind,
+  entry: DirectoryEntry
+): readonly string[] => {
+  switch (kind) {
+    case "tool": {
+      return entry.pricing ? [entry.pricing] : [];
+    }
+    case "studio": {
+      return entry.specialties ?? [];
+    }
+    case "skill": {
+      return entry.renderers ?? [];
+    }
+    case "extra": {
+      return entry.resourceType ? [entry.resourceType] : [];
+    }
+    default: {
+      return [];
+    }
+  }
+};
+
+const byDateDescending =
+  (date: (entry: DirectoryEntry) => string | undefined) =>
+  (a: DirectoryEntry, b: DirectoryEntry) =>
+    (date(b) ?? "").localeCompare(date(a) ?? "");
+
+/** `entries` in `sort` order (stable); entries missing the value go last. */
+export const sortDirectoryEntries = (
+  entries: DirectoryEntry[],
+  sort: DirectorySort | undefined
+): DirectoryEntry[] => {
+  switch (sort) {
+    case "stars": {
+      return entries.toSorted((a, b) => (b.stars ?? -1) - (a.stars ?? -1));
+    }
+    case "updated": {
+      return entries.toSorted(byDateDescending((entry) => entry.updatedAt));
+    }
+    case "added": {
+      return entries.toSorted(byDateDescending((entry) => entry.addedAt));
+    }
+    case "newest": {
+      return entries.toSorted(byDateDescending((entry) => entry.publishedAt));
+    }
+    case "oldest": {
+      return entries.toSorted((a, b) =>
+        (a.publishedAt ?? "\uFFFF").localeCompare(b.publishedAt ?? "\uFFFF")
+      );
+    }
+    default: {
+      return entries;
+    }
+  }
+};
 
 // The data file lists skills, web articles and resources under tools; they
 // get their own sections here.
@@ -86,7 +212,6 @@ const SKILL_CATEGORY_BY_ID = {
   "mort1d-motion-graphics": "Motion graphics",
   "lemo-wake": "Motion graphics",
   "hyperframes-motion-reel": "Motion graphics",
-  "motion-video-director": "Motion graphics",
   "papercut-explainer": "Motion graphics",
   "extreme-motion-design": "Motion graphics",
   mashhad: "Motion graphics",

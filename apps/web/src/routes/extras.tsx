@@ -7,7 +7,7 @@ import {
 import { ResourceDirectory } from "@/components/resource-directory";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { findDirectoryCategory } from "@/lib/directories";
+import { directorySearch, findDirectoryCategory } from "@/lib/directories";
 import { getLandingData } from "@/server/functions";
 
 const routeApi = getRouteApi("/extras");
@@ -34,4 +34,6 @@ const Extras = () => {
 export const Route = createFileRoute("/extras")({
   component: Extras,
   loader: () => getLandingData(),
+  // `?filter=` (resource type) and `?sort=`, on any category page.
+  validateSearch: directorySearch("extra"),
 });

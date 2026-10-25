@@ -7,7 +7,7 @@ import {
 import { ResourceDirectory } from "@/components/resource-directory";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { findDirectoryCategory } from "@/lib/directories";
+import { directorySearch, findDirectoryCategory } from "@/lib/directories";
 import { getLandingData } from "@/server/functions";
 
 const routeApi = getRouteApi("/skills");
@@ -31,7 +31,9 @@ const Skills = () => {
 // Layout for `/skills` and `/skills/$category`: agent skills, split out of the
 // tools import (`/tools/skills` redirects here). The directory stays mounted
 // while switching categories; the child routes own the URL and head tags.
+// `?filter=` (renderer) and `?sort=` apply on any of them.
 export const Route = createFileRoute("/skills")({
   component: Skills,
   loader: () => getLandingData(),
+  validateSearch: directorySearch("skill"),
 });
