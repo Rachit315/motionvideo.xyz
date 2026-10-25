@@ -1984,6 +1984,806 @@
         "url": "https://www.iart.ai/blog/ai-javascript-animation",
         "cover": "https://www.iart.ai/api/og?title=Opus%205.5%20Animation%3A%20Every%20Frame%20in%20JavaScript&eyebrow=BLOG",
         "publishedAt": "2026-09-24T00:00:00.000Z"
+      },
+      {
+        "id": "openmontage",
+        "name": "OpenMontage",
+        "description": "An agentic video production system with 12 pipelines",
+        "category": "Skills",
+        "url": "https://github.com/calesthio/OpenMontage",
+        "cover": "https://raw.githubusercontent.com/calesthio/OpenMontage/main/docs/images/backlot/board-live.png"
+      },
+      {
+        "id": "brag",
+        "name": "Brag",
+        "description": "One command turns your project into a launch video",
+        "category": "Skills",
+        "url": "https://github.com/latent-spaces/brag",
+        "cover": "https://raw.githubusercontent.com/latent-spaces/brag/main/docs/assets/hero.png"
+      },
+      {
+        "id": "diffusion-studio-lottie",
+        "name": "Diffusion Studio Lottie",
+        "description": "Lottie animations from Claude Code or Codex",
+        "category": "Skills",
+        "url": "https://github.com/diffusionstudio/lottie",
+        "cover": "https://raw.githubusercontent.com/diffusionstudio/lottie/main/assets/header.gif"
+      },
+      {
+        "id": "firered-openstoryline",
+        "name": "FireRed OpenStoryline",
+        "description": "Intention-driven AI video editing agent",
+        "category": "Skills",
+        "url": "https://github.com/FireRedTeam/FireRed-OpenStoryline",
+        "cover": null
+      },
+      {
+        "id": "chengfeng-videocut",
+        "name": "Chengfeng Videocut",
+        "description": "A video editing agent built on Claude Code skills",
+        "category": "Skills",
+        "url": "https://github.com/Agentchengfeng/chengfeng-videocut-skills",
+        "cover": null
+      },
+      {
+        "id": "narrator-ai",
+        "name": "Narrator AI",
+        "description": "Automated movie narration and commentary videos",
+        "category": "Skills",
+        "url": "https://github.com/NarratorAI-Studio/narrator-ai-cli-skill",
+        "cover": null
+      },
+      {
+        "id": "pixel2motion",
+        "name": "pixel2motion",
+        "description": "Raster logos into smooth SVG animation",
+        "category": "Skills",
+        "url": "https://github.com/nolangz/pixel2motion",
+        "cover": null
+      },
+      {
+        "id": "claude-code-video-toolkit",
+        "name": "Claude Code Video Toolkit",
+        "description": "Script-to-render explainers and demos",
+        "category": "Skills",
+        "url": "https://github.com/digitalsamba/claude-code-video-toolkit",
+        "cover": "https://raw.githubusercontent.com/digitalsamba/claude-code-video-toolkit/main/assets/banner/toolkit-banner.gif"
+      },
+      {
+        "id": "story-to-hand-drawn-video",
+        "name": "Story to Hand-drawn Video",
+        "description": "Stories into hand-drawn diary-comic animations",
+        "category": "Skills",
+        "url": "https://github.com/gnipbao/story-to-handdrawn-video",
+        "cover": "https://raw.githubusercontent.com/gnipbao/story-to-handdrawn-video/main/references/style-examples/standard/colored-pencil-diary.png"
+      },
+      {
+        "id": "vox-director",
+        "name": "Vox Director",
+        "description": "One topic to a Vox-style paper-collage video",
+        "category": "Skills",
+        "url": "https://github.com/Alisa0808/vox-director",
+        "cover": null
+      },
+      {
+        "id": "lanshu-ai-presenter",
+        "name": "Lanshu AI Presenter",
+        "description": "Presenter videos from a script, with checks",
+        "category": "Skills",
+        "url": "https://github.com/cclank/lanshu-create-ai-presenter-video",
+        "cover": "https://raw.githubusercontent.com/cclank/lanshu-create-ai-presenter-video/main/explainer/gallery/nine-styles-kv-cache.jpg"
+      },
+      {
+        "id": "gbro-collage-b-roll",
+        "name": "Gbro Collage B-roll",
+        "description": "Halftone paper-collage B-roll from a line of voiceover",
+        "category": "Skills",
+        "url": "https://github.com/pyang5166/gbro-collage-broll",
+        "cover": "https://raw.githubusercontent.com/pyang5166/gbro-collage-broll/main/assets/demo-purple.gif"
+      },
+      {
+        "id": "vibe-motion-skills",
+        "name": "Vibe Motion Skills",
+        "description": "A grab-bag of motion and graphic effects",
+        "category": "Skills",
+        "url": "https://github.com/vibe-motion/skills",
+        "cover": "https://img.laosunwendao.com/skill-uploads/916118e2be5c4b33a8c16f35a3b12200.gif"
+      },
+      {
+        "id": "manim-skill",
+        "name": "Manim Skill",
+        "description": "3Blue1Brown-style animations with Manim",
+        "category": "Skills",
+        "url": "https://github.com/adithya-s-k/manim_skill",
+        "cover": null
+      },
+      {
+        "id": "onetake",
+        "name": "Onetake",
+        "description": "Launch films in one continuous camera move",
+        "category": "Skills",
+        "url": "https://github.com/feitangyuan/onetake",
+        "cover": "https://raw.githubusercontent.com/feitangyuan/onetake/main/assets/hero.gif"
+      },
+      {
+        "id": "cartcut",
+        "name": "CartCut",
+        "description": "An open video editor built for AI agents",
+        "category": "Skills",
+        "url": "https://github.com/cartesiancs/cartcut",
+        "cover": "https://raw.githubusercontent.com/cartesiancs/cartcut/main/.github/banner.png"
+      },
+      {
+        "id": "premiere-pro-mcp",
+        "name": "Premiere Pro MCP",
+        "description": "Drive Adobe Premiere Pro edits from an agent",
+        "category": "Skills",
+        "url": "https://github.com/hetpatel-11/Adobe_Premiere_Pro_MCP",
+        "cover": "https://raw.githubusercontent.com/hetpatel-11/Adobe_Premiere_Pro_MCP/main/images/demo.png"
+      },
+      {
+        "id": "live-panel",
+        "name": "Live Panel",
+        "description": "Animated architecture diagrams from one JSON file",
+        "category": "Skills",
+        "url": "https://github.com/ythx-101/live-panel-skill",
+        "cover": "https://raw.githubusercontent.com/ythx-101/live-panel-skill/main/examples/loop-poteto/preview-dark.webp"
+      },
+      {
+        "id": "video-recap-skills",
+        "name": "Video Recap Skills",
+        "description": "Chinese narration recaps cut from footage",
+        "category": "Skills",
+        "url": "https://github.com/zenstory-ai/video-recap-skills",
+        "cover": "https://raw.githubusercontent.com/zenstory-ai/video-recap-skills/main/docs/jianying-export.jpg"
+      },
+      {
+        "id": "baocut",
+        "name": "BaoCut",
+        "description": "Transcribe, subtitle, dub and cut on a timeline",
+        "category": "Skills",
+        "url": "https://github.com/JimLiu/baocut",
+        "cover": null
+      },
+      {
+        "id": "heygen-skills",
+        "name": "HeyGen Skills",
+        "description": "Avatar videos through HeyGen's Video Agent",
+        "category": "Skills",
+        "url": "https://github.com/heygen-com/skills",
+        "cover": null
+      },
+      {
+        "id": "hyperframes-motion-director",
+        "name": "HyperFrames Motion Director",
+        "description": "Chinese motion videos from articles and products",
+        "category": "Skills",
+        "url": "https://github.com/geekjourneyx/hyperframes-motion-director",
+        "cover": "https://raw.githubusercontent.com/geekjourneyx/hyperframes-motion-director/main/skills/hyperframes-motion-director/assets/banner.png"
+      },
+      {
+        "id": "claude-animation-base",
+        "name": "Claude Animation Base",
+        "description": "A starter kit for hand-painted cartoons",
+        "category": "Skills",
+        "url": "https://github.com/JohnHeibel/ClaudeAnimationBase",
+        "cover": "https://raw.githubusercontent.com/JohnHeibel/ClaudeAnimationBase/main/docs/emotions.webp"
+      },
+      {
+        "id": "mathlens",
+        "name": "MathLens",
+        "description": "Narrated Manim explainers for math problems",
+        "category": "Skills",
+        "url": "https://github.com/shuyicc/MathLens",
+        "cover": null
+      },
+      {
+        "id": "explainroo",
+        "name": "Explainroo",
+        "description": "Narrated explainers and product demos, all local",
+        "category": "Skills",
+        "url": "https://github.com/vincentsch/explainroo",
+        "cover": "https://raw.githubusercontent.com/vincentsch/explainroo/main/docs/media/looks-light.webp"
+      },
+      {
+        "id": "agent-storyboard",
+        "name": "Agent Storyboard",
+        "description": "A local storyboard workbench for agents",
+        "category": "Skills",
+        "url": "https://github.com/Yuuhann1999/agent-storyboard",
+        "cover": "https://raw.githubusercontent.com/Yuuhann1999/agent-storyboard/main/docs/assets/agent-storyboard-cover.png"
+      },
+      {
+        "id": "image-story-video-wizard",
+        "name": "Image Story Video Wizard",
+        "description": "Narrated image-story videos, step by step",
+        "category": "Skills",
+        "url": "https://github.com/aaronyi97/image-story-video-wizard",
+        "cover": null
+      },
+      {
+        "id": "hand-drawn-explainer",
+        "name": "Hand-drawn Explainer",
+        "description": "Chinese hand-drawn whiteboard explainers",
+        "category": "Skills",
+        "url": "https://github.com/hi-nikola/hand-drawn-explainer-video-nikola",
+        "cover": "https://raw.githubusercontent.com/hi-nikola/hand-drawn-explainer-video-nikola/main/examples/stroke-story/steve-jobs/transition-contact.jpg"
+      },
+      {
+        "id": "xianxia-cinematic-director",
+        "name": "Xianxia Cinematic Director",
+        "description": "Xianxia storyboards and camera moves",
+        "category": "Skills",
+        "url": "https://github.com/liyue-aigc/xianxia-cinematic-video-director",
+        "cover": null
+      },
+      {
+        "id": "vox-ai-motion-graphics",
+        "name": "Vox AI Motion Graphics",
+        "description": "Vox-style paper-collage explainers from a topic",
+        "category": "Skills",
+        "url": "https://github.com/Anil-matcha/vox-ai-motion-graphics-generator",
+        "cover": "https://i.ytimg.com/vi/chK_pnV1wqQ/maxresdefault.jpg"
+      },
+      {
+        "id": "claude-shorts",
+        "name": "Claude Shorts",
+        "description": "Longform video clipped into vertical shorts",
+        "category": "Skills",
+        "url": "https://github.com/AgriciDaniel/claude-shorts",
+        "cover": "https://raw.githubusercontent.com/AgriciDaniel/claude-shorts/main/claude-shorts-header.jpeg"
+      },
+      {
+        "id": "auto-video-agent",
+        "name": "Auto Video Agent",
+        "description": "Subtitles into illustrated, assembled videos",
+        "category": "Skills",
+        "url": "https://github.com/LetMeHappyCode/auto-video-agent",
+        "cover": "https://raw.githubusercontent.com/LetMeHappyCode/auto-video-agent/master/示例/图片/分镜管理系统页面.jpg"
+      },
+      {
+        "id": "vox-collage-b-roll",
+        "name": "Vox Collage B-roll",
+        "description": "A spoken line into a paper-collage clip",
+        "category": "Skills",
+        "url": "https://github.com/MegaTroll222/VOX-COLLAGE-BROLL",
+        "cover": "https://raw.githubusercontent.com/MegaTroll222/VOX-COLLAGE-BROLL/main/examples/snowball-preview.gif"
+      },
+      {
+        "id": "motion-video-kit",
+        "name": "Motion Video Kit",
+        "description": "Premium business videos with a critic loop",
+        "category": "Skills",
+        "url": "https://github.com/echris6/motion-video-kit",
+        "cover": null
+      },
+      {
+        "id": "erduo-b-roll-engine",
+        "name": "Erduo B-roll Engine",
+        "description": "SRT-driven B-roll in HyperFrames or Remotion",
+        "category": "Skills",
+        "url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering",
+        "cover": "https://raw.githubusercontent.com/erduo1998-cell/erduo-broll-loop-engineering/main/docs/images/demos/homepage-showcase.gif"
+      },
+      {
+        "id": "oh-my-cassette",
+        "name": "Oh My Cassette",
+        "description": "A pocket AI co-editor for montages",
+        "category": "Skills",
+        "url": "https://github.com/Cassette-Editor/oh-my-cassette",
+        "cover": "https://raw.githubusercontent.com/Cassette-Editor/oh-my-cassette/main/assets/banner.jpg"
+      },
+      {
+        "id": "director-skills",
+        "name": "Director Skills",
+        "description": "Agent skills for AI video creation",
+        "category": "Skills",
+        "url": "https://github.com/kangarooking/director-skills",
+        "cover": null
+      },
+      {
+        "id": "hbg-life-simulation",
+        "name": "HBG Life Simulation",
+        "description": "Comic-style life-story narration videos",
+        "category": "Skills",
+        "url": "https://github.com/Mr-funny/hbg-life-simulation",
+        "cover": null
+      },
+      {
+        "id": "ai-video-editing-skill",
+        "name": "AI Video Editing Skill",
+        "description": "Raw travel footage into a finished vlog",
+        "category": "Skills",
+        "url": "https://github.com/znyupup/ai-video-editing-skill",
+        "cover": null
+      },
+      {
+        "id": "naive-video-skill",
+        "name": "Naive Video Skill",
+        "description": "Talking-head videos captioned and animated",
+        "category": "Skills",
+        "url": "https://github.com/naive-kun/naive-video-skill",
+        "cover": null
+      },
+      {
+        "id": "avatar-mix",
+        "name": "Avatar Mix",
+        "description": "HeyGen avatar videos with animated backgrounds",
+        "category": "Skills",
+        "url": "https://github.com/Upload-Post/avatar-mix",
+        "cover": "https://raw.githubusercontent.com/Upload-Post/avatar-mix/main/docs/demo_16x9.gif"
+      },
+      {
+        "id": "easyedit",
+        "name": "EasyEdit",
+        "description": "Movie fan edits, cut to speech and the beat",
+        "category": "Skills",
+        "url": "https://github.com/blixvip/easyedit",
+        "cover": "https://raw.githubusercontent.com/blixvip/easyedit/main/docs/ui.png"
+      },
+      {
+        "id": "videodb-skills",
+        "name": "VideoDB Skills",
+        "description": "Server-side video search, editing and streaming",
+        "category": "Skills",
+        "url": "https://github.com/video-db/skills",
+        "cover": null
+      },
+      {
+        "id": "claude-remotion-kickstart",
+        "name": "Claude Remotion Kickstart",
+        "description": "Programmatic videos with Claude Code and Remotion",
+        "category": "Skills",
+        "url": "https://github.com/jhartquist/claude-remotion-kickstart",
+        "cover": null
+      },
+      {
+        "id": "seecut",
+        "name": "SeeCut",
+        "description": "Talking-head clips auto-edited into shorts",
+        "category": "Skills",
+        "url": "https://github.com/YeJe-cpu/SeeCut",
+        "cover": null
+      },
+      {
+        "id": "monet",
+        "name": "Monet",
+        "description": "Edit videos with Claude Code or Codex",
+        "category": "Skills",
+        "url": "https://github.com/Monet-AI-Editor/Monet",
+        "cover": null
+      },
+      {
+        "id": "remotion-ad-video",
+        "name": "Remotion Ad Video",
+        "description": "Ad videos from a URL in Remotion",
+        "category": "Skills",
+        "url": "https://github.com/leosssvip-dot/remotion-ad-video-skill",
+        "cover": null
+      },
+      {
+        "id": "book-video-factory",
+        "name": "Book Video Factory",
+        "description": "Chinese book-review shorts with an audit trail",
+        "category": "Skills",
+        "url": "https://github.com/jaxxchen003/book-video-factory",
+        "cover": "https://raw.githubusercontent.com/jaxxchen003/book-video-factory/main/examples/posters/chaoyue-baisui-paper-collage.jpg"
+      },
+      {
+        "id": "promo-creator-skills",
+        "name": "Promo Creator Skills",
+        "description": "A full product promo workflow in HyperFrames",
+        "category": "Skills",
+        "url": "https://github.com/kangarooking/promo-creator-skills",
+        "cover": null
+      },
+      {
+        "id": "cut-video",
+        "name": "Cut Video",
+        "description": "Remove silences and filler from long recordings",
+        "category": "Skills",
+        "url": "https://github.com/louisedesadeleer/cut-video",
+        "cover": null
+      },
+      {
+        "id": "adu-motion-video",
+        "name": "Adu Motion Video",
+        "description": "Motion templates for talking-head videos",
+        "category": "Skills",
+        "url": "https://github.com/adunext/adu-motion-video",
+        "cover": "https://raw.githubusercontent.com/adunext/adu-motion-video/main/assets/cover.jpg"
+      },
+      {
+        "id": "vex",
+        "name": "Vex",
+        "description": "Claude Code for video editing",
+        "category": "Skills",
+        "url": "https://github.com/AKMessi/vex",
+        "cover": "https://raw.githubusercontent.com/AKMessi/vex/main/assets/terminal.png"
+      },
+      {
+        "id": "motion-video-skill",
+        "name": "Motion Video Skill",
+        "description": "Beat-synced HyperFrames videos with voiceover",
+        "category": "Skills",
+        "url": "https://github.com/bestagentkits/motion-video-skill",
+        "cover": null
+      },
+      {
+        "id": "after-effects-mcp",
+        "name": "After Effects MCP",
+        "description": "Automate After Effects from an agent",
+        "category": "Skills",
+        "url": "https://github.com/JUNKDOGE-JOE/after-effects-mcp",
+        "cover": "https://raw.githubusercontent.com/JUNKDOGE-JOE/after-effects-mcp/main/docs/assets/readme/chat-input.png"
+      },
+      {
+        "id": "remotion-motion-graphics-skill",
+        "name": "Remotion Motion Graphics Skill",
+        "description": "Production-ready Remotion motion graphics",
+        "category": "Skills",
+        "url": "https://github.com/Liamrjohnston/remotion-motion-graphics-skill",
+        "cover": null
+      },
+      {
+        "id": "30x-video",
+        "name": "30x Video",
+        "description": "One URL in, an agency-grade launch video out",
+        "category": "Skills",
+        "url": "https://github.com/norahe0304-art/30x-video",
+        "cover": null
+      },
+      {
+        "id": "ghost-editor",
+        "name": "Ghost Editor",
+        "description": "Talking-head footage into styled reels",
+        "category": "Skills",
+        "url": "https://github.com/kurbaitaev/ghost-editor",
+        "cover": null
+      },
+      {
+        "id": "brewreel",
+        "name": "BrewReel",
+        "description": "Vertical promos from cheap models",
+        "category": "Skills",
+        "url": "https://github.com/Finderchangchang/brewreel",
+        "cover": "https://raw.githubusercontent.com/Finderchangchang/brewreel/main/docs/images/readme-modes.png"
+      },
+      {
+        "id": "remotion-ads",
+        "name": "Remotion Ads",
+        "description": "Instagram Reels and carousel ads in Remotion",
+        "category": "Skills",
+        "url": "https://github.com/Maartenlouis/remotion-ads",
+        "cover": null
+      },
+      {
+        "id": "unclejobs-motion-video",
+        "name": "Unclejobs Motion Video",
+        "description": "A staged harness for motion and video work",
+        "category": "Skills",
+        "url": "https://github.com/unclejobs-ai/motion-video-skill",
+        "cover": "https://raw.githubusercontent.com/unclejobs-ai/motion-video-skill/main/docs/assets/workflow.png"
+      },
+      {
+        "id": "gbro-collage-info",
+        "name": "Gbro Collage Info",
+        "description": "Paper-collage infographics from voiceover scripts",
+        "category": "Skills",
+        "url": "https://github.com/pyang5166/gbro-collage-info",
+        "cover": "https://raw.githubusercontent.com/pyang5166/gbro-collage-info/main/demo/drawer.gif"
+      },
+      {
+        "id": "remotion-claude-video",
+        "name": "Remotion Claude Video",
+        "description": "Getting started with Remotion in Claude Code",
+        "category": "Skills",
+        "url": "https://github.com/JJenglert1/remotion-claude-video",
+        "cover": null
+      },
+      {
+        "id": "vlog-cut",
+        "name": "Vlog Cut",
+        "description": "Edit raw footage to follow your script",
+        "category": "Skills",
+        "url": "https://github.com/hahadu4520/vlog-cut",
+        "cover": null
+      },
+      {
+        "id": "story-hand-drawn-video",
+        "name": "Story Hand-drawn Video",
+        "description": "Stories into hand-drawn crayon shorts",
+        "category": "Skills",
+        "url": "https://github.com/liangdabiao/story-handdrawn-video",
+        "cover": "https://raw.githubusercontent.com/liangdabiao/story-handdrawn-video/main/%E5%8A%A8%E7%94%BB.gif"
+      },
+      {
+        "id": "code-video",
+        "name": "Code Video",
+        "description": "Researched hand-drawn and 8-bit promo videos",
+        "category": "Skills",
+        "url": "https://github.com/Changroro/code-video",
+        "cover": "https://raw.githubusercontent.com/Changroro/code-video/main/docs/hero-45s.gif"
+      },
+      {
+        "id": "blender-education-video",
+        "name": "Blender Education Video",
+        "description": "Fact-checked cinematic explainers in Blender",
+        "category": "Skills",
+        "url": "https://github.com/sunxiayi/make-blender-education-video-skill",
+        "cover": null
+      },
+      {
+        "id": "knowledge-explainer",
+        "name": "Knowledge Explainer",
+        "description": "Markdown scripts into explainer animations",
+        "category": "Skills",
+        "url": "https://github.com/znyupup/knowledge-explainer-skill",
+        "cover": "https://raw.githubusercontent.com/znyupup/knowledge-explainer-skill/main/assets/showcases/double_pendulum.gif"
+      },
+      {
+        "id": "typewriter-video",
+        "name": "Typewriter Video",
+        "description": "VS Code-style typing animations",
+        "category": "Skills",
+        "url": "https://github.com/yammaku/typewriter-video",
+        "cover": null
+      },
+      {
+        "id": "remotion-video-director",
+        "name": "Remotion Video Director",
+        "description": "Guided creative direction for Remotion videos",
+        "category": "Skills",
+        "url": "https://github.com/BayramAnnakov/remotion-video-director",
+        "cover": "https://raw.githubusercontent.com/BayramAnnakov/remotion-video-director/main/promo.gif"
+      },
+      {
+        "id": "video-clipforge",
+        "name": "Video ClipForge",
+        "description": "A daily short-video pipeline on HyperFrames",
+        "category": "Skills",
+        "url": "https://github.com/Johnson-Jia/video-clipforge",
+        "cover": "https://raw.githubusercontent.com/Johnson-Jia/video-clipforge/main/docs/images/showcase/cover-daily.png"
+      },
+      {
+        "id": "reelmimic",
+        "name": "ReelMimic",
+        "description": "A new video in the style of one you love",
+        "category": "Skills",
+        "url": "https://github.com/edenfunf/reelmimic",
+        "cover": "https://raw.githubusercontent.com/edenfunf/reelmimic/main/docs/assets/demo-sugar.gif"
+      },
+      {
+        "id": "zack-d-films-generator",
+        "name": "Zack D Films Generator",
+        "description": "3D animated curiosity shorts from a topic",
+        "category": "Skills",
+        "url": "https://github.com/Anil-matcha/zack-d-films-ai-video-generator",
+        "cover": null
+      },
+      {
+        "id": "vidmuse-video-creator",
+        "name": "VidMuse Video Creator",
+        "description": "Images, videos and B-roll through VidMuse",
+        "category": "Skills",
+        "url": "https://github.com/erduo1998-cell/vidmuse-video-creator",
+        "cover": "https://raw.githubusercontent.com/erduo1998-cell/vidmuse-video-creator/main/docs/images/vidmuse-creator-flow.png"
+      },
+      {
+        "id": "3brown1blue",
+        "name": "3brown1blue",
+        "description": "First-principles Manim animation",
+        "category": "Skills",
+        "url": "https://github.com/AmitSubhash/3brown1blue",
+        "cover": "https://raw.githubusercontent.com/AmitSubhash/3brown1blue/main/assets/header.gif"
+      },
+      {
+        "id": "codex-video-short-maker",
+        "name": "Codex Video Short Maker",
+        "description": "Auto-trimmed vertical shorts with captions",
+        "category": "Skills",
+        "url": "https://github.com/Kappaemme-git/codex-video-short-maker-skill",
+        "cover": null
+      },
+      {
+        "id": "story-hand-drawn-remotion",
+        "name": "Story Hand-drawn Remotion",
+        "description": "Stories revealed as sketch, then color",
+        "category": "Skills",
+        "url": "https://github.com/liangdabiao/story-handdrawn-remotion",
+        "cover": "https://raw.githubusercontent.com/liangdabiao/story-handdrawn-remotion/main/%E5%8A%A8%E7%94%BB.gif"
+      },
+      {
+        "id": "self-media-video-packaging",
+        "name": "Self-media Video Packaging",
+        "description": "Motion packaging for talking-head videos",
+        "category": "Skills",
+        "url": "https://github.com/zhouyuechuan2025-ui/ai-self-media-video-packaging-skill",
+        "cover": "https://raw.githubusercontent.com/zhouyuechuan2025-ui/ai-self-media-video-packaging-skill/main/docs/assets/current-demo/title.png"
+      },
+      {
+        "id": "remotion-director",
+        "name": "Remotion Director",
+        "description": "A finished motion piece from a one-line brief",
+        "category": "Skills",
+        "url": "https://github.com/Zane-0x5a/remotion-director",
+        "cover": "https://raw.githubusercontent.com/Zane-0x5a/remotion-director/master/docs/assets/promos/hero-opus-5-5-a-thumb.webp"
+      },
+      {
+        "id": "paper-algorithm",
+        "name": "Paper Algorithm",
+        "description": "One sentence to a voiceover video",
+        "category": "Skills",
+        "url": "https://github.com/TryWorld2026/paper-algorithm",
+        "cover": "https://raw.githubusercontent.com/TryWorld2026/paper-algorithm/main/examples/cordis-paper/cover_4x3.png"
+      },
+      {
+        "id": "video-vox",
+        "name": "Video Vox",
+        "description": "Vox-style Spanish explainer shorts",
+        "category": "Skills",
+        "url": "https://github.com/santmun/video-vox",
+        "cover": null
+      },
+      {
+        "id": "jj-koubo",
+        "name": "JJ Koubo",
+        "description": "Edit talking-head and interview videos locally",
+        "category": "Skills",
+        "url": "https://github.com/darrenli6/JJKoubo",
+        "cover": "https://raw.githubusercontent.com/darrenli6/JJKoubo/master/assets/prd/1.png"
+      },
+      {
+        "id": "onboarding-video-generator",
+        "name": "Onboarding Video Generator",
+        "description": "Column-sized onboarding videos in Remotion",
+        "category": "Skills",
+        "url": "https://github.com/gorkem-bwl/onboarding-video-generator",
+        "cover": null
+      },
+      {
+        "id": "remotion-code-motion-explainer",
+        "name": "Remotion Code Motion Explainer",
+        "description": "Continuous, editable Remotion explainers",
+        "category": "Skills",
+        "url": "https://github.com/vibe-motion/remotion-code-motion-explainer",
+        "cover": "https://raw.githubusercontent.com/vibe-motion/remotion-code-motion-explainer/main/assets/showcase/code-motion-promo.gif"
+      },
+      {
+        "id": "hbg-code-explainer",
+        "name": "HBG Code Explainer",
+        "description": "Chinese dual-voice code explainers",
+        "category": "Skills",
+        "url": "https://github.com/Mr-funny/hbg-douyin-code-explainer-video",
+        "cover": null
+      },
+      {
+        "id": "paint-mv-skills",
+        "name": "Paint MV Skills",
+        "description": "Watercolour lyric music videos",
+        "category": "Skills",
+        "url": "https://github.com/lintsinghua/paint-mv-skills",
+        "cover": "https://raw.githubusercontent.com/lintsinghua/paint-mv-skills/main/demo/cover.jpg"
+      },
+      {
+        "id": "product-demo-director",
+        "name": "Product Demo Director",
+        "description": "Demo films paced to narration",
+        "category": "Skills",
+        "url": "https://github.com/crimeacs/product-demo-director",
+        "cover": "https://raw.githubusercontent.com/crimeacs/product-demo-director/main/docs/assets/product-demo-director-demo.gif"
+      },
+      {
+        "id": "ultrademo",
+        "name": "Ultrademo",
+        "description": "Narrated demos from a live web app",
+        "category": "Skills",
+        "url": "https://github.com/new-xp/ultrademo",
+        "cover": "https://raw.githubusercontent.com/new-xp/ultrademo/main/docs/notion-tracker-2026-07-10.gif"
+      },
+      {
+        "id": "react-bits-video",
+        "name": "React Bits Video",
+        "description": "Flashy videos from React Bits and Remotion",
+        "category": "Skills",
+        "url": "https://github.com/GordenSun/react-bits-video",
+        "cover": "https://raw.githubusercontent.com/GordenSun/react-bits-video/main/examples/raycast-deep-dive-v4/v3-vs-v4-comparison.jpg"
+      },
+      {
+        "id": "reel-video",
+        "name": "Reel Video",
+        "description": "Storyboarded AI clips via Grok",
+        "category": "Skills",
+        "url": "https://github.com/AsadMoulviDev/reel-video",
+        "cover": "https://raw.githubusercontent.com/AsadMoulviDev/reel-video/main/docs/media/hero.gif"
+      },
+      {
+        "id": "claude-gif",
+        "name": "Claude GIF",
+        "description": "Platform-ready GIFs, six ways",
+        "category": "Skills",
+        "url": "https://github.com/AgriciDaniel/claude-gif",
+        "cover": null
+      },
+      {
+        "id": "remotion-guofeng-starter",
+        "name": "Remotion Guofeng Starter",
+        "description": "Chinese paper-cutout poem videos",
+        "category": "Skills",
+        "url": "https://github.com/AllenAI2014/remotion-guofeng-starter",
+        "cover": "https://raw.githubusercontent.com/AllenAI2014/remotion-guofeng-starter/main/docs/preview.png"
+      },
+      {
+        "id": "voxstylehub",
+        "name": "VoxStyleHub",
+        "description": "Vox-style editorial collage videos",
+        "category": "Skills",
+        "url": "https://github.com/Phantomlau3674/voxstylehub-steven",
+        "cover": null
+      },
+      {
+        "id": "ruic-motion-reel",
+        "name": "RuiC Motion Reel",
+        "description": "Code-rendered 15-second motion reels",
+        "category": "Skills",
+        "url": "https://github.com/HRuiCcc/RuiC-motion-reel",
+        "cover": "https://raw.githubusercontent.com/HRuiCcc/RuiC-motion-reel/main/docs/preview/gifs/flow-field.gif"
+      },
+      {
+        "id": "montara",
+        "name": "Montara",
+        "description": "A scriptable, renderer-agnostic video pipeline",
+        "category": "Skills",
+        "url": "https://github.com/abhinavshrivastava950/Montara",
+        "cover": "https://raw.githubusercontent.com/abhinavshrivastava950/Montara/main/demos/posters/11-bg-compare-poster.jpg"
+      },
+      {
+        "id": "aftr",
+        "name": "aftr",
+        "description": "Puppeteer for After Effects",
+        "category": "Skills",
+        "url": "https://github.com/Arman-Luthra/aftr",
+        "cover": "https://raw.githubusercontent.com/Arman-Luthra/aftr/main/docs/hero.png"
+      },
+      {
+        "id": "lipnardo",
+        "name": "Lipnardo",
+        "description": "Batch HeyGen avatar videos",
+        "category": "Skills",
+        "url": "https://github.com/AgriciDaniel/lipnardo",
+        "cover": null
+      },
+      {
+        "id": "framewright",
+        "name": "Framewright",
+        "description": "Short videos made entirely from code",
+        "category": "Skills",
+        "url": "https://github.com/smwbev/framewright",
+        "cover": "https://raw.githubusercontent.com/smwbev/framewright/main/examples/promo/preview.webp"
+      },
+      {
+        "id": "purffle-shorts",
+        "name": "Purffle Shorts",
+        "description": "Faceless YouTube Shorts, open source",
+        "category": "Skills",
+        "url": "https://github.com/Chamanrajragu/purffle-shorts",
+        "cover": "https://raw.githubusercontent.com/Chamanrajragu/purffle-shorts/main/docs/hero.gif"
+      },
+      {
+        "id": "ccvideo",
+        "name": "ccvideo",
+        "description": "Claude-style promos from real captures",
+        "category": "Skills",
+        "url": "https://github.com/AmazingAng/ccvideo",
+        "cover": "https://raw.githubusercontent.com/AmazingAng/ccvideo/main/assets/XApiElon.gif"
+      },
+      {
+        "id": "personal-ip-brand-intro",
+        "name": "Personal IP Brand Intro",
+        "description": "Beat-matched personal brand intros",
+        "category": "Skills",
+        "url": "https://github.com/toufuim/personal-ip-brand-intro-skill",
+        "cover": null
       }
     ]
   },
