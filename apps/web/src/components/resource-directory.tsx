@@ -191,6 +191,9 @@ const DirectoryFilters = ({
     },
   ];
   const active = Boolean(search.filter ?? search.sort);
+  const FilterIcon = search.filter
+    ? FILTER_ICONS[kind][search.filter]
+    : undefined;
 
   return (
     <DropdownMenu>
@@ -202,10 +205,10 @@ const DirectoryFilters = ({
           active && "shadow-outline"
         )}
       >
-        {search.filter && (
+        {search.filter && FilterIcon && (
           <>
-            <span className="max-w-32 truncate">
-              {filterLabels[search.filter]}
+            <span title={filterLabels[search.filter]?.value}>
+              <FilterIcon aria-hidden="true" />
             </span>
             <span aria-hidden="true" className="opacity-60">
               ·
