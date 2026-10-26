@@ -57,6 +57,18 @@ export const FOUNDING_SPONSORS: readonly FoundingSponsor[] = [
     cover: "https://assets.motionvideo.xyz/sponsors/kobra-49303ab0dc.png",
     darkInvert: true,
   },
+  {
+    name: "beUI",
+    url: "https://beui.dev/",
+    logo: "/sponsors/beui.png",
+    cover: "https://beui.dev/api/og",
+  },
+  {
+    name: "Illos",
+    url: "https://illos.dev/",
+    logo: "/sponsors/illos.svg",
+    cover: "https://illos.dev/og/home.jpg",
+  },
 ];
 
 /**
