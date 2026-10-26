@@ -68,6 +68,7 @@ export const FOUNDING_SPONSORS: readonly FoundingSponsor[] = [
     url: "https://illos.dev/",
     logo: "/sponsors/illos.svg",
     cover: "https://illos.dev/og/home.jpg",
+    darkInvert: true,
   },
 ];
 
