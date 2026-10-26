@@ -6,6 +6,7 @@ export const ROUTES = {
   ADMIN_SPONSORSHIPS: "/admin/sponsorships",
   ADMIN_SUBMISSIONS: "/admin/submissions",
   BRAND: "/brand",
+  CHANGELOG: "/changelog",
   CHECKOUT: "/checkout",
   CONTACT: "/contact",
   CREATIVES: "/creatives",
@@ -61,6 +62,7 @@ export const ACCOUNT_PAGES: ReadonlySet<string> = new Set([
 export const STATIC_PAGES: readonly string[] = [
   ROUTES.ABOUT,
   ROUTES.BRAND,
+  ROUTES.CHANGELOG,
   ROUTES.CONTACT,
   ROUTES.PRIVACY,
   ROUTES.REFUNDS,

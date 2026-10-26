@@ -90,6 +90,12 @@ pnpm --filter @motionvideo/web email:dev
 
 The preview server runs on port 3001.
 
+### Changelog entries
+
+Add releases to `apps/web/content/changelog/<slug>.mdx` with `title`, `description`, and an ISO `date` (`YYYY-MM-DD`) in YAML frontmatter. The filename becomes `/{locale}/changelog/<slug>`; the index sorts entries newest first. Entry text is shared in English across locales, while dates and navigation are localized. Write internal links without a locale (for example, `/color/blue`); the MDX renderer adds the reader's locale.
+
+Run `pnpm build` to compile MDX and prerender the localized indexes. Check the entry body in the browser as well as direct navigation to its URL. No new environment variables or database migrations are needed for changelog content.
+
 ### Remotion videos
 
 The videos in `apps/videos` render with Remotion. Open the project in Remotion Studio:

@@ -92,6 +92,17 @@ export default {
       pt: "Marca",
       ru: "Бренд",
     }),
+    changelog: t({
+      en: "Changelog",
+      es: "Novedades",
+      fr: "Journal des modifications",
+      zh: "更新日志",
+      ko: "변경 내역",
+      ja: "更新履歴",
+      de: "Changelog",
+      pt: "Registo de alterações",
+      ru: "Список изменений",
+    }),
     contact: t({
       en: "Contact",
       es: "Contacto",

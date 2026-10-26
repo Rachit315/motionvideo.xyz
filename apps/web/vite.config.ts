@@ -3,6 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
+import { fumadocsMdx } from "fumadocs-mdx/vite";
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
 
@@ -41,6 +42,9 @@ const config = defineConfig({
     intlayer(),
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     tailwindcss(),
+    // Compiles the changelog's MDX entries. Only src/lib/changelog.ts defines
+    // collections, so the macro transform skips every other module.
+    fumadocsMdx({ macro: { include: ["src/lib/changelog.ts"] } }),
     tanstackStart({
       router: {
         routeFileIgnorePattern: "\\.content\\.",

@@ -75,6 +75,8 @@ import { Route as LocaleGalleryColorColorRouteImport } from './routes/$locale/_g
 import { Route as LocaleGalleryModelModelRouteImport } from './routes/$locale/_gallery/model.$model'
 import { Route as LocaleGalleryTypeTypeRouteImport } from './routes/$locale/_gallery/type.$type'
 import { Route as LocaleGalleryVideosSlugRouteImport } from './routes/$locale/_gallery/videos.$slug'
+import { Route as LocalePagesChangelogIndexRouteImport } from './routes/$locale/_pages/changelog/index'
+import { Route as LocalePagesChangelogSlugRouteImport } from './routes/$locale/_pages/changelog/$slug'
 import { Route as LocaleDashboardJobsPostRouteImport } from './routes/$locale/dashboard/jobs/post'
 import { Route as LocaleDashboardSponsorshipsIndexRouteImport } from './routes/$locale/dashboard/sponsorships/index'
 import { Route as LocaleDashboardSponsorshipsNewRouteImport } from './routes/$locale/dashboard/sponsorships/new'
@@ -417,6 +419,18 @@ const LocaleGalleryVideosSlugRoute = LocaleGalleryVideosSlugRouteImport.update({
   path: '/videos/$slug',
   getParentRoute: () => LocaleGalleryRoute,
 } as any)
+const LocalePagesChangelogIndexRoute =
+  LocalePagesChangelogIndexRouteImport.update({
+    id: '/changelog/',
+    path: '/changelog/',
+    getParentRoute: () => LocalePagesRoute,
+  } as any)
+const LocalePagesChangelogSlugRoute =
+  LocalePagesChangelogSlugRouteImport.update({
+    id: '/changelog/$slug',
+    path: '/changelog/$slug',
+    getParentRoute: () => LocalePagesRoute,
+  } as any)
 const LocaleDashboardJobsPostRoute = LocaleDashboardJobsPostRouteImport.update({
   id: '/jobs/post',
   path: '/jobs/post',
@@ -548,8 +562,10 @@ export interface FileRoutesByFullPath {
   '/$locale/model/$model': typeof LocaleGalleryModelModelRouteWithChildren
   '/$locale/type/$type': typeof LocaleGalleryTypeTypeRouteWithChildren
   '/$locale/videos/$slug': typeof LocaleGalleryVideosSlugRoute
+  '/$locale/changelog/$slug': typeof LocalePagesChangelogSlugRoute
   '/$locale/dashboard/jobs/post': typeof LocaleDashboardJobsPostRoute
   '/$locale/dashboard/sponsorships/new': typeof LocaleDashboardSponsorshipsNewRoute
+  '/$locale/changelog/': typeof LocalePagesChangelogIndexRoute
   '/$locale/dashboard/sponsorships/': typeof LocaleDashboardSponsorshipsIndexRoute
   '/$locale/category/$category/': typeof LocaleGalleryCategoryCategoryIndexRoute
   '/$locale/color/$color/': typeof LocaleGalleryColorColorIndexRoute
@@ -614,8 +630,10 @@ export interface FileRoutesByTo {
   '/$locale/tools': typeof LocaleToolsIndexRoute
   '/api/catalog': typeof ApiCatalogIndexRoute
   '/$locale/videos/$slug': typeof LocaleGalleryVideosSlugRoute
+  '/$locale/changelog/$slug': typeof LocalePagesChangelogSlugRoute
   '/$locale/dashboard/jobs/post': typeof LocaleDashboardJobsPostRoute
   '/$locale/dashboard/sponsorships/new': typeof LocaleDashboardSponsorshipsNewRoute
+  '/$locale/changelog': typeof LocalePagesChangelogIndexRoute
   '/$locale/dashboard/sponsorships': typeof LocaleDashboardSponsorshipsIndexRoute
   '/$locale/category/$category': typeof LocaleGalleryCategoryCategoryIndexRoute
   '/$locale/color/$color': typeof LocaleGalleryColorColorIndexRoute
@@ -694,8 +712,10 @@ export interface FileRoutesById {
   '/$locale/_gallery/model/$model': typeof LocaleGalleryModelModelRouteWithChildren
   '/$locale/_gallery/type/$type': typeof LocaleGalleryTypeTypeRouteWithChildren
   '/$locale/_gallery/videos/$slug': typeof LocaleGalleryVideosSlugRoute
+  '/$locale/_pages/changelog/$slug': typeof LocalePagesChangelogSlugRoute
   '/$locale/dashboard/jobs/post': typeof LocaleDashboardJobsPostRoute
   '/$locale/dashboard/sponsorships/new': typeof LocaleDashboardSponsorshipsNewRoute
+  '/$locale/_pages/changelog/': typeof LocalePagesChangelogIndexRoute
   '/$locale/dashboard/sponsorships/': typeof LocaleDashboardSponsorshipsIndexRoute
   '/$locale/_gallery/category/$category/': typeof LocaleGalleryCategoryCategoryIndexRoute
   '/$locale/_gallery/color/$color/': typeof LocaleGalleryColorColorIndexRoute
@@ -773,8 +793,10 @@ export interface FileRouteTypes {
     | '/$locale/model/$model'
     | '/$locale/type/$type'
     | '/$locale/videos/$slug'
+    | '/$locale/changelog/$slug'
     | '/$locale/dashboard/jobs/post'
     | '/$locale/dashboard/sponsorships/new'
+    | '/$locale/changelog/'
     | '/$locale/dashboard/sponsorships/'
     | '/$locale/category/$category/'
     | '/$locale/color/$color/'
@@ -839,8 +861,10 @@ export interface FileRouteTypes {
     | '/$locale/tools'
     | '/api/catalog'
     | '/$locale/videos/$slug'
+    | '/$locale/changelog/$slug'
     | '/$locale/dashboard/jobs/post'
     | '/$locale/dashboard/sponsorships/new'
+    | '/$locale/changelog'
     | '/$locale/dashboard/sponsorships'
     | '/$locale/category/$category'
     | '/$locale/color/$color'
@@ -918,8 +942,10 @@ export interface FileRouteTypes {
     | '/$locale/_gallery/model/$model'
     | '/$locale/_gallery/type/$type'
     | '/$locale/_gallery/videos/$slug'
+    | '/$locale/_pages/changelog/$slug'
     | '/$locale/dashboard/jobs/post'
     | '/$locale/dashboard/sponsorships/new'
+    | '/$locale/_pages/changelog/'
     | '/$locale/dashboard/sponsorships/'
     | '/$locale/_gallery/category/$category/'
     | '/$locale/_gallery/color/$color/'
@@ -1407,6 +1433,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleGalleryVideosSlugRouteImport
       parentRoute: typeof LocaleGalleryRoute
     }
+    '/$locale/_pages/changelog/': {
+      id: '/$locale/_pages/changelog/'
+      path: '/changelog'
+      fullPath: '/$locale/changelog/'
+      preLoaderRoute: typeof LocalePagesChangelogIndexRouteImport
+      parentRoute: typeof LocalePagesRoute
+    }
+    '/$locale/_pages/changelog/$slug': {
+      id: '/$locale/_pages/changelog/$slug'
+      path: '/changelog/$slug'
+      fullPath: '/$locale/changelog/$slug'
+      preLoaderRoute: typeof LocalePagesChangelogSlugRouteImport
+      parentRoute: typeof LocalePagesRoute
+    }
     '/$locale/dashboard/jobs/post': {
       id: '/$locale/dashboard/jobs/post'
       path: '/jobs/post'
@@ -1584,6 +1624,8 @@ interface LocalePagesRouteChildren {
   LocalePagesPrivacyRoute: typeof LocalePagesPrivacyRoute
   LocalePagesRefundsRoute: typeof LocalePagesRefundsRoute
   LocalePagesTermsRoute: typeof LocalePagesTermsRoute
+  LocalePagesChangelogSlugRoute: typeof LocalePagesChangelogSlugRoute
+  LocalePagesChangelogIndexRoute: typeof LocalePagesChangelogIndexRoute
 }
 
 const LocalePagesRouteChildren: LocalePagesRouteChildren = {
@@ -1593,6 +1635,8 @@ const LocalePagesRouteChildren: LocalePagesRouteChildren = {
   LocalePagesPrivacyRoute: LocalePagesPrivacyRoute,
   LocalePagesRefundsRoute: LocalePagesRefundsRoute,
   LocalePagesTermsRoute: LocalePagesTermsRoute,
+  LocalePagesChangelogSlugRoute: LocalePagesChangelogSlugRoute,
+  LocalePagesChangelogIndexRoute: LocalePagesChangelogIndexRoute,
 }
 
 const LocalePagesRouteWithChildren = LocalePagesRoute._addFileChildren(

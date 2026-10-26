@@ -115,7 +115,20 @@ export const faqJsonLd = (locale?: string) =>
 
 /** A page one level below home: its footer link label and app path. */
 export interface BreadcrumbItem {
-  page: "about" | "brand" | "contact" | "privacy" | "refunds" | "terms";
+  page:
+    | "about"
+    | "brand"
+    | "changelog"
+    | "contact"
+    | "privacy"
+    | "refunds"
+    | "terms";
+  path: string;
+}
+
+/** A page below a `BreadcrumbItem`, already named in the page's language. */
+interface ChildCrumb {
+  name: string;
   path: string;
 }
 
@@ -149,9 +162,13 @@ export const videoJsonLd = (
     ),
   });
 
-// Home › <page>, for pages one level below the home page, named in the
+// Home › <page> (› <child>), for pages below the home page, named in the
 // page's language (the footer's link labels).
-export const breadcrumbJsonLd = (current: BreadcrumbItem, locale?: string) => {
+export const breadcrumbJsonLd = (
+  current: BreadcrumbItem,
+  locale?: string,
+  child?: ChildCrumb
+) => {
   const resolved = resolveLocale(locale);
   const crumbs = [
     { name: getIntlayer("json-ld", resolved).home, path: ROUTES.HOME },
@@ -159,6 +176,7 @@ export const breadcrumbJsonLd = (current: BreadcrumbItem, locale?: string) => {
       name: getIntlayer("site-footer", resolved)[current.page],
       path: current.path,
     },
+    ...(child ? [child] : []),
   ];
   return jsonLdScript({
     "@type": "BreadcrumbList",
@@ -170,3 +188,22 @@ export const breadcrumbJsonLd = (current: BreadcrumbItem, locale?: string) => {
     })),
   });
 };
+
+/**
+ * One changelog entry, for its /changelog/$slug page. `inLanguage` is
+ * English on every locale: entries are only written in English.
+ */
+export const changelogEntryJsonLd = (
+  entry: { date: string; description: string; path: string; title: string },
+  locale?: string
+) =>
+  jsonLdScript({
+    "@type": "BlogPosting",
+    author: { "@id": ORGANIZATION_ID },
+    datePublished: entry.date,
+    description: entry.description,
+    headline: entry.title,
+    inLanguage: DEFAULT_LOCALE,
+    publisher: { "@id": ORGANIZATION_ID },
+    url: absoluteUrl(localizedPath(entry.path, resolveLocale(locale))),
+  });
