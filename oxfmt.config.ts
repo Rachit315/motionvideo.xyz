@@ -7,8 +7,10 @@ export default defineConfig({
   // covers its bytes), so the formatter must not rewrite them.
   ignorePatterns: [
     ...(ultracite.ignorePatterns ?? []),
-    "src/components/hairline/*.js",
-    // Standalone Remotion project; snapcn components are vendored as shipped.
-    "launch-video/**",
+    "apps/web/src/components/hairline/*.js",
+    // Evil Charts: vendored from the shadcn registry as shipped.
+    "apps/web/src/components/evilcharts/**",
+    // Remotion project; snapcn components are vendored as shipped.
+    "apps/videos/**",
   ],
 });
