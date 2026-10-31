@@ -12,7 +12,9 @@ import {
   localizedPath,
 } from "@/constants/locales";
 import type { LocaleHeadContext } from "@/constants/locales";
+import { OAUTH_AUTHORIZE_PATH } from "@/constants/oauth";
 import { ROUTES } from "@/constants/routes";
+import { useHydrated } from "@/lib/use-hydrated";
 import { createMetadata } from "@/seo/metadata";
 import { getSignInFeed } from "@/server/sign-in-functions";
 
@@ -28,6 +30,13 @@ const safeRedirect = z
   .startsWith("/")
   .refine((path) => !path.startsWith("//"));
 
+// An OAuth authorize request always carries these. It is detected in the
+// browser, never in `validateSearch`: the signed query must reach the
+// authorization server byte for byte, and any search value this route adds on
+// top of the URL makes the router rewrite (and re-encode) the whole query,
+// which breaks the signature.
+const authorizeParams = ["client_id", "redirect_uri", "response_type", "sig"];
+
 // Direct visits and redirects from account-only pages; elsewhere the header
 // and bookmark buttons open the same form in a dialog. On lg+ the gallery
 // scrolls by in the right half.
@@ -35,10 +44,22 @@ const SignIn = () => {
   const search = routeApi.useSearch();
   const { locale } = routeApi.useParams();
   const feed = routeApi.useLoaderData();
-  // Links from before the locale prefix still come back to the right page.
-  const redirectTo = search.redirect
-    ? ensureLocalizedPath(search.redirect, locale)
-    : localizedPath(ROUTES.DASHBOARD, locale);
+  const hydrated = useHydrated();
+
+  // OAuth flows (MCP clients signing in) bounce through here with the signed
+  // authorize query, and resuming hands it back untouched. The server-rendered
+  // value is a never-read fallback: `callbackURL` is used in click handlers
+  // only.
+  const params = hydrated ? new URLSearchParams(window.location.search) : null;
+  const resumingOAuth =
+    params !== null && authorizeParams.every((key) => params.has(key));
+  let redirectTo = localizedPath(ROUTES.DASHBOARD, locale);
+  if (resumingOAuth) {
+    redirectTo = `${OAUTH_AUTHORIZE_PATH}${window.location.search}`;
+  } else if (search.redirect) {
+    // Links from before the locale prefix still come back to the right page.
+    redirectTo = ensureLocalizedPath(search.redirect, locale);
+  }
   return (
     <div data-no-bottom-blur className="relative grid min-h-svh lg:grid-cols-2">
       {/* Spans the whole page, not just the form's half, so the logo sits

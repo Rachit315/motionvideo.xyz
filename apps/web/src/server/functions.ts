@@ -8,13 +8,9 @@ import { SITE } from "@/constants/site";
 import { contactSchema } from "@/lib/contact";
 
 import { getCurrentSession } from "./auth";
-import {
-  completedCheckout,
-  customerPortalUrl,
-  launchOffer,
-  purchaseStatus,
-} from "./dodo";
+import { completedCheckout } from "./dodo";
 import { sendEmail } from "./email";
+import { planAccessFor } from "./plans";
 import { liveSponsors } from "./sponsorships";
 
 // Every page with sponsor placements loads this; `useSponsors` reads it.
@@ -28,30 +24,26 @@ export const getLandingData = createServerFn({ method: "GET" }).handler(
   }
 );
 
-export const getOffer = createServerFn({ method: "GET" }).handler(() =>
-  launchOffer()
-);
-
+/**
+ * The signed-in account for the dashboard hub; `null` when signed out.
+ * `purchased`: can use the agent skill, through a plan (Pro, or a Business
+ * seat) or the retired Skill Bundle.
+ */
 export const getAccount = createServerFn({ method: "GET" }).handler(
   async () => {
     const session = await getCurrentSession();
     if (!session) {
       return null;
     }
-    const purchase = await purchaseStatus(session.user.email);
-    return { email: session.user.email, ...purchase };
+    const access = await planAccessFor(session.user);
+    return {
+      email: session.user.email,
+      name: session.user.name || null,
+      purchased: access.plan !== null || access.legacySkill,
+      access,
+    };
   }
 );
-
-export const getPortalUrl = createServerFn({ method: "POST" })
-  .validator(z.object({ locale: z.string().optional() }))
-  .handler(async ({ data }) => {
-    const session = await getCurrentSession();
-    if (!session) {
-      throw new Error("Unauthorized");
-    }
-    return customerPortalUrl(session.user.email, data.locale);
-  });
 
 // Dodo's return redirect lands on /welcome with the payment id; the email on
 // that payment is where the buyer's sign-in code goes.
