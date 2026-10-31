@@ -6,6 +6,7 @@ import { Briefcase } from "reicon-react/icons/Briefcase";
 import { Code } from "reicon-react/icons/Code";
 import { Designtools } from "reicon-react/icons/Designtools";
 import { Docs } from "reicon-react/icons/Docs";
+import { DocumentText } from "reicon-react/icons/DocumentText";
 import { Envelope } from "reicon-react/icons/Envelope";
 import { HandHeart } from "reicon-react/icons/HandHeart";
 import { Layout } from "reicon-react/icons/Layout";
@@ -62,6 +63,7 @@ type PagePath =
   | "/motionvideo-mcp"
   | "/motionvideo-skill"
   | "/about"
+  | "/blog"
   | "/brand"
   | "/contact"
   | "/privacy"
@@ -285,6 +287,12 @@ export const CommandMenu = () => {
             "skill.md",
           ]),
           page("/about", content.about.value, <Office aria-hidden="true" />),
+          page(
+            "/blog",
+            content.blog.value,
+            <DocumentText aria-hidden="true" />,
+            ["articles", "guides"]
+          ),
           page(
             "/contact",
             content.contact.value,

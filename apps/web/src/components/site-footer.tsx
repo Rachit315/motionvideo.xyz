@@ -186,6 +186,7 @@ export const SiteFooter = () => {
   const company = [
     [ROUTES.ABOUT, content.about],
     [ROUTES.BRAND, content.brand],
+    [ROUTES.BLOG, content.blog],
     [ROUTES.CONTACT, content.contact],
     [ROUTES.SPONSOR, content.sponsor],
   ] as const;

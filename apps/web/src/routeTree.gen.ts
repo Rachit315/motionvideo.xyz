@@ -54,6 +54,8 @@ import { Route as LocaleAdminFeedbackRouteImport } from './routes/$locale/admin/
 import { Route as LocaleAdminJobsRouteImport } from './routes/$locale/admin/jobs'
 import { Route as LocaleAdminSponsorshipsRouteImport } from './routes/$locale/admin/sponsorships'
 import { Route as LocaleAdminSubmissionsRouteImport } from './routes/$locale/admin/submissions'
+import { Route as LocaleBlogIndexRouteImport } from './routes/$locale/blog/index'
+import { Route as LocaleBlogSlugRouteImport } from './routes/$locale/blog/$slug'
 import { Route as LocaleCreativesIndexRouteImport } from './routes/$locale/creatives/index'
 import { Route as LocaleCreativesCategoryRouteImport } from './routes/$locale/creatives/$category'
 import { Route as LocaleCustomizeIndexRouteImport } from './routes/$locale/customize/index'
@@ -334,6 +336,16 @@ const LocaleAdminSubmissionsRoute = LocaleAdminSubmissionsRouteImport.update({
   id: '/submissions',
   path: '/submissions',
   getParentRoute: () => LocaleAdminRoute,
+} as any)
+const LocaleBlogIndexRoute = LocaleBlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleBlogSlugRoute = LocaleBlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => LocaleRouteRoute,
 } as any)
 const LocaleCreativesIndexRoute = LocaleCreativesIndexRouteImport.update({
   id: '/',
@@ -677,6 +689,7 @@ export interface FileRoutesByFullPath {
   '/$locale/admin/jobs': typeof LocaleAdminJobsRoute
   '/$locale/admin/sponsorships': typeof LocaleAdminSponsorshipsRoute
   '/$locale/admin/submissions': typeof LocaleAdminSubmissionsRoute
+  '/$locale/blog/$slug': typeof LocaleBlogSlugRoute
   '/$locale/creatives/$category': typeof LocaleCreativesCategoryRoute
   '/$locale/customize/$slug': typeof LocaleCustomizeSlugRoute
   '/$locale/dashboard/billing': typeof LocaleDashboardBillingRoute
@@ -701,6 +714,7 @@ export interface FileRoutesByFullPath {
   '/api/webhook/dodo': typeof ApiWebhookDodoRoute
   '/$locale/': typeof LocaleGalleryIndexRoute
   '/$locale/admin/': typeof LocaleAdminIndexRoute
+  '/$locale/blog/': typeof LocaleBlogIndexRoute
   '/$locale/creatives/': typeof LocaleCreativesIndexRoute
   '/$locale/customize/': typeof LocaleCustomizeIndexRoute
   '/$locale/dashboard/': typeof LocaleDashboardIndexRoute
@@ -770,6 +784,7 @@ export interface FileRoutesByTo {
   '/$locale/admin/jobs': typeof LocaleAdminJobsRoute
   '/$locale/admin/sponsorships': typeof LocaleAdminSponsorshipsRoute
   '/$locale/admin/submissions': typeof LocaleAdminSubmissionsRoute
+  '/$locale/blog/$slug': typeof LocaleBlogSlugRoute
   '/$locale/creatives/$category': typeof LocaleCreativesCategoryRoute
   '/$locale/customize/$slug': typeof LocaleCustomizeSlugRoute
   '/$locale/dashboard/billing': typeof LocaleDashboardBillingRoute
@@ -792,6 +807,7 @@ export interface FileRoutesByTo {
   '/api/mcp/featured': typeof ApiMcpFeaturedRoute
   '/api/webhook/dodo': typeof ApiWebhookDodoRoute
   '/$locale/admin': typeof LocaleAdminIndexRoute
+  '/$locale/blog': typeof LocaleBlogIndexRoute
   '/$locale/creatives': typeof LocaleCreativesIndexRoute
   '/$locale/customize': typeof LocaleCustomizeIndexRoute
   '/$locale/dashboard': typeof LocaleDashboardIndexRoute
@@ -869,6 +885,7 @@ export interface FileRoutesById {
   '/$locale/admin/jobs': typeof LocaleAdminJobsRoute
   '/$locale/admin/sponsorships': typeof LocaleAdminSponsorshipsRoute
   '/$locale/admin/submissions': typeof LocaleAdminSubmissionsRoute
+  '/$locale/blog/$slug': typeof LocaleBlogSlugRoute
   '/$locale/creatives/$category': typeof LocaleCreativesCategoryRoute
   '/$locale/customize/$slug': typeof LocaleCustomizeSlugRoute
   '/$locale/dashboard/billing': typeof LocaleDashboardBillingRoute
@@ -893,6 +910,7 @@ export interface FileRoutesById {
   '/api/webhook/dodo': typeof ApiWebhookDodoRoute
   '/$locale/_gallery/': typeof LocaleGalleryIndexRoute
   '/$locale/admin/': typeof LocaleAdminIndexRoute
+  '/$locale/blog/': typeof LocaleBlogIndexRoute
   '/$locale/creatives/': typeof LocaleCreativesIndexRoute
   '/$locale/customize/': typeof LocaleCustomizeIndexRoute
   '/$locale/dashboard/': typeof LocaleDashboardIndexRoute
@@ -973,6 +991,7 @@ export interface FileRouteTypes {
     | '/$locale/admin/jobs'
     | '/$locale/admin/sponsorships'
     | '/$locale/admin/submissions'
+    | '/$locale/blog/$slug'
     | '/$locale/creatives/$category'
     | '/$locale/customize/$slug'
     | '/$locale/dashboard/billing'
@@ -997,6 +1016,7 @@ export interface FileRouteTypes {
     | '/api/webhook/dodo'
     | '/$locale/'
     | '/$locale/admin/'
+    | '/$locale/blog/'
     | '/$locale/creatives/'
     | '/$locale/customize/'
     | '/$locale/dashboard/'
@@ -1066,6 +1086,7 @@ export interface FileRouteTypes {
     | '/$locale/admin/jobs'
     | '/$locale/admin/sponsorships'
     | '/$locale/admin/submissions'
+    | '/$locale/blog/$slug'
     | '/$locale/creatives/$category'
     | '/$locale/customize/$slug'
     | '/$locale/dashboard/billing'
@@ -1088,6 +1109,7 @@ export interface FileRouteTypes {
     | '/api/mcp/featured'
     | '/api/webhook/dodo'
     | '/$locale/admin'
+    | '/$locale/blog'
     | '/$locale/creatives'
     | '/$locale/customize'
     | '/$locale/dashboard'
@@ -1164,6 +1186,7 @@ export interface FileRouteTypes {
     | '/$locale/admin/jobs'
     | '/$locale/admin/sponsorships'
     | '/$locale/admin/submissions'
+    | '/$locale/blog/$slug'
     | '/$locale/creatives/$category'
     | '/$locale/customize/$slug'
     | '/$locale/dashboard/billing'
@@ -1188,6 +1211,7 @@ export interface FileRouteTypes {
     | '/api/webhook/dodo'
     | '/$locale/_gallery/'
     | '/$locale/admin/'
+    | '/$locale/blog/'
     | '/$locale/creatives/'
     | '/$locale/customize/'
     | '/$locale/dashboard/'
@@ -1560,6 +1584,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/$locale/admin/submissions'
       preLoaderRoute: typeof LocaleAdminSubmissionsRouteImport
       parentRoute: typeof LocaleAdminRoute
+    }
+    '/$locale/blog/': {
+      id: '/$locale/blog/'
+      path: '/blog'
+      fullPath: '/$locale/blog/'
+      preLoaderRoute: typeof LocaleBlogIndexRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/blog/$slug': {
+      id: '/$locale/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/$locale/blog/$slug'
+      preLoaderRoute: typeof LocaleBlogSlugRouteImport
+      parentRoute: typeof LocaleRouteRoute
     }
     '/$locale/creatives/': {
       id: '/$locale/creatives/'
@@ -2268,10 +2306,12 @@ interface LocaleRouteRouteChildren {
   LocaleTemplatesRoute: typeof LocaleTemplatesRouteWithChildren
   LocaleToolsRoute: typeof LocaleToolsRouteWithChildren
   LocaleWelcomeRoute: typeof LocaleWelcomeRoute
+  LocaleBlogSlugRoute: typeof LocaleBlogSlugRoute
   LocaleDocsSplatRoute: typeof LocaleDocsSplatRoute
   LocaleJobsTypeRoute: typeof LocaleJobsTypeRoute
   LocaleJobsPostRoute: typeof LocaleJobsPostRoute
   LocaleSponsorshipsNewRoute: typeof LocaleSponsorshipsNewRoute
+  LocaleBlogIndexRoute: typeof LocaleBlogIndexRoute
   LocaleDocsIndexRoute: typeof LocaleDocsIndexRoute
   LocaleJobsIndexRoute: typeof LocaleJobsIndexRoute
   LocaleSponsorshipsIndexRoute: typeof LocaleSponsorshipsIndexRoute
@@ -2304,10 +2344,12 @@ const LocaleRouteRouteChildren: LocaleRouteRouteChildren = {
   LocaleTemplatesRoute: LocaleTemplatesRouteWithChildren,
   LocaleToolsRoute: LocaleToolsRouteWithChildren,
   LocaleWelcomeRoute: LocaleWelcomeRoute,
+  LocaleBlogSlugRoute: LocaleBlogSlugRoute,
   LocaleDocsSplatRoute: LocaleDocsSplatRoute,
   LocaleJobsTypeRoute: LocaleJobsTypeRoute,
   LocaleJobsPostRoute: LocaleJobsPostRoute,
   LocaleSponsorshipsNewRoute: LocaleSponsorshipsNewRoute,
+  LocaleBlogIndexRoute: LocaleBlogIndexRoute,
   LocaleDocsIndexRoute: LocaleDocsIndexRoute,
   LocaleJobsIndexRoute: LocaleJobsIndexRoute,
   LocaleSponsorshipsIndexRoute: LocaleSponsorshipsIndexRoute,

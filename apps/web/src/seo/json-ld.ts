@@ -135,12 +135,45 @@ export const faqJsonLd = (locale?: string) =>
     })),
   });
 
+// One blog post. Posts are written in English whichever locale serves them;
+// the URL is the page's own (locale-prefixed) address.
+export const blogPostingJsonLd = (
+  post: { slug: string; title: string; description: string; date: string },
+  locale?: string
+) => {
+  const url = absoluteUrl(
+    localizedPath(`${ROUTES.BLOG}/${post.slug}`, resolveLocale(locale))
+  );
+  return jsonLdScript({
+    "@type": "BlogPosting",
+    author: { "@id": ORGANIZATION_ID },
+    dateModified: post.date,
+    datePublished: post.date,
+    description: post.description,
+    headline: post.title,
+    image: absoluteUrl("/og.jpg"),
+    inLanguage: "en",
+    mainEntityOfPage: url,
+    publisher: { "@id": ORGANIZATION_ID },
+    url,
+  });
+};
+
 /**
  * One crumb below home and its app path: a footer page (`page`, labelled in
  * the page's language) or a catalog entry named by its own data (`name`).
  */
 export type BreadcrumbItem = { path: string } & (
-  | { page: "about" | "brand" | "contact" | "privacy" | "refunds" | "terms" }
+  | {
+      page:
+        | "about"
+        | "blog"
+        | "brand"
+        | "contact"
+        | "privacy"
+        | "refunds"
+        | "terms";
+    }
   | { name: string }
 );
 
