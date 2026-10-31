@@ -24,10 +24,10 @@ const variantOf = async (
   tree: await docsSource.serializePageTree(docsSource.getPageTree(locale)),
 });
 
-// The page at /docs/<slugs> in English plus every locale with translated
-// docs (this page or any other, since the sidebar lists every title). The
-// locale isn't in the URL, so the client picks with `useLocale()` and falls
-// back to English.
+// The page at /$locale/docs/<slugs> in English plus every locale with
+// translated docs (this page or any other, since the sidebar lists every
+// title). The client picks the URL's locale with `useLocale()` and falls back
+// to English.
 export const getDocsPage = createServerFn({ method: "GET" })
   .validator(z.array(z.string()))
   .handler(async ({ data: slugs }) => {

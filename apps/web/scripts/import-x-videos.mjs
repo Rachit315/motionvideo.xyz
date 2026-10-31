@@ -11,7 +11,7 @@
 // gist, a gallery). Every video needs a prompt or a skill, so a source with
 // neither is rejected. Posts already in the catalog are skipped, so the list
 // can keep growing; find new posts with `pnpm catalog:discover`. New videos are
-// spread evenly through the default (popular) order. Run `pnpm assets:mirror`
+// spread evenly through the default (featured) order. Run `pnpm assets:mirror`
 // afterwards to move the media onto assets.motionvideo.xyz.
 import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -27,6 +27,7 @@ import {
   MOTION_CATEGORIES,
   MOTION_MODELS,
 } from "../src/lib/motion-catalog.ts";
+import { paletteOf } from "./palette.mjs";
 
 const run = promisify(execFile);
 const catalogPath = fileURLToPath(
@@ -209,7 +210,10 @@ const buildVideo = async (source) => {
   );
   const handle = status.author.screen_name;
   const prompt = findPrompt(source, conversation);
-  const blur = await blurOf(media.thumbnail_url);
+  const [blur, colors] = await Promise.all([
+    blurOf(media.thumbnail_url),
+    paletteOf(preview.url),
+  ]);
   const video = {
     slug: `${handle.toLowerCase()}-${createHash("sha1").update(status.id).digest("hex").slice(0, 6)}`,
     title: source.title,
@@ -232,6 +236,9 @@ const buildVideo = async (source) => {
     height: media.height,
     tweetUrl: `https://x.com/${handle}/status/${status.id}`,
   });
+  if (colors) {
+    video.colors = colors;
+  }
   if (prompt) {
     video.tags.push("prompt");
     video.prompt = prompt;
@@ -255,8 +262,9 @@ const catalog = JSON.parse(await readFile(catalogPath, "utf-8"));
 const sources = z
   .array(sourceSchema)
   .parse(JSON.parse(await readFile(sourcesPath, "utf-8")));
+// Removed duplicates count as known, so their posts are never re-imported.
 const known = new Set(
-  catalog.videos.map(
+  [...catalog.videos, ...(catalog.removed ?? [])].map(
     (video) => video.tweetUrl?.match(/status\/(?<id>\d+)/u)?.groups.id
   )
 );
@@ -299,7 +307,7 @@ videos.push(...added.slice(next));
 if (added.length > 0) {
   await writeFile(
     catalogPath,
-    `${JSON.stringify({ importedAt: new Date().toISOString(), videos }, null, 2)}\n`
+    `${JSON.stringify({ ...catalog, importedAt: new Date().toISOString(), videos }, null, 2)}\n`
   );
 }
 console.log(

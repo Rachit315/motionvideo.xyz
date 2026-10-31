@@ -1,41 +1,95 @@
-import { notFound } from "@tanstack/react-router";
+import { notFound, redirect } from "@tanstack/react-router";
+import { getIntlayer } from "intlayer";
 
+import { DEFAULT_LOCALE, isLocale } from "@/constants/locales";
 import catalog from "@/data/motion-catalog.json";
-import { filterMotionVideos } from "@/lib/motion-catalog";
+import { MOTION_COLORS, filterMotionVideos } from "@/lib/motion-catalog";
 import type { MotionFilters, MotionVideo } from "@/lib/motion-catalog";
 import { videoJsonLd } from "@/seo/json-ld";
 import { createMetadata } from "@/seo/metadata";
 
-// Loader and head shared by the video overlay routes: `/videos/$slug` over
-// Discover and `/category/$category/videos/$slug` over a category page.
+// Shared by the gallery routes: the video overlays' loader and head
+// (`/videos/$slug` over Discover, `/category/$category/videos/$slug` over a
+// category page…) and which colours have a page of their own.
 const videos: MotionVideo[] = catalog.videos;
 
-export const loadMotionVideo = ({ params }: { params: { slug: string } }) => {
+// A colour page with only a handful of videos is too thin to be worth a URL.
+const MIN_COLOR_PAGE_VIDEOS = 6;
+
+/** The named colours with enough videos for a page, `/color/$color`. */
+export const COLOR_PAGES = MOTION_COLORS.filter(
+  (color) =>
+    filterMotionVideos(videos, { color: color.hex }).length >=
+    MIN_COLOR_PAGE_VIDEOS
+);
+
+// Duplicates removed by `pnpm catalog:remove`, each pointing at the video it
+// copied (which may itself have been removed later, hence the loop below).
+const duplicateOf = new Map(
+  catalog.removed.map((entry) => [entry.slug, entry.duplicateOf])
+);
+
+export const loadMotionVideo = ({
+  params,
+}: {
+  params: { locale: string; slug: string };
+}) => {
   const video = videos.find((entry) => entry.slug === params.slug);
-  if (!video) {
-    throw notFound();
+  if (video) {
+    return { video };
   }
-  return { video };
+  // A removed duplicate's old URL (shared, indexed) moves to the original.
+  let target = duplicateOf.get(params.slug);
+  while (target && duplicateOf.has(target)) {
+    target = duplicateOf.get(target);
+  }
+  if (target) {
+    throw redirect({
+      to: "/$locale/videos/$slug",
+      params: { locale: params.locale, slug: target },
+      statusCode: 301,
+    });
+  }
+  throw notFound();
 };
 
-// Both overlay URLs show the same video, so both point at `/videos/$slug`;
-// structured data makes the video one citable entity per page.
+/** Fills a translated template's `{key}` placeholders. */
+export const fillTemplate = (
+  template: string,
+  values: Record<string, string>
+) =>
+  template.replaceAll(
+    /\{(?<key>\w+)\}/gu,
+    (match, key: string) => values[key] ?? match
+  );
+
+// Every overlay URL of a video shares the canonical `/$locale/videos/$slug`
+// (set on the locale layout); structured data makes the video one citable
+// entity per page.
 export const motionVideoHead = ({
   loaderData,
   params,
 }: {
   loaderData?: { video: MotionVideo };
-  params: { slug: string };
-}) => ({
-  ...createMetadata({
-    canonical: `/videos/${params.slug}`,
-    title: loaderData?.video.title ?? "Motion video",
-    description: loaderData
-      ? `${loaderData.video.title} by @${loaderData.video.handle}. Watch the motion video${loaderData.video.prompt ? " and copy the prompt behind it" : ""} on MotionVideo.`
-      : "A motion video on MotionVideo.",
-  }),
-  scripts: loaderData ? [videoJsonLd(loaderData.video)] : [],
-});
+  params: { locale: string; slug: string };
+}) => {
+  const locale = isLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
+  const meta = getIntlayer("gallery-meta", locale).video;
+  const video = loaderData?.video;
+  const description = video
+    ? fillTemplate(
+        video.prompt ? meta.descriptionWithPrompt : meta.description,
+        { title: video.title, handle: video.handle }
+      )
+    : meta.fallbackDescription;
+  return {
+    ...createMetadata({
+      title: video?.title ?? meta.fallbackTitle,
+      description,
+    }),
+    scripts: video ? [videoJsonLd(video, description, locale)] : [],
+  };
+};
 
 /**
  * The videos before and after `slug` in the grid behind the overlay (same

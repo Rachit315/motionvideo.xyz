@@ -1,9 +1,10 @@
-import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { useIntlayer } from "react-intlayer";
+import { useIntlayer, useLocale } from "react-intlayer";
 import { Lock } from "reicon-react/icons/Lock";
 
+import { LocalizedLink as Link } from "@/components/localized-link";
 import { buttonVariants } from "@/components/ui/button";
+import { localizedPath } from "@/constants/locales";
 import { PLAN_PRICE_CENTS } from "@/constants/plans";
 import { formatUsd } from "@/constants/pricing";
 import { ROUTES } from "@/constants/routes";
@@ -31,6 +32,7 @@ export const LockedPrompt = ({
   track: Record<`data-track${string}`, string>;
 }) => {
   const content = useIntlayer("locked-prompt");
+  const { locale } = useLocale();
   return (
     <div className="bg-muted flex flex-col items-start gap-3 rounded-xl p-4">
       <span className="flex items-center gap-2 text-sm font-medium text-pretty">
@@ -55,7 +57,7 @@ export const LockedPrompt = ({
       {!signedIn && (
         <Link
           to={ROUTES.SIGN_IN}
-          search={{ redirect }}
+          search={{ redirect: localizedPath(redirect, locale) }}
           className="text-muted-foreground hover:text-foreground text-xs underline underline-offset-4 transition-colors"
         >
           {signInReason}

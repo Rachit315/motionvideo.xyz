@@ -2,43 +2,65 @@ import { Slider as SliderPrimitive } from "@base-ui/react/slider";
 
 import { cn } from "@/lib/utils";
 
-// A single-thumb slider: `onValueChange` gets the one number back.
+/**
+ * Base UI slider in the app's styling: a muted track filled with primary up
+ * to each thumb. Restyle parts through `data-slot` (`slider-track`,
+ * `slider-range`, `slider-thumb`) from `className`. `label` names the thumbs
+ * and `getAriaValueText` voices their values for assistive tech (the root's
+ * own aria props don't reach them).
+ */
 const Slider = ({
   className,
+  defaultValue,
+  value,
   min = 0,
   max = 100,
+  label,
   getAriaValueText,
   ...props
-}: SliderPrimitive.Root.Props<number> &
-  Pick<SliderPrimitive.Thumb.Props, "getAriaValueText">) => (
-  <SliderPrimitive.Root
-    data-slot="slider"
-    className={cn(
-      "data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full",
-      className
-    )}
-    min={min}
-    max={max}
-    thumbAlignment="edge"
-    {...props}
-  >
-    <SliderPrimitive.Control className="relative flex w-full touch-none items-center py-1.5 select-none data-disabled:opacity-50 data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-40 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col">
-      <SliderPrimitive.Track
-        data-slot="slider-track"
-        className="bg-muted relative grow overflow-hidden rounded-full select-none data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5"
-      >
-        <SliderPrimitive.Indicator
-          data-slot="slider-range"
-          className="bg-primary select-none data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
-        />
-      </SliderPrimitive.Track>
-      <SliderPrimitive.Thumb
-        data-slot="slider-thumb"
-        getAriaValueText={getAriaValueText}
-        className="border-primary ring-ring/50 bg-background relative block size-4 shrink-0 rounded-full border-2 shadow-sm transition-[color,box-shadow] select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3 data-disabled:pointer-events-none data-disabled:opacity-50"
-      />
-    </SliderPrimitive.Control>
-  </SliderPrimitive.Root>
-);
+}: SliderPrimitive.Root.Props & { label?: string } & Pick<
+    SliderPrimitive.Thumb.Props,
+    "getAriaValueText"
+  >) => {
+  // One thumb per value: a range for array values, else a single thumb.
+  const initial = value ?? defaultValue;
+  const thumbs = Array.isArray(initial) ? initial : [initial];
+  return (
+    <SliderPrimitive.Root
+      data-slot="slider"
+      className={cn("data-horizontal:w-full", className)}
+      defaultValue={defaultValue}
+      value={value}
+      min={min}
+      max={max}
+      thumbAlignment="edge"
+      {...props}
+    >
+      <SliderPrimitive.Control className="relative flex w-full touch-none items-center select-none data-disabled:opacity-50">
+        <SliderPrimitive.Track
+          data-slot="slider-track"
+          className="bg-muted relative h-1.5 w-full grow overflow-hidden rounded-full select-none"
+        >
+          <SliderPrimitive.Indicator
+            data-slot="slider-range"
+            className="bg-primary select-none"
+          />
+        </SliderPrimitive.Track>
+        {thumbs.map((_, index) => (
+          <SliderPrimitive.Thumb
+            // Thumbs are positional: index is their identity.
+            // oxlint-disable-next-line react/no-array-index-key
+            key={index}
+            index={index}
+            data-slot="slider-thumb"
+            getAriaLabel={label ? () => label : undefined}
+            getAriaValueText={getAriaValueText}
+            className="ring-ring/50 relative block size-4 shrink-0 rounded-full border-2 border-white bg-white shadow-[0_0_0_1px_rgb(0_0_0/0.3),0_1px_3px_rgb(0_0_0/0.4)] transition-[box-shadow] select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3"
+          />
+        ))}
+      </SliderPrimitive.Control>
+    </SliderPrimitive.Root>
+  );
+};
 
 export { Slider };

@@ -269,7 +269,7 @@ const DialSliders = ({
             </span>
           </div>
           <Slider
-            aria-labelledby={`${id}-${dial}`}
+            label={content.dials[dial].value}
             value={dials[dial]}
             min={0}
             max={DIAL_STOPS - 1}
@@ -277,7 +277,12 @@ const DialSliders = ({
             getAriaValueText={(_, stop) =>
               content.stops[dial][stop]?.value ?? String(stop)
             }
-            onValueChange={(stop) => onChange({ ...dials, [dial]: stop })}
+            onValueChange={(stop) =>
+              onChange({
+                ...dials,
+                [dial]: Array.isArray(stop) ? stop[0] : stop,
+              })
+            }
           />
         </Field>
       ))}

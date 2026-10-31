@@ -4,6 +4,7 @@ import { env } from "cloudflare:workers";
 import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 
+import { DEFAULT_LOCALE, localizedPath } from "@/constants/locales";
 import { MCP_RESOURCE, MCP_SCOPE } from "@/constants/oauth";
 import { absoluteUrl } from "@/constants/url";
 import { findBookmarkItem } from "@/lib/bookmark-catalog";
@@ -38,7 +39,9 @@ const handleBookmarks = requireMcpAuth(
               id: item.video.slug,
               kind: item.kind,
               title: item.video.title,
-              url: absoluteUrl(`/videos/${item.video.slug}`),
+              url: absoluteUrl(
+                localizedPath(`/videos/${item.video.slug}`, DEFAULT_LOCALE)
+              ),
             }
           : {
               category: item.entry.category,

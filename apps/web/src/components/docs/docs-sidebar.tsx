@@ -1,7 +1,8 @@
-import { Link } from "@tanstack/react-router";
 import type * as PageTree from "fumadocs-core/page-tree";
 import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
+
+import { LocalizedLink as Link } from "@/components/localized-link";
 
 interface NavSection {
   id: string;

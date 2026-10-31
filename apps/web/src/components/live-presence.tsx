@@ -191,6 +191,9 @@ export const LivePresenceProvider = ({ children }: { children: ReactNode }) => {
         }
       }, PING_INTERVAL);
       opened.addEventListener("open", () => {
+        if (stopped) {
+          return;
+        }
         retry = 1000;
         sendPresence({ t: "page", p: currentPath });
       });
@@ -207,7 +210,14 @@ export const LivePresenceProvider = ({ children }: { children: ReactNode }) => {
     return () => {
       stopped = true;
       clearTimeout(timer);
-      socket?.close(1000, "unmount");
+      const current = socket;
+      // Closing mid-handshake logs "closed before the connection is
+      // established" (dev StrictMode remounts do this): close once open.
+      if (current?.readyState === WebSocket.CONNECTING) {
+        current.addEventListener("open", () => current.close(1000, "unmount"));
+      } else {
+        current?.close(1000, "unmount");
+      }
     };
   }, []);
 

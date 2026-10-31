@@ -199,7 +199,7 @@ export const saveJobPost = createServerFn({ method: "POST" })
 
 /** Dodo checkout for one of the user's unpaid drafts. */
 export const startJobCheckout = createServerFn({ method: "POST" })
-  .validator(z.object({ id: idSchema }))
+  .validator(z.object({ id: idSchema, locale: z.string().optional() }))
   .handler(async ({ data }) => {
     const session = await requireSession();
     const [row] = await drizzle(env.DB)
@@ -212,10 +212,15 @@ export const startJobCheckout = createServerFn({ method: "POST" })
     if (!row || row.status !== "draft") {
       throw new Error("Not an unpaid draft");
     }
-    return createJobCheckoutUrl(row.plan, data.id, {
-      email: session.user.email,
-      userId: session.user.id,
-    });
+    return createJobCheckoutUrl(
+      row.plan,
+      data.id,
+      {
+        email: session.user.email,
+        userId: session.user.id,
+      },
+      data.locale
+    );
   });
 
 /** A post as the admin review queue sees it. */

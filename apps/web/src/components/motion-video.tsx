@@ -1,5 +1,4 @@
 import { Dialog } from "@base-ui/react/dialog";
-import { Link } from "@tanstack/react-router";
 import MediaThemeSutro from "player.style/sutro/react";
 import {
   Fragment,
@@ -26,6 +25,8 @@ import { Xmark } from "reicon-react/icons/Xmark";
 import { BookmarkButton } from "@/components/bookmark-button";
 import { CopyIcon } from "@/components/copy-icon";
 import { CopyPromptButton } from "@/components/copy-prompt-button";
+import { LocalizedLink as Link } from "@/components/localized-link";
+import { SimilarVideos } from "@/components/similar-videos";
 import { SponsoredCard } from "@/components/sponsored-card";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -122,6 +123,15 @@ const VideoLink = ({
         <Link
           to="/category/$category/videos/$slug"
           params={{ category: scope.category, slug }}
+          {...shared}
+        />
+      );
+    }
+    case "color": {
+      return (
+        <Link
+          to="/color/$color/videos/$slug"
+          params={{ color: scope.color.slug, slug }}
           {...shared}
         />
       );
@@ -508,6 +518,46 @@ const MakingRows = ({ video }: { video: MotionVideo }) => {
         </DetailRow>
       )}
     </>
+  );
+};
+
+/**
+ * The video's dominant colours as overlapping swatches. Each one opens
+ * Discover filtered to that colour, as picking it in the colour filter would.
+ */
+const ColorsRow = ({ colors }: { colors: string[] }) => {
+  const content = useIntlayer("motion-gallery");
+  // One tooltip for every swatch: it slides between them and morphs its
+  // label, as on the sponsor slots, instead of closing and reopening.
+  const tooltip = useMemo(() => createTooltipHandle<ReactNode>(), []);
+  return (
+    <DetailRow label={content.colors}>
+      <TooltipProvider>
+        <span className="flex -space-x-1.5 py-0.5">
+          {colors.map((hex) => (
+            <TooltipTrigger
+              key={hex}
+              delay={TOOLTIP_DELAY}
+              handle={tooltip}
+              payload={`#${hex.toUpperCase()}`}
+              render={
+                <Link
+                  to="/"
+                  search={{ color: hex }}
+                  aria-label={`${content.showColor.value} #${hex.toUpperCase()}`}
+                  // The inset ring edges the swatch so black reads on a dark
+                  // ground (and white on a light one); the outer ring parts
+                  // the overlapping swatches.
+                  className="ring-background inset-ring-foreground/20 focus-visible:ring-ring/50 relative size-5 rounded-full ring-2 inset-ring transition-transform duration-150 outline-none hover:z-10 hover:scale-110 focus-visible:z-10 focus-visible:ring-3 motion-reduce:transition-none"
+                  style={{ backgroundColor: `#${hex}` }}
+                />
+              }
+            />
+          ))}
+        </span>
+        <SharedTooltip handle={tooltip} />
+      </TooltipProvider>
+    </DetailRow>
   );
 };
 
@@ -923,7 +973,9 @@ export const DetailOverlay = ({
         <Dialog.Backdrop className="bg-background/80 fixed inset-0 z-50 backdrop-blur-xl" />
         <Dialog.Popup className="fixed inset-0 z-50 overflow-y-auto outline-none lg:overflow-hidden">
           <div className="grid min-h-full lg:h-full lg:grid-cols-[minmax(0,1fr)_22rem]">
-            <div className="relative min-h-[70svh] lg:min-h-0">
+            {/* Isolated, so the media's own layers stay under the
+                similar-video preview floating over it. */}
+            <div className="relative isolate min-h-[70svh] lg:min-h-0">
               <Dialog.Close
                 tabIndex={-1}
                 aria-hidden="true"
@@ -1046,11 +1098,14 @@ const SkillSection = ({ video }: { video: MotionVideo }) => {
 export const MotionVideoOverlay = ({
   video,
   onClose,
+  openVideo,
   previous: goPrevious,
   next: goNext,
 }: {
   video: MotionVideo;
   onClose: () => void;
+  /** Opens another video in place; shows the similar videos when given. */
+  openVideo?: (slug: string) => void;
   /** Opens the previous/next video of the grid behind, when there is one. */
   previous?: () => void;
   next?: () => void;
@@ -1204,6 +1259,9 @@ export const MotionVideoOverlay = ({
           </DetailRow>
         )}
         <MakingRows video={video} />
+        {video.colors && video.colors.length > 0 && (
+          <ColorsRow colors={video.colors} />
+        )}
       </dl>
       {/* A skill video without a prompt shows only the skill. */}
       {(video.prompt || !video.skillUrl) && (
@@ -1211,6 +1269,13 @@ export const MotionVideoOverlay = ({
       )}
       {video.skillUrl && (
         <SkillSection key={`${video.slug}-skill`} video={video} />
+      )}
+      {openVideo && (
+        <SimilarVideos
+          key={`${video.slug}-similar`}
+          video={video}
+          onOpen={(slug) => stepPlayer(() => openVideo(slug))}
+        />
       )}
       {/* Quiet, at the bottom: questions, credit or removal requests
           land on /contact with this video already filled in. */}

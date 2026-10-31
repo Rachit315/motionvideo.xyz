@@ -4,6 +4,7 @@ import type { CheckoutSessionCreateParams } from "dodopayments/resources/checkou
 
 import { JOB_PLANS } from "@/constants/jobs";
 import type { JobPlan } from "@/constants/jobs";
+import { DEFAULT_LOCALE, isLocale, localizedPath } from "@/constants/locales";
 import type { Plan, PlanBilling } from "@/constants/plans";
 import { ROUTES } from "@/constants/routes";
 import { SPONSOR_BILLINGS, SPONSOR_TIERS } from "@/constants/sponsors";
@@ -22,6 +23,12 @@ export const getDodo = (): DodoPayments => {
     webhookKey: env.DODO_PAYMENTS_WEBHOOK_KEY,
   });
   return client;
+};
+
+/** Absolute app URL for the browser redirects Dodo sends buyers back to. */
+const appUrl = (path: string, locale?: string): string => {
+  const resolved = isLocale(locale) ? locale : DEFAULT_LOCALE;
+  return `${env.BETTER_AUTH_URL}${localizedPath(path, resolved)}`;
 };
 
 /** Sponsorship products, by tier and billing. */
@@ -162,19 +169,20 @@ export interface Buyer {
 export const createPlanCheckoutUrl = (
   plan: Plan,
   billing: PlanBilling,
-  buyer: Buyer
+  buyer: Buyer,
+  locale?: string
 ): Promise<string> => {
   const productId = planProductId(plan, billing);
   if (!productId) {
     throw new Error("Plan products are not set up; run pnpm dodo:setup");
   }
   return checkoutUrl({
-    cancel_url: `${env.BETTER_AUTH_URL}${ROUTES.PRO}`,
+    cancel_url: appUrl(ROUTES.PRO, locale),
     customer: { email: buyer.email },
     feature_flags: { allow_discount_code: false },
     metadata: { plan, billing, user_id: buyer.userId },
     product_cart: [{ product_id: productId, quantity: 1 }],
-    return_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_BILLING}?checkout=success`,
+    return_url: `${appUrl(ROUTES.DASHBOARD_BILLING, locale)}?checkout=success`,
   });
 };
 
@@ -188,7 +196,8 @@ export const createSponsorCheckoutUrl = (
   tier: SponsorTier,
   billing: SponsorBilling,
   sponsorshipId: string,
-  buyer: Buyer
+  buyer: Buyer,
+  locale?: string
 ): Promise<string> => {
   const productId = SPONSOR_PRODUCT_IDS[tier][billing];
   if (!productId) {
@@ -196,7 +205,7 @@ export const createSponsorCheckoutUrl = (
   }
   const query = `?sponsorship=${encodeURIComponent(sponsorshipId)}`;
   return checkoutUrl({
-    cancel_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_SPONSORSHIPS_NEW}${query}`,
+    cancel_url: `${appUrl(ROUTES.DASHBOARD_SPONSORSHIPS_NEW, locale)}${query}`,
     customer: { email: buyer.email },
     feature_flags: { allow_discount_code: false },
     metadata: {
@@ -205,7 +214,7 @@ export const createSponsorCheckoutUrl = (
       user_id: buyer.userId,
     },
     product_cart: [{ product_id: productId, quantity: 1 }],
-    return_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_SPONSORSHIPS}${query}`,
+    return_url: `${appUrl(ROUTES.DASHBOARD_SPONSORSHIPS, locale)}${query}`,
   });
 };
 
@@ -246,9 +255,12 @@ export const completedCheckout = async (
 };
 
 /** Dodo's billing portal for a plan owner, returning to /dashboard/billing. */
-export const planPortalUrl = async (customerId: string): Promise<string> => {
+export const planPortalUrl = async (
+  customerId: string,
+  locale?: string
+): Promise<string> => {
   const session = await getDodo().customers.customerPortal.create(customerId, {
-    return_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_BILLING}`,
+    return_url: appUrl(ROUTES.DASHBOARD_BILLING, locale),
   });
   return session.link;
 };
@@ -257,18 +269,24 @@ export const planPortalUrl = async (customerId: string): Promise<string> => {
  * The portal for a retired Skill Bundle buyer (receipts, the GitHub
  * connection for the repository invite), found by email.
  */
-export const legacySkillPortalUrl = async (email: string): Promise<string> => {
+export const legacySkillPortalUrl = async (
+  email: string,
+  locale?: string
+): Promise<string> => {
   const customer = await skillCustomer(email);
   if (!customer) {
     throw new Error("No Dodo customer with a purchase for this email");
   }
-  return planPortalUrl(customer.customer_id);
+  return planPortalUrl(customer.customer_id, locale);
 };
 
 /** Dodo's billing portal for one sponsor, returning to /sponsorships. */
-export const sponsorPortalUrl = async (customerId: string): Promise<string> => {
+export const sponsorPortalUrl = async (
+  customerId: string,
+  locale?: string
+): Promise<string> => {
   const session = await getDodo().customers.customerPortal.create(customerId, {
-    return_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_SPONSORSHIPS}`,
+    return_url: appUrl(ROUTES.DASHBOARD_SPONSORSHIPS, locale),
   });
   return session.link;
 };
@@ -280,7 +298,8 @@ export const sponsorPortalUrl = async (customerId: string): Promise<string> => {
 export const createJobCheckoutUrl = (
   plan: JobPlan,
   jobId: string,
-  buyer: Buyer
+  buyer: Buyer,
+  locale?: string
 ): Promise<string> => {
   const productId = JOB_PRODUCT_IDS[plan];
   if (!productId) {
@@ -288,11 +307,11 @@ export const createJobCheckoutUrl = (
   }
   const query = `?job=${encodeURIComponent(jobId)}`;
   return checkoutUrl({
-    cancel_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_JOBS_POST}${query}`,
+    cancel_url: `${appUrl(ROUTES.DASHBOARD_JOBS_POST, locale)}${query}`,
     customer: { email: buyer.email },
     feature_flags: { allow_discount_code: false },
     metadata: { product: `job-${plan}`, job_id: jobId, user_id: buyer.userId },
     product_cart: [{ product_id: productId, quantity: 1 }],
-    return_url: `${env.BETTER_AUTH_URL}${ROUTES.DASHBOARD_LISTINGS}${query}`,
+    return_url: `${appUrl(ROUTES.DASHBOARD_LISTINGS, locale)}${query}`,
   });
 };

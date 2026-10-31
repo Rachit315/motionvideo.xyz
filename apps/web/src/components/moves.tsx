@@ -1,5 +1,4 @@
 import { Dialog } from "@base-ui/react/dialog";
-import { Link } from "@tanstack/react-router";
 import { createContext, use, useId, useState } from "react";
 import type { ComponentPropsWithRef, ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
@@ -7,6 +6,7 @@ import { ChevronLeft } from "reicon-react/icons/ChevronLeft";
 import { ChevronRight } from "reicon-react/icons/ChevronRight";
 
 import { CopyIcon } from "@/components/copy-icon";
+import { LocalizedLink as Link } from "@/components/localized-link";
 import { LockedPrompt } from "@/components/locked-prompt";
 import {
   DetailOverlay,

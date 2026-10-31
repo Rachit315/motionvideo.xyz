@@ -1,13 +1,13 @@
-import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
 import { ChevronDown } from "reicon-react/icons/ChevronDown";
 
 import { Brand } from "@/components/brand";
-import { GitHubIcon, XIcon } from "@/components/brand-icons";
 import { FooterWordmark } from "@/components/footer-wordmark";
+import { GitHubIcon, XIcon } from "@/components/icons";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { LocalizedLink as Link } from "@/components/localized-link";
 import { SoundSwitch } from "@/components/sound-switch";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";

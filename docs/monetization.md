@@ -2,6 +2,10 @@
 
 Ideas for monthly recurring revenue on MotionVideo, ranked by fit with what already exists: the gallery, the Tools / Creatives / Skills / Extras directories, the paid MotionVideo Skill Bundle, sponsorships, and Dodo Payments (which supports subscriptions).
 
+## Founding sponsors
+
+[Shadcn Labs](https://www.shadcn-labs.com), [Kobra](https://kobra.systems/), [beUI](https://beui.dev/), and [Illos](https://illos.dev/) are credited on `/sponsor`. Founding sponsors do not occupy paid seats; they fill the sponsored grid card while no Diamond sponsor is live.
+
 ## Opportunities
 
 | # | Idea | Price idea | Fit | Risk / caveat |

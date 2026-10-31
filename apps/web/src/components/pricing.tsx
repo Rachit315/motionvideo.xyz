@@ -1,8 +1,8 @@
-import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { useIntlayer } from "react-intlayer";
+import { useIntlayer, useLocale } from "react-intlayer";
 import { TickCircle } from "reicon-react/icons/TickCircle";
 
+import { LocalizedLink as Link } from "@/components/localized-link";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -11,6 +11,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { localizedPath } from "@/constants/locales";
 import { PLAN_BILLINGS, PLAN_PRICE_CENTS, PLANS } from "@/constants/plans";
 import type { Plan, PlanAccess, PlanBilling } from "@/constants/plans";
 import { formatUsd } from "@/constants/pricing";
@@ -83,6 +84,7 @@ const PlanCard = ({
   access: PlanAccess | null;
 }) => {
   const content = useIntlayer("pricing");
+  const { locale } = useLocale();
   const copy = content.plans[plan];
   // Business has no lifetime option: its card stays visible but dimmed, at
   // its monthly price, so the two plans can still be compared.
@@ -112,7 +114,7 @@ const PlanCard = ({
   } else if (offered) {
     cta = (
       <a
-        href={`${ROUTES.CHECKOUT}?plan=${plan}&billing=${billing}`}
+        href={`${localizedPath(ROUTES.CHECKOUT, locale)}?plan=${plan}&billing=${billing}`}
         data-track="checkout_start"
         data-track-plan={plan}
         data-track-billing={billing}

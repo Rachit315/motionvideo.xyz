@@ -1,15 +1,17 @@
-import { Link } from "@tanstack/react-router";
-import { useIntlayer } from "react-intlayer";
+import { useIntlayer, useLocale } from "react-intlayer";
 
 import { HairlineFigure } from "@/components/hairline/hairline-figure";
 import missingFrame from "@/components/hairline/missing-frame.js?raw";
+import { LocalizedLink as Link } from "@/components/localized-link";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { buttonVariants } from "@/components/ui/button";
+import { localizedPath } from "@/constants/locales";
 import { ROUTES } from "@/constants/routes";
 
 export const NotFound = () => {
   const content = useIntlayer("not-found");
+  const { locale } = useLocale();
   return (
     <>
       <SiteHeader signedIn={false} />
@@ -34,7 +36,7 @@ export const NotFound = () => {
             {content.backHome}
           </Link>
           <a
-            href={ROUTES.CONTACT}
+            href={localizedPath(ROUTES.CONTACT, locale)}
             className={buttonVariants({ size: "lg", variant: "ghost" })}
           >
             {content.reportLink}

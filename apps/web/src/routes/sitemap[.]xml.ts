@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { JOB_TYPES } from "@/constants/jobs";
+import { DEFAULT_LOCALE, LOCALES, localizedPath } from "@/constants/locales";
 import { ROUTES, STATIC_PAGES } from "@/constants/routes";
 import { absoluteUrl } from "@/constants/url";
 import catalog from "@/data/motion-catalog.json";
@@ -11,6 +12,7 @@ import {
   MOTION_TYPES,
   motionModelSlug,
 } from "@/lib/motion-catalog";
+import { COLOR_PAGES } from "@/lib/motion-video-route";
 import { MOVE_FAMILIES } from "@/lib/move-families";
 import { MOVES, movePath } from "@/lib/moves";
 import { PROMPT_TEMPLATES, templatePath } from "@/lib/prompt-templates";
@@ -32,6 +34,10 @@ const PAGES: { lastmod?: string; path: string }[] = [
   ...MOTION_TYPES.filter((type) =>
     catalog.videos.some((video) => video.tags.includes(type))
   ).map((type) => ({ path: `${ROUTES.HOME}type/${type}` })),
+  // Colour pages already leave out colours too rare to have one.
+  ...COLOR_PAGES.map((color) => ({
+    path: `${ROUTES.HOME}color/${color.slug}`,
+  })),
   ...catalog.videos.map((video) => ({
     lastmod: video.date,
     path: `${ROUTES.HOME}videos/${video.slug}`,
@@ -87,13 +93,31 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: () => {
+        // Every page is listed once per locale, and each entry advertises all
+        // its translations plus an x-default.
+        const urls = LOCALES.flatMap((locale) =>
+          PAGES.map(({ lastmod, path }) => {
+            const localized = localizedPath(path, locale);
+            const alternates = [
+              ...LOCALES.map((alternate) => {
+                const href = absoluteUrl(localizedPath(path, alternate));
+                return `    <xhtml:link rel="alternate" hreflang="${alternate}" href="${href}" />`;
+              }),
+              `    <xhtml:link rel="alternate" hreflang="x-default" href="${absoluteUrl(localizedPath(path, DEFAULT_LOCALE))}" />`,
+            ];
+            return [
+              "  <url>",
+              `    <loc>${absoluteUrl(localized)}</loc>`,
+              ...alternates,
+              ...(lastmod ? [`    <lastmod>${lastmod}</lastmod>`] : []),
+              "  </url>",
+            ].join("\n");
+          })
+        );
         const body = [
           '<?xml version="1.0" encoding="UTF-8"?>',
-          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-          ...PAGES.map(({ lastmod, path }) => {
-            const lastmodTag = lastmod ? `<lastmod>${lastmod}</lastmod>` : "";
-            return `  <url><loc>${absoluteUrl(path)}</loc>${lastmodTag}</url>`;
-          }),
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+          ...urls,
           "</urlset>",
           "",
         ].join("\n");

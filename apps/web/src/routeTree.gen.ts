@@ -9,80 +9,79 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as GalleryRouteImport } from './routes/_gallery'
-import { Route as PagesRouteImport } from './routes/_pages'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as BookmarksRouteImport } from './routes/bookmarks'
-import { Route as CheckoutRouteImport } from './routes/checkout'
-import { Route as ConsentRouteImport } from './routes/consent'
-import { Route as CreativesRouteImport } from './routes/creatives'
-import { Route as CustomizeRouteImport } from './routes/customize'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as ExtrasRouteImport } from './routes/extras'
-import { Route as FeaturedRouteImport } from './routes/featured'
-import { Route as ListingsRouteImport } from './routes/listings'
+import { Route as SplatRouteImport } from './routes/$'
+import { Route as LocaleRouteRouteImport } from './routes/$locale/route'
 import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
-import { Route as MotionvideoMcpRouteImport } from './routes/motionvideo-mcp'
-import { Route as MotionvideoSkillRouteImport } from './routes/motionvideo-skill'
-import { Route as MovesRouteImport } from './routes/moves'
-import { Route as ProRouteImport } from './routes/pro'
-import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SkillDotmdRouteImport } from './routes/skill[.]md'
-import { Route as SkillsRouteImport } from './routes/skills'
-import { Route as SponsorRouteImport } from './routes/sponsor'
-import { Route as StudiosRouteImport } from './routes/studios'
-import { Route as SubmitRouteImport } from './routes/submit'
-import { Route as TemplatesRouteImport } from './routes/templates'
-import { Route as ToolsRouteImport } from './routes/tools'
-import { Route as WelcomeRouteImport } from './routes/welcome'
+import { Route as LocaleSplatRouteImport } from './routes/$locale/$'
+import { Route as LocaleGalleryRouteImport } from './routes/$locale/_gallery'
+import { Route as LocalePagesRouteImport } from './routes/$locale/_pages'
+import { Route as LocaleAdminRouteImport } from './routes/$locale/admin'
+import { Route as LocaleBookmarksRouteImport } from './routes/$locale/bookmarks'
+import { Route as LocaleCheckoutRouteImport } from './routes/$locale/checkout'
+import { Route as LocaleConsentRouteImport } from './routes/$locale/consent'
+import { Route as LocaleCreativesRouteImport } from './routes/$locale/creatives'
+import { Route as LocaleCustomizeRouteImport } from './routes/$locale/customize'
+import { Route as LocaleDashboardRouteImport } from './routes/$locale/dashboard'
+import { Route as LocaleExtrasRouteImport } from './routes/$locale/extras'
+import { Route as LocaleFeaturedRouteImport } from './routes/$locale/featured'
+import { Route as LocaleListingsRouteImport } from './routes/$locale/listings'
+import { Route as LocaleMotionvideoMcpRouteImport } from './routes/$locale/motionvideo-mcp'
+import { Route as LocaleMotionvideoSkillRouteImport } from './routes/$locale/motionvideo-skill'
+import { Route as LocaleMovesRouteImport } from './routes/$locale/moves'
+import { Route as LocaleProRouteImport } from './routes/$locale/pro'
+import { Route as LocaleSettingsRouteImport } from './routes/$locale/settings'
+import { Route as LocaleSignInRouteImport } from './routes/$locale/sign-in'
+import { Route as LocaleSkillsRouteImport } from './routes/$locale/skills'
+import { Route as LocaleSponsorRouteImport } from './routes/$locale/sponsor'
+import { Route as LocaleStudiosRouteImport } from './routes/$locale/studios'
+import { Route as LocaleSubmitRouteImport } from './routes/$locale/submit'
+import { Route as LocaleTemplatesRouteImport } from './routes/$locale/templates'
+import { Route as LocaleToolsRouteImport } from './routes/$locale/tools'
+import { Route as LocaleWelcomeRouteImport } from './routes/$locale/welcome'
 import { Route as DotwellKnownSplatRouteImport } from './routes/[.]well-known.$'
-import { Route as GalleryIndexRouteImport } from './routes/_gallery/index'
-import { Route as PagesAboutRouteImport } from './routes/_pages/about'
-import { Route as PagesBrandRouteImport } from './routes/_pages/brand'
-import { Route as PagesContactRouteImport } from './routes/_pages/contact'
-import { Route as PagesPrivacyRouteImport } from './routes/_pages/privacy'
-import { Route as PagesRefundsRouteImport } from './routes/_pages/refunds'
-import { Route as PagesTermsRouteImport } from './routes/_pages/terms'
-import { Route as AdminIndexRouteImport } from './routes/admin/index'
-import { Route as AdminFeedbackRouteImport } from './routes/admin/feedback'
-import { Route as AdminJobsRouteImport } from './routes/admin/jobs'
-import { Route as AdminSponsorshipsRouteImport } from './routes/admin/sponsorships'
-import { Route as AdminSubmissionsRouteImport } from './routes/admin/submissions'
 import { Route as ApiUploadRouteImport } from './routes/api/upload'
-import { Route as CreativesIndexRouteImport } from './routes/creatives/index'
-import { Route as CreativesCategoryRouteImport } from './routes/creatives/$category'
-import { Route as CustomizeIndexRouteImport } from './routes/customize/index'
-import { Route as CustomizeSlugRouteImport } from './routes/customize/$slug'
-import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
-import { Route as DashboardBillingRouteImport } from './routes/dashboard/billing'
-import { Route as DashboardBookmarksRouteImport } from './routes/dashboard/bookmarks'
-import { Route as DashboardFeaturedRouteImport } from './routes/dashboard/featured'
-import { Route as DashboardListingsRouteImport } from './routes/dashboard/listings'
-import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
-import { Route as DashboardSkillRouteImport } from './routes/dashboard/skill'
-import { Route as DashboardSubmitRouteImport } from './routes/dashboard/submit'
-import { Route as DocsIndexRouteImport } from './routes/docs/index'
-import { Route as DocsSplatRouteImport } from './routes/docs/$'
-import { Route as ExtrasIndexRouteImport } from './routes/extras/index'
-import { Route as ExtrasCategoryRouteImport } from './routes/extras/$category'
-import { Route as JobsIndexRouteImport } from './routes/jobs/index'
-import { Route as JobsTypeRouteImport } from './routes/jobs/$type'
-import { Route as JobsPostRouteImport } from './routes/jobs/post'
-import { Route as MovesIndexRouteImport } from './routes/moves/index'
-import { Route as MovesFamilyRouteImport } from './routes/moves/$family'
-import { Route as SkillsIndexRouteImport } from './routes/skills/index'
-import { Route as SkillsCategoryRouteImport } from './routes/skills/$category'
-import { Route as SponsorshipsIndexRouteImport } from './routes/sponsorships/index'
-import { Route as SponsorshipsNewRouteImport } from './routes/sponsorships/new'
-import { Route as TemplatesIndexRouteImport } from './routes/templates/index'
-import { Route as ToolsIndexRouteImport } from './routes/tools/index'
-import { Route as ToolsCategoryRouteImport } from './routes/tools/$category'
-import { Route as GalleryCategoryCategoryRouteImport } from './routes/_gallery/category.$category'
-import { Route as GalleryModelModelRouteImport } from './routes/_gallery/model.$model'
-import { Route as GalleryTypeTypeRouteImport } from './routes/_gallery/type.$type'
-import { Route as GalleryVideosSlugRouteImport } from './routes/_gallery/videos.$slug'
+import { Route as LocaleGalleryIndexRouteImport } from './routes/$locale/_gallery/index'
+import { Route as LocalePagesAboutRouteImport } from './routes/$locale/_pages/about'
+import { Route as LocalePagesBrandRouteImport } from './routes/$locale/_pages/brand'
+import { Route as LocalePagesContactRouteImport } from './routes/$locale/_pages/contact'
+import { Route as LocalePagesPrivacyRouteImport } from './routes/$locale/_pages/privacy'
+import { Route as LocalePagesRefundsRouteImport } from './routes/$locale/_pages/refunds'
+import { Route as LocalePagesTermsRouteImport } from './routes/$locale/_pages/terms'
+import { Route as LocaleAdminIndexRouteImport } from './routes/$locale/admin/index'
+import { Route as LocaleAdminFeedbackRouteImport } from './routes/$locale/admin/feedback'
+import { Route as LocaleAdminJobsRouteImport } from './routes/$locale/admin/jobs'
+import { Route as LocaleAdminSponsorshipsRouteImport } from './routes/$locale/admin/sponsorships'
+import { Route as LocaleAdminSubmissionsRouteImport } from './routes/$locale/admin/submissions'
+import { Route as LocaleCreativesIndexRouteImport } from './routes/$locale/creatives/index'
+import { Route as LocaleCreativesCategoryRouteImport } from './routes/$locale/creatives/$category'
+import { Route as LocaleCustomizeIndexRouteImport } from './routes/$locale/customize/index'
+import { Route as LocaleCustomizeSlugRouteImport } from './routes/$locale/customize/$slug'
+import { Route as LocaleDashboardIndexRouteImport } from './routes/$locale/dashboard/index'
+import { Route as LocaleDashboardBillingRouteImport } from './routes/$locale/dashboard/billing'
+import { Route as LocaleDashboardBookmarksRouteImport } from './routes/$locale/dashboard/bookmarks'
+import { Route as LocaleDashboardFeaturedRouteImport } from './routes/$locale/dashboard/featured'
+import { Route as LocaleDashboardListingsRouteImport } from './routes/$locale/dashboard/listings'
+import { Route as LocaleDashboardSettingsRouteImport } from './routes/$locale/dashboard/settings'
+import { Route as LocaleDashboardSkillRouteImport } from './routes/$locale/dashboard/skill'
+import { Route as LocaleDashboardSubmitRouteImport } from './routes/$locale/dashboard/submit'
+import { Route as LocaleDocsIndexRouteImport } from './routes/$locale/docs/index'
+import { Route as LocaleDocsSplatRouteImport } from './routes/$locale/docs/$'
+import { Route as LocaleExtrasIndexRouteImport } from './routes/$locale/extras/index'
+import { Route as LocaleExtrasCategoryRouteImport } from './routes/$locale/extras/$category'
+import { Route as LocaleJobsIndexRouteImport } from './routes/$locale/jobs/index'
+import { Route as LocaleJobsTypeRouteImport } from './routes/$locale/jobs/$type'
+import { Route as LocaleJobsPostRouteImport } from './routes/$locale/jobs/post'
+import { Route as LocaleMovesIndexRouteImport } from './routes/$locale/moves/index'
+import { Route as LocaleMovesFamilyRouteImport } from './routes/$locale/moves/$family'
+import { Route as LocaleSkillsIndexRouteImport } from './routes/$locale/skills/index'
+import { Route as LocaleSkillsCategoryRouteImport } from './routes/$locale/skills/$category'
+import { Route as LocaleSponsorshipsIndexRouteImport } from './routes/$locale/sponsorships/index'
+import { Route as LocaleSponsorshipsNewRouteImport } from './routes/$locale/sponsorships/new'
+import { Route as LocaleTemplatesIndexRouteImport } from './routes/$locale/templates/index'
+import { Route as LocaleToolsIndexRouteImport } from './routes/$locale/tools/index'
+import { Route as LocaleToolsCategoryRouteImport } from './routes/$locale/tools/$category'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ApiCatalogIndexRouteImport } from './routes/api/catalog/index'
 import { Route as ApiCatalogDirectoriesRouteImport } from './routes/api/catalog/directories'
@@ -90,113 +89,42 @@ import { Route as ApiMcpBookmarksRouteImport } from './routes/api/mcp/bookmarks'
 import { Route as ApiMcpFeaturedRouteImport } from './routes/api/mcp/featured'
 import { Route as ApiMovesIndexRouteImport } from './routes/api/moves/index'
 import { Route as ApiWebhookDodoRouteImport } from './routes/api/webhook/dodo'
-import { Route as DashboardJobsPostRouteImport } from './routes/dashboard/jobs/post'
-import { Route as DashboardSponsorshipsIndexRouteImport } from './routes/dashboard/sponsorships/index'
-import { Route as DashboardSponsorshipsNewRouteImport } from './routes/dashboard/sponsorships/new'
-import { Route as MovesFamilyIndexRouteImport } from './routes/moves/$family.index'
-import { Route as MovesFamilySlugRouteImport } from './routes/moves/$family.$slug'
-import { Route as TemplatesTemplateIdIndexRouteImport } from './routes/templates/$templateId.index'
-import { Route as TemplatesTemplateIdCustomizeRouteImport } from './routes/templates/$templateId.customize'
-import { Route as GalleryCategoryCategoryIndexRouteImport } from './routes/_gallery/category.$category.index'
-import { Route as GalleryModelModelIndexRouteImport } from './routes/_gallery/model.$model.index'
-import { Route as GalleryTypeTypeIndexRouteImport } from './routes/_gallery/type.$type.index'
+import { Route as LocaleGalleryCategoryCategoryRouteImport } from './routes/$locale/_gallery/category.$category'
+import { Route as LocaleGalleryColorColorRouteImport } from './routes/$locale/_gallery/color.$color'
+import { Route as LocaleGalleryModelModelRouteImport } from './routes/$locale/_gallery/model.$model'
+import { Route as LocaleGalleryTypeTypeRouteImport } from './routes/$locale/_gallery/type.$type'
+import { Route as LocaleGalleryVideosSlugRouteImport } from './routes/$locale/_gallery/videos.$slug'
+import { Route as LocaleDashboardJobsPostRouteImport } from './routes/$locale/dashboard/jobs/post'
+import { Route as LocaleDashboardSponsorshipsIndexRouteImport } from './routes/$locale/dashboard/sponsorships/index'
+import { Route as LocaleDashboardSponsorshipsNewRouteImport } from './routes/$locale/dashboard/sponsorships/new'
+import { Route as LocaleMovesFamilyIndexRouteImport } from './routes/$locale/moves/$family.index'
+import { Route as LocaleMovesFamilySlugRouteImport } from './routes/$locale/moves/$family.$slug'
+import { Route as LocaleTemplatesTemplateIdIndexRouteImport } from './routes/$locale/templates/$templateId.index'
+import { Route as LocaleTemplatesTemplateIdCustomizeRouteImport } from './routes/$locale/templates/$templateId.customize'
 import { Route as ApiMcpMovesIndexRouteImport } from './routes/api/mcp/moves/index'
 import { Route as ApiMcpMovesSlugRouteImport } from './routes/api/mcp/moves/$slug'
-import { Route as GalleryCategoryCategoryVideosSlugRouteImport } from './routes/_gallery/category.$category.videos.$slug'
-import { Route as GalleryModelModelVideosSlugRouteImport } from './routes/_gallery/model.$model.videos.$slug'
-import { Route as GalleryTypeTypeVideosSlugRouteImport } from './routes/_gallery/type.$type.videos.$slug'
+import { Route as LocaleGalleryCategoryCategoryIndexRouteImport } from './routes/$locale/_gallery/category.$category.index'
+import { Route as LocaleGalleryColorColorIndexRouteImport } from './routes/$locale/_gallery/color.$color.index'
+import { Route as LocaleGalleryModelModelIndexRouteImport } from './routes/$locale/_gallery/model.$model.index'
+import { Route as LocaleGalleryTypeTypeIndexRouteImport } from './routes/$locale/_gallery/type.$type.index'
+import { Route as LocaleGalleryCategoryCategoryVideosSlugRouteImport } from './routes/$locale/_gallery/category.$category.videos.$slug'
+import { Route as LocaleGalleryColorColorVideosSlugRouteImport } from './routes/$locale/_gallery/color.$color.videos.$slug'
+import { Route as LocaleGalleryModelModelVideosSlugRouteImport } from './routes/$locale/_gallery/model.$model.videos.$slug'
+import { Route as LocaleGalleryTypeTypeVideosSlugRouteImport } from './routes/$locale/_gallery/type.$type.videos.$slug'
 
-const GalleryRoute = GalleryRouteImport.update({
-  id: '/_gallery',
+const SplatRoute = SplatRouteImport.update({
+  id: '/$',
+  path: '/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PagesRoute = PagesRouteImport.update({
-  id: '/_pages',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BookmarksRoute = BookmarksRouteImport.update({
-  id: '/bookmarks',
-  path: '/bookmarks',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CheckoutRoute = CheckoutRouteImport.update({
-  id: '/checkout',
-  path: '/checkout',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConsentRoute = ConsentRouteImport.update({
-  id: '/consent',
-  path: '/consent',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CreativesRoute = CreativesRouteImport.update({
-  id: '/creatives',
-  path: '/creatives',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CustomizeRoute = CustomizeRouteImport.update({
-  id: '/customize',
-  path: '/customize',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ExtrasRoute = ExtrasRouteImport.update({
-  id: '/extras',
-  path: '/extras',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FeaturedRoute = FeaturedRouteImport.update({
-  id: '/featured',
-  path: '/featured',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ListingsRoute = ListingsRouteImport.update({
-  id: '/listings',
-  path: '/listings',
+const LocaleRouteRoute = LocaleRouteRouteImport.update({
+  id: '/$locale',
+  path: '/$locale',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LlmsDottxtRoute = LlmsDottxtRouteImport.update({
   id: '/llms.txt',
   path: '/llms.txt',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MotionvideoMcpRoute = MotionvideoMcpRouteImport.update({
-  id: '/motionvideo-mcp',
-  path: '/motionvideo-mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MotionvideoSkillRoute = MotionvideoSkillRouteImport.update({
-  id: '/motionvideo-skill',
-  path: '/motionvideo-skill',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MovesRoute = MovesRouteImport.update({
-  id: '/moves',
-  path: '/moves',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProRoute = ProRouteImport.update({
-  id: '/pro',
-  path: '/pro',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SignInRoute = SignInRouteImport.update({
-  id: '/sign-in',
-  path: '/sign-in',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -209,270 +137,344 @@ const SkillDotmdRoute = SkillDotmdRouteImport.update({
   path: '/skill.md',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SkillsRoute = SkillsRouteImport.update({
+const LocaleSplatRoute = LocaleSplatRouteImport.update({
+  id: '/$',
+  path: '/$',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleGalleryRoute = LocaleGalleryRouteImport.update({
+  id: '/_gallery',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocalePagesRoute = LocalePagesRouteImport.update({
+  id: '/_pages',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleAdminRoute = LocaleAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleBookmarksRoute = LocaleBookmarksRouteImport.update({
+  id: '/bookmarks',
+  path: '/bookmarks',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleCheckoutRoute = LocaleCheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleConsentRoute = LocaleConsentRouteImport.update({
+  id: '/consent',
+  path: '/consent',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleCreativesRoute = LocaleCreativesRouteImport.update({
+  id: '/creatives',
+  path: '/creatives',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleCustomizeRoute = LocaleCustomizeRouteImport.update({
+  id: '/customize',
+  path: '/customize',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleDashboardRoute = LocaleDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleExtrasRoute = LocaleExtrasRouteImport.update({
+  id: '/extras',
+  path: '/extras',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleFeaturedRoute = LocaleFeaturedRouteImport.update({
+  id: '/featured',
+  path: '/featured',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleListingsRoute = LocaleListingsRouteImport.update({
+  id: '/listings',
+  path: '/listings',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleMotionvideoMcpRoute = LocaleMotionvideoMcpRouteImport.update({
+  id: '/motionvideo-mcp',
+  path: '/motionvideo-mcp',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleMotionvideoSkillRoute = LocaleMotionvideoSkillRouteImport.update({
+  id: '/motionvideo-skill',
+  path: '/motionvideo-skill',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleMovesRoute = LocaleMovesRouteImport.update({
+  id: '/moves',
+  path: '/moves',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleProRoute = LocaleProRouteImport.update({
+  id: '/pro',
+  path: '/pro',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleSettingsRoute = LocaleSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleSignInRoute = LocaleSignInRouteImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => LocaleRouteRoute,
+} as any)
+const LocaleSkillsRoute = LocaleSkillsRouteImport.update({
   id: '/skills',
   path: '/skills',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LocaleRouteRoute,
 } as any)
-const SponsorRoute = SponsorRouteImport.update({
+const LocaleSponsorRoute = LocaleSponsorRouteImport.update({
   id: '/sponsor',
   path: '/sponsor',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LocaleRouteRoute,
 } as any)
-const StudiosRoute = StudiosRouteImport.update({
+const LocaleStudiosRoute = LocaleStudiosRouteImport.update({
   id: '/studios',
   path: '/studios',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LocaleRouteRoute,
 } as any)
-const SubmitRoute = SubmitRouteImport.update({
+const LocaleSubmitRoute = LocaleSubmitRouteImport.update({
   id: '/submit',
   path: '/submit',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LocaleRouteRoute,
 } as any)
-const TemplatesRoute = TemplatesRouteImport.update({
+const LocaleTemplatesRoute = LocaleTemplatesRouteImport.update({
   id: '/templates',
   path: '/templates',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LocaleRouteRoute,
 } as any)
-const ToolsRoute = ToolsRouteImport.update({
+const LocaleToolsRoute = LocaleToolsRouteImport.update({
   id: '/tools',
   path: '/tools',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LocaleRouteRoute,
 } as any)
-const WelcomeRoute = WelcomeRouteImport.update({
+const LocaleWelcomeRoute = LocaleWelcomeRouteImport.update({
   id: '/welcome',
   path: '/welcome',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LocaleRouteRoute,
 } as any)
 const DotwellKnownSplatRoute = DotwellKnownSplatRouteImport.update({
   id: '/.well-known/$',
   path: '/.well-known/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GalleryIndexRoute = GalleryIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => GalleryRoute,
-} as any)
-const PagesAboutRoute = PagesAboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => PagesRoute,
-} as any)
-const PagesBrandRoute = PagesBrandRouteImport.update({
-  id: '/brand',
-  path: '/brand',
-  getParentRoute: () => PagesRoute,
-} as any)
-const PagesContactRoute = PagesContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => PagesRoute,
-} as any)
-const PagesPrivacyRoute = PagesPrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => PagesRoute,
-} as any)
-const PagesRefundsRoute = PagesRefundsRouteImport.update({
-  id: '/refunds',
-  path: '/refunds',
-  getParentRoute: () => PagesRoute,
-} as any)
-const PagesTermsRoute = PagesTermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
-  getParentRoute: () => PagesRoute,
-} as any)
-const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminFeedbackRoute = AdminFeedbackRouteImport.update({
-  id: '/feedback',
-  path: '/feedback',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminJobsRoute = AdminJobsRouteImport.update({
-  id: '/jobs',
-  path: '/jobs',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminSponsorshipsRoute = AdminSponsorshipsRouteImport.update({
-  id: '/sponsorships',
-  path: '/sponsorships',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminSubmissionsRoute = AdminSubmissionsRouteImport.update({
-  id: '/submissions',
-  path: '/submissions',
-  getParentRoute: () => AdminRoute,
-} as any)
 const ApiUploadRoute = ApiUploadRouteImport.update({
   id: '/api/upload',
   path: '/api/upload',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CreativesIndexRoute = CreativesIndexRouteImport.update({
+const LocaleGalleryIndexRoute = LocaleGalleryIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => CreativesRoute,
+  getParentRoute: () => LocaleGalleryRoute,
 } as any)
-const CreativesCategoryRoute = CreativesCategoryRouteImport.update({
+const LocalePagesAboutRoute = LocalePagesAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => LocalePagesRoute,
+} as any)
+const LocalePagesBrandRoute = LocalePagesBrandRouteImport.update({
+  id: '/brand',
+  path: '/brand',
+  getParentRoute: () => LocalePagesRoute,
+} as any)
+const LocalePagesContactRoute = LocalePagesContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => LocalePagesRoute,
+} as any)
+const LocalePagesPrivacyRoute = LocalePagesPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => LocalePagesRoute,
+} as any)
+const LocalePagesRefundsRoute = LocalePagesRefundsRouteImport.update({
+  id: '/refunds',
+  path: '/refunds',
+  getParentRoute: () => LocalePagesRoute,
+} as any)
+const LocalePagesTermsRoute = LocalePagesTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => LocalePagesRoute,
+} as any)
+const LocaleAdminIndexRoute = LocaleAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocaleAdminRoute,
+} as any)
+const LocaleAdminFeedbackRoute = LocaleAdminFeedbackRouteImport.update({
+  id: '/feedback',
+  path: '/feedback',
+  getParentRoute: () => LocaleAdminRoute,
+} as any)
+const LocaleAdminJobsRoute = LocaleAdminJobsRouteImport.update({
+  id: '/jobs',
+  path: '/jobs',
+  getParentRoute: () => LocaleAdminRoute,
+} as any)
+const LocaleAdminSponsorshipsRoute = LocaleAdminSponsorshipsRouteImport.update({
+  id: '/sponsorships',
+  path: '/sponsorships',
+  getParentRoute: () => LocaleAdminRoute,
+} as any)
+const LocaleAdminSubmissionsRoute = LocaleAdminSubmissionsRouteImport.update({
+  id: '/submissions',
+  path: '/submissions',
+  getParentRoute: () => LocaleAdminRoute,
+} as any)
+const LocaleCreativesIndexRoute = LocaleCreativesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocaleCreativesRoute,
+} as any)
+const LocaleCreativesCategoryRoute = LocaleCreativesCategoryRouteImport.update({
   id: '/$category',
   path: '/$category',
-  getParentRoute: () => CreativesRoute,
+  getParentRoute: () => LocaleCreativesRoute,
 } as any)
-const CustomizeIndexRoute = CustomizeIndexRouteImport.update({
+const LocaleCustomizeIndexRoute = LocaleCustomizeIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => CustomizeRoute,
+  getParentRoute: () => LocaleCustomizeRoute,
 } as any)
-const CustomizeSlugRoute = CustomizeSlugRouteImport.update({
+const LocaleCustomizeSlugRoute = LocaleCustomizeSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
-  getParentRoute: () => CustomizeRoute,
+  getParentRoute: () => LocaleCustomizeRoute,
 } as any)
-const DashboardIndexRoute = DashboardIndexRouteImport.update({
+const LocaleDashboardIndexRoute = LocaleDashboardIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => DashboardRoute,
+  getParentRoute: () => LocaleDashboardRoute,
 } as any)
-const DashboardBillingRoute = DashboardBillingRouteImport.update({
+const LocaleDashboardBillingRoute = LocaleDashboardBillingRouteImport.update({
   id: '/billing',
   path: '/billing',
-  getParentRoute: () => DashboardRoute,
+  getParentRoute: () => LocaleDashboardRoute,
 } as any)
-const DashboardBookmarksRoute = DashboardBookmarksRouteImport.update({
-  id: '/bookmarks',
-  path: '/bookmarks',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardFeaturedRoute = DashboardFeaturedRouteImport.update({
+const LocaleDashboardBookmarksRoute =
+  LocaleDashboardBookmarksRouteImport.update({
+    id: '/bookmarks',
+    path: '/bookmarks',
+    getParentRoute: () => LocaleDashboardRoute,
+  } as any)
+const LocaleDashboardFeaturedRoute = LocaleDashboardFeaturedRouteImport.update({
   id: '/featured',
   path: '/featured',
-  getParentRoute: () => DashboardRoute,
+  getParentRoute: () => LocaleDashboardRoute,
 } as any)
-const DashboardListingsRoute = DashboardListingsRouteImport.update({
+const LocaleDashboardListingsRoute = LocaleDashboardListingsRouteImport.update({
   id: '/listings',
   path: '/listings',
-  getParentRoute: () => DashboardRoute,
+  getParentRoute: () => LocaleDashboardRoute,
 } as any)
-const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+const LocaleDashboardSettingsRoute = LocaleDashboardSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
-  getParentRoute: () => DashboardRoute,
+  getParentRoute: () => LocaleDashboardRoute,
 } as any)
-const DashboardSkillRoute = DashboardSkillRouteImport.update({
+const LocaleDashboardSkillRoute = LocaleDashboardSkillRouteImport.update({
   id: '/skill',
   path: '/skill',
-  getParentRoute: () => DashboardRoute,
+  getParentRoute: () => LocaleDashboardRoute,
 } as any)
-const DashboardSubmitRoute = DashboardSubmitRouteImport.update({
+const LocaleDashboardSubmitRoute = LocaleDashboardSubmitRouteImport.update({
   id: '/submit',
   path: '/submit',
-  getParentRoute: () => DashboardRoute,
+  getParentRoute: () => LocaleDashboardRoute,
 } as any)
-const DocsIndexRoute = DocsIndexRouteImport.update({
+const LocaleDocsIndexRoute = LocaleDocsIndexRouteImport.update({
   id: '/docs/',
   path: '/docs/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LocaleRouteRoute,
 } as any)
-const DocsSplatRoute = DocsSplatRouteImport.update({
+const LocaleDocsSplatRoute = LocaleDocsSplatRouteImport.update({
   id: '/docs/$',
   path: '/docs/$',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LocaleRouteRoute,
 } as any)
-const ExtrasIndexRoute = ExtrasIndexRouteImport.update({
+const LocaleExtrasIndexRoute = LocaleExtrasIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => ExtrasRoute,
+  getParentRoute: () => LocaleExtrasRoute,
 } as any)
-const ExtrasCategoryRoute = ExtrasCategoryRouteImport.update({
+const LocaleExtrasCategoryRoute = LocaleExtrasCategoryRouteImport.update({
   id: '/$category',
   path: '/$category',
-  getParentRoute: () => ExtrasRoute,
+  getParentRoute: () => LocaleExtrasRoute,
 } as any)
-const JobsIndexRoute = JobsIndexRouteImport.update({
+const LocaleJobsIndexRoute = LocaleJobsIndexRouteImport.update({
   id: '/jobs/',
   path: '/jobs/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LocaleRouteRoute,
 } as any)
-const JobsTypeRoute = JobsTypeRouteImport.update({
+const LocaleJobsTypeRoute = LocaleJobsTypeRouteImport.update({
   id: '/jobs/$type',
   path: '/jobs/$type',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LocaleRouteRoute,
 } as any)
-const JobsPostRoute = JobsPostRouteImport.update({
+const LocaleJobsPostRoute = LocaleJobsPostRouteImport.update({
   id: '/jobs/post',
   path: '/jobs/post',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LocaleRouteRoute,
 } as any)
-const MovesIndexRoute = MovesIndexRouteImport.update({
+const LocaleMovesIndexRoute = LocaleMovesIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => MovesRoute,
+  getParentRoute: () => LocaleMovesRoute,
 } as any)
-const MovesFamilyRoute = MovesFamilyRouteImport.update({
+const LocaleMovesFamilyRoute = LocaleMovesFamilyRouteImport.update({
   id: '/$family',
   path: '/$family',
-  getParentRoute: () => MovesRoute,
+  getParentRoute: () => LocaleMovesRoute,
 } as any)
-const SkillsIndexRoute = SkillsIndexRouteImport.update({
+const LocaleSkillsIndexRoute = LocaleSkillsIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => SkillsRoute,
+  getParentRoute: () => LocaleSkillsRoute,
 } as any)
-const SkillsCategoryRoute = SkillsCategoryRouteImport.update({
+const LocaleSkillsCategoryRoute = LocaleSkillsCategoryRouteImport.update({
   id: '/$category',
   path: '/$category',
-  getParentRoute: () => SkillsRoute,
+  getParentRoute: () => LocaleSkillsRoute,
 } as any)
-const SponsorshipsIndexRoute = SponsorshipsIndexRouteImport.update({
+const LocaleSponsorshipsIndexRoute = LocaleSponsorshipsIndexRouteImport.update({
   id: '/sponsorships/',
   path: '/sponsorships/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LocaleRouteRoute,
 } as any)
-const SponsorshipsNewRoute = SponsorshipsNewRouteImport.update({
+const LocaleSponsorshipsNewRoute = LocaleSponsorshipsNewRouteImport.update({
   id: '/sponsorships/new',
   path: '/sponsorships/new',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LocaleRouteRoute,
 } as any)
-const TemplatesIndexRoute = TemplatesIndexRouteImport.update({
+const LocaleTemplatesIndexRoute = LocaleTemplatesIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => TemplatesRoute,
+  getParentRoute: () => LocaleTemplatesRoute,
 } as any)
-const ToolsIndexRoute = ToolsIndexRouteImport.update({
+const LocaleToolsIndexRoute = LocaleToolsIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => ToolsRoute,
+  getParentRoute: () => LocaleToolsRoute,
 } as any)
-const ToolsCategoryRoute = ToolsCategoryRouteImport.update({
+const LocaleToolsCategoryRoute = LocaleToolsCategoryRouteImport.update({
   id: '/$category',
   path: '/$category',
-  getParentRoute: () => ToolsRoute,
-} as any)
-const GalleryCategoryCategoryRoute = GalleryCategoryCategoryRouteImport.update({
-  id: '/category/$category',
-  path: '/category/$category',
-  getParentRoute: () => GalleryRoute,
-} as any)
-const GalleryModelModelRoute = GalleryModelModelRouteImport.update({
-  id: '/model/$model',
-  path: '/model/$model',
-  getParentRoute: () => GalleryRoute,
-} as any)
-const GalleryTypeTypeRoute = GalleryTypeTypeRouteImport.update({
-  id: '/type/$type',
-  path: '/type/$type',
-  getParentRoute: () => GalleryRoute,
-} as any)
-const GalleryVideosSlugRoute = GalleryVideosSlugRouteImport.update({
-  id: '/videos/$slug',
-  path: '/videos/$slug',
-  getParentRoute: () => GalleryRoute,
+  getParentRoute: () => LocaleToolsRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
@@ -509,61 +511,71 @@ const ApiWebhookDodoRoute = ApiWebhookDodoRouteImport.update({
   path: '/api/webhook/dodo',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardJobsPostRoute = DashboardJobsPostRouteImport.update({
+const LocaleGalleryCategoryCategoryRoute =
+  LocaleGalleryCategoryCategoryRouteImport.update({
+    id: '/category/$category',
+    path: '/category/$category',
+    getParentRoute: () => LocaleGalleryRoute,
+  } as any)
+const LocaleGalleryColorColorRoute = LocaleGalleryColorColorRouteImport.update({
+  id: '/color/$color',
+  path: '/color/$color',
+  getParentRoute: () => LocaleGalleryRoute,
+} as any)
+const LocaleGalleryModelModelRoute = LocaleGalleryModelModelRouteImport.update({
+  id: '/model/$model',
+  path: '/model/$model',
+  getParentRoute: () => LocaleGalleryRoute,
+} as any)
+const LocaleGalleryTypeTypeRoute = LocaleGalleryTypeTypeRouteImport.update({
+  id: '/type/$type',
+  path: '/type/$type',
+  getParentRoute: () => LocaleGalleryRoute,
+} as any)
+const LocaleGalleryVideosSlugRoute = LocaleGalleryVideosSlugRouteImport.update({
+  id: '/videos/$slug',
+  path: '/videos/$slug',
+  getParentRoute: () => LocaleGalleryRoute,
+} as any)
+const LocaleDashboardJobsPostRoute = LocaleDashboardJobsPostRouteImport.update({
   id: '/jobs/post',
   path: '/jobs/post',
-  getParentRoute: () => DashboardRoute,
+  getParentRoute: () => LocaleDashboardRoute,
 } as any)
-const DashboardSponsorshipsIndexRoute =
-  DashboardSponsorshipsIndexRouteImport.update({
+const LocaleDashboardSponsorshipsIndexRoute =
+  LocaleDashboardSponsorshipsIndexRouteImport.update({
     id: '/sponsorships/',
     path: '/sponsorships/',
-    getParentRoute: () => DashboardRoute,
+    getParentRoute: () => LocaleDashboardRoute,
   } as any)
-const DashboardSponsorshipsNewRoute =
-  DashboardSponsorshipsNewRouteImport.update({
+const LocaleDashboardSponsorshipsNewRoute =
+  LocaleDashboardSponsorshipsNewRouteImport.update({
     id: '/sponsorships/new',
     path: '/sponsorships/new',
-    getParentRoute: () => DashboardRoute,
+    getParentRoute: () => LocaleDashboardRoute,
   } as any)
-const MovesFamilyIndexRoute = MovesFamilyIndexRouteImport.update({
+const LocaleMovesFamilyIndexRoute = LocaleMovesFamilyIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => MovesFamilyRoute,
+  getParentRoute: () => LocaleMovesFamilyRoute,
 } as any)
-const MovesFamilySlugRoute = MovesFamilySlugRouteImport.update({
+const LocaleMovesFamilySlugRoute = LocaleMovesFamilySlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
-  getParentRoute: () => MovesFamilyRoute,
+  getParentRoute: () => LocaleMovesFamilyRoute,
 } as any)
-const TemplatesTemplateIdIndexRoute =
-  TemplatesTemplateIdIndexRouteImport.update({
+const LocaleTemplatesTemplateIdIndexRoute =
+  LocaleTemplatesTemplateIdIndexRouteImport.update({
     id: '/$templateId/',
     path: '/$templateId/',
-    getParentRoute: () => TemplatesRoute,
+    getParentRoute: () => LocaleTemplatesRoute,
   } as any)
-const TemplatesTemplateIdCustomizeRoute =
-  TemplatesTemplateIdCustomizeRouteImport.update({
+const LocaleTemplatesTemplateIdCustomizeRoute =
+  LocaleTemplatesTemplateIdCustomizeRouteImport.update({
     id: '/$templateId/customize',
     path: '/$templateId/customize',
-    getParentRoute: () => TemplatesRoute,
+    getParentRoute: () => LocaleTemplatesRoute,
   } as any)
-const GalleryCategoryCategoryIndexRoute =
-  GalleryCategoryCategoryIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => GalleryCategoryCategoryRoute,
-  } as any)
-const GalleryModelModelIndexRoute = GalleryModelModelIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => GalleryModelModelRoute,
-} as any)
-const GalleryTypeTypeIndexRoute = GalleryTypeTypeIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => GalleryTypeTypeRoute,
-} as any)
 const ApiMcpMovesIndexRoute = ApiMcpMovesIndexRouteImport.update({
   id: '/api/mcp/moves/',
   path: '/api/mcp/moves/',
@@ -574,621 +586,653 @@ const ApiMcpMovesSlugRoute = ApiMcpMovesSlugRouteImport.update({
   path: '/api/mcp/moves/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GalleryCategoryCategoryVideosSlugRoute =
-  GalleryCategoryCategoryVideosSlugRouteImport.update({
-    id: '/videos/$slug',
-    path: '/videos/$slug',
-    getParentRoute: () => GalleryCategoryCategoryRoute,
+const LocaleGalleryCategoryCategoryIndexRoute =
+  LocaleGalleryCategoryCategoryIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => LocaleGalleryCategoryCategoryRoute,
   } as any)
-const GalleryModelModelVideosSlugRoute =
-  GalleryModelModelVideosSlugRouteImport.update({
-    id: '/videos/$slug',
-    path: '/videos/$slug',
-    getParentRoute: () => GalleryModelModelRoute,
+const LocaleGalleryColorColorIndexRoute =
+  LocaleGalleryColorColorIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => LocaleGalleryColorColorRoute,
   } as any)
-const GalleryTypeTypeVideosSlugRoute =
-  GalleryTypeTypeVideosSlugRouteImport.update({
+const LocaleGalleryModelModelIndexRoute =
+  LocaleGalleryModelModelIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => LocaleGalleryModelModelRoute,
+  } as any)
+const LocaleGalleryTypeTypeIndexRoute =
+  LocaleGalleryTypeTypeIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => LocaleGalleryTypeTypeRoute,
+  } as any)
+const LocaleGalleryCategoryCategoryVideosSlugRoute =
+  LocaleGalleryCategoryCategoryVideosSlugRouteImport.update({
     id: '/videos/$slug',
     path: '/videos/$slug',
-    getParentRoute: () => GalleryTypeTypeRoute,
+    getParentRoute: () => LocaleGalleryCategoryCategoryRoute,
+  } as any)
+const LocaleGalleryColorColorVideosSlugRoute =
+  LocaleGalleryColorColorVideosSlugRouteImport.update({
+    id: '/videos/$slug',
+    path: '/videos/$slug',
+    getParentRoute: () => LocaleGalleryColorColorRoute,
+  } as any)
+const LocaleGalleryModelModelVideosSlugRoute =
+  LocaleGalleryModelModelVideosSlugRouteImport.update({
+    id: '/videos/$slug',
+    path: '/videos/$slug',
+    getParentRoute: () => LocaleGalleryModelModelRoute,
+  } as any)
+const LocaleGalleryTypeTypeVideosSlugRoute =
+  LocaleGalleryTypeTypeVideosSlugRouteImport.update({
+    id: '/videos/$slug',
+    path: '/videos/$slug',
+    getParentRoute: () => LocaleGalleryTypeTypeRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof GalleryIndexRoute
-  '/admin': typeof AdminRouteWithChildren
-  '/bookmarks': typeof BookmarksRoute
-  '/checkout': typeof CheckoutRoute
-  '/consent': typeof ConsentRoute
-  '/creatives': typeof CreativesRouteWithChildren
-  '/customize': typeof CustomizeRouteWithChildren
-  '/dashboard': typeof DashboardRouteWithChildren
-  '/extras': typeof ExtrasRouteWithChildren
-  '/featured': typeof FeaturedRoute
-  '/listings': typeof ListingsRoute
+  '/$locale': typeof LocaleRouteRouteWithChildren
+  '/$': typeof SplatRoute
   '/llms.txt': typeof LlmsDottxtRoute
-  '/motionvideo-mcp': typeof MotionvideoMcpRoute
-  '/motionvideo-skill': typeof MotionvideoSkillRoute
-  '/moves': typeof MovesRouteWithChildren
-  '/pro': typeof ProRoute
-  '/settings': typeof SettingsRoute
-  '/sign-in': typeof SignInRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/skill.md': typeof SkillDotmdRoute
-  '/skills': typeof SkillsRouteWithChildren
-  '/sponsor': typeof SponsorRoute
-  '/studios': typeof StudiosRoute
-  '/submit': typeof SubmitRoute
-  '/templates': typeof TemplatesRouteWithChildren
-  '/tools': typeof ToolsRouteWithChildren
-  '/welcome': typeof WelcomeRoute
+  '/$locale/$': typeof LocaleSplatRoute
+  '/$locale/admin': typeof LocaleAdminRouteWithChildren
+  '/$locale/bookmarks': typeof LocaleBookmarksRoute
+  '/$locale/checkout': typeof LocaleCheckoutRoute
+  '/$locale/consent': typeof LocaleConsentRoute
+  '/$locale/creatives': typeof LocaleCreativesRouteWithChildren
+  '/$locale/customize': typeof LocaleCustomizeRouteWithChildren
+  '/$locale/dashboard': typeof LocaleDashboardRouteWithChildren
+  '/$locale/extras': typeof LocaleExtrasRouteWithChildren
+  '/$locale/featured': typeof LocaleFeaturedRoute
+  '/$locale/listings': typeof LocaleListingsRoute
+  '/$locale/motionvideo-mcp': typeof LocaleMotionvideoMcpRoute
+  '/$locale/motionvideo-skill': typeof LocaleMotionvideoSkillRoute
+  '/$locale/moves': typeof LocaleMovesRouteWithChildren
+  '/$locale/pro': typeof LocaleProRoute
+  '/$locale/settings': typeof LocaleSettingsRoute
+  '/$locale/sign-in': typeof LocaleSignInRoute
+  '/$locale/skills': typeof LocaleSkillsRouteWithChildren
+  '/$locale/sponsor': typeof LocaleSponsorRoute
+  '/$locale/studios': typeof LocaleStudiosRoute
+  '/$locale/submit': typeof LocaleSubmitRoute
+  '/$locale/templates': typeof LocaleTemplatesRouteWithChildren
+  '/$locale/tools': typeof LocaleToolsRouteWithChildren
+  '/$locale/welcome': typeof LocaleWelcomeRoute
   '/.well-known/$': typeof DotwellKnownSplatRoute
-  '/about': typeof PagesAboutRoute
-  '/brand': typeof PagesBrandRoute
-  '/contact': typeof PagesContactRoute
-  '/privacy': typeof PagesPrivacyRoute
-  '/refunds': typeof PagesRefundsRoute
-  '/terms': typeof PagesTermsRoute
-  '/admin/feedback': typeof AdminFeedbackRoute
-  '/admin/jobs': typeof AdminJobsRoute
-  '/admin/sponsorships': typeof AdminSponsorshipsRoute
-  '/admin/submissions': typeof AdminSubmissionsRoute
   '/api/upload': typeof ApiUploadRoute
-  '/creatives/$category': typeof CreativesCategoryRoute
-  '/customize/$slug': typeof CustomizeSlugRoute
-  '/dashboard/billing': typeof DashboardBillingRoute
-  '/dashboard/bookmarks': typeof DashboardBookmarksRoute
-  '/dashboard/featured': typeof DashboardFeaturedRoute
-  '/dashboard/listings': typeof DashboardListingsRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/skill': typeof DashboardSkillRoute
-  '/dashboard/submit': typeof DashboardSubmitRoute
-  '/docs/$': typeof DocsSplatRoute
-  '/extras/$category': typeof ExtrasCategoryRoute
-  '/jobs/$type': typeof JobsTypeRoute
-  '/jobs/post': typeof JobsPostRoute
-  '/moves/$family': typeof MovesFamilyRouteWithChildren
-  '/skills/$category': typeof SkillsCategoryRoute
-  '/sponsorships/new': typeof SponsorshipsNewRoute
-  '/tools/$category': typeof ToolsCategoryRoute
-  '/admin/': typeof AdminIndexRoute
-  '/creatives/': typeof CreativesIndexRoute
-  '/customize/': typeof CustomizeIndexRoute
-  '/dashboard/': typeof DashboardIndexRoute
-  '/docs/': typeof DocsIndexRoute
-  '/extras/': typeof ExtrasIndexRoute
-  '/jobs/': typeof JobsIndexRoute
-  '/moves/': typeof MovesIndexRoute
-  '/skills/': typeof SkillsIndexRoute
-  '/sponsorships/': typeof SponsorshipsIndexRoute
-  '/templates/': typeof TemplatesIndexRoute
-  '/tools/': typeof ToolsIndexRoute
-  '/category/$category': typeof GalleryCategoryCategoryRouteWithChildren
-  '/model/$model': typeof GalleryModelModelRouteWithChildren
-  '/type/$type': typeof GalleryTypeTypeRouteWithChildren
-  '/videos/$slug': typeof GalleryVideosSlugRoute
+  '/$locale/about': typeof LocalePagesAboutRoute
+  '/$locale/brand': typeof LocalePagesBrandRoute
+  '/$locale/contact': typeof LocalePagesContactRoute
+  '/$locale/privacy': typeof LocalePagesPrivacyRoute
+  '/$locale/refunds': typeof LocalePagesRefundsRoute
+  '/$locale/terms': typeof LocalePagesTermsRoute
+  '/$locale/admin/feedback': typeof LocaleAdminFeedbackRoute
+  '/$locale/admin/jobs': typeof LocaleAdminJobsRoute
+  '/$locale/admin/sponsorships': typeof LocaleAdminSponsorshipsRoute
+  '/$locale/admin/submissions': typeof LocaleAdminSubmissionsRoute
+  '/$locale/creatives/$category': typeof LocaleCreativesCategoryRoute
+  '/$locale/customize/$slug': typeof LocaleCustomizeSlugRoute
+  '/$locale/dashboard/billing': typeof LocaleDashboardBillingRoute
+  '/$locale/dashboard/bookmarks': typeof LocaleDashboardBookmarksRoute
+  '/$locale/dashboard/featured': typeof LocaleDashboardFeaturedRoute
+  '/$locale/dashboard/listings': typeof LocaleDashboardListingsRoute
+  '/$locale/dashboard/settings': typeof LocaleDashboardSettingsRoute
+  '/$locale/dashboard/skill': typeof LocaleDashboardSkillRoute
+  '/$locale/dashboard/submit': typeof LocaleDashboardSubmitRoute
+  '/$locale/docs/$': typeof LocaleDocsSplatRoute
+  '/$locale/extras/$category': typeof LocaleExtrasCategoryRoute
+  '/$locale/jobs/$type': typeof LocaleJobsTypeRoute
+  '/$locale/jobs/post': typeof LocaleJobsPostRoute
+  '/$locale/moves/$family': typeof LocaleMovesFamilyRouteWithChildren
+  '/$locale/skills/$category': typeof LocaleSkillsCategoryRoute
+  '/$locale/sponsorships/new': typeof LocaleSponsorshipsNewRoute
+  '/$locale/tools/$category': typeof LocaleToolsCategoryRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/catalog/directories': typeof ApiCatalogDirectoriesRoute
   '/api/mcp/bookmarks': typeof ApiMcpBookmarksRoute
   '/api/mcp/featured': typeof ApiMcpFeaturedRoute
   '/api/webhook/dodo': typeof ApiWebhookDodoRoute
-  '/dashboard/jobs/post': typeof DashboardJobsPostRoute
-  '/dashboard/sponsorships/new': typeof DashboardSponsorshipsNewRoute
-  '/moves/$family/$slug': typeof MovesFamilySlugRoute
-  '/templates/$templateId/customize': typeof TemplatesTemplateIdCustomizeRoute
+  '/$locale/': typeof LocaleGalleryIndexRoute
+  '/$locale/admin/': typeof LocaleAdminIndexRoute
+  '/$locale/creatives/': typeof LocaleCreativesIndexRoute
+  '/$locale/customize/': typeof LocaleCustomizeIndexRoute
+  '/$locale/dashboard/': typeof LocaleDashboardIndexRoute
+  '/$locale/docs/': typeof LocaleDocsIndexRoute
+  '/$locale/extras/': typeof LocaleExtrasIndexRoute
+  '/$locale/jobs/': typeof LocaleJobsIndexRoute
+  '/$locale/moves/': typeof LocaleMovesIndexRoute
+  '/$locale/skills/': typeof LocaleSkillsIndexRoute
+  '/$locale/sponsorships/': typeof LocaleSponsorshipsIndexRoute
+  '/$locale/templates/': typeof LocaleTemplatesIndexRoute
+  '/$locale/tools/': typeof LocaleToolsIndexRoute
   '/api/catalog/': typeof ApiCatalogIndexRoute
   '/api/moves/': typeof ApiMovesIndexRoute
-  '/dashboard/sponsorships/': typeof DashboardSponsorshipsIndexRoute
-  '/moves/$family/': typeof MovesFamilyIndexRoute
-  '/templates/$templateId/': typeof TemplatesTemplateIdIndexRoute
+  '/$locale/category/$category': typeof LocaleGalleryCategoryCategoryRouteWithChildren
+  '/$locale/color/$color': typeof LocaleGalleryColorColorRouteWithChildren
+  '/$locale/model/$model': typeof LocaleGalleryModelModelRouteWithChildren
+  '/$locale/type/$type': typeof LocaleGalleryTypeTypeRouteWithChildren
+  '/$locale/videos/$slug': typeof LocaleGalleryVideosSlugRoute
+  '/$locale/dashboard/jobs/post': typeof LocaleDashboardJobsPostRoute
+  '/$locale/dashboard/sponsorships/new': typeof LocaleDashboardSponsorshipsNewRoute
+  '/$locale/moves/$family/$slug': typeof LocaleMovesFamilySlugRoute
+  '/$locale/templates/$templateId/customize': typeof LocaleTemplatesTemplateIdCustomizeRoute
   '/api/mcp/moves/$slug': typeof ApiMcpMovesSlugRoute
-  '/category/$category/': typeof GalleryCategoryCategoryIndexRoute
-  '/model/$model/': typeof GalleryModelModelIndexRoute
-  '/type/$type/': typeof GalleryTypeTypeIndexRoute
+  '/$locale/dashboard/sponsorships/': typeof LocaleDashboardSponsorshipsIndexRoute
+  '/$locale/moves/$family/': typeof LocaleMovesFamilyIndexRoute
+  '/$locale/templates/$templateId/': typeof LocaleTemplatesTemplateIdIndexRoute
   '/api/mcp/moves/': typeof ApiMcpMovesIndexRoute
-  '/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
-  '/model/$model/videos/$slug': typeof GalleryModelModelVideosSlugRoute
-  '/type/$type/videos/$slug': typeof GalleryTypeTypeVideosSlugRoute
+  '/$locale/category/$category/': typeof LocaleGalleryCategoryCategoryIndexRoute
+  '/$locale/color/$color/': typeof LocaleGalleryColorColorIndexRoute
+  '/$locale/model/$model/': typeof LocaleGalleryModelModelIndexRoute
+  '/$locale/type/$type/': typeof LocaleGalleryTypeTypeIndexRoute
+  '/$locale/category/$category/videos/$slug': typeof LocaleGalleryCategoryCategoryVideosSlugRoute
+  '/$locale/color/$color/videos/$slug': typeof LocaleGalleryColorColorVideosSlugRoute
+  '/$locale/model/$model/videos/$slug': typeof LocaleGalleryModelModelVideosSlugRoute
+  '/$locale/type/$type/videos/$slug': typeof LocaleGalleryTypeTypeVideosSlugRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof GalleryIndexRoute
-  '/bookmarks': typeof BookmarksRoute
-  '/checkout': typeof CheckoutRoute
-  '/consent': typeof ConsentRoute
-  '/featured': typeof FeaturedRoute
-  '/listings': typeof ListingsRoute
+  '/$locale': typeof LocaleGalleryIndexRoute
+  '/$': typeof SplatRoute
   '/llms.txt': typeof LlmsDottxtRoute
-  '/motionvideo-mcp': typeof MotionvideoMcpRoute
-  '/motionvideo-skill': typeof MotionvideoSkillRoute
-  '/pro': typeof ProRoute
-  '/settings': typeof SettingsRoute
-  '/sign-in': typeof SignInRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/skill.md': typeof SkillDotmdRoute
-  '/sponsor': typeof SponsorRoute
-  '/studios': typeof StudiosRoute
-  '/submit': typeof SubmitRoute
-  '/welcome': typeof WelcomeRoute
+  '/$locale/$': typeof LocaleSplatRoute
+  '/$locale/bookmarks': typeof LocaleBookmarksRoute
+  '/$locale/checkout': typeof LocaleCheckoutRoute
+  '/$locale/consent': typeof LocaleConsentRoute
+  '/$locale/featured': typeof LocaleFeaturedRoute
+  '/$locale/listings': typeof LocaleListingsRoute
+  '/$locale/motionvideo-mcp': typeof LocaleMotionvideoMcpRoute
+  '/$locale/motionvideo-skill': typeof LocaleMotionvideoSkillRoute
+  '/$locale/pro': typeof LocaleProRoute
+  '/$locale/settings': typeof LocaleSettingsRoute
+  '/$locale/sign-in': typeof LocaleSignInRoute
+  '/$locale/sponsor': typeof LocaleSponsorRoute
+  '/$locale/studios': typeof LocaleStudiosRoute
+  '/$locale/submit': typeof LocaleSubmitRoute
+  '/$locale/welcome': typeof LocaleWelcomeRoute
   '/.well-known/$': typeof DotwellKnownSplatRoute
-  '/about': typeof PagesAboutRoute
-  '/brand': typeof PagesBrandRoute
-  '/contact': typeof PagesContactRoute
-  '/privacy': typeof PagesPrivacyRoute
-  '/refunds': typeof PagesRefundsRoute
-  '/terms': typeof PagesTermsRoute
-  '/admin/feedback': typeof AdminFeedbackRoute
-  '/admin/jobs': typeof AdminJobsRoute
-  '/admin/sponsorships': typeof AdminSponsorshipsRoute
-  '/admin/submissions': typeof AdminSubmissionsRoute
   '/api/upload': typeof ApiUploadRoute
-  '/creatives/$category': typeof CreativesCategoryRoute
-  '/customize/$slug': typeof CustomizeSlugRoute
-  '/dashboard/billing': typeof DashboardBillingRoute
-  '/dashboard/bookmarks': typeof DashboardBookmarksRoute
-  '/dashboard/featured': typeof DashboardFeaturedRoute
-  '/dashboard/listings': typeof DashboardListingsRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/skill': typeof DashboardSkillRoute
-  '/dashboard/submit': typeof DashboardSubmitRoute
-  '/docs/$': typeof DocsSplatRoute
-  '/extras/$category': typeof ExtrasCategoryRoute
-  '/jobs/$type': typeof JobsTypeRoute
-  '/jobs/post': typeof JobsPostRoute
-  '/skills/$category': typeof SkillsCategoryRoute
-  '/sponsorships/new': typeof SponsorshipsNewRoute
-  '/tools/$category': typeof ToolsCategoryRoute
-  '/admin': typeof AdminIndexRoute
-  '/creatives': typeof CreativesIndexRoute
-  '/customize': typeof CustomizeIndexRoute
-  '/dashboard': typeof DashboardIndexRoute
-  '/docs': typeof DocsIndexRoute
-  '/extras': typeof ExtrasIndexRoute
-  '/jobs': typeof JobsIndexRoute
-  '/moves': typeof MovesIndexRoute
-  '/skills': typeof SkillsIndexRoute
-  '/sponsorships': typeof SponsorshipsIndexRoute
-  '/templates': typeof TemplatesIndexRoute
-  '/tools': typeof ToolsIndexRoute
-  '/videos/$slug': typeof GalleryVideosSlugRoute
+  '/$locale/about': typeof LocalePagesAboutRoute
+  '/$locale/brand': typeof LocalePagesBrandRoute
+  '/$locale/contact': typeof LocalePagesContactRoute
+  '/$locale/privacy': typeof LocalePagesPrivacyRoute
+  '/$locale/refunds': typeof LocalePagesRefundsRoute
+  '/$locale/terms': typeof LocalePagesTermsRoute
+  '/$locale/admin/feedback': typeof LocaleAdminFeedbackRoute
+  '/$locale/admin/jobs': typeof LocaleAdminJobsRoute
+  '/$locale/admin/sponsorships': typeof LocaleAdminSponsorshipsRoute
+  '/$locale/admin/submissions': typeof LocaleAdminSubmissionsRoute
+  '/$locale/creatives/$category': typeof LocaleCreativesCategoryRoute
+  '/$locale/customize/$slug': typeof LocaleCustomizeSlugRoute
+  '/$locale/dashboard/billing': typeof LocaleDashboardBillingRoute
+  '/$locale/dashboard/bookmarks': typeof LocaleDashboardBookmarksRoute
+  '/$locale/dashboard/featured': typeof LocaleDashboardFeaturedRoute
+  '/$locale/dashboard/listings': typeof LocaleDashboardListingsRoute
+  '/$locale/dashboard/settings': typeof LocaleDashboardSettingsRoute
+  '/$locale/dashboard/skill': typeof LocaleDashboardSkillRoute
+  '/$locale/dashboard/submit': typeof LocaleDashboardSubmitRoute
+  '/$locale/docs/$': typeof LocaleDocsSplatRoute
+  '/$locale/extras/$category': typeof LocaleExtrasCategoryRoute
+  '/$locale/jobs/$type': typeof LocaleJobsTypeRoute
+  '/$locale/jobs/post': typeof LocaleJobsPostRoute
+  '/$locale/skills/$category': typeof LocaleSkillsCategoryRoute
+  '/$locale/sponsorships/new': typeof LocaleSponsorshipsNewRoute
+  '/$locale/tools/$category': typeof LocaleToolsCategoryRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/catalog/directories': typeof ApiCatalogDirectoriesRoute
   '/api/mcp/bookmarks': typeof ApiMcpBookmarksRoute
   '/api/mcp/featured': typeof ApiMcpFeaturedRoute
   '/api/webhook/dodo': typeof ApiWebhookDodoRoute
-  '/dashboard/jobs/post': typeof DashboardJobsPostRoute
-  '/dashboard/sponsorships/new': typeof DashboardSponsorshipsNewRoute
-  '/moves/$family/$slug': typeof MovesFamilySlugRoute
-  '/templates/$templateId/customize': typeof TemplatesTemplateIdCustomizeRoute
+  '/$locale/admin': typeof LocaleAdminIndexRoute
+  '/$locale/creatives': typeof LocaleCreativesIndexRoute
+  '/$locale/customize': typeof LocaleCustomizeIndexRoute
+  '/$locale/dashboard': typeof LocaleDashboardIndexRoute
+  '/$locale/docs': typeof LocaleDocsIndexRoute
+  '/$locale/extras': typeof LocaleExtrasIndexRoute
+  '/$locale/jobs': typeof LocaleJobsIndexRoute
+  '/$locale/moves': typeof LocaleMovesIndexRoute
+  '/$locale/skills': typeof LocaleSkillsIndexRoute
+  '/$locale/sponsorships': typeof LocaleSponsorshipsIndexRoute
+  '/$locale/templates': typeof LocaleTemplatesIndexRoute
+  '/$locale/tools': typeof LocaleToolsIndexRoute
   '/api/catalog': typeof ApiCatalogIndexRoute
   '/api/moves': typeof ApiMovesIndexRoute
-  '/dashboard/sponsorships': typeof DashboardSponsorshipsIndexRoute
-  '/moves/$family': typeof MovesFamilyIndexRoute
-  '/templates/$templateId': typeof TemplatesTemplateIdIndexRoute
+  '/$locale/videos/$slug': typeof LocaleGalleryVideosSlugRoute
+  '/$locale/dashboard/jobs/post': typeof LocaleDashboardJobsPostRoute
+  '/$locale/dashboard/sponsorships/new': typeof LocaleDashboardSponsorshipsNewRoute
+  '/$locale/moves/$family/$slug': typeof LocaleMovesFamilySlugRoute
+  '/$locale/templates/$templateId/customize': typeof LocaleTemplatesTemplateIdCustomizeRoute
   '/api/mcp/moves/$slug': typeof ApiMcpMovesSlugRoute
-  '/category/$category': typeof GalleryCategoryCategoryIndexRoute
-  '/model/$model': typeof GalleryModelModelIndexRoute
-  '/type/$type': typeof GalleryTypeTypeIndexRoute
+  '/$locale/dashboard/sponsorships': typeof LocaleDashboardSponsorshipsIndexRoute
+  '/$locale/moves/$family': typeof LocaleMovesFamilyIndexRoute
+  '/$locale/templates/$templateId': typeof LocaleTemplatesTemplateIdIndexRoute
   '/api/mcp/moves': typeof ApiMcpMovesIndexRoute
-  '/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
-  '/model/$model/videos/$slug': typeof GalleryModelModelVideosSlugRoute
-  '/type/$type/videos/$slug': typeof GalleryTypeTypeVideosSlugRoute
+  '/$locale/category/$category': typeof LocaleGalleryCategoryCategoryIndexRoute
+  '/$locale/color/$color': typeof LocaleGalleryColorColorIndexRoute
+  '/$locale/model/$model': typeof LocaleGalleryModelModelIndexRoute
+  '/$locale/type/$type': typeof LocaleGalleryTypeTypeIndexRoute
+  '/$locale/category/$category/videos/$slug': typeof LocaleGalleryCategoryCategoryVideosSlugRoute
+  '/$locale/color/$color/videos/$slug': typeof LocaleGalleryColorColorVideosSlugRoute
+  '/$locale/model/$model/videos/$slug': typeof LocaleGalleryModelModelVideosSlugRoute
+  '/$locale/type/$type/videos/$slug': typeof LocaleGalleryTypeTypeVideosSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_gallery': typeof GalleryRouteWithChildren
-  '/_pages': typeof PagesRouteWithChildren
-  '/admin': typeof AdminRouteWithChildren
-  '/bookmarks': typeof BookmarksRoute
-  '/checkout': typeof CheckoutRoute
-  '/consent': typeof ConsentRoute
-  '/creatives': typeof CreativesRouteWithChildren
-  '/customize': typeof CustomizeRouteWithChildren
-  '/dashboard': typeof DashboardRouteWithChildren
-  '/extras': typeof ExtrasRouteWithChildren
-  '/featured': typeof FeaturedRoute
-  '/listings': typeof ListingsRoute
+  '/$locale': typeof LocaleRouteRouteWithChildren
+  '/$': typeof SplatRoute
   '/llms.txt': typeof LlmsDottxtRoute
-  '/motionvideo-mcp': typeof MotionvideoMcpRoute
-  '/motionvideo-skill': typeof MotionvideoSkillRoute
-  '/moves': typeof MovesRouteWithChildren
-  '/pro': typeof ProRoute
-  '/settings': typeof SettingsRoute
-  '/sign-in': typeof SignInRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/skill.md': typeof SkillDotmdRoute
-  '/skills': typeof SkillsRouteWithChildren
-  '/sponsor': typeof SponsorRoute
-  '/studios': typeof StudiosRoute
-  '/submit': typeof SubmitRoute
-  '/templates': typeof TemplatesRouteWithChildren
-  '/tools': typeof ToolsRouteWithChildren
-  '/welcome': typeof WelcomeRoute
+  '/$locale/$': typeof LocaleSplatRoute
+  '/$locale/_gallery': typeof LocaleGalleryRouteWithChildren
+  '/$locale/_pages': typeof LocalePagesRouteWithChildren
+  '/$locale/admin': typeof LocaleAdminRouteWithChildren
+  '/$locale/bookmarks': typeof LocaleBookmarksRoute
+  '/$locale/checkout': typeof LocaleCheckoutRoute
+  '/$locale/consent': typeof LocaleConsentRoute
+  '/$locale/creatives': typeof LocaleCreativesRouteWithChildren
+  '/$locale/customize': typeof LocaleCustomizeRouteWithChildren
+  '/$locale/dashboard': typeof LocaleDashboardRouteWithChildren
+  '/$locale/extras': typeof LocaleExtrasRouteWithChildren
+  '/$locale/featured': typeof LocaleFeaturedRoute
+  '/$locale/listings': typeof LocaleListingsRoute
+  '/$locale/motionvideo-mcp': typeof LocaleMotionvideoMcpRoute
+  '/$locale/motionvideo-skill': typeof LocaleMotionvideoSkillRoute
+  '/$locale/moves': typeof LocaleMovesRouteWithChildren
+  '/$locale/pro': typeof LocaleProRoute
+  '/$locale/settings': typeof LocaleSettingsRoute
+  '/$locale/sign-in': typeof LocaleSignInRoute
+  '/$locale/skills': typeof LocaleSkillsRouteWithChildren
+  '/$locale/sponsor': typeof LocaleSponsorRoute
+  '/$locale/studios': typeof LocaleStudiosRoute
+  '/$locale/submit': typeof LocaleSubmitRoute
+  '/$locale/templates': typeof LocaleTemplatesRouteWithChildren
+  '/$locale/tools': typeof LocaleToolsRouteWithChildren
+  '/$locale/welcome': typeof LocaleWelcomeRoute
   '/.well-known/$': typeof DotwellKnownSplatRoute
-  '/_pages/about': typeof PagesAboutRoute
-  '/_pages/brand': typeof PagesBrandRoute
-  '/_pages/contact': typeof PagesContactRoute
-  '/_pages/privacy': typeof PagesPrivacyRoute
-  '/_pages/refunds': typeof PagesRefundsRoute
-  '/_pages/terms': typeof PagesTermsRoute
-  '/admin/feedback': typeof AdminFeedbackRoute
-  '/admin/jobs': typeof AdminJobsRoute
-  '/admin/sponsorships': typeof AdminSponsorshipsRoute
-  '/admin/submissions': typeof AdminSubmissionsRoute
   '/api/upload': typeof ApiUploadRoute
-  '/creatives/$category': typeof CreativesCategoryRoute
-  '/customize/$slug': typeof CustomizeSlugRoute
-  '/dashboard/billing': typeof DashboardBillingRoute
-  '/dashboard/bookmarks': typeof DashboardBookmarksRoute
-  '/dashboard/featured': typeof DashboardFeaturedRoute
-  '/dashboard/listings': typeof DashboardListingsRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/skill': typeof DashboardSkillRoute
-  '/dashboard/submit': typeof DashboardSubmitRoute
-  '/docs/$': typeof DocsSplatRoute
-  '/extras/$category': typeof ExtrasCategoryRoute
-  '/jobs/$type': typeof JobsTypeRoute
-  '/jobs/post': typeof JobsPostRoute
-  '/moves/$family': typeof MovesFamilyRouteWithChildren
-  '/skills/$category': typeof SkillsCategoryRoute
-  '/sponsorships/new': typeof SponsorshipsNewRoute
-  '/tools/$category': typeof ToolsCategoryRoute
-  '/_gallery/': typeof GalleryIndexRoute
-  '/admin/': typeof AdminIndexRoute
-  '/creatives/': typeof CreativesIndexRoute
-  '/customize/': typeof CustomizeIndexRoute
-  '/dashboard/': typeof DashboardIndexRoute
-  '/docs/': typeof DocsIndexRoute
-  '/extras/': typeof ExtrasIndexRoute
-  '/jobs/': typeof JobsIndexRoute
-  '/moves/': typeof MovesIndexRoute
-  '/skills/': typeof SkillsIndexRoute
-  '/sponsorships/': typeof SponsorshipsIndexRoute
-  '/templates/': typeof TemplatesIndexRoute
-  '/tools/': typeof ToolsIndexRoute
-  '/_gallery/category/$category': typeof GalleryCategoryCategoryRouteWithChildren
-  '/_gallery/model/$model': typeof GalleryModelModelRouteWithChildren
-  '/_gallery/type/$type': typeof GalleryTypeTypeRouteWithChildren
-  '/_gallery/videos/$slug': typeof GalleryVideosSlugRoute
+  '/$locale/_pages/about': typeof LocalePagesAboutRoute
+  '/$locale/_pages/brand': typeof LocalePagesBrandRoute
+  '/$locale/_pages/contact': typeof LocalePagesContactRoute
+  '/$locale/_pages/privacy': typeof LocalePagesPrivacyRoute
+  '/$locale/_pages/refunds': typeof LocalePagesRefundsRoute
+  '/$locale/_pages/terms': typeof LocalePagesTermsRoute
+  '/$locale/admin/feedback': typeof LocaleAdminFeedbackRoute
+  '/$locale/admin/jobs': typeof LocaleAdminJobsRoute
+  '/$locale/admin/sponsorships': typeof LocaleAdminSponsorshipsRoute
+  '/$locale/admin/submissions': typeof LocaleAdminSubmissionsRoute
+  '/$locale/creatives/$category': typeof LocaleCreativesCategoryRoute
+  '/$locale/customize/$slug': typeof LocaleCustomizeSlugRoute
+  '/$locale/dashboard/billing': typeof LocaleDashboardBillingRoute
+  '/$locale/dashboard/bookmarks': typeof LocaleDashboardBookmarksRoute
+  '/$locale/dashboard/featured': typeof LocaleDashboardFeaturedRoute
+  '/$locale/dashboard/listings': typeof LocaleDashboardListingsRoute
+  '/$locale/dashboard/settings': typeof LocaleDashboardSettingsRoute
+  '/$locale/dashboard/skill': typeof LocaleDashboardSkillRoute
+  '/$locale/dashboard/submit': typeof LocaleDashboardSubmitRoute
+  '/$locale/docs/$': typeof LocaleDocsSplatRoute
+  '/$locale/extras/$category': typeof LocaleExtrasCategoryRoute
+  '/$locale/jobs/$type': typeof LocaleJobsTypeRoute
+  '/$locale/jobs/post': typeof LocaleJobsPostRoute
+  '/$locale/moves/$family': typeof LocaleMovesFamilyRouteWithChildren
+  '/$locale/skills/$category': typeof LocaleSkillsCategoryRoute
+  '/$locale/sponsorships/new': typeof LocaleSponsorshipsNewRoute
+  '/$locale/tools/$category': typeof LocaleToolsCategoryRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/catalog/directories': typeof ApiCatalogDirectoriesRoute
   '/api/mcp/bookmarks': typeof ApiMcpBookmarksRoute
   '/api/mcp/featured': typeof ApiMcpFeaturedRoute
   '/api/webhook/dodo': typeof ApiWebhookDodoRoute
-  '/dashboard/jobs/post': typeof DashboardJobsPostRoute
-  '/dashboard/sponsorships/new': typeof DashboardSponsorshipsNewRoute
-  '/moves/$family/$slug': typeof MovesFamilySlugRoute
-  '/templates/$templateId/customize': typeof TemplatesTemplateIdCustomizeRoute
+  '/$locale/_gallery/': typeof LocaleGalleryIndexRoute
+  '/$locale/admin/': typeof LocaleAdminIndexRoute
+  '/$locale/creatives/': typeof LocaleCreativesIndexRoute
+  '/$locale/customize/': typeof LocaleCustomizeIndexRoute
+  '/$locale/dashboard/': typeof LocaleDashboardIndexRoute
+  '/$locale/docs/': typeof LocaleDocsIndexRoute
+  '/$locale/extras/': typeof LocaleExtrasIndexRoute
+  '/$locale/jobs/': typeof LocaleJobsIndexRoute
+  '/$locale/moves/': typeof LocaleMovesIndexRoute
+  '/$locale/skills/': typeof LocaleSkillsIndexRoute
+  '/$locale/sponsorships/': typeof LocaleSponsorshipsIndexRoute
+  '/$locale/templates/': typeof LocaleTemplatesIndexRoute
+  '/$locale/tools/': typeof LocaleToolsIndexRoute
   '/api/catalog/': typeof ApiCatalogIndexRoute
   '/api/moves/': typeof ApiMovesIndexRoute
-  '/dashboard/sponsorships/': typeof DashboardSponsorshipsIndexRoute
-  '/moves/$family/': typeof MovesFamilyIndexRoute
-  '/templates/$templateId/': typeof TemplatesTemplateIdIndexRoute
+  '/$locale/_gallery/category/$category': typeof LocaleGalleryCategoryCategoryRouteWithChildren
+  '/$locale/_gallery/color/$color': typeof LocaleGalleryColorColorRouteWithChildren
+  '/$locale/_gallery/model/$model': typeof LocaleGalleryModelModelRouteWithChildren
+  '/$locale/_gallery/type/$type': typeof LocaleGalleryTypeTypeRouteWithChildren
+  '/$locale/_gallery/videos/$slug': typeof LocaleGalleryVideosSlugRoute
+  '/$locale/dashboard/jobs/post': typeof LocaleDashboardJobsPostRoute
+  '/$locale/dashboard/sponsorships/new': typeof LocaleDashboardSponsorshipsNewRoute
+  '/$locale/moves/$family/$slug': typeof LocaleMovesFamilySlugRoute
+  '/$locale/templates/$templateId/customize': typeof LocaleTemplatesTemplateIdCustomizeRoute
   '/api/mcp/moves/$slug': typeof ApiMcpMovesSlugRoute
-  '/_gallery/category/$category/': typeof GalleryCategoryCategoryIndexRoute
-  '/_gallery/model/$model/': typeof GalleryModelModelIndexRoute
-  '/_gallery/type/$type/': typeof GalleryTypeTypeIndexRoute
+  '/$locale/dashboard/sponsorships/': typeof LocaleDashboardSponsorshipsIndexRoute
+  '/$locale/moves/$family/': typeof LocaleMovesFamilyIndexRoute
+  '/$locale/templates/$templateId/': typeof LocaleTemplatesTemplateIdIndexRoute
   '/api/mcp/moves/': typeof ApiMcpMovesIndexRoute
-  '/_gallery/category/$category/videos/$slug': typeof GalleryCategoryCategoryVideosSlugRoute
-  '/_gallery/model/$model/videos/$slug': typeof GalleryModelModelVideosSlugRoute
-  '/_gallery/type/$type/videos/$slug': typeof GalleryTypeTypeVideosSlugRoute
+  '/$locale/_gallery/category/$category/': typeof LocaleGalleryCategoryCategoryIndexRoute
+  '/$locale/_gallery/color/$color/': typeof LocaleGalleryColorColorIndexRoute
+  '/$locale/_gallery/model/$model/': typeof LocaleGalleryModelModelIndexRoute
+  '/$locale/_gallery/type/$type/': typeof LocaleGalleryTypeTypeIndexRoute
+  '/$locale/_gallery/category/$category/videos/$slug': typeof LocaleGalleryCategoryCategoryVideosSlugRoute
+  '/$locale/_gallery/color/$color/videos/$slug': typeof LocaleGalleryColorColorVideosSlugRoute
+  '/$locale/_gallery/model/$model/videos/$slug': typeof LocaleGalleryModelModelVideosSlugRoute
+  '/$locale/_gallery/type/$type/videos/$slug': typeof LocaleGalleryTypeTypeVideosSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/admin'
-    | '/bookmarks'
-    | '/checkout'
-    | '/consent'
-    | '/creatives'
-    | '/customize'
-    | '/dashboard'
-    | '/extras'
-    | '/featured'
-    | '/listings'
+    | '/$locale'
+    | '/$'
     | '/llms.txt'
-    | '/motionvideo-mcp'
-    | '/motionvideo-skill'
-    | '/moves'
-    | '/pro'
-    | '/settings'
-    | '/sign-in'
     | '/sitemap.xml'
     | '/skill.md'
-    | '/skills'
-    | '/sponsor'
-    | '/studios'
-    | '/submit'
-    | '/templates'
-    | '/tools'
-    | '/welcome'
+    | '/$locale/$'
+    | '/$locale/admin'
+    | '/$locale/bookmarks'
+    | '/$locale/checkout'
+    | '/$locale/consent'
+    | '/$locale/creatives'
+    | '/$locale/customize'
+    | '/$locale/dashboard'
+    | '/$locale/extras'
+    | '/$locale/featured'
+    | '/$locale/listings'
+    | '/$locale/motionvideo-mcp'
+    | '/$locale/motionvideo-skill'
+    | '/$locale/moves'
+    | '/$locale/pro'
+    | '/$locale/settings'
+    | '/$locale/sign-in'
+    | '/$locale/skills'
+    | '/$locale/sponsor'
+    | '/$locale/studios'
+    | '/$locale/submit'
+    | '/$locale/templates'
+    | '/$locale/tools'
+    | '/$locale/welcome'
     | '/.well-known/$'
-    | '/about'
-    | '/brand'
-    | '/contact'
-    | '/privacy'
-    | '/refunds'
-    | '/terms'
-    | '/admin/feedback'
-    | '/admin/jobs'
-    | '/admin/sponsorships'
-    | '/admin/submissions'
     | '/api/upload'
-    | '/creatives/$category'
-    | '/customize/$slug'
-    | '/dashboard/billing'
-    | '/dashboard/bookmarks'
-    | '/dashboard/featured'
-    | '/dashboard/listings'
-    | '/dashboard/settings'
-    | '/dashboard/skill'
-    | '/dashboard/submit'
-    | '/docs/$'
-    | '/extras/$category'
-    | '/jobs/$type'
-    | '/jobs/post'
-    | '/moves/$family'
-    | '/skills/$category'
-    | '/sponsorships/new'
-    | '/tools/$category'
-    | '/admin/'
-    | '/creatives/'
-    | '/customize/'
-    | '/dashboard/'
-    | '/docs/'
-    | '/extras/'
-    | '/jobs/'
-    | '/moves/'
-    | '/skills/'
-    | '/sponsorships/'
-    | '/templates/'
-    | '/tools/'
-    | '/category/$category'
-    | '/model/$model'
-    | '/type/$type'
-    | '/videos/$slug'
+    | '/$locale/about'
+    | '/$locale/brand'
+    | '/$locale/contact'
+    | '/$locale/privacy'
+    | '/$locale/refunds'
+    | '/$locale/terms'
+    | '/$locale/admin/feedback'
+    | '/$locale/admin/jobs'
+    | '/$locale/admin/sponsorships'
+    | '/$locale/admin/submissions'
+    | '/$locale/creatives/$category'
+    | '/$locale/customize/$slug'
+    | '/$locale/dashboard/billing'
+    | '/$locale/dashboard/bookmarks'
+    | '/$locale/dashboard/featured'
+    | '/$locale/dashboard/listings'
+    | '/$locale/dashboard/settings'
+    | '/$locale/dashboard/skill'
+    | '/$locale/dashboard/submit'
+    | '/$locale/docs/$'
+    | '/$locale/extras/$category'
+    | '/$locale/jobs/$type'
+    | '/$locale/jobs/post'
+    | '/$locale/moves/$family'
+    | '/$locale/skills/$category'
+    | '/$locale/sponsorships/new'
+    | '/$locale/tools/$category'
     | '/api/auth/$'
     | '/api/catalog/directories'
     | '/api/mcp/bookmarks'
     | '/api/mcp/featured'
     | '/api/webhook/dodo'
-    | '/dashboard/jobs/post'
-    | '/dashboard/sponsorships/new'
-    | '/moves/$family/$slug'
-    | '/templates/$templateId/customize'
+    | '/$locale/'
+    | '/$locale/admin/'
+    | '/$locale/creatives/'
+    | '/$locale/customize/'
+    | '/$locale/dashboard/'
+    | '/$locale/docs/'
+    | '/$locale/extras/'
+    | '/$locale/jobs/'
+    | '/$locale/moves/'
+    | '/$locale/skills/'
+    | '/$locale/sponsorships/'
+    | '/$locale/templates/'
+    | '/$locale/tools/'
     | '/api/catalog/'
     | '/api/moves/'
-    | '/dashboard/sponsorships/'
-    | '/moves/$family/'
-    | '/templates/$templateId/'
+    | '/$locale/category/$category'
+    | '/$locale/color/$color'
+    | '/$locale/model/$model'
+    | '/$locale/type/$type'
+    | '/$locale/videos/$slug'
+    | '/$locale/dashboard/jobs/post'
+    | '/$locale/dashboard/sponsorships/new'
+    | '/$locale/moves/$family/$slug'
+    | '/$locale/templates/$templateId/customize'
     | '/api/mcp/moves/$slug'
-    | '/category/$category/'
-    | '/model/$model/'
-    | '/type/$type/'
+    | '/$locale/dashboard/sponsorships/'
+    | '/$locale/moves/$family/'
+    | '/$locale/templates/$templateId/'
     | '/api/mcp/moves/'
-    | '/category/$category/videos/$slug'
-    | '/model/$model/videos/$slug'
-    | '/type/$type/videos/$slug'
+    | '/$locale/category/$category/'
+    | '/$locale/color/$color/'
+    | '/$locale/model/$model/'
+    | '/$locale/type/$type/'
+    | '/$locale/category/$category/videos/$slug'
+    | '/$locale/color/$color/videos/$slug'
+    | '/$locale/model/$model/videos/$slug'
+    | '/$locale/type/$type/videos/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
-    | '/bookmarks'
-    | '/checkout'
-    | '/consent'
-    | '/featured'
-    | '/listings'
+    | '/$locale'
+    | '/$'
     | '/llms.txt'
-    | '/motionvideo-mcp'
-    | '/motionvideo-skill'
-    | '/pro'
-    | '/settings'
-    | '/sign-in'
     | '/sitemap.xml'
     | '/skill.md'
-    | '/sponsor'
-    | '/studios'
-    | '/submit'
-    | '/welcome'
+    | '/$locale/$'
+    | '/$locale/bookmarks'
+    | '/$locale/checkout'
+    | '/$locale/consent'
+    | '/$locale/featured'
+    | '/$locale/listings'
+    | '/$locale/motionvideo-mcp'
+    | '/$locale/motionvideo-skill'
+    | '/$locale/pro'
+    | '/$locale/settings'
+    | '/$locale/sign-in'
+    | '/$locale/sponsor'
+    | '/$locale/studios'
+    | '/$locale/submit'
+    | '/$locale/welcome'
     | '/.well-known/$'
-    | '/about'
-    | '/brand'
-    | '/contact'
-    | '/privacy'
-    | '/refunds'
-    | '/terms'
-    | '/admin/feedback'
-    | '/admin/jobs'
-    | '/admin/sponsorships'
-    | '/admin/submissions'
     | '/api/upload'
-    | '/creatives/$category'
-    | '/customize/$slug'
-    | '/dashboard/billing'
-    | '/dashboard/bookmarks'
-    | '/dashboard/featured'
-    | '/dashboard/listings'
-    | '/dashboard/settings'
-    | '/dashboard/skill'
-    | '/dashboard/submit'
-    | '/docs/$'
-    | '/extras/$category'
-    | '/jobs/$type'
-    | '/jobs/post'
-    | '/skills/$category'
-    | '/sponsorships/new'
-    | '/tools/$category'
-    | '/admin'
-    | '/creatives'
-    | '/customize'
-    | '/dashboard'
-    | '/docs'
-    | '/extras'
-    | '/jobs'
-    | '/moves'
-    | '/skills'
-    | '/sponsorships'
-    | '/templates'
-    | '/tools'
-    | '/videos/$slug'
+    | '/$locale/about'
+    | '/$locale/brand'
+    | '/$locale/contact'
+    | '/$locale/privacy'
+    | '/$locale/refunds'
+    | '/$locale/terms'
+    | '/$locale/admin/feedback'
+    | '/$locale/admin/jobs'
+    | '/$locale/admin/sponsorships'
+    | '/$locale/admin/submissions'
+    | '/$locale/creatives/$category'
+    | '/$locale/customize/$slug'
+    | '/$locale/dashboard/billing'
+    | '/$locale/dashboard/bookmarks'
+    | '/$locale/dashboard/featured'
+    | '/$locale/dashboard/listings'
+    | '/$locale/dashboard/settings'
+    | '/$locale/dashboard/skill'
+    | '/$locale/dashboard/submit'
+    | '/$locale/docs/$'
+    | '/$locale/extras/$category'
+    | '/$locale/jobs/$type'
+    | '/$locale/jobs/post'
+    | '/$locale/skills/$category'
+    | '/$locale/sponsorships/new'
+    | '/$locale/tools/$category'
     | '/api/auth/$'
     | '/api/catalog/directories'
     | '/api/mcp/bookmarks'
     | '/api/mcp/featured'
     | '/api/webhook/dodo'
-    | '/dashboard/jobs/post'
-    | '/dashboard/sponsorships/new'
-    | '/moves/$family/$slug'
-    | '/templates/$templateId/customize'
+    | '/$locale/admin'
+    | '/$locale/creatives'
+    | '/$locale/customize'
+    | '/$locale/dashboard'
+    | '/$locale/docs'
+    | '/$locale/extras'
+    | '/$locale/jobs'
+    | '/$locale/moves'
+    | '/$locale/skills'
+    | '/$locale/sponsorships'
+    | '/$locale/templates'
+    | '/$locale/tools'
     | '/api/catalog'
     | '/api/moves'
-    | '/dashboard/sponsorships'
-    | '/moves/$family'
-    | '/templates/$templateId'
+    | '/$locale/videos/$slug'
+    | '/$locale/dashboard/jobs/post'
+    | '/$locale/dashboard/sponsorships/new'
+    | '/$locale/moves/$family/$slug'
+    | '/$locale/templates/$templateId/customize'
     | '/api/mcp/moves/$slug'
-    | '/category/$category'
-    | '/model/$model'
-    | '/type/$type'
+    | '/$locale/dashboard/sponsorships'
+    | '/$locale/moves/$family'
+    | '/$locale/templates/$templateId'
     | '/api/mcp/moves'
-    | '/category/$category/videos/$slug'
-    | '/model/$model/videos/$slug'
-    | '/type/$type/videos/$slug'
+    | '/$locale/category/$category'
+    | '/$locale/color/$color'
+    | '/$locale/model/$model'
+    | '/$locale/type/$type'
+    | '/$locale/category/$category/videos/$slug'
+    | '/$locale/color/$color/videos/$slug'
+    | '/$locale/model/$model/videos/$slug'
+    | '/$locale/type/$type/videos/$slug'
   id:
     | '__root__'
-    | '/_gallery'
-    | '/_pages'
-    | '/admin'
-    | '/bookmarks'
-    | '/checkout'
-    | '/consent'
-    | '/creatives'
-    | '/customize'
-    | '/dashboard'
-    | '/extras'
-    | '/featured'
-    | '/listings'
+    | '/$locale'
+    | '/$'
     | '/llms.txt'
-    | '/motionvideo-mcp'
-    | '/motionvideo-skill'
-    | '/moves'
-    | '/pro'
-    | '/settings'
-    | '/sign-in'
     | '/sitemap.xml'
     | '/skill.md'
-    | '/skills'
-    | '/sponsor'
-    | '/studios'
-    | '/submit'
-    | '/templates'
-    | '/tools'
-    | '/welcome'
+    | '/$locale/$'
+    | '/$locale/_gallery'
+    | '/$locale/_pages'
+    | '/$locale/admin'
+    | '/$locale/bookmarks'
+    | '/$locale/checkout'
+    | '/$locale/consent'
+    | '/$locale/creatives'
+    | '/$locale/customize'
+    | '/$locale/dashboard'
+    | '/$locale/extras'
+    | '/$locale/featured'
+    | '/$locale/listings'
+    | '/$locale/motionvideo-mcp'
+    | '/$locale/motionvideo-skill'
+    | '/$locale/moves'
+    | '/$locale/pro'
+    | '/$locale/settings'
+    | '/$locale/sign-in'
+    | '/$locale/skills'
+    | '/$locale/sponsor'
+    | '/$locale/studios'
+    | '/$locale/submit'
+    | '/$locale/templates'
+    | '/$locale/tools'
+    | '/$locale/welcome'
     | '/.well-known/$'
-    | '/_pages/about'
-    | '/_pages/brand'
-    | '/_pages/contact'
-    | '/_pages/privacy'
-    | '/_pages/refunds'
-    | '/_pages/terms'
-    | '/admin/feedback'
-    | '/admin/jobs'
-    | '/admin/sponsorships'
-    | '/admin/submissions'
     | '/api/upload'
-    | '/creatives/$category'
-    | '/customize/$slug'
-    | '/dashboard/billing'
-    | '/dashboard/bookmarks'
-    | '/dashboard/featured'
-    | '/dashboard/listings'
-    | '/dashboard/settings'
-    | '/dashboard/skill'
-    | '/dashboard/submit'
-    | '/docs/$'
-    | '/extras/$category'
-    | '/jobs/$type'
-    | '/jobs/post'
-    | '/moves/$family'
-    | '/skills/$category'
-    | '/sponsorships/new'
-    | '/tools/$category'
-    | '/_gallery/'
-    | '/admin/'
-    | '/creatives/'
-    | '/customize/'
-    | '/dashboard/'
-    | '/docs/'
-    | '/extras/'
-    | '/jobs/'
-    | '/moves/'
-    | '/skills/'
-    | '/sponsorships/'
-    | '/templates/'
-    | '/tools/'
-    | '/_gallery/category/$category'
-    | '/_gallery/model/$model'
-    | '/_gallery/type/$type'
-    | '/_gallery/videos/$slug'
+    | '/$locale/_pages/about'
+    | '/$locale/_pages/brand'
+    | '/$locale/_pages/contact'
+    | '/$locale/_pages/privacy'
+    | '/$locale/_pages/refunds'
+    | '/$locale/_pages/terms'
+    | '/$locale/admin/feedback'
+    | '/$locale/admin/jobs'
+    | '/$locale/admin/sponsorships'
+    | '/$locale/admin/submissions'
+    | '/$locale/creatives/$category'
+    | '/$locale/customize/$slug'
+    | '/$locale/dashboard/billing'
+    | '/$locale/dashboard/bookmarks'
+    | '/$locale/dashboard/featured'
+    | '/$locale/dashboard/listings'
+    | '/$locale/dashboard/settings'
+    | '/$locale/dashboard/skill'
+    | '/$locale/dashboard/submit'
+    | '/$locale/docs/$'
+    | '/$locale/extras/$category'
+    | '/$locale/jobs/$type'
+    | '/$locale/jobs/post'
+    | '/$locale/moves/$family'
+    | '/$locale/skills/$category'
+    | '/$locale/sponsorships/new'
+    | '/$locale/tools/$category'
     | '/api/auth/$'
     | '/api/catalog/directories'
     | '/api/mcp/bookmarks'
     | '/api/mcp/featured'
     | '/api/webhook/dodo'
-    | '/dashboard/jobs/post'
-    | '/dashboard/sponsorships/new'
-    | '/moves/$family/$slug'
-    | '/templates/$templateId/customize'
+    | '/$locale/_gallery/'
+    | '/$locale/admin/'
+    | '/$locale/creatives/'
+    | '/$locale/customize/'
+    | '/$locale/dashboard/'
+    | '/$locale/docs/'
+    | '/$locale/extras/'
+    | '/$locale/jobs/'
+    | '/$locale/moves/'
+    | '/$locale/skills/'
+    | '/$locale/sponsorships/'
+    | '/$locale/templates/'
+    | '/$locale/tools/'
     | '/api/catalog/'
     | '/api/moves/'
-    | '/dashboard/sponsorships/'
-    | '/moves/$family/'
-    | '/templates/$templateId/'
+    | '/$locale/_gallery/category/$category'
+    | '/$locale/_gallery/color/$color'
+    | '/$locale/_gallery/model/$model'
+    | '/$locale/_gallery/type/$type'
+    | '/$locale/_gallery/videos/$slug'
+    | '/$locale/dashboard/jobs/post'
+    | '/$locale/dashboard/sponsorships/new'
+    | '/$locale/moves/$family/$slug'
+    | '/$locale/templates/$templateId/customize'
     | '/api/mcp/moves/$slug'
-    | '/_gallery/category/$category/'
-    | '/_gallery/model/$model/'
-    | '/_gallery/type/$type/'
+    | '/$locale/dashboard/sponsorships/'
+    | '/$locale/moves/$family/'
+    | '/$locale/templates/$templateId/'
     | '/api/mcp/moves/'
-    | '/_gallery/category/$category/videos/$slug'
-    | '/_gallery/model/$model/videos/$slug'
-    | '/_gallery/type/$type/videos/$slug'
+    | '/$locale/_gallery/category/$category/'
+    | '/$locale/_gallery/color/$color/'
+    | '/$locale/_gallery/model/$model/'
+    | '/$locale/_gallery/type/$type/'
+    | '/$locale/_gallery/category/$category/videos/$slug'
+    | '/$locale/_gallery/color/$color/videos/$slug'
+    | '/$locale/_gallery/model/$model/videos/$slug'
+    | '/$locale/_gallery/type/$type/videos/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  GalleryRoute: typeof GalleryRouteWithChildren
-  PagesRoute: typeof PagesRouteWithChildren
-  AdminRoute: typeof AdminRouteWithChildren
-  BookmarksRoute: typeof BookmarksRoute
-  CheckoutRoute: typeof CheckoutRoute
-  ConsentRoute: typeof ConsentRoute
-  CreativesRoute: typeof CreativesRouteWithChildren
-  CustomizeRoute: typeof CustomizeRouteWithChildren
-  DashboardRoute: typeof DashboardRouteWithChildren
-  ExtrasRoute: typeof ExtrasRouteWithChildren
-  FeaturedRoute: typeof FeaturedRoute
-  ListingsRoute: typeof ListingsRoute
+  LocaleRouteRoute: typeof LocaleRouteRouteWithChildren
+  SplatRoute: typeof SplatRoute
   LlmsDottxtRoute: typeof LlmsDottxtRoute
-  MotionvideoMcpRoute: typeof MotionvideoMcpRoute
-  MotionvideoSkillRoute: typeof MotionvideoSkillRoute
-  MovesRoute: typeof MovesRouteWithChildren
-  ProRoute: typeof ProRoute
-  SettingsRoute: typeof SettingsRoute
-  SignInRoute: typeof SignInRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SkillDotmdRoute: typeof SkillDotmdRoute
-  SkillsRoute: typeof SkillsRouteWithChildren
-  SponsorRoute: typeof SponsorRoute
-  StudiosRoute: typeof StudiosRoute
-  SubmitRoute: typeof SubmitRoute
-  TemplatesRoute: typeof TemplatesRouteWithChildren
-  ToolsRoute: typeof ToolsRouteWithChildren
-  WelcomeRoute: typeof WelcomeRoute
   DotwellKnownSplatRoute: typeof DotwellKnownSplatRoute
   ApiUploadRoute: typeof ApiUploadRoute
-  DocsSplatRoute: typeof DocsSplatRoute
-  JobsTypeRoute: typeof JobsTypeRoute
-  JobsPostRoute: typeof JobsPostRoute
-  SponsorshipsNewRoute: typeof SponsorshipsNewRoute
-  DocsIndexRoute: typeof DocsIndexRoute
-  JobsIndexRoute: typeof JobsIndexRoute
-  SponsorshipsIndexRoute: typeof SponsorshipsIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiCatalogDirectoriesRoute: typeof ApiCatalogDirectoriesRoute
   ApiMcpBookmarksRoute: typeof ApiMcpBookmarksRoute
@@ -1202,88 +1246,18 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_gallery': {
-      id: '/_gallery'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof GalleryRouteImport
+    '/$': {
+      id: '/$'
+      path: '/$'
+      fullPath: '/$'
+      preLoaderRoute: typeof SplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_pages': {
-      id: '/_pages'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof PagesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/bookmarks': {
-      id: '/bookmarks'
-      path: '/bookmarks'
-      fullPath: '/bookmarks'
-      preLoaderRoute: typeof BookmarksRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/checkout': {
-      id: '/checkout'
-      path: '/checkout'
-      fullPath: '/checkout'
-      preLoaderRoute: typeof CheckoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/consent': {
-      id: '/consent'
-      path: '/consent'
-      fullPath: '/consent'
-      preLoaderRoute: typeof ConsentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/creatives': {
-      id: '/creatives'
-      path: '/creatives'
-      fullPath: '/creatives'
-      preLoaderRoute: typeof CreativesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/customize': {
-      id: '/customize'
-      path: '/customize'
-      fullPath: '/customize'
-      preLoaderRoute: typeof CustomizeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/extras': {
-      id: '/extras'
-      path: '/extras'
-      fullPath: '/extras'
-      preLoaderRoute: typeof ExtrasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/featured': {
-      id: '/featured'
-      path: '/featured'
-      fullPath: '/featured'
-      preLoaderRoute: typeof FeaturedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/listings': {
-      id: '/listings'
-      path: '/listings'
-      fullPath: '/listings'
-      preLoaderRoute: typeof ListingsRouteImport
+    '/$locale': {
+      id: '/$locale'
+      path: '/$locale'
+      fullPath: '/$locale'
+      preLoaderRoute: typeof LocaleRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/llms.txt': {
@@ -1291,48 +1265,6 @@ declare module '@tanstack/react-router' {
       path: '/llms.txt'
       fullPath: '/llms.txt'
       preLoaderRoute: typeof LlmsDottxtRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/motionvideo-mcp': {
-      id: '/motionvideo-mcp'
-      path: '/motionvideo-mcp'
-      fullPath: '/motionvideo-mcp'
-      preLoaderRoute: typeof MotionvideoMcpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/motionvideo-skill': {
-      id: '/motionvideo-skill'
-      path: '/motionvideo-skill'
-      fullPath: '/motionvideo-skill'
-      preLoaderRoute: typeof MotionvideoSkillRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/moves': {
-      id: '/moves'
-      path: '/moves'
-      fullPath: '/moves'
-      preLoaderRoute: typeof MovesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pro': {
-      id: '/pro'
-      path: '/pro'
-      fullPath: '/pro'
-      preLoaderRoute: typeof ProRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sign-in': {
-      id: '/sign-in'
-      path: '/sign-in'
-      fullPath: '/sign-in'
-      preLoaderRoute: typeof SignInRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -1349,54 +1281,187 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SkillDotmdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/skills': {
-      id: '/skills'
+    '/$locale/$': {
+      id: '/$locale/$'
+      path: '/$'
+      fullPath: '/$locale/$'
+      preLoaderRoute: typeof LocaleSplatRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/_gallery': {
+      id: '/$locale/_gallery'
+      path: ''
+      fullPath: '/$locale'
+      preLoaderRoute: typeof LocaleGalleryRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/_pages': {
+      id: '/$locale/_pages'
+      path: ''
+      fullPath: '/$locale'
+      preLoaderRoute: typeof LocalePagesRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/admin': {
+      id: '/$locale/admin'
+      path: '/admin'
+      fullPath: '/$locale/admin'
+      preLoaderRoute: typeof LocaleAdminRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/bookmarks': {
+      id: '/$locale/bookmarks'
+      path: '/bookmarks'
+      fullPath: '/$locale/bookmarks'
+      preLoaderRoute: typeof LocaleBookmarksRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/checkout': {
+      id: '/$locale/checkout'
+      path: '/checkout'
+      fullPath: '/$locale/checkout'
+      preLoaderRoute: typeof LocaleCheckoutRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/consent': {
+      id: '/$locale/consent'
+      path: '/consent'
+      fullPath: '/$locale/consent'
+      preLoaderRoute: typeof LocaleConsentRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/creatives': {
+      id: '/$locale/creatives'
+      path: '/creatives'
+      fullPath: '/$locale/creatives'
+      preLoaderRoute: typeof LocaleCreativesRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/customize': {
+      id: '/$locale/customize'
+      path: '/customize'
+      fullPath: '/$locale/customize'
+      preLoaderRoute: typeof LocaleCustomizeRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/dashboard': {
+      id: '/$locale/dashboard'
+      path: '/dashboard'
+      fullPath: '/$locale/dashboard'
+      preLoaderRoute: typeof LocaleDashboardRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/extras': {
+      id: '/$locale/extras'
+      path: '/extras'
+      fullPath: '/$locale/extras'
+      preLoaderRoute: typeof LocaleExtrasRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/featured': {
+      id: '/$locale/featured'
+      path: '/featured'
+      fullPath: '/$locale/featured'
+      preLoaderRoute: typeof LocaleFeaturedRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/listings': {
+      id: '/$locale/listings'
+      path: '/listings'
+      fullPath: '/$locale/listings'
+      preLoaderRoute: typeof LocaleListingsRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/motionvideo-mcp': {
+      id: '/$locale/motionvideo-mcp'
+      path: '/motionvideo-mcp'
+      fullPath: '/$locale/motionvideo-mcp'
+      preLoaderRoute: typeof LocaleMotionvideoMcpRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/motionvideo-skill': {
+      id: '/$locale/motionvideo-skill'
+      path: '/motionvideo-skill'
+      fullPath: '/$locale/motionvideo-skill'
+      preLoaderRoute: typeof LocaleMotionvideoSkillRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/moves': {
+      id: '/$locale/moves'
+      path: '/moves'
+      fullPath: '/$locale/moves'
+      preLoaderRoute: typeof LocaleMovesRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/pro': {
+      id: '/$locale/pro'
+      path: '/pro'
+      fullPath: '/$locale/pro'
+      preLoaderRoute: typeof LocaleProRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/settings': {
+      id: '/$locale/settings'
+      path: '/settings'
+      fullPath: '/$locale/settings'
+      preLoaderRoute: typeof LocaleSettingsRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/sign-in': {
+      id: '/$locale/sign-in'
+      path: '/sign-in'
+      fullPath: '/$locale/sign-in'
+      preLoaderRoute: typeof LocaleSignInRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/skills': {
+      id: '/$locale/skills'
       path: '/skills'
-      fullPath: '/skills'
-      preLoaderRoute: typeof SkillsRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/$locale/skills'
+      preLoaderRoute: typeof LocaleSkillsRouteImport
+      parentRoute: typeof LocaleRouteRoute
     }
-    '/sponsor': {
-      id: '/sponsor'
+    '/$locale/sponsor': {
+      id: '/$locale/sponsor'
       path: '/sponsor'
-      fullPath: '/sponsor'
-      preLoaderRoute: typeof SponsorRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/$locale/sponsor'
+      preLoaderRoute: typeof LocaleSponsorRouteImport
+      parentRoute: typeof LocaleRouteRoute
     }
-    '/studios': {
-      id: '/studios'
+    '/$locale/studios': {
+      id: '/$locale/studios'
       path: '/studios'
-      fullPath: '/studios'
-      preLoaderRoute: typeof StudiosRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/$locale/studios'
+      preLoaderRoute: typeof LocaleStudiosRouteImport
+      parentRoute: typeof LocaleRouteRoute
     }
-    '/submit': {
-      id: '/submit'
+    '/$locale/submit': {
+      id: '/$locale/submit'
       path: '/submit'
-      fullPath: '/submit'
-      preLoaderRoute: typeof SubmitRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/$locale/submit'
+      preLoaderRoute: typeof LocaleSubmitRouteImport
+      parentRoute: typeof LocaleRouteRoute
     }
-    '/templates': {
-      id: '/templates'
+    '/$locale/templates': {
+      id: '/$locale/templates'
       path: '/templates'
-      fullPath: '/templates'
-      preLoaderRoute: typeof TemplatesRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/$locale/templates'
+      preLoaderRoute: typeof LocaleTemplatesRouteImport
+      parentRoute: typeof LocaleRouteRoute
     }
-    '/tools': {
-      id: '/tools'
+    '/$locale/tools': {
+      id: '/$locale/tools'
       path: '/tools'
-      fullPath: '/tools'
-      preLoaderRoute: typeof ToolsRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/$locale/tools'
+      preLoaderRoute: typeof LocaleToolsRouteImport
+      parentRoute: typeof LocaleRouteRoute
     }
-    '/welcome': {
-      id: '/welcome'
+    '/$locale/welcome': {
+      id: '/$locale/welcome'
       path: '/welcome'
-      fullPath: '/welcome'
-      preLoaderRoute: typeof WelcomeRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/$locale/welcome'
+      preLoaderRoute: typeof LocaleWelcomeRouteImport
+      parentRoute: typeof LocaleRouteRoute
     }
     '/.well-known/$': {
       id: '/.well-known/$'
@@ -1405,90 +1470,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DotwellKnownSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_gallery/': {
-      id: '/_gallery/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof GalleryIndexRouteImport
-      parentRoute: typeof GalleryRoute
-    }
-    '/_pages/about': {
-      id: '/_pages/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof PagesAboutRouteImport
-      parentRoute: typeof PagesRoute
-    }
-    '/_pages/brand': {
-      id: '/_pages/brand'
-      path: '/brand'
-      fullPath: '/brand'
-      preLoaderRoute: typeof PagesBrandRouteImport
-      parentRoute: typeof PagesRoute
-    }
-    '/_pages/contact': {
-      id: '/_pages/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof PagesContactRouteImport
-      parentRoute: typeof PagesRoute
-    }
-    '/_pages/privacy': {
-      id: '/_pages/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PagesPrivacyRouteImport
-      parentRoute: typeof PagesRoute
-    }
-    '/_pages/refunds': {
-      id: '/_pages/refunds'
-      path: '/refunds'
-      fullPath: '/refunds'
-      preLoaderRoute: typeof PagesRefundsRouteImport
-      parentRoute: typeof PagesRoute
-    }
-    '/_pages/terms': {
-      id: '/_pages/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof PagesTermsRouteImport
-      parentRoute: typeof PagesRoute
-    }
-    '/admin/': {
-      id: '/admin/'
-      path: '/'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/feedback': {
-      id: '/admin/feedback'
-      path: '/feedback'
-      fullPath: '/admin/feedback'
-      preLoaderRoute: typeof AdminFeedbackRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/jobs': {
-      id: '/admin/jobs'
-      path: '/jobs'
-      fullPath: '/admin/jobs'
-      preLoaderRoute: typeof AdminJobsRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/sponsorships': {
-      id: '/admin/sponsorships'
-      path: '/sponsorships'
-      fullPath: '/admin/sponsorships'
-      preLoaderRoute: typeof AdminSponsorshipsRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/submissions': {
-      id: '/admin/submissions'
-      path: '/submissions'
-      fullPath: '/admin/submissions'
-      preLoaderRoute: typeof AdminSubmissionsRouteImport
-      parentRoute: typeof AdminRoute
-    }
     '/api/upload': {
       id: '/api/upload'
       path: '/api/upload'
@@ -1496,229 +1477,285 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiUploadRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/creatives/': {
-      id: '/creatives/'
+    '/$locale/_gallery/': {
+      id: '/$locale/_gallery/'
       path: '/'
-      fullPath: '/creatives/'
-      preLoaderRoute: typeof CreativesIndexRouteImport
-      parentRoute: typeof CreativesRoute
+      fullPath: '/$locale/'
+      preLoaderRoute: typeof LocaleGalleryIndexRouteImport
+      parentRoute: typeof LocaleGalleryRoute
     }
-    '/creatives/$category': {
-      id: '/creatives/$category'
-      path: '/$category'
-      fullPath: '/creatives/$category'
-      preLoaderRoute: typeof CreativesCategoryRouteImport
-      parentRoute: typeof CreativesRoute
+    '/$locale/_pages/about': {
+      id: '/$locale/_pages/about'
+      path: '/about'
+      fullPath: '/$locale/about'
+      preLoaderRoute: typeof LocalePagesAboutRouteImport
+      parentRoute: typeof LocalePagesRoute
     }
-    '/customize/': {
-      id: '/customize/'
+    '/$locale/_pages/brand': {
+      id: '/$locale/_pages/brand'
+      path: '/brand'
+      fullPath: '/$locale/brand'
+      preLoaderRoute: typeof LocalePagesBrandRouteImport
+      parentRoute: typeof LocalePagesRoute
+    }
+    '/$locale/_pages/contact': {
+      id: '/$locale/_pages/contact'
+      path: '/contact'
+      fullPath: '/$locale/contact'
+      preLoaderRoute: typeof LocalePagesContactRouteImport
+      parentRoute: typeof LocalePagesRoute
+    }
+    '/$locale/_pages/privacy': {
+      id: '/$locale/_pages/privacy'
+      path: '/privacy'
+      fullPath: '/$locale/privacy'
+      preLoaderRoute: typeof LocalePagesPrivacyRouteImport
+      parentRoute: typeof LocalePagesRoute
+    }
+    '/$locale/_pages/refunds': {
+      id: '/$locale/_pages/refunds'
+      path: '/refunds'
+      fullPath: '/$locale/refunds'
+      preLoaderRoute: typeof LocalePagesRefundsRouteImport
+      parentRoute: typeof LocalePagesRoute
+    }
+    '/$locale/_pages/terms': {
+      id: '/$locale/_pages/terms'
+      path: '/terms'
+      fullPath: '/$locale/terms'
+      preLoaderRoute: typeof LocalePagesTermsRouteImport
+      parentRoute: typeof LocalePagesRoute
+    }
+    '/$locale/admin/': {
+      id: '/$locale/admin/'
       path: '/'
-      fullPath: '/customize/'
-      preLoaderRoute: typeof CustomizeIndexRouteImport
-      parentRoute: typeof CustomizeRoute
+      fullPath: '/$locale/admin/'
+      preLoaderRoute: typeof LocaleAdminIndexRouteImport
+      parentRoute: typeof LocaleAdminRoute
     }
-    '/customize/$slug': {
-      id: '/customize/$slug'
-      path: '/$slug'
-      fullPath: '/customize/$slug'
-      preLoaderRoute: typeof CustomizeSlugRouteImport
-      parentRoute: typeof CustomizeRoute
+    '/$locale/admin/feedback': {
+      id: '/$locale/admin/feedback'
+      path: '/feedback'
+      fullPath: '/$locale/admin/feedback'
+      preLoaderRoute: typeof LocaleAdminFeedbackRouteImport
+      parentRoute: typeof LocaleAdminRoute
     }
-    '/dashboard/': {
-      id: '/dashboard/'
-      path: '/'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardIndexRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/billing': {
-      id: '/dashboard/billing'
-      path: '/billing'
-      fullPath: '/dashboard/billing'
-      preLoaderRoute: typeof DashboardBillingRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/bookmarks': {
-      id: '/dashboard/bookmarks'
-      path: '/bookmarks'
-      fullPath: '/dashboard/bookmarks'
-      preLoaderRoute: typeof DashboardBookmarksRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/featured': {
-      id: '/dashboard/featured'
-      path: '/featured'
-      fullPath: '/dashboard/featured'
-      preLoaderRoute: typeof DashboardFeaturedRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/listings': {
-      id: '/dashboard/listings'
-      path: '/listings'
-      fullPath: '/dashboard/listings'
-      preLoaderRoute: typeof DashboardListingsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/settings': {
-      id: '/dashboard/settings'
-      path: '/settings'
-      fullPath: '/dashboard/settings'
-      preLoaderRoute: typeof DashboardSettingsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/skill': {
-      id: '/dashboard/skill'
-      path: '/skill'
-      fullPath: '/dashboard/skill'
-      preLoaderRoute: typeof DashboardSkillRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/submit': {
-      id: '/dashboard/submit'
-      path: '/submit'
-      fullPath: '/dashboard/submit'
-      preLoaderRoute: typeof DashboardSubmitRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/docs/': {
-      id: '/docs/'
-      path: '/docs'
-      fullPath: '/docs/'
-      preLoaderRoute: typeof DocsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/docs/$': {
-      id: '/docs/$'
-      path: '/docs/$'
-      fullPath: '/docs/$'
-      preLoaderRoute: typeof DocsSplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/extras/': {
-      id: '/extras/'
-      path: '/'
-      fullPath: '/extras/'
-      preLoaderRoute: typeof ExtrasIndexRouteImport
-      parentRoute: typeof ExtrasRoute
-    }
-    '/extras/$category': {
-      id: '/extras/$category'
-      path: '/$category'
-      fullPath: '/extras/$category'
-      preLoaderRoute: typeof ExtrasCategoryRouteImport
-      parentRoute: typeof ExtrasRoute
-    }
-    '/jobs/': {
-      id: '/jobs/'
+    '/$locale/admin/jobs': {
+      id: '/$locale/admin/jobs'
       path: '/jobs'
-      fullPath: '/jobs/'
-      preLoaderRoute: typeof JobsIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/$locale/admin/jobs'
+      preLoaderRoute: typeof LocaleAdminJobsRouteImport
+      parentRoute: typeof LocaleAdminRoute
     }
-    '/jobs/$type': {
-      id: '/jobs/$type'
-      path: '/jobs/$type'
-      fullPath: '/jobs/$type'
-      preLoaderRoute: typeof JobsTypeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/jobs/post': {
-      id: '/jobs/post'
-      path: '/jobs/post'
-      fullPath: '/jobs/post'
-      preLoaderRoute: typeof JobsPostRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/moves/': {
-      id: '/moves/'
-      path: '/'
-      fullPath: '/moves/'
-      preLoaderRoute: typeof MovesIndexRouteImport
-      parentRoute: typeof MovesRoute
-    }
-    '/moves/$family': {
-      id: '/moves/$family'
-      path: '/$family'
-      fullPath: '/moves/$family'
-      preLoaderRoute: typeof MovesFamilyRouteImport
-      parentRoute: typeof MovesRoute
-    }
-    '/skills/': {
-      id: '/skills/'
-      path: '/'
-      fullPath: '/skills/'
-      preLoaderRoute: typeof SkillsIndexRouteImport
-      parentRoute: typeof SkillsRoute
-    }
-    '/skills/$category': {
-      id: '/skills/$category'
-      path: '/$category'
-      fullPath: '/skills/$category'
-      preLoaderRoute: typeof SkillsCategoryRouteImport
-      parentRoute: typeof SkillsRoute
-    }
-    '/sponsorships/': {
-      id: '/sponsorships/'
+    '/$locale/admin/sponsorships': {
+      id: '/$locale/admin/sponsorships'
       path: '/sponsorships'
-      fullPath: '/sponsorships/'
-      preLoaderRoute: typeof SponsorshipsIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/$locale/admin/sponsorships'
+      preLoaderRoute: typeof LocaleAdminSponsorshipsRouteImport
+      parentRoute: typeof LocaleAdminRoute
     }
-    '/sponsorships/new': {
-      id: '/sponsorships/new'
-      path: '/sponsorships/new'
-      fullPath: '/sponsorships/new'
-      preLoaderRoute: typeof SponsorshipsNewRouteImport
-      parentRoute: typeof rootRouteImport
+    '/$locale/admin/submissions': {
+      id: '/$locale/admin/submissions'
+      path: '/submissions'
+      fullPath: '/$locale/admin/submissions'
+      preLoaderRoute: typeof LocaleAdminSubmissionsRouteImport
+      parentRoute: typeof LocaleAdminRoute
     }
-    '/templates/': {
-      id: '/templates/'
+    '/$locale/creatives/': {
+      id: '/$locale/creatives/'
       path: '/'
-      fullPath: '/templates/'
-      preLoaderRoute: typeof TemplatesIndexRouteImport
-      parentRoute: typeof TemplatesRoute
+      fullPath: '/$locale/creatives/'
+      preLoaderRoute: typeof LocaleCreativesIndexRouteImport
+      parentRoute: typeof LocaleCreativesRoute
     }
-    '/tools/': {
-      id: '/tools/'
-      path: '/'
-      fullPath: '/tools/'
-      preLoaderRoute: typeof ToolsIndexRouteImport
-      parentRoute: typeof ToolsRoute
-    }
-    '/tools/$category': {
-      id: '/tools/$category'
+    '/$locale/creatives/$category': {
+      id: '/$locale/creatives/$category'
       path: '/$category'
-      fullPath: '/tools/$category'
-      preLoaderRoute: typeof ToolsCategoryRouteImport
-      parentRoute: typeof ToolsRoute
+      fullPath: '/$locale/creatives/$category'
+      preLoaderRoute: typeof LocaleCreativesCategoryRouteImport
+      parentRoute: typeof LocaleCreativesRoute
     }
-    '/_gallery/category/$category': {
-      id: '/_gallery/category/$category'
-      path: '/category/$category'
-      fullPath: '/category/$category'
-      preLoaderRoute: typeof GalleryCategoryCategoryRouteImport
-      parentRoute: typeof GalleryRoute
+    '/$locale/customize/': {
+      id: '/$locale/customize/'
+      path: '/'
+      fullPath: '/$locale/customize/'
+      preLoaderRoute: typeof LocaleCustomizeIndexRouteImport
+      parentRoute: typeof LocaleCustomizeRoute
     }
-    '/_gallery/model/$model': {
-      id: '/_gallery/model/$model'
-      path: '/model/$model'
-      fullPath: '/model/$model'
-      preLoaderRoute: typeof GalleryModelModelRouteImport
-      parentRoute: typeof GalleryRoute
+    '/$locale/customize/$slug': {
+      id: '/$locale/customize/$slug'
+      path: '/$slug'
+      fullPath: '/$locale/customize/$slug'
+      preLoaderRoute: typeof LocaleCustomizeSlugRouteImport
+      parentRoute: typeof LocaleCustomizeRoute
     }
-    '/_gallery/type/$type': {
-      id: '/_gallery/type/$type'
-      path: '/type/$type'
-      fullPath: '/type/$type'
-      preLoaderRoute: typeof GalleryTypeTypeRouteImport
-      parentRoute: typeof GalleryRoute
+    '/$locale/dashboard/': {
+      id: '/$locale/dashboard/'
+      path: '/'
+      fullPath: '/$locale/dashboard/'
+      preLoaderRoute: typeof LocaleDashboardIndexRouteImport
+      parentRoute: typeof LocaleDashboardRoute
     }
-    '/_gallery/videos/$slug': {
-      id: '/_gallery/videos/$slug'
-      path: '/videos/$slug'
-      fullPath: '/videos/$slug'
-      preLoaderRoute: typeof GalleryVideosSlugRouteImport
-      parentRoute: typeof GalleryRoute
+    '/$locale/dashboard/billing': {
+      id: '/$locale/dashboard/billing'
+      path: '/billing'
+      fullPath: '/$locale/dashboard/billing'
+      preLoaderRoute: typeof LocaleDashboardBillingRouteImport
+      parentRoute: typeof LocaleDashboardRoute
+    }
+    '/$locale/dashboard/bookmarks': {
+      id: '/$locale/dashboard/bookmarks'
+      path: '/bookmarks'
+      fullPath: '/$locale/dashboard/bookmarks'
+      preLoaderRoute: typeof LocaleDashboardBookmarksRouteImport
+      parentRoute: typeof LocaleDashboardRoute
+    }
+    '/$locale/dashboard/featured': {
+      id: '/$locale/dashboard/featured'
+      path: '/featured'
+      fullPath: '/$locale/dashboard/featured'
+      preLoaderRoute: typeof LocaleDashboardFeaturedRouteImport
+      parentRoute: typeof LocaleDashboardRoute
+    }
+    '/$locale/dashboard/listings': {
+      id: '/$locale/dashboard/listings'
+      path: '/listings'
+      fullPath: '/$locale/dashboard/listings'
+      preLoaderRoute: typeof LocaleDashboardListingsRouteImport
+      parentRoute: typeof LocaleDashboardRoute
+    }
+    '/$locale/dashboard/settings': {
+      id: '/$locale/dashboard/settings'
+      path: '/settings'
+      fullPath: '/$locale/dashboard/settings'
+      preLoaderRoute: typeof LocaleDashboardSettingsRouteImport
+      parentRoute: typeof LocaleDashboardRoute
+    }
+    '/$locale/dashboard/skill': {
+      id: '/$locale/dashboard/skill'
+      path: '/skill'
+      fullPath: '/$locale/dashboard/skill'
+      preLoaderRoute: typeof LocaleDashboardSkillRouteImport
+      parentRoute: typeof LocaleDashboardRoute
+    }
+    '/$locale/dashboard/submit': {
+      id: '/$locale/dashboard/submit'
+      path: '/submit'
+      fullPath: '/$locale/dashboard/submit'
+      preLoaderRoute: typeof LocaleDashboardSubmitRouteImport
+      parentRoute: typeof LocaleDashboardRoute
+    }
+    '/$locale/docs/': {
+      id: '/$locale/docs/'
+      path: '/docs'
+      fullPath: '/$locale/docs/'
+      preLoaderRoute: typeof LocaleDocsIndexRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/docs/$': {
+      id: '/$locale/docs/$'
+      path: '/docs/$'
+      fullPath: '/$locale/docs/$'
+      preLoaderRoute: typeof LocaleDocsSplatRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/extras/': {
+      id: '/$locale/extras/'
+      path: '/'
+      fullPath: '/$locale/extras/'
+      preLoaderRoute: typeof LocaleExtrasIndexRouteImport
+      parentRoute: typeof LocaleExtrasRoute
+    }
+    '/$locale/extras/$category': {
+      id: '/$locale/extras/$category'
+      path: '/$category'
+      fullPath: '/$locale/extras/$category'
+      preLoaderRoute: typeof LocaleExtrasCategoryRouteImport
+      parentRoute: typeof LocaleExtrasRoute
+    }
+    '/$locale/jobs/': {
+      id: '/$locale/jobs/'
+      path: '/jobs'
+      fullPath: '/$locale/jobs/'
+      preLoaderRoute: typeof LocaleJobsIndexRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/jobs/$type': {
+      id: '/$locale/jobs/$type'
+      path: '/jobs/$type'
+      fullPath: '/$locale/jobs/$type'
+      preLoaderRoute: typeof LocaleJobsTypeRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/jobs/post': {
+      id: '/$locale/jobs/post'
+      path: '/jobs/post'
+      fullPath: '/$locale/jobs/post'
+      preLoaderRoute: typeof LocaleJobsPostRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/moves/': {
+      id: '/$locale/moves/'
+      path: '/'
+      fullPath: '/$locale/moves/'
+      preLoaderRoute: typeof LocaleMovesIndexRouteImport
+      parentRoute: typeof LocaleMovesRoute
+    }
+    '/$locale/moves/$family': {
+      id: '/$locale/moves/$family'
+      path: '/$family'
+      fullPath: '/$locale/moves/$family'
+      preLoaderRoute: typeof LocaleMovesFamilyRouteImport
+      parentRoute: typeof LocaleMovesRoute
+    }
+    '/$locale/skills/': {
+      id: '/$locale/skills/'
+      path: '/'
+      fullPath: '/$locale/skills/'
+      preLoaderRoute: typeof LocaleSkillsIndexRouteImport
+      parentRoute: typeof LocaleSkillsRoute
+    }
+    '/$locale/skills/$category': {
+      id: '/$locale/skills/$category'
+      path: '/$category'
+      fullPath: '/$locale/skills/$category'
+      preLoaderRoute: typeof LocaleSkillsCategoryRouteImport
+      parentRoute: typeof LocaleSkillsRoute
+    }
+    '/$locale/sponsorships/': {
+      id: '/$locale/sponsorships/'
+      path: '/sponsorships'
+      fullPath: '/$locale/sponsorships/'
+      preLoaderRoute: typeof LocaleSponsorshipsIndexRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/sponsorships/new': {
+      id: '/$locale/sponsorships/new'
+      path: '/sponsorships/new'
+      fullPath: '/$locale/sponsorships/new'
+      preLoaderRoute: typeof LocaleSponsorshipsNewRouteImport
+      parentRoute: typeof LocaleRouteRoute
+    }
+    '/$locale/templates/': {
+      id: '/$locale/templates/'
+      path: '/'
+      fullPath: '/$locale/templates/'
+      preLoaderRoute: typeof LocaleTemplatesIndexRouteImport
+      parentRoute: typeof LocaleTemplatesRoute
+    }
+    '/$locale/tools/': {
+      id: '/$locale/tools/'
+      path: '/'
+      fullPath: '/$locale/tools/'
+      preLoaderRoute: typeof LocaleToolsIndexRouteImport
+      parentRoute: typeof LocaleToolsRoute
+    }
+    '/$locale/tools/$category': {
+      id: '/$locale/tools/$category'
+      path: '/$category'
+      fullPath: '/$locale/tools/$category'
+      preLoaderRoute: typeof LocaleToolsCategoryRouteImport
+      parentRoute: typeof LocaleToolsRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -1769,75 +1806,89 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiWebhookDodoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/jobs/post': {
-      id: '/dashboard/jobs/post'
+    '/$locale/_gallery/category/$category': {
+      id: '/$locale/_gallery/category/$category'
+      path: '/category/$category'
+      fullPath: '/$locale/category/$category'
+      preLoaderRoute: typeof LocaleGalleryCategoryCategoryRouteImport
+      parentRoute: typeof LocaleGalleryRoute
+    }
+    '/$locale/_gallery/color/$color': {
+      id: '/$locale/_gallery/color/$color'
+      path: '/color/$color'
+      fullPath: '/$locale/color/$color'
+      preLoaderRoute: typeof LocaleGalleryColorColorRouteImport
+      parentRoute: typeof LocaleGalleryRoute
+    }
+    '/$locale/_gallery/model/$model': {
+      id: '/$locale/_gallery/model/$model'
+      path: '/model/$model'
+      fullPath: '/$locale/model/$model'
+      preLoaderRoute: typeof LocaleGalleryModelModelRouteImport
+      parentRoute: typeof LocaleGalleryRoute
+    }
+    '/$locale/_gallery/type/$type': {
+      id: '/$locale/_gallery/type/$type'
+      path: '/type/$type'
+      fullPath: '/$locale/type/$type'
+      preLoaderRoute: typeof LocaleGalleryTypeTypeRouteImport
+      parentRoute: typeof LocaleGalleryRoute
+    }
+    '/$locale/_gallery/videos/$slug': {
+      id: '/$locale/_gallery/videos/$slug'
+      path: '/videos/$slug'
+      fullPath: '/$locale/videos/$slug'
+      preLoaderRoute: typeof LocaleGalleryVideosSlugRouteImport
+      parentRoute: typeof LocaleGalleryRoute
+    }
+    '/$locale/dashboard/jobs/post': {
+      id: '/$locale/dashboard/jobs/post'
       path: '/jobs/post'
-      fullPath: '/dashboard/jobs/post'
-      preLoaderRoute: typeof DashboardJobsPostRouteImport
-      parentRoute: typeof DashboardRoute
+      fullPath: '/$locale/dashboard/jobs/post'
+      preLoaderRoute: typeof LocaleDashboardJobsPostRouteImport
+      parentRoute: typeof LocaleDashboardRoute
     }
-    '/dashboard/sponsorships/': {
-      id: '/dashboard/sponsorships/'
+    '/$locale/dashboard/sponsorships/': {
+      id: '/$locale/dashboard/sponsorships/'
       path: '/sponsorships'
-      fullPath: '/dashboard/sponsorships/'
-      preLoaderRoute: typeof DashboardSponsorshipsIndexRouteImport
-      parentRoute: typeof DashboardRoute
+      fullPath: '/$locale/dashboard/sponsorships/'
+      preLoaderRoute: typeof LocaleDashboardSponsorshipsIndexRouteImport
+      parentRoute: typeof LocaleDashboardRoute
     }
-    '/dashboard/sponsorships/new': {
-      id: '/dashboard/sponsorships/new'
+    '/$locale/dashboard/sponsorships/new': {
+      id: '/$locale/dashboard/sponsorships/new'
       path: '/sponsorships/new'
-      fullPath: '/dashboard/sponsorships/new'
-      preLoaderRoute: typeof DashboardSponsorshipsNewRouteImport
-      parentRoute: typeof DashboardRoute
+      fullPath: '/$locale/dashboard/sponsorships/new'
+      preLoaderRoute: typeof LocaleDashboardSponsorshipsNewRouteImport
+      parentRoute: typeof LocaleDashboardRoute
     }
-    '/moves/$family/': {
-      id: '/moves/$family/'
+    '/$locale/moves/$family/': {
+      id: '/$locale/moves/$family/'
       path: '/'
-      fullPath: '/moves/$family/'
-      preLoaderRoute: typeof MovesFamilyIndexRouteImport
-      parentRoute: typeof MovesFamilyRoute
+      fullPath: '/$locale/moves/$family/'
+      preLoaderRoute: typeof LocaleMovesFamilyIndexRouteImport
+      parentRoute: typeof LocaleMovesFamilyRoute
     }
-    '/moves/$family/$slug': {
-      id: '/moves/$family/$slug'
+    '/$locale/moves/$family/$slug': {
+      id: '/$locale/moves/$family/$slug'
       path: '/$slug'
-      fullPath: '/moves/$family/$slug'
-      preLoaderRoute: typeof MovesFamilySlugRouteImport
-      parentRoute: typeof MovesFamilyRoute
+      fullPath: '/$locale/moves/$family/$slug'
+      preLoaderRoute: typeof LocaleMovesFamilySlugRouteImport
+      parentRoute: typeof LocaleMovesFamilyRoute
     }
-    '/templates/$templateId/': {
-      id: '/templates/$templateId/'
+    '/$locale/templates/$templateId/': {
+      id: '/$locale/templates/$templateId/'
       path: '/$templateId'
-      fullPath: '/templates/$templateId/'
-      preLoaderRoute: typeof TemplatesTemplateIdIndexRouteImport
-      parentRoute: typeof TemplatesRoute
+      fullPath: '/$locale/templates/$templateId/'
+      preLoaderRoute: typeof LocaleTemplatesTemplateIdIndexRouteImport
+      parentRoute: typeof LocaleTemplatesRoute
     }
-    '/templates/$templateId/customize': {
-      id: '/templates/$templateId/customize'
+    '/$locale/templates/$templateId/customize': {
+      id: '/$locale/templates/$templateId/customize'
       path: '/$templateId/customize'
-      fullPath: '/templates/$templateId/customize'
-      preLoaderRoute: typeof TemplatesTemplateIdCustomizeRouteImport
-      parentRoute: typeof TemplatesRoute
-    }
-    '/_gallery/category/$category/': {
-      id: '/_gallery/category/$category/'
-      path: '/'
-      fullPath: '/category/$category/'
-      preLoaderRoute: typeof GalleryCategoryCategoryIndexRouteImport
-      parentRoute: typeof GalleryCategoryCategoryRoute
-    }
-    '/_gallery/model/$model/': {
-      id: '/_gallery/model/$model/'
-      path: '/'
-      fullPath: '/model/$model/'
-      preLoaderRoute: typeof GalleryModelModelIndexRouteImport
-      parentRoute: typeof GalleryModelModelRoute
-    }
-    '/_gallery/type/$type/': {
-      id: '/_gallery/type/$type/'
-      path: '/'
-      fullPath: '/type/$type/'
-      preLoaderRoute: typeof GalleryTypeTypeIndexRouteImport
-      parentRoute: typeof GalleryTypeTypeRoute
+      fullPath: '/$locale/templates/$templateId/customize'
+      preLoaderRoute: typeof LocaleTemplatesTemplateIdCustomizeRouteImport
+      parentRoute: typeof LocaleTemplatesRoute
     }
     '/api/mcp/moves/': {
       id: '/api/mcp/moves/'
@@ -1853,309 +1904,427 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiMcpMovesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_gallery/category/$category/videos/$slug': {
-      id: '/_gallery/category/$category/videos/$slug'
-      path: '/videos/$slug'
-      fullPath: '/category/$category/videos/$slug'
-      preLoaderRoute: typeof GalleryCategoryCategoryVideosSlugRouteImport
-      parentRoute: typeof GalleryCategoryCategoryRoute
+    '/$locale/_gallery/category/$category/': {
+      id: '/$locale/_gallery/category/$category/'
+      path: '/'
+      fullPath: '/$locale/category/$category/'
+      preLoaderRoute: typeof LocaleGalleryCategoryCategoryIndexRouteImport
+      parentRoute: typeof LocaleGalleryCategoryCategoryRoute
     }
-    '/_gallery/model/$model/videos/$slug': {
-      id: '/_gallery/model/$model/videos/$slug'
-      path: '/videos/$slug'
-      fullPath: '/model/$model/videos/$slug'
-      preLoaderRoute: typeof GalleryModelModelVideosSlugRouteImport
-      parentRoute: typeof GalleryModelModelRoute
+    '/$locale/_gallery/color/$color/': {
+      id: '/$locale/_gallery/color/$color/'
+      path: '/'
+      fullPath: '/$locale/color/$color/'
+      preLoaderRoute: typeof LocaleGalleryColorColorIndexRouteImport
+      parentRoute: typeof LocaleGalleryColorColorRoute
     }
-    '/_gallery/type/$type/videos/$slug': {
-      id: '/_gallery/type/$type/videos/$slug'
+    '/$locale/_gallery/model/$model/': {
+      id: '/$locale/_gallery/model/$model/'
+      path: '/'
+      fullPath: '/$locale/model/$model/'
+      preLoaderRoute: typeof LocaleGalleryModelModelIndexRouteImport
+      parentRoute: typeof LocaleGalleryModelModelRoute
+    }
+    '/$locale/_gallery/type/$type/': {
+      id: '/$locale/_gallery/type/$type/'
+      path: '/'
+      fullPath: '/$locale/type/$type/'
+      preLoaderRoute: typeof LocaleGalleryTypeTypeIndexRouteImport
+      parentRoute: typeof LocaleGalleryTypeTypeRoute
+    }
+    '/$locale/_gallery/category/$category/videos/$slug': {
+      id: '/$locale/_gallery/category/$category/videos/$slug'
       path: '/videos/$slug'
-      fullPath: '/type/$type/videos/$slug'
-      preLoaderRoute: typeof GalleryTypeTypeVideosSlugRouteImport
-      parentRoute: typeof GalleryTypeTypeRoute
+      fullPath: '/$locale/category/$category/videos/$slug'
+      preLoaderRoute: typeof LocaleGalleryCategoryCategoryVideosSlugRouteImport
+      parentRoute: typeof LocaleGalleryCategoryCategoryRoute
+    }
+    '/$locale/_gallery/color/$color/videos/$slug': {
+      id: '/$locale/_gallery/color/$color/videos/$slug'
+      path: '/videos/$slug'
+      fullPath: '/$locale/color/$color/videos/$slug'
+      preLoaderRoute: typeof LocaleGalleryColorColorVideosSlugRouteImport
+      parentRoute: typeof LocaleGalleryColorColorRoute
+    }
+    '/$locale/_gallery/model/$model/videos/$slug': {
+      id: '/$locale/_gallery/model/$model/videos/$slug'
+      path: '/videos/$slug'
+      fullPath: '/$locale/model/$model/videos/$slug'
+      preLoaderRoute: typeof LocaleGalleryModelModelVideosSlugRouteImport
+      parentRoute: typeof LocaleGalleryModelModelRoute
+    }
+    '/$locale/_gallery/type/$type/videos/$slug': {
+      id: '/$locale/_gallery/type/$type/videos/$slug'
+      path: '/videos/$slug'
+      fullPath: '/$locale/type/$type/videos/$slug'
+      preLoaderRoute: typeof LocaleGalleryTypeTypeVideosSlugRouteImport
+      parentRoute: typeof LocaleGalleryTypeTypeRoute
     }
   }
 }
 
-interface GalleryCategoryCategoryRouteChildren {
-  GalleryCategoryCategoryIndexRoute: typeof GalleryCategoryCategoryIndexRoute
-  GalleryCategoryCategoryVideosSlugRoute: typeof GalleryCategoryCategoryVideosSlugRoute
+interface LocaleGalleryCategoryCategoryRouteChildren {
+  LocaleGalleryCategoryCategoryIndexRoute: typeof LocaleGalleryCategoryCategoryIndexRoute
+  LocaleGalleryCategoryCategoryVideosSlugRoute: typeof LocaleGalleryCategoryCategoryVideosSlugRoute
 }
 
-const GalleryCategoryCategoryRouteChildren: GalleryCategoryCategoryRouteChildren =
+const LocaleGalleryCategoryCategoryRouteChildren: LocaleGalleryCategoryCategoryRouteChildren =
   {
-    GalleryCategoryCategoryIndexRoute: GalleryCategoryCategoryIndexRoute,
-    GalleryCategoryCategoryVideosSlugRoute:
-      GalleryCategoryCategoryVideosSlugRoute,
+    LocaleGalleryCategoryCategoryIndexRoute:
+      LocaleGalleryCategoryCategoryIndexRoute,
+    LocaleGalleryCategoryCategoryVideosSlugRoute:
+      LocaleGalleryCategoryCategoryVideosSlugRoute,
   }
 
-const GalleryCategoryCategoryRouteWithChildren =
-  GalleryCategoryCategoryRoute._addFileChildren(
-    GalleryCategoryCategoryRouteChildren,
+const LocaleGalleryCategoryCategoryRouteWithChildren =
+  LocaleGalleryCategoryCategoryRoute._addFileChildren(
+    LocaleGalleryCategoryCategoryRouteChildren,
   )
 
-interface GalleryModelModelRouteChildren {
-  GalleryModelModelIndexRoute: typeof GalleryModelModelIndexRoute
-  GalleryModelModelVideosSlugRoute: typeof GalleryModelModelVideosSlugRoute
+interface LocaleGalleryColorColorRouteChildren {
+  LocaleGalleryColorColorIndexRoute: typeof LocaleGalleryColorColorIndexRoute
+  LocaleGalleryColorColorVideosSlugRoute: typeof LocaleGalleryColorColorVideosSlugRoute
 }
 
-const GalleryModelModelRouteChildren: GalleryModelModelRouteChildren = {
-  GalleryModelModelIndexRoute: GalleryModelModelIndexRoute,
-  GalleryModelModelVideosSlugRoute: GalleryModelModelVideosSlugRoute,
+const LocaleGalleryColorColorRouteChildren: LocaleGalleryColorColorRouteChildren =
+  {
+    LocaleGalleryColorColorIndexRoute: LocaleGalleryColorColorIndexRoute,
+    LocaleGalleryColorColorVideosSlugRoute:
+      LocaleGalleryColorColorVideosSlugRoute,
+  }
+
+const LocaleGalleryColorColorRouteWithChildren =
+  LocaleGalleryColorColorRoute._addFileChildren(
+    LocaleGalleryColorColorRouteChildren,
+  )
+
+interface LocaleGalleryModelModelRouteChildren {
+  LocaleGalleryModelModelIndexRoute: typeof LocaleGalleryModelModelIndexRoute
+  LocaleGalleryModelModelVideosSlugRoute: typeof LocaleGalleryModelModelVideosSlugRoute
 }
 
-const GalleryModelModelRouteWithChildren =
-  GalleryModelModelRoute._addFileChildren(GalleryModelModelRouteChildren)
+const LocaleGalleryModelModelRouteChildren: LocaleGalleryModelModelRouteChildren =
+  {
+    LocaleGalleryModelModelIndexRoute: LocaleGalleryModelModelIndexRoute,
+    LocaleGalleryModelModelVideosSlugRoute:
+      LocaleGalleryModelModelVideosSlugRoute,
+  }
 
-interface GalleryTypeTypeRouteChildren {
-  GalleryTypeTypeIndexRoute: typeof GalleryTypeTypeIndexRoute
-  GalleryTypeTypeVideosSlugRoute: typeof GalleryTypeTypeVideosSlugRoute
+const LocaleGalleryModelModelRouteWithChildren =
+  LocaleGalleryModelModelRoute._addFileChildren(
+    LocaleGalleryModelModelRouteChildren,
+  )
+
+interface LocaleGalleryTypeTypeRouteChildren {
+  LocaleGalleryTypeTypeIndexRoute: typeof LocaleGalleryTypeTypeIndexRoute
+  LocaleGalleryTypeTypeVideosSlugRoute: typeof LocaleGalleryTypeTypeVideosSlugRoute
 }
 
-const GalleryTypeTypeRouteChildren: GalleryTypeTypeRouteChildren = {
-  GalleryTypeTypeIndexRoute: GalleryTypeTypeIndexRoute,
-  GalleryTypeTypeVideosSlugRoute: GalleryTypeTypeVideosSlugRoute,
+const LocaleGalleryTypeTypeRouteChildren: LocaleGalleryTypeTypeRouteChildren = {
+  LocaleGalleryTypeTypeIndexRoute: LocaleGalleryTypeTypeIndexRoute,
+  LocaleGalleryTypeTypeVideosSlugRoute: LocaleGalleryTypeTypeVideosSlugRoute,
 }
 
-const GalleryTypeTypeRouteWithChildren = GalleryTypeTypeRoute._addFileChildren(
-  GalleryTypeTypeRouteChildren,
+const LocaleGalleryTypeTypeRouteWithChildren =
+  LocaleGalleryTypeTypeRoute._addFileChildren(
+    LocaleGalleryTypeTypeRouteChildren,
+  )
+
+interface LocaleGalleryRouteChildren {
+  LocaleGalleryIndexRoute: typeof LocaleGalleryIndexRoute
+  LocaleGalleryCategoryCategoryRoute: typeof LocaleGalleryCategoryCategoryRouteWithChildren
+  LocaleGalleryColorColorRoute: typeof LocaleGalleryColorColorRouteWithChildren
+  LocaleGalleryModelModelRoute: typeof LocaleGalleryModelModelRouteWithChildren
+  LocaleGalleryTypeTypeRoute: typeof LocaleGalleryTypeTypeRouteWithChildren
+  LocaleGalleryVideosSlugRoute: typeof LocaleGalleryVideosSlugRoute
+}
+
+const LocaleGalleryRouteChildren: LocaleGalleryRouteChildren = {
+  LocaleGalleryIndexRoute: LocaleGalleryIndexRoute,
+  LocaleGalleryCategoryCategoryRoute:
+    LocaleGalleryCategoryCategoryRouteWithChildren,
+  LocaleGalleryColorColorRoute: LocaleGalleryColorColorRouteWithChildren,
+  LocaleGalleryModelModelRoute: LocaleGalleryModelModelRouteWithChildren,
+  LocaleGalleryTypeTypeRoute: LocaleGalleryTypeTypeRouteWithChildren,
+  LocaleGalleryVideosSlugRoute: LocaleGalleryVideosSlugRoute,
+}
+
+const LocaleGalleryRouteWithChildren = LocaleGalleryRoute._addFileChildren(
+  LocaleGalleryRouteChildren,
 )
 
-interface GalleryRouteChildren {
-  GalleryIndexRoute: typeof GalleryIndexRoute
-  GalleryCategoryCategoryRoute: typeof GalleryCategoryCategoryRouteWithChildren
-  GalleryModelModelRoute: typeof GalleryModelModelRouteWithChildren
-  GalleryTypeTypeRoute: typeof GalleryTypeTypeRouteWithChildren
-  GalleryVideosSlugRoute: typeof GalleryVideosSlugRoute
+interface LocalePagesRouteChildren {
+  LocalePagesAboutRoute: typeof LocalePagesAboutRoute
+  LocalePagesBrandRoute: typeof LocalePagesBrandRoute
+  LocalePagesContactRoute: typeof LocalePagesContactRoute
+  LocalePagesPrivacyRoute: typeof LocalePagesPrivacyRoute
+  LocalePagesRefundsRoute: typeof LocalePagesRefundsRoute
+  LocalePagesTermsRoute: typeof LocalePagesTermsRoute
 }
 
-const GalleryRouteChildren: GalleryRouteChildren = {
-  GalleryIndexRoute: GalleryIndexRoute,
-  GalleryCategoryCategoryRoute: GalleryCategoryCategoryRouteWithChildren,
-  GalleryModelModelRoute: GalleryModelModelRouteWithChildren,
-  GalleryTypeTypeRoute: GalleryTypeTypeRouteWithChildren,
-  GalleryVideosSlugRoute: GalleryVideosSlugRoute,
+const LocalePagesRouteChildren: LocalePagesRouteChildren = {
+  LocalePagesAboutRoute: LocalePagesAboutRoute,
+  LocalePagesBrandRoute: LocalePagesBrandRoute,
+  LocalePagesContactRoute: LocalePagesContactRoute,
+  LocalePagesPrivacyRoute: LocalePagesPrivacyRoute,
+  LocalePagesRefundsRoute: LocalePagesRefundsRoute,
+  LocalePagesTermsRoute: LocalePagesTermsRoute,
 }
 
-const GalleryRouteWithChildren =
-  GalleryRoute._addFileChildren(GalleryRouteChildren)
-
-interface PagesRouteChildren {
-  PagesAboutRoute: typeof PagesAboutRoute
-  PagesBrandRoute: typeof PagesBrandRoute
-  PagesContactRoute: typeof PagesContactRoute
-  PagesPrivacyRoute: typeof PagesPrivacyRoute
-  PagesRefundsRoute: typeof PagesRefundsRoute
-  PagesTermsRoute: typeof PagesTermsRoute
-}
-
-const PagesRouteChildren: PagesRouteChildren = {
-  PagesAboutRoute: PagesAboutRoute,
-  PagesBrandRoute: PagesBrandRoute,
-  PagesContactRoute: PagesContactRoute,
-  PagesPrivacyRoute: PagesPrivacyRoute,
-  PagesRefundsRoute: PagesRefundsRoute,
-  PagesTermsRoute: PagesTermsRoute,
-}
-
-const PagesRouteWithChildren = PagesRoute._addFileChildren(PagesRouteChildren)
-
-interface AdminRouteChildren {
-  AdminFeedbackRoute: typeof AdminFeedbackRoute
-  AdminJobsRoute: typeof AdminJobsRoute
-  AdminSponsorshipsRoute: typeof AdminSponsorshipsRoute
-  AdminSubmissionsRoute: typeof AdminSubmissionsRoute
-  AdminIndexRoute: typeof AdminIndexRoute
-}
-
-const AdminRouteChildren: AdminRouteChildren = {
-  AdminFeedbackRoute: AdminFeedbackRoute,
-  AdminJobsRoute: AdminJobsRoute,
-  AdminSponsorshipsRoute: AdminSponsorshipsRoute,
-  AdminSubmissionsRoute: AdminSubmissionsRoute,
-  AdminIndexRoute: AdminIndexRoute,
-}
-
-const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
-
-interface CreativesRouteChildren {
-  CreativesCategoryRoute: typeof CreativesCategoryRoute
-  CreativesIndexRoute: typeof CreativesIndexRoute
-}
-
-const CreativesRouteChildren: CreativesRouteChildren = {
-  CreativesCategoryRoute: CreativesCategoryRoute,
-  CreativesIndexRoute: CreativesIndexRoute,
-}
-
-const CreativesRouteWithChildren = CreativesRoute._addFileChildren(
-  CreativesRouteChildren,
+const LocalePagesRouteWithChildren = LocalePagesRoute._addFileChildren(
+  LocalePagesRouteChildren,
 )
 
-interface CustomizeRouteChildren {
-  CustomizeSlugRoute: typeof CustomizeSlugRoute
-  CustomizeIndexRoute: typeof CustomizeIndexRoute
+interface LocaleAdminRouteChildren {
+  LocaleAdminFeedbackRoute: typeof LocaleAdminFeedbackRoute
+  LocaleAdminJobsRoute: typeof LocaleAdminJobsRoute
+  LocaleAdminSponsorshipsRoute: typeof LocaleAdminSponsorshipsRoute
+  LocaleAdminSubmissionsRoute: typeof LocaleAdminSubmissionsRoute
+  LocaleAdminIndexRoute: typeof LocaleAdminIndexRoute
 }
 
-const CustomizeRouteChildren: CustomizeRouteChildren = {
-  CustomizeSlugRoute: CustomizeSlugRoute,
-  CustomizeIndexRoute: CustomizeIndexRoute,
+const LocaleAdminRouteChildren: LocaleAdminRouteChildren = {
+  LocaleAdminFeedbackRoute: LocaleAdminFeedbackRoute,
+  LocaleAdminJobsRoute: LocaleAdminJobsRoute,
+  LocaleAdminSponsorshipsRoute: LocaleAdminSponsorshipsRoute,
+  LocaleAdminSubmissionsRoute: LocaleAdminSubmissionsRoute,
+  LocaleAdminIndexRoute: LocaleAdminIndexRoute,
 }
 
-const CustomizeRouteWithChildren = CustomizeRoute._addFileChildren(
-  CustomizeRouteChildren,
+const LocaleAdminRouteWithChildren = LocaleAdminRoute._addFileChildren(
+  LocaleAdminRouteChildren,
 )
 
-interface DashboardRouteChildren {
-  DashboardBillingRoute: typeof DashboardBillingRoute
-  DashboardBookmarksRoute: typeof DashboardBookmarksRoute
-  DashboardFeaturedRoute: typeof DashboardFeaturedRoute
-  DashboardListingsRoute: typeof DashboardListingsRoute
-  DashboardSettingsRoute: typeof DashboardSettingsRoute
-  DashboardSkillRoute: typeof DashboardSkillRoute
-  DashboardSubmitRoute: typeof DashboardSubmitRoute
-  DashboardIndexRoute: typeof DashboardIndexRoute
-  DashboardJobsPostRoute: typeof DashboardJobsPostRoute
-  DashboardSponsorshipsNewRoute: typeof DashboardSponsorshipsNewRoute
-  DashboardSponsorshipsIndexRoute: typeof DashboardSponsorshipsIndexRoute
+interface LocaleCreativesRouteChildren {
+  LocaleCreativesCategoryRoute: typeof LocaleCreativesCategoryRoute
+  LocaleCreativesIndexRoute: typeof LocaleCreativesIndexRoute
 }
 
-const DashboardRouteChildren: DashboardRouteChildren = {
-  DashboardBillingRoute: DashboardBillingRoute,
-  DashboardBookmarksRoute: DashboardBookmarksRoute,
-  DashboardFeaturedRoute: DashboardFeaturedRoute,
-  DashboardListingsRoute: DashboardListingsRoute,
-  DashboardSettingsRoute: DashboardSettingsRoute,
-  DashboardSkillRoute: DashboardSkillRoute,
-  DashboardSubmitRoute: DashboardSubmitRoute,
-  DashboardIndexRoute: DashboardIndexRoute,
-  DashboardJobsPostRoute: DashboardJobsPostRoute,
-  DashboardSponsorshipsNewRoute: DashboardSponsorshipsNewRoute,
-  DashboardSponsorshipsIndexRoute: DashboardSponsorshipsIndexRoute,
+const LocaleCreativesRouteChildren: LocaleCreativesRouteChildren = {
+  LocaleCreativesCategoryRoute: LocaleCreativesCategoryRoute,
+  LocaleCreativesIndexRoute: LocaleCreativesIndexRoute,
 }
 
-const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
-  DashboardRouteChildren,
+const LocaleCreativesRouteWithChildren = LocaleCreativesRoute._addFileChildren(
+  LocaleCreativesRouteChildren,
 )
 
-interface ExtrasRouteChildren {
-  ExtrasCategoryRoute: typeof ExtrasCategoryRoute
-  ExtrasIndexRoute: typeof ExtrasIndexRoute
+interface LocaleCustomizeRouteChildren {
+  LocaleCustomizeSlugRoute: typeof LocaleCustomizeSlugRoute
+  LocaleCustomizeIndexRoute: typeof LocaleCustomizeIndexRoute
 }
 
-const ExtrasRouteChildren: ExtrasRouteChildren = {
-  ExtrasCategoryRoute: ExtrasCategoryRoute,
-  ExtrasIndexRoute: ExtrasIndexRoute,
+const LocaleCustomizeRouteChildren: LocaleCustomizeRouteChildren = {
+  LocaleCustomizeSlugRoute: LocaleCustomizeSlugRoute,
+  LocaleCustomizeIndexRoute: LocaleCustomizeIndexRoute,
 }
 
-const ExtrasRouteWithChildren =
-  ExtrasRoute._addFileChildren(ExtrasRouteChildren)
-
-interface MovesFamilyRouteChildren {
-  MovesFamilySlugRoute: typeof MovesFamilySlugRoute
-  MovesFamilyIndexRoute: typeof MovesFamilyIndexRoute
-}
-
-const MovesFamilyRouteChildren: MovesFamilyRouteChildren = {
-  MovesFamilySlugRoute: MovesFamilySlugRoute,
-  MovesFamilyIndexRoute: MovesFamilyIndexRoute,
-}
-
-const MovesFamilyRouteWithChildren = MovesFamilyRoute._addFileChildren(
-  MovesFamilyRouteChildren,
+const LocaleCustomizeRouteWithChildren = LocaleCustomizeRoute._addFileChildren(
+  LocaleCustomizeRouteChildren,
 )
 
-interface MovesRouteChildren {
-  MovesFamilyRoute: typeof MovesFamilyRouteWithChildren
-  MovesIndexRoute: typeof MovesIndexRoute
+interface LocaleDashboardRouteChildren {
+  LocaleDashboardBillingRoute: typeof LocaleDashboardBillingRoute
+  LocaleDashboardBookmarksRoute: typeof LocaleDashboardBookmarksRoute
+  LocaleDashboardFeaturedRoute: typeof LocaleDashboardFeaturedRoute
+  LocaleDashboardListingsRoute: typeof LocaleDashboardListingsRoute
+  LocaleDashboardSettingsRoute: typeof LocaleDashboardSettingsRoute
+  LocaleDashboardSkillRoute: typeof LocaleDashboardSkillRoute
+  LocaleDashboardSubmitRoute: typeof LocaleDashboardSubmitRoute
+  LocaleDashboardIndexRoute: typeof LocaleDashboardIndexRoute
+  LocaleDashboardJobsPostRoute: typeof LocaleDashboardJobsPostRoute
+  LocaleDashboardSponsorshipsNewRoute: typeof LocaleDashboardSponsorshipsNewRoute
+  LocaleDashboardSponsorshipsIndexRoute: typeof LocaleDashboardSponsorshipsIndexRoute
 }
 
-const MovesRouteChildren: MovesRouteChildren = {
-  MovesFamilyRoute: MovesFamilyRouteWithChildren,
-  MovesIndexRoute: MovesIndexRoute,
+const LocaleDashboardRouteChildren: LocaleDashboardRouteChildren = {
+  LocaleDashboardBillingRoute: LocaleDashboardBillingRoute,
+  LocaleDashboardBookmarksRoute: LocaleDashboardBookmarksRoute,
+  LocaleDashboardFeaturedRoute: LocaleDashboardFeaturedRoute,
+  LocaleDashboardListingsRoute: LocaleDashboardListingsRoute,
+  LocaleDashboardSettingsRoute: LocaleDashboardSettingsRoute,
+  LocaleDashboardSkillRoute: LocaleDashboardSkillRoute,
+  LocaleDashboardSubmitRoute: LocaleDashboardSubmitRoute,
+  LocaleDashboardIndexRoute: LocaleDashboardIndexRoute,
+  LocaleDashboardJobsPostRoute: LocaleDashboardJobsPostRoute,
+  LocaleDashboardSponsorshipsNewRoute: LocaleDashboardSponsorshipsNewRoute,
+  LocaleDashboardSponsorshipsIndexRoute: LocaleDashboardSponsorshipsIndexRoute,
 }
 
-const MovesRouteWithChildren = MovesRoute._addFileChildren(MovesRouteChildren)
-
-interface SkillsRouteChildren {
-  SkillsCategoryRoute: typeof SkillsCategoryRoute
-  SkillsIndexRoute: typeof SkillsIndexRoute
-}
-
-const SkillsRouteChildren: SkillsRouteChildren = {
-  SkillsCategoryRoute: SkillsCategoryRoute,
-  SkillsIndexRoute: SkillsIndexRoute,
-}
-
-const SkillsRouteWithChildren =
-  SkillsRoute._addFileChildren(SkillsRouteChildren)
-
-interface TemplatesRouteChildren {
-  TemplatesIndexRoute: typeof TemplatesIndexRoute
-  TemplatesTemplateIdCustomizeRoute: typeof TemplatesTemplateIdCustomizeRoute
-  TemplatesTemplateIdIndexRoute: typeof TemplatesTemplateIdIndexRoute
-}
-
-const TemplatesRouteChildren: TemplatesRouteChildren = {
-  TemplatesIndexRoute: TemplatesIndexRoute,
-  TemplatesTemplateIdCustomizeRoute: TemplatesTemplateIdCustomizeRoute,
-  TemplatesTemplateIdIndexRoute: TemplatesTemplateIdIndexRoute,
-}
-
-const TemplatesRouteWithChildren = TemplatesRoute._addFileChildren(
-  TemplatesRouteChildren,
+const LocaleDashboardRouteWithChildren = LocaleDashboardRoute._addFileChildren(
+  LocaleDashboardRouteChildren,
 )
 
-interface ToolsRouteChildren {
-  ToolsCategoryRoute: typeof ToolsCategoryRoute
-  ToolsIndexRoute: typeof ToolsIndexRoute
+interface LocaleExtrasRouteChildren {
+  LocaleExtrasCategoryRoute: typeof LocaleExtrasCategoryRoute
+  LocaleExtrasIndexRoute: typeof LocaleExtrasIndexRoute
 }
 
-const ToolsRouteChildren: ToolsRouteChildren = {
-  ToolsCategoryRoute: ToolsCategoryRoute,
-  ToolsIndexRoute: ToolsIndexRoute,
+const LocaleExtrasRouteChildren: LocaleExtrasRouteChildren = {
+  LocaleExtrasCategoryRoute: LocaleExtrasCategoryRoute,
+  LocaleExtrasIndexRoute: LocaleExtrasIndexRoute,
 }
 
-const ToolsRouteWithChildren = ToolsRoute._addFileChildren(ToolsRouteChildren)
+const LocaleExtrasRouteWithChildren = LocaleExtrasRoute._addFileChildren(
+  LocaleExtrasRouteChildren,
+)
+
+interface LocaleMovesFamilyRouteChildren {
+  LocaleMovesFamilySlugRoute: typeof LocaleMovesFamilySlugRoute
+  LocaleMovesFamilyIndexRoute: typeof LocaleMovesFamilyIndexRoute
+}
+
+const LocaleMovesFamilyRouteChildren: LocaleMovesFamilyRouteChildren = {
+  LocaleMovesFamilySlugRoute: LocaleMovesFamilySlugRoute,
+  LocaleMovesFamilyIndexRoute: LocaleMovesFamilyIndexRoute,
+}
+
+const LocaleMovesFamilyRouteWithChildren =
+  LocaleMovesFamilyRoute._addFileChildren(LocaleMovesFamilyRouteChildren)
+
+interface LocaleMovesRouteChildren {
+  LocaleMovesFamilyRoute: typeof LocaleMovesFamilyRouteWithChildren
+  LocaleMovesIndexRoute: typeof LocaleMovesIndexRoute
+}
+
+const LocaleMovesRouteChildren: LocaleMovesRouteChildren = {
+  LocaleMovesFamilyRoute: LocaleMovesFamilyRouteWithChildren,
+  LocaleMovesIndexRoute: LocaleMovesIndexRoute,
+}
+
+const LocaleMovesRouteWithChildren = LocaleMovesRoute._addFileChildren(
+  LocaleMovesRouteChildren,
+)
+
+interface LocaleSkillsRouteChildren {
+  LocaleSkillsCategoryRoute: typeof LocaleSkillsCategoryRoute
+  LocaleSkillsIndexRoute: typeof LocaleSkillsIndexRoute
+}
+
+const LocaleSkillsRouteChildren: LocaleSkillsRouteChildren = {
+  LocaleSkillsCategoryRoute: LocaleSkillsCategoryRoute,
+  LocaleSkillsIndexRoute: LocaleSkillsIndexRoute,
+}
+
+const LocaleSkillsRouteWithChildren = LocaleSkillsRoute._addFileChildren(
+  LocaleSkillsRouteChildren,
+)
+
+interface LocaleTemplatesRouteChildren {
+  LocaleTemplatesIndexRoute: typeof LocaleTemplatesIndexRoute
+  LocaleTemplatesTemplateIdCustomizeRoute: typeof LocaleTemplatesTemplateIdCustomizeRoute
+  LocaleTemplatesTemplateIdIndexRoute: typeof LocaleTemplatesTemplateIdIndexRoute
+}
+
+const LocaleTemplatesRouteChildren: LocaleTemplatesRouteChildren = {
+  LocaleTemplatesIndexRoute: LocaleTemplatesIndexRoute,
+  LocaleTemplatesTemplateIdCustomizeRoute:
+    LocaleTemplatesTemplateIdCustomizeRoute,
+  LocaleTemplatesTemplateIdIndexRoute: LocaleTemplatesTemplateIdIndexRoute,
+}
+
+const LocaleTemplatesRouteWithChildren = LocaleTemplatesRoute._addFileChildren(
+  LocaleTemplatesRouteChildren,
+)
+
+interface LocaleToolsRouteChildren {
+  LocaleToolsCategoryRoute: typeof LocaleToolsCategoryRoute
+  LocaleToolsIndexRoute: typeof LocaleToolsIndexRoute
+}
+
+const LocaleToolsRouteChildren: LocaleToolsRouteChildren = {
+  LocaleToolsCategoryRoute: LocaleToolsCategoryRoute,
+  LocaleToolsIndexRoute: LocaleToolsIndexRoute,
+}
+
+const LocaleToolsRouteWithChildren = LocaleToolsRoute._addFileChildren(
+  LocaleToolsRouteChildren,
+)
+
+interface LocaleRouteRouteChildren {
+  LocaleSplatRoute: typeof LocaleSplatRoute
+  LocaleGalleryRoute: typeof LocaleGalleryRouteWithChildren
+  LocalePagesRoute: typeof LocalePagesRouteWithChildren
+  LocaleAdminRoute: typeof LocaleAdminRouteWithChildren
+  LocaleBookmarksRoute: typeof LocaleBookmarksRoute
+  LocaleCheckoutRoute: typeof LocaleCheckoutRoute
+  LocaleConsentRoute: typeof LocaleConsentRoute
+  LocaleCreativesRoute: typeof LocaleCreativesRouteWithChildren
+  LocaleCustomizeRoute: typeof LocaleCustomizeRouteWithChildren
+  LocaleDashboardRoute: typeof LocaleDashboardRouteWithChildren
+  LocaleExtrasRoute: typeof LocaleExtrasRouteWithChildren
+  LocaleFeaturedRoute: typeof LocaleFeaturedRoute
+  LocaleListingsRoute: typeof LocaleListingsRoute
+  LocaleMotionvideoMcpRoute: typeof LocaleMotionvideoMcpRoute
+  LocaleMotionvideoSkillRoute: typeof LocaleMotionvideoSkillRoute
+  LocaleMovesRoute: typeof LocaleMovesRouteWithChildren
+  LocaleProRoute: typeof LocaleProRoute
+  LocaleSettingsRoute: typeof LocaleSettingsRoute
+  LocaleSignInRoute: typeof LocaleSignInRoute
+  LocaleSkillsRoute: typeof LocaleSkillsRouteWithChildren
+  LocaleSponsorRoute: typeof LocaleSponsorRoute
+  LocaleStudiosRoute: typeof LocaleStudiosRoute
+  LocaleSubmitRoute: typeof LocaleSubmitRoute
+  LocaleTemplatesRoute: typeof LocaleTemplatesRouteWithChildren
+  LocaleToolsRoute: typeof LocaleToolsRouteWithChildren
+  LocaleWelcomeRoute: typeof LocaleWelcomeRoute
+  LocaleDocsSplatRoute: typeof LocaleDocsSplatRoute
+  LocaleJobsTypeRoute: typeof LocaleJobsTypeRoute
+  LocaleJobsPostRoute: typeof LocaleJobsPostRoute
+  LocaleSponsorshipsNewRoute: typeof LocaleSponsorshipsNewRoute
+  LocaleDocsIndexRoute: typeof LocaleDocsIndexRoute
+  LocaleJobsIndexRoute: typeof LocaleJobsIndexRoute
+  LocaleSponsorshipsIndexRoute: typeof LocaleSponsorshipsIndexRoute
+}
+
+const LocaleRouteRouteChildren: LocaleRouteRouteChildren = {
+  LocaleSplatRoute: LocaleSplatRoute,
+  LocaleGalleryRoute: LocaleGalleryRouteWithChildren,
+  LocalePagesRoute: LocalePagesRouteWithChildren,
+  LocaleAdminRoute: LocaleAdminRouteWithChildren,
+  LocaleBookmarksRoute: LocaleBookmarksRoute,
+  LocaleCheckoutRoute: LocaleCheckoutRoute,
+  LocaleConsentRoute: LocaleConsentRoute,
+  LocaleCreativesRoute: LocaleCreativesRouteWithChildren,
+  LocaleCustomizeRoute: LocaleCustomizeRouteWithChildren,
+  LocaleDashboardRoute: LocaleDashboardRouteWithChildren,
+  LocaleExtrasRoute: LocaleExtrasRouteWithChildren,
+  LocaleFeaturedRoute: LocaleFeaturedRoute,
+  LocaleListingsRoute: LocaleListingsRoute,
+  LocaleMotionvideoMcpRoute: LocaleMotionvideoMcpRoute,
+  LocaleMotionvideoSkillRoute: LocaleMotionvideoSkillRoute,
+  LocaleMovesRoute: LocaleMovesRouteWithChildren,
+  LocaleProRoute: LocaleProRoute,
+  LocaleSettingsRoute: LocaleSettingsRoute,
+  LocaleSignInRoute: LocaleSignInRoute,
+  LocaleSkillsRoute: LocaleSkillsRouteWithChildren,
+  LocaleSponsorRoute: LocaleSponsorRoute,
+  LocaleStudiosRoute: LocaleStudiosRoute,
+  LocaleSubmitRoute: LocaleSubmitRoute,
+  LocaleTemplatesRoute: LocaleTemplatesRouteWithChildren,
+  LocaleToolsRoute: LocaleToolsRouteWithChildren,
+  LocaleWelcomeRoute: LocaleWelcomeRoute,
+  LocaleDocsSplatRoute: LocaleDocsSplatRoute,
+  LocaleJobsTypeRoute: LocaleJobsTypeRoute,
+  LocaleJobsPostRoute: LocaleJobsPostRoute,
+  LocaleSponsorshipsNewRoute: LocaleSponsorshipsNewRoute,
+  LocaleDocsIndexRoute: LocaleDocsIndexRoute,
+  LocaleJobsIndexRoute: LocaleJobsIndexRoute,
+  LocaleSponsorshipsIndexRoute: LocaleSponsorshipsIndexRoute,
+}
+
+const LocaleRouteRouteWithChildren = LocaleRouteRoute._addFileChildren(
+  LocaleRouteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
-  GalleryRoute: GalleryRouteWithChildren,
-  PagesRoute: PagesRouteWithChildren,
-  AdminRoute: AdminRouteWithChildren,
-  BookmarksRoute: BookmarksRoute,
-  CheckoutRoute: CheckoutRoute,
-  ConsentRoute: ConsentRoute,
-  CreativesRoute: CreativesRouteWithChildren,
-  CustomizeRoute: CustomizeRouteWithChildren,
-  DashboardRoute: DashboardRouteWithChildren,
-  ExtrasRoute: ExtrasRouteWithChildren,
-  FeaturedRoute: FeaturedRoute,
-  ListingsRoute: ListingsRoute,
+  LocaleRouteRoute: LocaleRouteRouteWithChildren,
+  SplatRoute: SplatRoute,
   LlmsDottxtRoute: LlmsDottxtRoute,
-  MotionvideoMcpRoute: MotionvideoMcpRoute,
-  MotionvideoSkillRoute: MotionvideoSkillRoute,
-  MovesRoute: MovesRouteWithChildren,
-  ProRoute: ProRoute,
-  SettingsRoute: SettingsRoute,
-  SignInRoute: SignInRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SkillDotmdRoute: SkillDotmdRoute,
-  SkillsRoute: SkillsRouteWithChildren,
-  SponsorRoute: SponsorRoute,
-  StudiosRoute: StudiosRoute,
-  SubmitRoute: SubmitRoute,
-  TemplatesRoute: TemplatesRouteWithChildren,
-  ToolsRoute: ToolsRouteWithChildren,
-  WelcomeRoute: WelcomeRoute,
   DotwellKnownSplatRoute: DotwellKnownSplatRoute,
   ApiUploadRoute: ApiUploadRoute,
-  DocsSplatRoute: DocsSplatRoute,
-  JobsTypeRoute: JobsTypeRoute,
-  JobsPostRoute: JobsPostRoute,
-  SponsorshipsNewRoute: SponsorshipsNewRoute,
-  DocsIndexRoute: DocsIndexRoute,
-  JobsIndexRoute: JobsIndexRoute,
-  SponsorshipsIndexRoute: SponsorshipsIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiCatalogDirectoriesRoute: ApiCatalogDirectoriesRoute,
   ApiMcpBookmarksRoute: ApiMcpBookmarksRoute,

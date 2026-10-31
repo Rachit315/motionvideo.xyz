@@ -10,39 +10,45 @@ const OG_IMAGE = {
   width: "1200",
 } as const;
 
+// Its moving twin (public/og.mp4, rendered by `pnpm og:render` in
+// apps/videos): the same centre with the posters revolving around it, a
+// 12-second silent loop. Platforms that play og:video (Facebook, LinkedIn,
+// Discord, Slack, iMessage…) show it; the rest keep the image.
+const OG_VIDEO = {
+  height: "630",
+  type: "video/mp4",
+  url: absoluteUrl("/og.mp4"),
+  width: "1200",
+} as const;
+
 interface CreateMetadataOptions {
   /** Page title; the site name is appended. Omit on the home page. */
   title?: string;
   description?: string;
-  /** Path of the page, used for the canonical link and og:url. */
-  canonical?: string;
-  noIndex?: boolean;
 }
 
 // Per-route head tags, returned from a route's `head()`. Tags here override
-// the defaults from `baseMetadata` (TanStack dedupes by name/property).
+// the defaults from `baseMetadata` (TanStack dedupes by name/property). Pass
+// strings already translated for the page's locale.
 export const createMetadata = ({
   title,
   description = SITE.DESCRIPTION.SHORT,
-  canonical,
-  noIndex = false,
 }: CreateMetadataOptions = {}) => {
   const fullTitle = title
     ? `${title} | ${SITE.NAME}`
     : `${SITE.NAME}: ${SITE.TAGLINE}`;
-  const url = canonical ? absoluteUrl(canonical) : SITE.URL;
 
+  // Canonical, hreflang, og:locale, og:url and robots are set on the locale
+  // layout (src/routes/$locale/route.tsx), where the current pathname, prefix
+  // and the routes' `staticData.noIndex` are known for every page.
   return {
-    links: canonical ? [{ href: url, rel: "canonical" }] : [],
     meta: [
       { title: fullTitle },
       { content: description, name: "description" },
       { content: fullTitle, property: "og:title" },
       { content: description, property: "og:description" },
-      { content: url, property: "og:url" },
       { content: fullTitle, name: "twitter:title" },
       { content: description, name: "twitter:description" },
-      ...(noIndex ? [{ content: "noindex, nofollow", name: "robots" }] : []),
     ],
   };
 };
@@ -68,11 +74,15 @@ export const baseMetadata = {
     { content: SITE.KEYWORDS.join(", "), name: "keywords" },
     { content: SITE.NAME, property: "og:site_name" },
     { content: "website", property: "og:type" },
-    { content: "en_US", property: "og:locale" },
     { content: OG_IMAGE.url, property: "og:image" },
     { content: OG_IMAGE.alt, property: "og:image:alt" },
     { content: OG_IMAGE.width, property: "og:image:width" },
     { content: OG_IMAGE.height, property: "og:image:height" },
+    { content: OG_VIDEO.url, property: "og:video" },
+    { content: OG_VIDEO.url, property: "og:video:secure_url" },
+    { content: OG_VIDEO.type, property: "og:video:type" },
+    { content: OG_VIDEO.width, property: "og:video:width" },
+    { content: OG_VIDEO.height, property: "og:video:height" },
     { content: "summary_large_image", name: "twitter:card" },
     { content: SITE.AUTHOR.TWITTER, name: "twitter:creator" },
     { content: OG_IMAGE.url, name: "twitter:image" },

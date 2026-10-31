@@ -31,12 +31,11 @@ export const moveHead = ({
   params,
 }: {
   loaderData?: { move: Move };
-  params: { family: string; slug: string };
+  params: { locale: string; family: string; slug: string };
 }) => {
   const path = `${ROUTES.MOVES}/${params.family}/${params.slug}`;
   return {
     ...createMetadata({
-      canonical: path,
       title: loaderData
         ? `${loaderData.move.name}: motion design move`
         : "Move",
@@ -44,10 +43,13 @@ export const moveHead = ({
     }),
     scripts: loaderData
       ? [
-          moveJsonLd(loaderData.move),
+          moveJsonLd(loaderData.move, params.locale),
           breadcrumbJsonLd(
-            { name: "Moves", path: ROUTES.MOVES },
-            { name: loaderData.move.name, path }
+            [
+              { name: "Moves", path: ROUTES.MOVES },
+              { name: loaderData.move.name, path },
+            ],
+            params.locale
           ),
         ]
       : [],

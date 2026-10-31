@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useLocale } from "react-intlayer";
+import { Star } from "reicon-react/icons/Star";
 
 import { BookmarkButton } from "@/components/bookmark-button";
 import { ExternalLinkChip } from "@/components/external-link-chip";
@@ -28,6 +30,7 @@ export const DirectoryCard = ({
   bookmarkAlwaysVisible?: boolean;
 }) => {
   const [broken, setBroken] = useState(false);
+  const { locale } = useLocale();
 
   return (
     <div className="group/card relative">
@@ -64,10 +67,18 @@ export const DirectoryCard = ({
           </span>
         )}
         <span className="pointer-events-none absolute inset-0 flex flex-col justify-between bg-linear-to-t from-black/75 via-transparent to-transparent p-2.5 opacity-0 transition-opacity duration-200 group-hover/card:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:opacity-100">
-          <span className="flex items-start">
+          <span className="flex items-start gap-1.5">
             {categoryLabel && (
               <span className="rounded-full bg-black/55 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
                 {categoryLabel}
+              </span>
+            )}
+            {entry.stars !== undefined && (
+              <span className="flex items-center gap-0.5 rounded-full bg-black/55 px-2 py-0.5 text-[10px] font-medium text-white tabular-nums backdrop-blur-sm">
+                <Star aria-hidden="true" className="size-2.5" />
+                {new Intl.NumberFormat(locale, { notation: "compact" }).format(
+                  entry.stars
+                )}
               </span>
             )}
           </span>

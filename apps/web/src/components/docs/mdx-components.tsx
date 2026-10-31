@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import type { MDXComponents } from "mdx/types";
 import type { ComponentProps, ReactNode } from "react";
 import { useIntlayer } from "react-intlayer";
@@ -8,18 +7,22 @@ import { Hashtag } from "reicon-react/icons/Hashtag";
 import { InfoCircle } from "reicon-react/icons/InfoCircle";
 
 import { CodeBlock } from "@/components/docs/code-block";
+import { LocalizedLink as Link } from "@/components/localized-link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
 // Site-relative path (not protocol-relative `//host`), optional #fragment.
 const INTERNAL_HREF = /^(?<path>\/(?!\/)[^#]*)(?:#(?<hash>.*))?$/u;
+// Site files served outside `/$locale` (`/skill.md`, `/llms.txt`).
+const SITE_FILE = /\.[a-z0-9]+$/iu;
 
 const linkClass =
   "text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors hover:decoration-foreground";
 
 /**
- * Markdown links: site paths go through the router, `#anchors` and `mailto:`
- * stay plain, anything else opens in a new tab.
+ * Markdown links: site pages go through the router under the current locale,
+ * site files, `#anchors` and `mailto:` stay plain, anything else opens in a
+ * new tab.
  */
 export const DocsLink = ({
   href = "",
@@ -29,14 +32,14 @@ export const DocsLink = ({
 }: ComponentProps<"a">) => {
   const content = useIntlayer("docs-layout");
   const internal = INTERNAL_HREF.exec(href)?.groups;
-  if (internal) {
+  if (internal && !SITE_FILE.test(internal.path)) {
     return (
       <Link to={internal.path} hash={internal.hash} className={className}>
         {children}
       </Link>
     );
   }
-  if (href.startsWith("#") || href.startsWith("mailto:")) {
+  if (internal || href.startsWith("#") || href.startsWith("mailto:")) {
     return (
       <a href={href} className={className} {...props}>
         {children}

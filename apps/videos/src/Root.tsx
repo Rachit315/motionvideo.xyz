@@ -1,6 +1,13 @@
 import "./index.css";
 import { Composition, Folder } from "remotion";
 import { DURATION, FPS, MotionVideoLaunch } from "./launch/MotionVideoLaunch";
+import {
+  OG_DURATION,
+  OG_FPS,
+  OG_HEIGHT,
+  OG_WIDTH,
+  OgVideo,
+} from "./og/OgVideo";
 
 /**
  * Every MotionVideo film, one folder per video in Studio. A new video (a
@@ -8,14 +15,26 @@ import { DURATION, FPS, MotionVideoLaunch } from "./launch/MotionVideoLaunch";
  * and registers its composition here.
  */
 export const RemotionRoot = () => (
-  <Folder name="launch">
-    <Composition
-      id="MotionVideoLaunch"
-      component={MotionVideoLaunch}
-      durationInFrames={DURATION}
-      fps={FPS}
-      width={1280}
-      height={720}
-    />
-  </Folder>
+  <>
+    <Folder name="launch">
+      <Composition
+        id="MotionVideoLaunch"
+        component={MotionVideoLaunch}
+        durationInFrames={DURATION}
+        fps={FPS}
+        width={1280}
+        height={720}
+      />
+    </Folder>
+    <Folder name="og">
+      <Composition
+        id="OgVideo"
+        component={OgVideo}
+        durationInFrames={OG_DURATION}
+        fps={OG_FPS}
+        width={OG_WIDTH}
+        height={OG_HEIGHT}
+      />
+    </Folder>
+  </>
 );

@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { env } from "cloudflare:workers";
 import { z } from "zod";
 
+import { DEFAULT_LOCALE, isLocale, localizedPath } from "@/constants/locales";
 import {
   BUSINESS_SEATS,
   PLAN_BILLINGS,
@@ -74,31 +75,37 @@ export const getMyPlan = createServerFn({ method: "GET" })
 export const startPlanCheckout = createServerFn({ method: "POST" })
   .validator(
     z
-      .object({ plan: z.enum(PLANS), billing: z.enum(PLAN_BILLINGS) })
+      .object({
+        plan: z.enum(PLANS),
+        billing: z.enum(PLAN_BILLINGS),
+        locale: z.string().optional(),
+      })
       .refine(({ plan, billing }) => planOffers(plan).includes(billing))
   )
   .handler(async ({ data }) => {
     const session = await requireSession();
-    return createPlanCheckoutUrl(data.plan, data.billing, {
-      email: session.user.email,
-      userId: session.user.id,
-    });
+    return createPlanCheckoutUrl(
+      data.plan,
+      data.billing,
+      { email: session.user.email, userId: session.user.id },
+      data.locale
+    );
   });
 
 /**
  * Dodo's billing portal: the owner's plan (cancel, change card, invoices),
  * or, for a retired Skill Bundle buyer, their receipts and GitHub link.
  */
-export const getPlanPortalUrl = createServerFn({ method: "POST" }).handler(
-  async () => {
+export const getPlanPortalUrl = createServerFn({ method: "POST" })
+  .validator(z.object({ locale: z.string().optional() }).optional())
+  .handler(async ({ data }) => {
     const session = await requireSession();
     const row = await liveOwnedRow(session.user);
     if (row) {
-      return planPortalUrl(row.customerId);
+      return planPortalUrl(row.customerId, data?.locale);
     }
-    return legacySkillPortalUrl(session.user.email);
-  }
-);
+    return legacySkillPortalUrl(session.user.email, data?.locale);
+  });
 
 // The owner's live Business row, or an error for anyone else.
 const requireBusinessOwner = async () => {
@@ -138,7 +145,9 @@ export type InviteSeatResult =
  * accepts it (see planAccessFor). The owner counts toward BUSINESS_SEATS.
  */
 export const inviteSeat = createServerFn({ method: "POST" })
-  .validator(z.object({ email: z.email().max(254) }))
+  .validator(
+    z.object({ email: z.email().max(254), locale: z.string().optional() })
+  )
   .handler(async ({ data }): Promise<InviteSeatResult> => {
     const { session, row } = await requireBusinessOwner();
     const email = data.email.toLowerCase();
@@ -153,7 +162,8 @@ export const inviteSeat = createServerFn({ method: "POST" })
       return { ok: false, error: "full" };
     }
     await addSeat(row.id, email);
-    const signIn = `${env.BETTER_AUTH_URL}${ROUTES.SIGN_IN}?redirect=${encodeURIComponent(ROUTES.DASHBOARD_BILLING)}`;
+    const locale = isLocale(data.locale) ? data.locale : DEFAULT_LOCALE;
+    const signIn = `${env.BETTER_AUTH_URL}${localizedPath(ROUTES.SIGN_IN, locale)}?redirect=${encodeURIComponent(localizedPath(ROUTES.DASHBOARD_BILLING, locale))}`;
     try {
       await sendEmail({
         to: email,

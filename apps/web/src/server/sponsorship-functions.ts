@@ -205,7 +205,7 @@ export type StartCheckoutResult =
  * draft saved earlier must not pay into a tier that has since sold out.
  */
 export const startSponsorCheckout = createServerFn({ method: "POST" })
-  .validator(z.object({ id: idSchema }))
+  .validator(z.object({ id: idSchema, locale: z.string().optional() }))
   .handler(async ({ data }): Promise<StartCheckoutResult> => {
     const session = await requireSession();
     const [row] = await drizzle(env.DB)
@@ -229,10 +229,16 @@ export const startSponsorCheckout = createServerFn({ method: "POST" })
     if (soldOut.includes(row.tier)) {
       return { ok: false, error: "sold-out" };
     }
-    const url = await createSponsorCheckoutUrl(row.tier, row.billing, data.id, {
-      email: session.user.email,
-      userId: session.user.id,
-    });
+    const url = await createSponsorCheckoutUrl(
+      row.tier,
+      row.billing,
+      data.id,
+      {
+        email: session.user.email,
+        userId: session.user.id,
+      },
+      data.locale
+    );
     return { ok: true, url };
   });
 
@@ -297,13 +303,13 @@ export const saveSponsorCreative = createServerFn({ method: "POST" })
 
 /** Dodo's billing portal for the sponsorship's customer. Owner only. */
 export const getSponsorPortalUrl = createServerFn({ method: "POST" })
-  .validator(z.object({ id: idSchema }))
+  .validator(z.object({ id: idSchema, locale: z.string().optional() }))
   .handler(async ({ data }) => {
     const row = await ownedPaidSponsorship(data.id);
     if (!row.customerId) {
       throw new Error("Not paid through Dodo");
     }
-    return sponsorPortalUrl(row.customerId);
+    return sponsorPortalUrl(row.customerId, data.locale);
   });
 
 /** A sponsorship as the admin review queue sees it. */

@@ -8,7 +8,9 @@
         "description": "Make stories that move",
         "category": "AI",
         "url": "https://osmo.inc/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/osmo-caab90410f.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/osmo-caab90410f.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "opencut",
@@ -16,7 +18,9 @@
         "description": "The open source video editor",
         "category": "Editor",
         "url": "https://opencut.app/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/opencut-b672cc388f.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/opencut-b672cc388f.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "open-source"
       },
       {
         "id": "ultramock",
@@ -24,7 +28,9 @@
         "description": "Cinematic UI mockups",
         "category": "Mockup",
         "url": "https://www.ultramock.io/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/ultramock-1b17ba83ce.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/ultramock-1b17ba83ce.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "movo",
@@ -32,7 +38,9 @@
         "description": "Motion templates for teams",
         "category": "Motion",
         "url": "https://movo.video/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/movo-0a64860d5f.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/movo-0a64860d5f.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "butter",
@@ -40,7 +48,9 @@
         "description": "A video editor you can build on",
         "category": "Motion",
         "url": "https://www.butter.video/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/butter-93ec74bcfe.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/butter-93ec74bcfe.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "heygen",
@@ -48,7 +58,9 @@
         "description": "Create realistic AI videos in minutes",
         "category": "AI",
         "url": "https://heygen.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/heygen-aaffd2433f.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/heygen-aaffd2433f.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "motionvid",
@@ -56,7 +68,9 @@
         "description": "AI motion graphics in seconds",
         "category": "Motion",
         "url": "https://motionvid.ai/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/motionvid-2811e42e51.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/motionvid-2811e42e51.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "capcut",
@@ -64,7 +78,9 @@
         "description": "All-in-one AI video editor",
         "category": "Editor",
         "url": "https://www.capcut.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/capcut-ad36cb6338.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/capcut-ad36cb6338.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "preview",
@@ -72,7 +88,9 @@
         "description": "The production platform for AI video",
         "category": "AI",
         "url": "https://preview.io/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/preview-b0a75c36b3.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/preview-b0a75c36b3.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "uicamera",
@@ -80,7 +98,9 @@
         "description": "Product photography for software",
         "category": "Mockup",
         "url": "https://ui.camera/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/uicamera-3e1c17e275.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/uicamera-3e1c17e275.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "pilotcut",
@@ -88,7 +108,9 @@
         "description": "The video editor that does the editing",
         "category": "Editor",
         "url": "https://www.pilotcut.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/pilotcut-6c053f5987.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/pilotcut-6c053f5987.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "ngram",
@@ -96,7 +118,9 @@
         "description": "Polished, on-brand videos for product teams",
         "category": "AI",
         "url": "https://www.ngram.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/ngram-3cce89ce7e.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/ngram-3cce89ce7e.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "descript",
@@ -104,7 +128,9 @@
         "description": "Edit video as easily as editing text",
         "category": "Editor",
         "url": "https://www.descript.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/descript-98ce3463e7.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/descript-98ce3463e7.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "veed",
@@ -112,7 +138,9 @@
         "description": "Create pro videos in the blink of AI",
         "category": "Editor",
         "url": "https://www.veed.io/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/veed-d88fa94f87.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/veed-d88fa94f87.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "clipchamp",
@@ -120,7 +148,9 @@
         "description": "Create professional videos in the browser",
         "category": "Editor",
         "url": "https://clipchamp.com/en/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/clipchamp-ae75a6e87a.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/clipchamp-ae75a6e87a.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "runway",
@@ -128,7 +158,9 @@
         "description": "Generate cinematic AI video",
         "category": "AI",
         "url": "https://runway.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/runway-9ef141a47b.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/runway-9ef141a47b.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "fliki",
@@ -136,7 +168,9 @@
         "description": "Turn text into videos with AI voices",
         "category": "AI",
         "url": "https://fliki.ai/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/fliki-c5cdea71cb.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/fliki-c5cdea71cb.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "rednow",
@@ -144,7 +178,9 @@
         "description": "See the script behind any video",
         "category": "AI",
         "url": "https://rednow.ai/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/rednow-de5567d9f8.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/rednow-de5567d9f8.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "yarn",
@@ -152,7 +188,9 @@
         "description": "Video for agentic GTM teams",
         "category": "AI",
         "url": "https://www.yarn.so/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/yarn-6f264c435e.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/yarn-6f264c435e.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "chatcut",
@@ -160,7 +198,9 @@
         "description": "Your AI video editing assistant",
         "category": "Editor",
         "url": "https://chatcut.io/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/chatcut-574c64caef.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/chatcut-574c64caef.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "oil-motion",
@@ -168,7 +208,11 @@
         "description": "Interactive web animations for agents",
         "category": "Skills",
         "url": "https://github.com/oil-oil/oil-motion",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/oil-motion-87c4f3901e.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/oil-motion-87c4f3901e.webp",
+        "stars": 2682,
+        "updatedAt": "2026-10-04T14:54:13Z",
+        "addedAt": "2026-10-10",
+        "renderers": ["html"]
       },
       {
         "id": "pika",
@@ -176,7 +220,9 @@
         "description": "The idea-to-video platform",
         "category": "AI",
         "url": "https://pika.art/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/pika-7280819a51.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/pika-7280819a51.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "motion",
@@ -184,7 +230,9 @@
         "description": "The frontier agent for motion design",
         "category": "Motion",
         "url": "https://motion.so/?ref=yi",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/motion-ed45bbfca4.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/motion-ed45bbfca4.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "cybercut",
@@ -192,7 +240,9 @@
         "description": "Let everyone easily create viral videos",
         "category": "Editor",
         "url": "https://cybercut.ai/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/cybercut-59c0094176.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/cybercut-59c0094176.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "shotbase",
@@ -200,7 +250,9 @@
         "description": "Capture, edit, organize, and share in one place",
         "category": "Editor",
         "url": "https://shotbase.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/shotbase-45145afdcf.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/shotbase-45145afdcf.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "anim8",
@@ -208,7 +260,9 @@
         "description": "Make ideas move",
         "category": "Motion",
         "url": "https://www.tryanim8.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/anim8-b5507a46ee.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/anim8-b5507a46ee.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "screen-movie",
@@ -216,7 +270,9 @@
         "description": "Create beautiful movies from your screen",
         "category": "Editor",
         "url": "https://screen.movie/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/screen-movie-973c272bd2.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/screen-movie-973c272bd2.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "whatsub",
@@ -224,7 +280,9 @@
         "description": "Fast, accurate captions without the cloud",
         "category": "Editor",
         "url": "https://whatsub.equal2.app/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/whatsub-47aae8ef0e.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/whatsub-47aae8ef0e.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "mo1",
@@ -232,7 +290,9 @@
         "description": "A new way to create motion graphics",
         "category": "Motion",
         "url": "https://mo1.app/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/mo1-4b2abd19cb.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/mo1-4b2abd19cb.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "topview-motion-studio",
@@ -240,7 +300,9 @@
         "description": "Create motion videos with AI, not After Effects",
         "category": "Motion",
         "url": "https://www.topview.ai/motion-studio",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/topview-motion-studio-f6f27c2b78.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/topview-motion-studio-f6f27c2b78.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "matte",
@@ -248,7 +310,9 @@
         "description": "Polished app demos in minutes",
         "category": "Editor",
         "url": "https://matte.app/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/matte-0d19175a47.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/matte-0d19175a47.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "screenflare",
@@ -256,7 +320,9 @@
         "description": "Create screen recordings people want to watch",
         "category": "Editor",
         "url": "https://screenflare.app/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/screenflare-168b8f53c3.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/screenflare-168b8f53c3.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "diffusion-studio",
@@ -264,7 +330,9 @@
         "description": "The video editor your agents can drive",
         "category": "Editor",
         "url": "https://diffusion.studio/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/diffusion-studio-5d63ff9277.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/diffusion-studio-5d63ff9277.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "open-source"
       },
       {
         "id": "remotion-skills",
@@ -272,7 +340,11 @@
         "description": "Best practices for Remotion, for agents",
         "category": "Skills",
         "url": "https://www.remotion.dev/docs/ai/skills",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/remotion-skills-8912f479ce.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/remotion-skills-8912f479ce.webp",
+        "stars": 5645,
+        "updatedAt": "2026-10-22T15:31:18Z",
+        "addedAt": "2026-10-10",
+        "renderers": ["remotion"]
       },
       {
         "id": "video-production-skills",
@@ -280,7 +352,11 @@
         "description": "Reusable AI video production skills",
         "category": "Skills",
         "url": "https://github.com/Pluviobyte/video-production-skills",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/video-production-skills-1fda4612a9.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/video-production-skills-1fda4612a9.webp",
+        "stars": 684,
+        "updatedAt": "2026-07-14T02:28:53Z",
+        "addedAt": "2026-10-10",
+        "renderers": ["remotion", "hyperframes"]
       },
       {
         "id": "raylight",
@@ -288,7 +364,9 @@
         "description": "Build beautiful product videos in minutes",
         "category": "Motion",
         "url": "https://www.raylight.app/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/raylight-61d4143b4b.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/raylight-61d4143b4b.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "screeen",
@@ -296,7 +374,9 @@
         "description": "Studio-quality screen recordings in minutes",
         "category": "Editor",
         "url": "https://screeen.co/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/screeen-0a1df21716.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/screeen-0a1df21716.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "recordly",
@@ -304,7 +384,9 @@
         "description": "Make beautiful screen recordings",
         "category": "Editor",
         "url": "https://recordly.dev/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/recordly-9583057f6e.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/recordly-9583057f6e.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "open-source"
       },
       {
         "id": "videngineer",
@@ -312,7 +394,9 @@
         "description": "Reverse-engineer any video",
         "category": "AI",
         "url": "https://videngineer.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/videngineer-35ca89e610.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/videngineer-35ca89e610.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "diffusion-studio-skills",
@@ -320,7 +404,11 @@
         "description": "Analyze, generate, and edit footage",
         "category": "Skills",
         "url": "https://github.com/diffusionstudio/skills",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/diffusion-studio-skills-90c8b92ab7.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/diffusion-studio-skills-90c8b92ab7.webp",
+        "stars": 146,
+        "updatedAt": "2026-10-22T09:45:52Z",
+        "addedAt": "2026-10-10",
+        "renderers": ["ffmpeg", "video-models"]
       },
       {
         "id": "kite",
@@ -328,7 +416,9 @@
         "description": "Turn screen recordings into feature films",
         "category": "Editor",
         "url": "https://kite.video/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/kite-efa82900c6.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/kite-efa82900c6.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "openstory",
@@ -336,7 +426,9 @@
         "description": "Tell your whole story",
         "category": "AI",
         "url": "https://openstory.so/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/openstory-d0e5cb824a.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/openstory-d0e5cb824a.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "open-source"
       },
       {
         "id": "shuohao-skills",
@@ -344,7 +436,11 @@
         "description": "Agent skills for AI short-drama production",
         "category": "Skills",
         "url": "https://github.com/eternityspring/shuohao-skills",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/shuohao-skills-b1c5766d82.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/shuohao-skills-b1c5766d82.webp",
+        "stars": 5046,
+        "updatedAt": "2026-10-24T06:32:37Z",
+        "addedAt": "2026-10-10",
+        "renderers": ["video-models"]
       },
       {
         "id": "prequel",
@@ -352,7 +448,9 @@
         "description": "Create cinematic screen recordings from Mac",
         "category": "Editor",
         "url": "https://prequel.sh/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/prequel-9fd7c76da8.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/prequel-9fd7c76da8.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "screenkite",
@@ -360,7 +458,9 @@
         "description": "Record your screen. Let AI edit it.",
         "category": "Editor",
         "url": "https://screenkite.com/r/dingyi",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/screenkite-5a222c68d4.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/screenkite-5a222c68d4.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "kinara",
@@ -368,7 +468,9 @@
         "description": "A local video editor for Claude and Codex",
         "category": "Editor",
         "url": "https://www.usekinara.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/kinara-606574a45b.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/kinara-606574a45b.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "openshot",
@@ -376,7 +478,9 @@
         "description": "Create stunning videos, easily",
         "category": "Editor",
         "url": "https://www.openshot.org/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/openshot-13b6048b9a.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/openshot-13b6048b9a.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "open-source"
       },
       {
         "id": "screensage-pro",
@@ -384,7 +488,9 @@
         "description": "Professional screen recordings, ready in minutes",
         "category": "Editor",
         "url": "https://screensage.pro/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/screensage-pro-9f2611e045.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/screensage-pro-9f2611e045.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "screencam",
@@ -392,7 +498,9 @@
         "description": "Capture sharp. Direct the frame.",
         "category": "Editor",
         "url": "https://thescreen.cam/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/screencam-53e98ec319.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/screencam-53e98ec319.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "screen-studio",
@@ -400,7 +508,9 @@
         "description": "Beautiful screen recordings in minutes",
         "category": "Editor",
         "url": "https://screen.studio/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/screen-studio-3b0278c851.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/screen-studio-3b0278c851.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "demofilm",
@@ -408,7 +518,9 @@
         "description": "Raw recordings in. Cinematic demos out.",
         "category": "Editor",
         "url": "https://www.demofilm.app/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/demofilm-fc8108540e.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/demofilm-fc8108540e.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "burp",
@@ -416,7 +528,9 @@
         "description": "Your AI editor for video & motion",
         "category": "Motion",
         "url": "https://www.burp.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/burp-c0df2b855b.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/burp-c0df2b855b.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "opusclip",
@@ -424,7 +538,9 @@
         "description": "1 long video, 10 viral clips. Create 10x faster.",
         "category": "Editor",
         "url": "https://www.opus.pro/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/opusclip-1a9a609e98.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/opusclip-1a9a609e98.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "cleanshot",
@@ -432,7 +548,9 @@
         "description": "There are average capture apps. And there's CleanShot.",
         "category": "Editor",
         "url": "https://cleanshot.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/cleanshot-d070d17ddd.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/cleanshot-d070d17ddd.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "invideo",
@@ -440,7 +558,9 @@
         "description": "The AI video platform for serious creatives",
         "category": "AI",
         "url": "https://invideo.io/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/invideo-62ff1db511.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/invideo-62ff1db511.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "minshot",
@@ -448,7 +568,9 @@
         "description": "A native macOS screenshot tool",
         "category": "Editor",
         "url": "https://minshot.fehey.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/minshot-3361586561.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/minshot-3361586561.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "free"
       },
       {
         "id": "pikimov",
@@ -456,7 +578,9 @@
         "description": "Free web-based motion design and video editor",
         "category": "Motion",
         "url": "https://pikimov.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/pikimov-3bc566451e.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/pikimov-3bc566451e.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "free"
       },
       {
         "id": "codex-whiteboard-video",
@@ -464,7 +588,11 @@
         "description": "Whiteboard videos from images, for Codex",
         "category": "Skills",
         "url": "https://github.com/gnipbao/codex-whiteboard-video-skill",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/codex-whiteboard-video-1183d27396.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/codex-whiteboard-video-1183d27396.webp",
+        "stars": 343,
+        "updatedAt": "2026-09-03T15:07:21Z",
+        "addedAt": "2026-10-10",
+        "renderers": ["html"]
       },
       {
         "id": "creavit-studio",
@@ -472,7 +600,9 @@
         "description": "Recording, editing, and motion in one app",
         "category": "Editor",
         "url": "https://creavit.studio/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/creavit-studio-0d74a7c1ae.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/creavit-studio-0d74a7c1ae.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "omascreen",
@@ -480,7 +610,9 @@
         "description": "Make beautiful screen recordings with Omarchy",
         "category": "Editor",
         "url": "https://omascreen.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/omascreen-fa47d899ba.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/omascreen-fa47d899ba.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "free"
       },
       {
         "id": "editframe",
@@ -488,7 +620,9 @@
         "description": "Build Video With Code",
         "category": "Editor",
         "url": "https://editframe.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/editframe-8bf8eb3dc6.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/editframe-8bf8eb3dc6.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "openscreenshot",
@@ -496,7 +630,9 @@
         "description": "Click. Captured. Done.",
         "category": "Editor",
         "url": "https://openscreenshot.app/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/openscreenshot-20f63966e0.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/openscreenshot-20f63966e0.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "open-source"
       },
       {
         "id": "pexo",
@@ -504,7 +640,9 @@
         "description": "The AI video agent that turns ideas into videos",
         "category": "AI",
         "url": "https://pexo.ai/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/pexo-cf0a97100e.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/pexo-cf0a97100e.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "screenshot-studio",
@@ -512,7 +650,9 @@
         "description": "Free screenshot editor and mockup maker",
         "category": "Mockup",
         "url": "https://www.screenshot-studio.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/screenshot-studio-3f6c682441.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/screenshot-studio-3f6c682441.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "open-source"
       },
       {
         "id": "focusee",
@@ -520,7 +660,9 @@
         "description": "Auto-editing screen recorder for Windows and Mac",
         "category": "Editor",
         "url": "https://focusee.imobie.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/focusee-ec21338aa1.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/focusee-ec21338aa1.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "screencursor",
@@ -528,7 +670,9 @@
         "description": "Screen recorder with auto zoom effects",
         "category": "Editor",
         "url": "https://screencursor.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/screencursor-db21ce69c6.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/screencursor-db21ce69c6.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "bettershot",
@@ -536,7 +680,9 @@
         "description": "Capture clearly. Share beautifully.",
         "category": "Editor",
         "url": "https://www.bettershot.site/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/bettershot-925913fcc3.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/bettershot-925913fcc3.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "open-source"
       },
       {
         "id": "gramotion",
@@ -544,7 +690,9 @@
         "description": "Create stunning motion graphics",
         "category": "Motion",
         "url": "https://gramotion.video/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/gramotion-7d49e19fff.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/gramotion-7d49e19fff.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "clapper",
@@ -552,7 +700,9 @@
         "description": "Write videos in React. Render them to MP4.",
         "category": "Editor",
         "url": "https://clapper.archastro.tryintern.dev/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/clapper-e8e1a8c3d9.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/clapper-e8e1a8c3d9.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "open-source"
       },
       {
         "id": "lumary",
@@ -560,7 +710,9 @@
         "description": "Your screen. Your studio.",
         "category": "Editor",
         "url": "https://lumary.app/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/lumary-5d792fe21e.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/lumary-5d792fe21e.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "hypit",
@@ -568,7 +720,9 @@
         "description": "Clone any viral video with AI agents",
         "category": "AI",
         "url": "https://hypit.ai/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/hypit-5b59b9a7ed.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/hypit-5b59b9a7ed.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "open-source"
       },
       {
         "id": "director",
@@ -576,7 +730,11 @@
         "description": "From idea to final cut",
         "category": "Skills",
         "url": "https://github.com/s1dashu/director",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/director-c0d5f4b4ed.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/director-c0d5f4b4ed.webp",
+        "stars": 826,
+        "updatedAt": "2026-08-10T16:49:54Z",
+        "addedAt": "2026-10-10",
+        "renderers": ["video-models"]
       },
       {
         "id": "launchvideo",
@@ -584,7 +742,9 @@
         "description": "Launch videos, animated by your agent",
         "category": "Motion",
         "url": "https://www.launchvideo.dev/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/launchvideo-0805190a8a.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/launchvideo-0805190a8a.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "powermove",
@@ -592,7 +752,9 @@
         "description": "Shape your video editor",
         "category": "Editor",
         "url": "https://trypowermove.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/powermove-841e92da18.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/powermove-841e92da18.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "open-source"
       },
       {
         "id": "dina",
@@ -600,7 +762,9 @@
         "description": "Make every video worth watching",
         "category": "Editor",
         "url": "https://www.dina.so/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/dina-4bb118eedf.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/dina-4bb118eedf.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "clueso",
@@ -608,7 +772,9 @@
         "description": "Product videos in minutes with AI",
         "category": "AI",
         "url": "https://www.clueso.io/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/clueso-8448633c06.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/clueso-8448633c06.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "smoothcut",
@@ -616,7 +782,9 @@
         "description": "Automatic zooms, without a video editor",
         "category": "Editor",
         "url": "https://smoothcut.studio/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/smoothcut-09cf436cea.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/smoothcut-09cf436cea.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "video-demo",
@@ -624,7 +792,11 @@
         "description": "Narrated demos, filmed by your agent",
         "category": "Skills",
         "url": "https://github.com/nilbuild/video-demo",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/video-demo-acec4fce36.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/video-demo-acec4fce36.webp",
+        "stars": 286,
+        "updatedAt": "2026-09-21T09:11:30Z",
+        "addedAt": "2026-10-10",
+        "renderers": ["html", "ffmpeg"]
       },
       {
         "id": "viewport",
@@ -632,7 +804,9 @@
         "description": "Screen recording for designers",
         "category": "Editor",
         "url": "https://viewport.theresonance.studio/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/viewport-98ca6e55fa.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/viewport-98ca6e55fa.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "evercut",
@@ -640,7 +814,9 @@
         "description": "Capture, edit, and share anything on your screen",
         "category": "Editor",
         "url": "https://evercut.app/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/evercut-e3cbab130e.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/evercut-e3cbab130e.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "paid"
       },
       {
         "id": "renoise",
@@ -648,7 +824,9 @@
         "description": "Create videos, images, and audio",
         "category": "AI",
         "url": "https://renoise.ai/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/renoise-764e471b90.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/renoise-764e471b90.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "revid",
@@ -656,7 +834,9 @@
         "description": "Where short-form creators grow",
         "category": "AI",
         "url": "https://www.revid.ai/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/revid-415f0221d5.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/revid-415f0221d5.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "lemo-opuscar",
@@ -664,7 +844,11 @@
         "description": "43 film styles, made entirely in code",
         "category": "Skills",
         "url": "https://github.com/lemomo-ai/lemo-opuscar",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/lemo-opuscar-bda1eaaecb.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/lemo-opuscar-bda1eaaecb.webp",
+        "stars": 6784,
+        "updatedAt": "2026-10-24T09:36:32Z",
+        "addedAt": "2026-10-10",
+        "renderers": ["html", "ffmpeg"]
       },
       {
         "id": "guizang-product-video",
@@ -672,7 +856,11 @@
         "description": "Promo films built from the real product",
         "category": "Skills",
         "url": "https://github.com/op7418/guizang-product-video-skill",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/guizang-product-video-6d2f90989e.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/guizang-product-video-6d2f90989e.webp",
+        "stars": 862,
+        "updatedAt": "2026-10-09T13:47:28Z",
+        "addedAt": "2026-10-10",
+        "renderers": ["html", "hyperframes"]
       },
       {
         "id": "moving-image-archive",
@@ -680,7 +868,9 @@
         "description": "Search archival footage by the shot",
         "category": "Resources",
         "url": "https://www.movingimagearchive.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/moving-image-archive-d3a019d448.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/moving-image-archive-d3a019d448.webp",
+        "addedAt": "2026-10-10",
+        "resourceType": "archive"
       },
       {
         "id": "jacky-motion",
@@ -688,7 +878,11 @@
         "description": "Turn voiceover scripts into motion HTML",
         "category": "Skills",
         "url": "https://github.com/Jackywxsz/Jacky-motion",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/jacky-motion-34ac81177e.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/jacky-motion-34ac81177e.webp",
+        "stars": 241,
+        "updatedAt": "2026-09-15T07:39:18Z",
+        "addedAt": "2026-10-10",
+        "renderers": ["html"]
       },
       {
         "id": "fframes",
@@ -696,7 +890,9 @@
         "description": "Video vibe coding framework that is actually fast",
         "category": "Editor",
         "url": "https://fframes.studio/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/fframes-36b9f22eff.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/fframes-36b9f22eff.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "open-source"
       },
       {
         "id": "one-prompt-video",
@@ -704,7 +900,11 @@
         "description": "One sentence, a finished voiceover video",
         "category": "Skills",
         "url": "https://github.com/huangbai-AI/one-prompt-video-skills",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/one-prompt-video-7f792eb1d9.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/one-prompt-video-7f792eb1d9.webp",
+        "stars": 94,
+        "updatedAt": "2026-09-29T07:09:44Z",
+        "addedAt": "2026-10-10",
+        "renderers": ["hyperframes"]
       },
       {
         "id": "motionfly",
@@ -712,7 +912,9 @@
         "description": "AI Product Launch Video Generator",
         "category": "AI",
         "url": "https://motionfly.co/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/motionfly-6c87824cb4.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/motionfly-6c87824cb4.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "freemium"
       },
       {
         "id": "aloud",
@@ -720,7 +922,9 @@
         "description": "Feedback your coding agent can run",
         "category": "Editor",
         "url": "https://www.aloud.sh/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/aloud-562cc3c5ba.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/aloud-562cc3c5ba.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "free"
       },
       {
         "id": "cinetic",
@@ -728,7 +932,11 @@
         "description": "Cinematic launch films, directed by your agent",
         "category": "Skills",
         "url": "https://github.com/Leonxlnx/cinetic",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/cinetic-7ea10f9877.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/cinetic-7ea10f9877.webp",
+        "stars": 832,
+        "updatedAt": "2026-10-18T00:26:40Z",
+        "addedAt": "2026-10-10",
+        "renderers": ["remotion", "hyperframes", "ffmpeg"]
       },
       {
         "id": "editdatvid",
@@ -736,7 +944,9 @@
         "description": "A private, browser-native video editor",
         "category": "Editor",
         "url": "https://github.com/cneuralnetwork/editdatvid",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/editdatvid-3dd18cc2bd.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/editdatvid-3dd18cc2bd.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "open-source"
       },
       {
         "id": "minimax-h3-video-reverse",
@@ -744,7 +954,11 @@
         "description": "From a reference clip to MiniMax H3 prompts",
         "category": "Skills",
         "url": "https://github.com/gnipbao/minimax-h3-video-reverse-skill",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/minimax-h3-video-reverse-676e0a4c3c.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/minimax-h3-video-reverse-676e0a4c3c.webp",
+        "stars": 280,
+        "updatedAt": "2026-10-02T14:11:20Z",
+        "addedAt": "2026-10-10",
+        "renderers": ["video-models"]
       },
       {
         "id": "huashu-art-motion",
@@ -752,7 +966,11 @@
         "description": "Make paintings move in 35 art styles",
         "category": "Skills",
         "url": "https://github.com/alchaincyf/huashu-art-motion",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/huashu-art-motion-15735abaf5.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/huashu-art-motion-15735abaf5.webp",
+        "stars": 5126,
+        "updatedAt": "2026-10-16T17:03:31Z",
+        "addedAt": "2026-10-15",
+        "renderers": ["html"]
       },
       {
         "id": "motionmaxxing",
@@ -760,7 +978,11 @@
         "description": "Turns AI slop into designer-level films",
         "category": "Skills",
         "url": "https://github.com/Tejashmakwana/motionmaxxing",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/motionmaxxing-ccef9c42ca.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/motionmaxxing-ccef9c42ca.webp",
+        "stars": 1034,
+        "updatedAt": "2026-10-06T18:20:43Z",
+        "addedAt": "2026-10-15",
+        "renderers": ["html", "hyperframes"]
       },
       {
         "id": "product-launch-motion",
@@ -768,7 +990,11 @@
         "description": "Dribbble-level launch videos from code",
         "category": "Skills",
         "url": "https://github.com/AbubakrChan/product-launch-motion",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/product-launch-motion-4e131e171a.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/product-launch-motion-4e131e171a.webp",
+        "stars": 350,
+        "updatedAt": "2026-10-21T19:36:06Z",
+        "addedAt": "2026-10-15",
+        "renderers": ["html", "hyperframes"]
       },
       {
         "id": "motion-graphics-skills",
@@ -776,7 +1002,11 @@
         "description": "13 skills for launch-grade motion graphics",
         "category": "Skills",
         "url": "https://github.com/charlie947/motion-graphics-skills",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/motion-graphics-skills-94d56b2eb8.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/motion-graphics-skills-94d56b2eb8.webp",
+        "stars": 389,
+        "updatedAt": "2026-10-11T08:44:11Z",
+        "addedAt": "2026-10-15",
+        "renderers": ["hyperframes", "html"]
       },
       {
         "id": "claude-motion-design",
@@ -784,7 +1014,11 @@
         "description": "Motion videos in HTML, Playwright and ffmpeg",
         "category": "Skills",
         "url": "https://github.com/howseen-ai/claude-motion-design",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/claude-motion-design-c83492e60e.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/claude-motion-design-c83492e60e.webp",
+        "stars": 668,
+        "updatedAt": "2026-10-04T05:56:51Z",
+        "addedAt": "2026-10-15",
+        "renderers": ["html", "ffmpeg"]
       },
       {
         "id": "herk-edit-kit",
@@ -792,7 +1026,11 @@
         "description": "Edit reels and Shorts with your agent",
         "category": "Skills",
         "url": "https://github.com/nateherkai/herk-edit-kit",
-        "cover": null
+        "cover": null,
+        "stars": 2157,
+        "updatedAt": "2026-10-14T12:51:12Z",
+        "addedAt": "2026-10-15",
+        "renderers": ["ffmpeg", "hyperframes"]
       },
       {
         "id": "barty-motion-graphics",
@@ -800,7 +1038,11 @@
         "description": "Motion-graphics skills for Claude Code and Codex",
         "category": "Skills",
         "url": "https://github.com/Barty-Bart/motion-graphics",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/barty-motion-graphics-eb77b248a5.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/barty-motion-graphics-eb77b248a5.webp",
+        "stars": 837,
+        "updatedAt": "2026-10-13T09:42:04Z",
+        "addedAt": "2026-10-15",
+        "renderers": ["html", "ffmpeg"]
       },
       {
         "id": "animate",
@@ -808,7 +1050,11 @@
         "description": "Procedural canvas animation in any style",
         "category": "Skills",
         "url": "https://github.com/cth9191/animate",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/animate-6bb8ef4cfb.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/animate-6bb8ef4cfb.webp",
+        "stars": 954,
+        "updatedAt": "2026-10-05T20:31:48Z",
+        "addedAt": "2026-10-15",
+        "renderers": ["html"]
       },
       {
         "id": "claude-motion",
@@ -816,7 +1062,11 @@
         "description": "A motion design toolkit for coding agents",
         "category": "Skills",
         "url": "https://github.com/whaleyxbt/claude-motion",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/claude-motion-d7bb2a9ae4.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/claude-motion-d7bb2a9ae4.webp",
+        "stars": 655,
+        "updatedAt": "2026-10-09T19:45:22Z",
+        "addedAt": "2026-10-15",
+        "renderers": ["remotion", "html"]
       },
       {
         "id": "claude-remotion-skill",
@@ -824,7 +1074,11 @@
         "description": "Edit and create videos with Remotion",
         "category": "Skills",
         "url": "https://github.com/haidrrrry/claude-remotion-skill",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/claude-remotion-skill-c89560bb5b.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/claude-remotion-skill-c89560bb5b.webp",
+        "stars": 622,
+        "updatedAt": "2026-08-12T21:05:03Z",
+        "addedAt": "2026-10-15",
+        "renderers": ["remotion", "ffmpeg"]
       },
       {
         "id": "lottie-motion-design-skill",
@@ -832,7 +1086,11 @@
         "description": "Timing, easing and choreography for agents",
         "category": "Skills",
         "url": "https://github.com/LottieFiles/motion-design-skill",
-        "cover": null
+        "cover": null,
+        "stars": 2498,
+        "updatedAt": "2026-05-18T11:30:13Z",
+        "addedAt": "2026-10-15",
+        "renderers": ["html"]
       },
       {
         "id": "gsap-skills",
@@ -840,7 +1098,11 @@
         "description": "Official GSAP skills for coding agents",
         "category": "Skills",
         "url": "https://github.com/greensock/gsap-skills",
-        "cover": null
+        "cover": null,
+        "stars": 17073,
+        "updatedAt": "2026-07-29T17:36:08Z",
+        "addedAt": "2026-10-15",
+        "renderers": ["html"]
       },
       {
         "id": "hyperframes-community-skills",
@@ -848,7 +1110,11 @@
         "description": "Community skills for HyperFrames workflows",
         "category": "Skills",
         "url": "https://github.com/heygen-com/hyperframes-community-skills",
-        "cover": null
+        "cover": null,
+        "stars": 229,
+        "updatedAt": "2026-10-20T04:34:19Z",
+        "addedAt": "2026-10-15",
+        "renderers": ["hyperframes", "video-models"]
       },
       {
         "id": "awesome-ai-motion",
@@ -856,7 +1122,11 @@
         "description": "637 motion techniques with an agent skill",
         "category": "Skills",
         "url": "https://github.com/gongnyang/awesome-ai-motion",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/awesome-ai-motion-890a9ee704.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/awesome-ai-motion-890a9ee704.webp",
+        "stars": 271,
+        "updatedAt": "2026-09-30T09:45:58Z",
+        "addedAt": "2026-10-15",
+        "renderers": ["html"]
       },
       {
         "id": "video-skills",
@@ -864,7 +1134,11 @@
         "description": "Storyboard-first product videos, narrated by you",
         "category": "Skills",
         "url": "https://github.com/every-app/video-skills",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/video-skills-ad41b5c459.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/video-skills-ad41b5c459.webp",
+        "stars": 16,
+        "updatedAt": "2026-10-15T07:02:27Z",
+        "addedAt": "2026-10-15",
+        "renderers": ["ffmpeg"]
       },
       {
         "id": "hyperframes",
@@ -872,7 +1146,9 @@
         "description": "The video editor built for agents",
         "category": "Editor",
         "url": "https://www.hyperframes.dev/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/hyperframes-ee473ba7d2.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/hyperframes-ee473ba7d2.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "open-source"
       },
       {
         "id": "videoeditor-fyi",
@@ -880,7 +1156,9 @@
         "description": "A web screen recorder. No signups, no tracking",
         "category": "Editor",
         "url": "https://videoeditor.fyi/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/videoeditor-fyi-7e904f79bd.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/videoeditor-fyi-7e904f79bd.webp",
+        "addedAt": "2026-10-10",
+        "pricing": "free"
       },
       {
         "id": "arqe",
@@ -888,7 +1166,9 @@
         "description": "Motion templates, animated mockups, and stock in one place",
         "category": "Motion",
         "url": "https://arqe.ai/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/arqe-e05dc2e63e.png"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/arqe-e05dc2e63e.png",
+        "addedAt": "2026-10-18",
+        "pricing": "paid"
       },
       {
         "id": "swishy",
@@ -896,7 +1176,9 @@
         "description": "AI motion designer for stunning animations and typefaces",
         "category": "AI",
         "url": "https://swishy.ai/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/swishy-619112eebb.png"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/swishy-619112eebb.png",
+        "addedAt": "2026-10-18",
+        "pricing": "freemium"
       },
       {
         "id": "animos",
@@ -904,7 +1186,9 @@
         "description": "Showcase your designs in motion",
         "category": "Motion",
         "url": "https://animos.app/",
-        "cover": "https://assets.motionvideo.xyz/directories/tools/animos-8643c3616d.png"
+        "cover": "https://assets.motionvideo.xyz/directories/tools/animos-8643c3616d.png",
+        "addedAt": "2026-10-18",
+        "pricing": "freemium"
       },
       {
         "id": "article-medium-com-7-step-workflow-to-create-insane-motion-graphics-with-claude",
@@ -913,7 +1197,8 @@
         "category": "Articles",
         "url": "https://medium.com/ai-engineering-simplified/7-step-workflow-to-create-insane-motion-graphics-with-claude-33d7977d6ea6",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-medium-com-7-step-workflow-to-create-insane-motion-graphics-with-claude-d43d15d4c2.png",
-        "publishedAt": "2026-10-21T00:00:00.000Z"
+        "publishedAt": "2026-10-21T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-nervegna-substack-com-how-to-build-a-motion-design-studio-with-claude-opus-5-5",
@@ -922,7 +1207,8 @@
         "category": "Articles",
         "url": "https://nervegna.substack.com/p/how-to-build-a-motion-design-studio",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-nervegna-substack-com-how-to-build-a-motion-design-studio-with-claude-opus-5-5-5bf24cee39.png",
-        "publishedAt": "2026-10-21T00:00:00.000Z"
+        "publishedAt": "2026-10-21T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-learnwithmeai-com-my-claude-skill-makes-10-viral-motion-videos-for-0",
@@ -931,7 +1217,8 @@
         "category": "Articles",
         "url": "https://www.learnwithmeai.com/p/claude-motion-studio-10-styles",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-learnwithmeai-com-my-claude-skill-makes-10-viral-motion-videos-for-0-a6af7d2cac.png",
-        "publishedAt": "2026-10-19T00:00:00.000Z"
+        "publishedAt": "2026-10-19T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-inte-action-com-after-effects-claude",
@@ -940,7 +1227,8 @@
         "category": "Articles",
         "url": "https://inte-action.com/2026/10/19/after-effects-text-animation-claude/",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-inte-action-com-after-effects-claude-56289d9ea4.webp",
-        "publishedAt": "2026-10-19T00:00:00.000Z"
+        "publishedAt": "2026-10-19T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-learn-prompting-fr-hyperframes-make-a-video-without-filming-with-example",
@@ -949,7 +1237,8 @@
         "category": "Articles",
         "url": "https://learn-prompting.fr/blog/hyperframes-video-sans-tournage-tutoriel",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-learn-prompting-fr-hyperframes-make-a-video-without-filming-with-example-77ef2e62a5.png",
-        "publishedAt": "2026-10-19T00:00:00.000Z"
+        "publishedAt": "2026-10-19T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-nihardaily-com-remotion-vs-hyperframes-render-speed-and-cost",
@@ -958,7 +1247,8 @@
         "category": "Articles",
         "url": "https://www.nihardaily.com/posts/remotion-vs-hyperframes-we-timed-renders-and-priced-both",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-nihardaily-com-remotion-vs-hyperframes-render-speed-and-cost-e35e9fd527.png",
-        "publishedAt": "2026-10-17T00:00:00.000Z"
+        "publishedAt": "2026-10-17T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-analyticsmadesimple-com-how-to-turn-a-chart-into-a-short-video-with-claude-motion-an",
@@ -967,7 +1257,8 @@
         "category": "Articles",
         "url": "https://analyticsmadesimple.com/tutorials/claude-motion-animated-chart-vs-claude-dashboards",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-analyticsmadesimple-com-how-to-turn-a-chart-into-a-short-video-with-claude-motion-an-40c2af0d7c.avif",
-        "publishedAt": "2026-10-16T00:00:00.000Z"
+        "publishedAt": "2026-10-16T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-roo-beehiiv-com-claude-motion-prompts-that-survive-the-editor-12-templates-a",
@@ -976,7 +1267,8 @@
         "category": "Articles",
         "url": "https://roo.beehiiv.com/p/claude-motion-prompts",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-roo-beehiiv-com-claude-motion-prompts-that-survive-the-editor-12-templates-a-097baabbf5.jpg",
-        "publishedAt": "2026-10-16T00:00:00.000Z"
+        "publishedAt": "2026-10-16T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-charliehills-substack-com-16-stripe-style-animations-and-my-style-file",
@@ -985,7 +1277,8 @@
         "category": "Articles",
         "url": "https://charliehills.substack.com/p/16-stripe-style-animations",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-charliehills-substack-com-16-stripe-style-animations-and-my-style-file-56bba2c1e1.png",
-        "publishedAt": "2026-10-15T00:00:00.000Z"
+        "publishedAt": "2026-10-15T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-willfrancis-com-how-to-use-claude-motion-a-simple-guide",
@@ -994,7 +1287,8 @@
         "category": "Articles",
         "url": "https://willfrancis.com/how-to-use-claude-motion/",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-willfrancis-com-how-to-use-claude-motion-a-simple-guide-e82c96a08f.png",
-        "publishedAt": "2026-10-14T00:00:00.000Z"
+        "publishedAt": "2026-10-14T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-dev-to-opus-ge-ne-re-ma-vide-o-de-motion-design-en-20-minutes",
@@ -1003,7 +1297,8 @@
         "category": "Articles",
         "url": "https://dev.to/techtown-fr/opus-genere-ma-video-de-motion-design-en-20-minutes-254n",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-dev-to-opus-ge-ne-re-ma-vide-o-de-motion-design-en-20-minutes-e8ea71d795.png",
-        "publishedAt": "2026-10-14T00:00:00.000Z"
+        "publishedAt": "2026-10-14T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-notdesignschool-jp-claude-opus-5-5-astra",
@@ -1012,7 +1307,8 @@
         "category": "Articles",
         "url": "https://notdesignschool.jp/story/claude-opus-5-5-for-designers",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-notdesignschool-jp-claude-opus-5-5-astra-4af55f0b62.jpg",
-        "publishedAt": "2026-10-14T00:00:00.000Z"
+        "publishedAt": "2026-10-14T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-wireflow-ai-claude-motion-graphics-one-prompt-a-12-second-clip-and-what",
@@ -1021,7 +1317,8 @@
         "category": "Articles",
         "url": "https://www.wireflow.ai/blog/claude-motion-graphics",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-wireflow-ai-claude-motion-graphics-one-prompt-a-12-second-clip-and-what-2cd62d2900.png",
-        "publishedAt": "2026-10-14T00:00:00.000Z"
+        "publishedAt": "2026-10-14T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-nocode-mba-claude-opus-5-5-motion-graphics-claude-code-workflow",
@@ -1030,7 +1327,8 @@
         "category": "Articles",
         "url": "https://www.nocode.mba/articles/claude-opus-5-5-motion-graphics",
         "cover": null,
-        "publishedAt": "2026-10-12T00:00:00.000Z"
+        "publishedAt": "2026-10-12T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-bnext-com-tw-claude-opus-5-5-10-ai",
@@ -1039,7 +1337,8 @@
         "category": "Articles",
         "url": "https://www.bnext.com.tw/article/92576/claude-opus-5.5",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-bnext-com-tw-claude-opus-5-5-10-ai-6775298f90.gif",
-        "publishedAt": "2026-10-12T00:00:00.000Z"
+        "publishedAt": "2026-10-12T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-blog-stackademic-com-remotion-claude-code-type-a-sentence-get-a-video",
@@ -1048,7 +1347,8 @@
         "category": "Articles",
         "url": "https://blog.stackademic.com/remotion-claude-code-type-a-sentence-get-a-video-17927f45e55d",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-blog-stackademic-com-remotion-claude-code-type-a-sentence-get-a-video-fe9be25877.png",
-        "publishedAt": "2026-10-12T00:00:00.000Z"
+        "publishedAt": "2026-10-12T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-charliehills-substack-com-claude-motion",
@@ -1057,7 +1357,8 @@
         "category": "Articles",
         "url": "https://charliehills.substack.com/p/claude-motion-graphics",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-charliehills-substack-com-claude-motion-d7efac156b.jpeg",
-        "publishedAt": "2026-10-11T00:00:00.000Z"
+        "publishedAt": "2026-10-11T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-news-qq-com-opus5-5",
@@ -1066,7 +1367,8 @@
         "category": "Articles",
         "url": "https://news.qq.com/rain/a/20261010A0CRFZ00",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-news-qq-com-opus5-5-bf0c2e9537.jpg",
-        "publishedAt": "2026-10-10T00:00:00.000Z"
+        "publishedAt": "2026-10-10T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-claude-com-build-live-dashboards-and-animate-explainers-with-claude",
@@ -1075,7 +1377,8 @@
         "category": "Articles",
         "url": "https://claude.com/resources/articles/dashboards-and-motion",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-claude-com-build-live-dashboards-and-animate-explainers-with-claude-0a4714005c.png",
-        "publishedAt": "2026-10-08T00:00:00.000Z"
+        "publishedAt": "2026-10-08T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-medium-com-opus-5-5-video-generation-and-the-fable-5-5-question",
@@ -1084,7 +1387,8 @@
         "category": "Articles",
         "url": "https://medium.com/@e.kudarauskas/opus-5-5-video-generation-and-the-fable-5-5-question-f41562ff8238",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-medium-com-opus-5-5-video-generation-and-the-fable-5-5-question-524d675fa5.png",
-        "publishedAt": "2026-10-06T00:00:00.000Z"
+        "publishedAt": "2026-10-06T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-dev-to-i-built-a-macos-app-where-your-coding-agent-makes-the-video",
@@ -1093,7 +1397,8 @@
         "category": "Articles",
         "url": "https://dev.to/remocn/i-built-a-macos-app-where-your-coding-agent-makes-the-video-remocn-studio-10-4j74",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-dev-to-i-built-a-macos-app-where-your-coding-agent-makes-the-video-2ee6f702bc.webp",
-        "publishedAt": "2026-10-06T00:00:00.000Z"
+        "publishedAt": "2026-10-06T00:00:00.000Z",
+        "addedAt": "2026-10-24"
       },
       {
         "id": "article-aiblewmymind-substack-com-how-to-make-videos-with-claude-opus-5-5-10-examples-with-eve",
@@ -1102,7 +1407,2334 @@
         "category": "Articles",
         "url": "https://aiblewmymind.substack.com/p/claude-opus-5-5-video-animations",
         "cover": "https://assets.motionvideo.xyz/directories/tools/article-aiblewmymind-substack-com-how-to-make-videos-with-claude-opus-5-5-10-examples-with-eve-88838be7ff.jpeg",
-        "publishedAt": "2026-10-01T00:00:00.000Z"
+        "publishedAt": "2026-10-01T00:00:00.000Z",
+        "addedAt": "2026-10-24"
+      },
+      {
+        "id": "motion-design-skills",
+        "name": "Motion Design Skills",
+        "description": "Animation principles, type and composition for agents",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/motion-design-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/motion-design-skills-a742056324.gif",
+        "stars": 161,
+        "updatedAt": "2026-06-22T13:24:17Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "html"]
+      },
+      {
+        "id": "bang-motion",
+        "name": "Bang Motion",
+        "description": "Openers, promos and type as self-contained HTML",
+        "category": "Skills",
+        "url": "https://github.com/bangtutorial/bang-motion",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/bang-motion-4e322ea84b.jpg",
+        "stars": 714,
+        "updatedAt": "2026-09-15T04:45:32Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "opus-video-skills",
+        "name": "Opus Video Skills",
+        "description": "Painted animation and kinetic reels, storyboard to encode",
+        "category": "Skills",
+        "url": "https://github.com/tuzhechen2005/opus-video-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/opus-video-skills-a9b02d35ba.jpg",
+        "stars": 324,
+        "updatedAt": "2026-09-27T01:17:18Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "claude-animation",
+        "name": "Claude Animation",
+        "description": "Hand-drawn 2D scenes with coded rigs and sound",
+        "category": "Skills",
+        "url": "https://github.com/buildwithhanif/claude-animation-skill",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/claude-animation-9a73acad5c.jpg",
+        "stars": 46,
+        "updatedAt": "2026-09-23T16:49:40Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "remotion-workflow-skills",
+        "name": "Remotion Workflow Skills",
+        "description": "A Chinese-language Remotion reference for agents",
+        "category": "Skills",
+        "url": "https://github.com/buainoai/remotion-skills",
+        "cover": null,
+        "stars": 141,
+        "updatedAt": "2026-01-30T10:58:27Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "remotion-brand-motion",
+        "name": "Remotion Brand Motion",
+        "description": "Typography, logo and brand promos in Remotion",
+        "category": "Skills",
+        "url": "https://github.com/Boriwatopal/agent-skill-remotion-motion-graphics",
+        "cover": null,
+        "stars": 20,
+        "updatedAt": "2026-09-13T08:13:22Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "apple-motion-study",
+        "name": "Apple Motion Study",
+        "description": "Apple-style recap pacing and kinetic type in Remotion",
+        "category": "Skills",
+        "url": "https://github.com/IskakovDamir/apple-motion",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/apple-motion-study-dbdffc6401.gif",
+        "stars": 17,
+        "updatedAt": "2026-09-29T09:42:02Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "kinetic-typography-skills",
+        "name": "Kinetic Typography Skills",
+        "description": "Animated headlines and staggered text",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/kinetic-typography-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/kinetic-typography-skills-d781a0b44e.gif",
+        "stars": 16,
+        "updatedAt": "2026-06-22T13:24:12Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html", "remotion"]
+      },
+      {
+        "id": "motion-anything",
+        "name": "Motion Anything",
+        "description": "A motion engine with 230 agent skills and recipes",
+        "category": "Skills",
+        "url": "https://github.com/nexu-io/motion-anything",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/motion-anything-17127e291c.jpg",
+        "stars": 981,
+        "updatedAt": "2026-07-07T06:47:46Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html", "hyperframes"]
+      },
+      {
+        "id": "data-animation-skills",
+        "name": "Data Animation Skills",
+        "description": "Animated charts that keep the numbers right",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/data-animation-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/data-animation-skills-608e8ac528.gif",
+        "stars": 15,
+        "updatedAt": "2026-06-22T13:24:04Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html", "manim"]
+      },
+      {
+        "id": "explainer-video-skills",
+        "name": "Explainer Video Skills",
+        "description": "Scripts, storyboards and diagrams for explainers",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/explainer-video-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/explainer-video-skills-e3c7126134.gif",
+        "stars": 52,
+        "updatedAt": "2026-06-22T13:24:08Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html", "manim"]
+      },
+      {
+        "id": "javascript-animation-skills",
+        "name": "JavaScript Animation Skills",
+        "description": "Code-drawn Canvas films with procedural sound",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/javascript-animation-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/javascript-animation-skills-66788e1748.gif",
+        "stars": 33,
+        "updatedAt": "2026-09-30T11:40:39Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "manim-animation-skills",
+        "name": "Manim Animation Skills",
+        "description": "Math explainers rendered with Manim",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/manim-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/manim-animation-skills-085d321dc5.gif",
+        "stars": 15,
+        "updatedAt": "2026-06-22T13:24:14Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["manim"]
+      },
+      {
+        "id": "map-animation-skills",
+        "name": "Map Animation Skills",
+        "description": "Editorial map zooms, routes and pins",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/map-animation-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/map-animation-skills-6af6eb274d.gif",
+        "stars": 20,
+        "updatedAt": "2026-06-22T13:24:15Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "webgl-animation-skills",
+        "name": "WebGL Animation Skills",
+        "description": "Three.js scenes, shaders and particles",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/webgl-animation-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/webgl-animation-skills-c4819a8c5b.gif",
+        "stars": 42,
+        "updatedAt": "2026-06-22T13:24:27Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "anything-to-explainer",
+        "name": "Anything to Explainer",
+        "description": "Narrated, code-rendered explainers with subtitles",
+        "category": "Skills",
+        "url": "https://github.com/Vincentwei1021/anything2explainer",
+        "cover": null,
+        "stars": 2741,
+        "updatedAt": "2026-09-18T11:52:13Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "ffmpeg"]
+      },
+      {
+        "id": "video-talkcraft",
+        "name": "Video Talkcraft",
+        "description": "Voiceover-led explainers timed to the word",
+        "category": "Skills",
+        "url": "https://github.com/Vincentwei1021/video-talkcraft",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/video-talkcraft-23165f94c2.png",
+        "stars": 1752,
+        "updatedAt": "2026-10-12T05:29:10Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "anidoodle",
+        "name": "Anidoodle",
+        "description": "Code-drawn animation and scored films",
+        "category": "Skills",
+        "url": "https://github.com/alexgreensh/anidoodle",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/anidoodle-0e434330fa.gif",
+        "stars": 1092,
+        "updatedAt": "2026-10-23T17:28:38Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html", "video-models"]
+      },
+      {
+        "id": "motion-graphics-music-video",
+        "name": "Motion Graphics Music Video",
+        "description": "Music-driven animation, planned and assembled",
+        "category": "Skills",
+        "url": "https://github.com/makevoid/motion-graphics-music-video-skill",
+        "cover": null,
+        "stars": 184,
+        "updatedAt": "2026-10-13T12:50:31Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models", "ffmpeg"]
+      },
+      {
+        "id": "claude-video-kit",
+        "name": "Claude Video Kit",
+        "description": "Vertical explainers with narration and captions",
+        "category": "Skills",
+        "url": "https://github.com/runesleo/claude-video-kit",
+        "cover": null,
+        "stars": 120,
+        "updatedAt": "2026-10-07T07:02:13Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "ffmpeg"]
+      },
+      {
+        "id": "persian-motion-director",
+        "name": "Persian Motion Director",
+        "description": "Right-to-left Persian type in motion",
+        "category": "Skills",
+        "url": "https://github.com/atmirrr/persian-motion-director",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/persian-motion-director-32605c322e.gif",
+        "stars": 147,
+        "updatedAt": "2026-10-06T13:27:09Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "mort1d-motion-graphics",
+        "name": "Mort1d Motion Graphics",
+        "description": "HTML motion graphics with camera moves and motion blur",
+        "category": "Skills",
+        "url": "https://github.com/Mort1d/motion-graphics-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/mort1d-motion-graphics-e510905878.png",
+        "stars": 62,
+        "updatedAt": "2026-09-30T04:06:26Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "lemo-wake",
+        "name": "Lemo Wake",
+        "description": "Split an image into layers and loop them",
+        "category": "Skills",
+        "url": "https://github.com/lemomo-ai/lemo-wake",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/lemo-wake-4f57a339d6.webp",
+        "stars": 141,
+        "updatedAt": "2026-10-17T11:42:23Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "hyperframes-motion-reel",
+        "name": "HyperFrames Motion Reel",
+        "description": "A theme in, a beat-locked HyperFrames showreel out",
+        "category": "Skills",
+        "url": "https://github.com/Sunwood-ai-labs/hyperframes-motion-reel-skill",
+        "cover": null,
+        "stars": 151,
+        "updatedAt": "2026-09-29T15:47:42Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes"]
+      },
+      {
+        "id": "papercut-explainer",
+        "name": "Papercut Explainer",
+        "description": "Cut-paper explainer reels in Remotion",
+        "category": "Skills",
+        "url": "https://github.com/0xS4N4TG/papercut-explainer",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/papercut-explainer-3f02d2d9bf.gif",
+        "stars": 88,
+        "updatedAt": "2026-10-17T09:24:52Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "extreme-motion-design",
+        "name": "Extreme Motion Design",
+        "description": "Remotion motion design with narration and sound",
+        "category": "Skills",
+        "url": "https://github.com/dev-isaacmello/extreme-motion-design",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/extreme-motion-design-9f0ed85fdf.gif",
+        "stars": 65,
+        "updatedAt": "2026-10-14T13:10:07Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "mashhad",
+        "name": "Mashhad",
+        "description": "Motion direction with Arabic typography",
+        "category": "Skills",
+        "url": "https://github.com/SultanAlfaifi/mashhad-video",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/mashhad-ebdfe495f5.jpg",
+        "stars": 14,
+        "updatedAt": "2026-10-09T13:09:01Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "video-shotcraft",
+        "name": "Video Shotcraft",
+        "description": "Shot recipes and Remotion templates for product videos",
+        "category": "Skills",
+        "url": "https://github.com/Vincentwei1021/video-shotcraft",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/video-shotcraft-e8b96008a8.webp",
+        "stars": 13468,
+        "updatedAt": "2026-10-17T17:50:53Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "agentic-product-demo",
+        "name": "Agentic Product Demo",
+        "description": "Product demos as React compositions",
+        "category": "Skills",
+        "url": "https://github.com/Alexwtlf/agentic-product-demo",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/agentic-product-demo-87859be65a.gif",
+        "stars": 458,
+        "updatedAt": "2026-08-27T19:48:25Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "saas-motion-kit",
+        "name": "SaaS Motion Kit",
+        "description": "Software promos built with HyperFrames",
+        "category": "Skills",
+        "url": "https://github.com/tugrawork-creator/saas-motion-kit",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/saas-motion-kit-48cbd8f8ad.jpg",
+        "stars": 243,
+        "updatedAt": "2026-10-04T15:45:59Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes", "video-models"]
+      },
+      {
+        "id": "brand-motion-design",
+        "name": "Brand Motion Design",
+        "description": "Launch films with HyperFrames and Three.js",
+        "category": "Skills",
+        "url": "https://github.com/ouerf-man/brand-motion-design-skill",
+        "cover": null,
+        "stars": 36,
+        "updatedAt": "2026-09-27T18:19:16Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes", "html"]
+      },
+      {
+        "id": "appshot",
+        "name": "Appshot",
+        "description": "App previews, demo videos and store screenshots",
+        "category": "Skills",
+        "url": "https://github.com/trunghaiy/appshot",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/appshot-b0dc621fa2.gif",
+        "stars": 48,
+        "updatedAt": "2026-06-06T17:30:50Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "ffmpeg"]
+      },
+      {
+        "id": "ai-promo-video-maker",
+        "name": "AI Promo Video Maker",
+        "description": "Researches a product, then cuts a beat-synced promo",
+        "category": "Skills",
+        "url": "https://github.com/liyupi/ai-promo-video-maker",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/ai-promo-video-maker-44b125fc25.gif",
+        "stars": 377,
+        "updatedAt": "2026-10-09T08:44:49Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "ad-video-skills",
+        "name": "Ad Video Skills",
+        "description": "Ad variations, launch films and testimonials",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/ad-video-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/ad-video-skills-6bfa7e91c1.gif",
+        "stars": 18,
+        "updatedAt": "2026-06-22T13:24:00Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "e-commerce-video-skills",
+        "name": "E-commerce Video Skills",
+        "description": "Product demos, sale promos and slideshows",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/ecommerce-video-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/e-commerce-video-skills-08f1711cd5.gif",
+        "stars": 10,
+        "updatedAt": "2026-06-22T13:24:06Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "claude-youtube-editor",
+        "name": "Claude YouTube Editor",
+        "description": "Edit recordings, add visuals, voice and captions",
+        "category": "Skills",
+        "url": "https://github.com/hassancs91/claude-youtube-editor",
+        "cover": null,
+        "stars": 346,
+        "updatedAt": "2026-08-18T11:13:04Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "ffmpeg"]
+      },
+      {
+        "id": "claude-faceless-shorts-creator",
+        "name": "Claude Faceless Shorts Creator",
+        "description": "Narrated shorts with synced captions",
+        "category": "Skills",
+        "url": "https://github.com/hassancs91/claude-faceless-shorts-creator",
+        "cover": null,
+        "stars": 280,
+        "updatedAt": "2026-08-18T10:37:31Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "video-models"]
+      },
+      {
+        "id": "take-one",
+        "name": "Take One",
+        "description": "One-line idea to launch video, ad or music video",
+        "category": "Skills",
+        "url": "https://github.com/talsiach/take-one",
+        "cover": null,
+        "stars": 67,
+        "updatedAt": "2026-10-19T08:53:05Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models", "html"]
+      },
+      {
+        "id": "openvideoharness",
+        "name": "OpenVideoHarness",
+        "description": "A video workbench with production checkpoints",
+        "category": "Skills",
+        "url": "https://github.com/ZLHad/OpenVideoHarness",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/openvideoharness-0e510c0b85.jpg",
+        "stars": 21,
+        "updatedAt": "2026-10-20T18:42:15Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes", "blender", "manim"]
+      },
+      {
+        "id": "motion-design-for-agents",
+        "name": "Motion Design for Agents",
+        "description": "Visual references into motion films with Higgsfield",
+        "category": "Skills",
+        "url": "https://github.com/cth9191/motion-design",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/motion-design-for-agents-1d57935c8d.png",
+        "stars": 256,
+        "updatedAt": "2026-09-06T20:50:56Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models"]
+      },
+      {
+        "id": "aiev-video-skills",
+        "name": "AIEV Video Skills",
+        "description": "Supervised HyperFrames, GSAP and Remotion workflow",
+        "category": "Skills",
+        "url": "https://github.com/notivn/AIEV",
+        "cover": null,
+        "stars": 138,
+        "updatedAt": "2026-10-09T22:11:05Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes", "remotion", "html"]
+      },
+      {
+        "id": "cutdirector",
+        "name": "CutDirector",
+        "description": "Explanatory graphics over talking-head footage",
+        "category": "Skills",
+        "url": "https://github.com/Fangx-AI/cut-director",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/cutdirector-fd744655f7.jpg",
+        "stars": 182,
+        "updatedAt": "2026-10-13T07:44:40Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "remotion-koubo-workflow",
+        "name": "Remotion Koubo Workflow",
+        "description": "Talking-head footage to a finished Remotion video",
+        "category": "Skills",
+        "url": "https://github.com/jincheng2026/jc-remotion-skills",
+        "cover": null,
+        "stars": 14,
+        "updatedAt": "2026-08-22T04:50:15Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "ffmpeg"]
+      },
+      {
+        "id": "short-form-video-skills",
+        "name": "Short-Form Video Skills",
+        "description": "Vertical video for TikTok, Reels and Shorts",
+        "category": "Skills",
+        "url": "https://github.com/iart-ai/tiktok-video-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/short-form-video-skills-ee2dc53d5d.gif",
+        "stars": 16,
+        "updatedAt": "2026-06-22T13:24:23Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg", "html"]
+      },
+      {
+        "id": "remotion",
+        "name": "Remotion",
+        "description": "Make videos programmatically with React",
+        "category": "Resources",
+        "url": "https://www.remotion.dev/",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/remotion-7c6ea011fa.png",
+        "addedAt": "2026-10-25",
+        "resourceType": "library"
+      },
+      {
+        "id": "motion-canvas",
+        "name": "Motion Canvas",
+        "description": "Code-driven animations with a live preview editor",
+        "category": "Resources",
+        "url": "https://motioncanvas.io/",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/motion-canvas-0bfe32787e.png",
+        "addedAt": "2026-10-25",
+        "resourceType": "library"
+      },
+      {
+        "id": "manim",
+        "name": "Manim",
+        "description": "Python engine for math explainer videos",
+        "category": "Resources",
+        "url": "https://www.manim.community/",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/manim-f47ca9d4aa.png",
+        "addedAt": "2026-10-25",
+        "resourceType": "library"
+      },
+      {
+        "id": "gsap",
+        "name": "GSAP",
+        "description": "Timeline animation for the web",
+        "category": "Resources",
+        "url": "https://gsap.com/",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/gsap-448ee6cea8.png",
+        "addedAt": "2026-10-25",
+        "resourceType": "library"
+      },
+      {
+        "id": "three-js",
+        "name": "Three.js",
+        "description": "Animated 3D scenes in the browser",
+        "category": "Resources",
+        "url": "https://threejs.org/",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/three-js-636be394a1.png",
+        "addedAt": "2026-10-25",
+        "resourceType": "library"
+      },
+      {
+        "id": "anime-js",
+        "name": "Anime.js",
+        "description": "Lightweight JavaScript animation engine",
+        "category": "Resources",
+        "url": "https://animejs.com/",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/anime-js-e072ec24ab.png",
+        "addedAt": "2026-10-25",
+        "resourceType": "library"
+      },
+      {
+        "id": "lottie-web",
+        "name": "Lottie Web",
+        "description": "Play After Effects animations on the web",
+        "category": "Resources",
+        "url": "https://github.com/airbnb/lottie-web",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/lottie-web-c66e01ef88.gif",
+        "addedAt": "2026-10-25",
+        "resourceType": "library"
+      },
+      {
+        "id": "openchatcut",
+        "name": "OpenChatCut",
+        "description": "An open video timeline your coding agent can edit",
+        "category": "Editor",
+        "url": "https://github.com/0xsline/openchatcut",
+        "cover": null,
+        "addedAt": "2026-10-25",
+        "pricing": "open-source"
+      },
+      {
+        "id": "mortiflix",
+        "name": "Mortiflix",
+        "description": "A local motion studio, from brief to animatic",
+        "category": "Motion",
+        "url": "https://github.com/gtkottman/mortiflix-oss",
+        "cover": null,
+        "addedAt": "2026-10-25",
+        "pricing": "open-source"
+      },
+      {
+        "id": "pv-tool",
+        "name": "PV Tool",
+        "description": "Kinetic type and lyric videos in the browser",
+        "category": "Motion",
+        "url": "https://github.com/dantealighieri13210914/pv-tool",
+        "cover": null,
+        "addedAt": "2026-10-25",
+        "pricing": "open-source"
+      },
+      {
+        "id": "motion-canvas-examples",
+        "name": "Motion Canvas Examples",
+        "description": "Example projects with source code",
+        "category": "Resources",
+        "url": "https://github.com/motion-canvas/examples",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/motion-canvas-examples-e76ceab78c.jpg",
+        "addedAt": "2026-10-25",
+        "resourceType": "examples"
+      },
+      {
+        "id": "15-motion-design-styles",
+        "name": "15 Motion Design Styles",
+        "description": "15 coded motion films with their prompts",
+        "category": "Resources",
+        "url": "https://github.com/vincentwei1021/mg-styles-15",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/15-motion-design-styles-4b9af04e75.webp",
+        "addedAt": "2026-10-25",
+        "resourceType": "examples"
+      },
+      {
+        "id": "motion-skills-directory",
+        "name": "Motion Skills Directory",
+        "description": "A directory of agent packs for motion and video",
+        "category": "Resources",
+        "url": "https://github.com/iart-ai/motion-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/motion-skills-directory-4748407654.gif",
+        "addedAt": "2026-10-25",
+        "resourceType": "directory"
+      },
+      {
+        "id": "awesome-claude-video-skills",
+        "name": "Awesome Claude Video Skills",
+        "description": "Coding-agent video skills and frameworks, listed",
+        "category": "Resources",
+        "url": "https://github.com/zhuyansen/awesome-claude-video-skills",
+        "cover": null,
+        "addedAt": "2026-10-25",
+        "resourceType": "directory"
+      },
+      {
+        "id": "awesome-claude-video",
+        "name": "Awesome Claude Video",
+        "description": "Claude-made videos with their shared prompts",
+        "category": "Resources",
+        "url": "https://github.com/zhuyansen/awesome-opus-5.5-video",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/awesome-claude-video-8310cb80c9.jpg",
+        "addedAt": "2026-10-25",
+        "resourceType": "prompts"
+      },
+      {
+        "id": "opus-video-prompts",
+        "name": "Opus Video Prompts",
+        "description": "Attributed prompts for code-rendered videos",
+        "category": "Resources",
+        "url": "https://github.com/joeseesun/opus-video-prompts",
+        "cover": null,
+        "addedAt": "2026-10-25",
+        "resourceType": "prompts"
+      },
+      {
+        "id": "createmotion",
+        "name": "motif",
+        "description": "Thousands of Claude motion videos with their prompts",
+        "category": "Resources",
+        "url": "https://createmotion.io/",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/createmotion-d0378e0394.png",
+        "addedAt": "2026-10-25",
+        "resourceType": "prompts"
+      },
+      {
+        "id": "article-pixel8production-com-opus-5-5-motion-graphics-what-39-review-notes-taught-us",
+        "name": "Opus 5.5 Motion Graphics: What 39 Review Notes Taught Us",
+        "description": "Prakhar Mehta · Opus 5.5 motion graphics tested on two real briefs: 39 review notes, three to five versions each, and why a style reference does most of th…",
+        "category": "Articles",
+        "url": "https://www.pixel8production.com/blog/opus-5-5-motion-graphics",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-pixel8production-com-opus-5-5-motion-graphics-what-39-review-notes-taught-us-5e514ce47c.webp",
+        "publishedAt": "2026-09-30T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-dev-to-how-to-render-a-motion-graphics-video-with-claude-opus-5-5",
+        "name": "How to Render a Motion Graphics Video with Claude Opus 5.5: Prompt, Frame Renderer, ffmpeg and Real Cost",
+        "description": "Super Lewis · Claude Opus 5.5 cannot output a single pixel, yet people keep posting motion-graphics videos \"made by...",
+        "category": "Articles",
+        "url": "https://dev.to/super_lewis/how-to-render-a-motion-graphics-video-with-claude-opus-55-prompt-frame-renderer-ffmpeg-and-real-3e1g",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-dev-to-how-to-render-a-motion-graphics-video-with-claude-opus-5-5-1de9dcf924.png",
+        "publishedAt": "2026-10-07T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-tau-home-com-generating-apple-style-motion-design-videos-purely-with-code",
+        "name": "Generating Apple-Style Motion Design Videos Purely with Code and Claude Opus 5.5",
+        "description": "Tauvision · A complete Claude Opus 5.5 prompt workflow for creating Apple-keynote-style 2D motion graphics in pure code using single-file HTML, SVG dis…",
+        "category": "Articles",
+        "url": "https://tau-home.com/en/post/claude-opus-code-driven-apple-style-motion-design-prompt",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-tau-home-com-generating-apple-style-motion-design-videos-purely-with-code-41da7809ca.jpg",
+        "publishedAt": "2026-10-05T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-aiidelist-com-opus-5-5-motion-design-prompts-examples-workflow",
+        "name": "Opus 5.5 Motion Design: Prompts, Examples & Workflow",
+        "description": "aiidelist.com · Learn Opus 5.5 motion design with 20+ copy-ready prompts, workflows, Remotion and HyperFrames setup, QA tips, examples, and advanced techni…",
+        "category": "Articles",
+        "url": "https://aiidelist.com/blog/opus-5-5-motion-design",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-aiidelist-com-opus-5-5-motion-design-prompts-examples-workflow-a36403b5df.webp",
+        "publishedAt": "2026-10-05T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-codewithnishant-dev-claude-opus-5-5-motion-videos-8-resources-setup-prompts",
+        "name": "Claude Opus 5.5 Motion Videos: 8 Resources, Setup & Prompts",
+        "description": "Nishant Gupta · Make a motion video with Claude Opus 5.5: eight GitHub resources, a kinetic-reel walkthrough, three prompts, creator video previews and a f…",
+        "category": "Articles",
+        "url": "https://codewithnishant.dev/free/claude-opus-motion-video",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-codewithnishant-dev-claude-opus-5-5-motion-videos-8-resources-setup-prompts-2ad81f04f2.png",
+        "publishedAt": "2026-10-04T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-blog-laozhang-ai-claude-opus-5-5-video-generation-code-in-rendered-mp4-out",
+        "name": "Claude Opus 5.5 Video Generation: Code In, Rendered MP4 Out",
+        "description": "LaoZhang AI Team · Opus 5.5 outputs text, not video. It writes animation code that a headless browser captures frame by frame, which suits motion graphics and…",
+        "category": "Articles",
+        "url": "https://blog.laozhang.ai/en/posts/claude-opus-5-5-video-generation",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-blog-laozhang-ai-claude-opus-5-5-video-generation-code-in-rendered-mp4-out-b09c680b16.webp",
+        "publishedAt": "2026-10-01T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-growwithaiguide-substack-com-claude-makes-the-best-motion-graphics-i-ve-ever-seen",
+        "name": "Claude Makes the Best Motion Graphics I've Ever Seen",
+        "description": "Aniket Chhetri · The full guide: setup, 6 viral examples and every prompt",
+        "category": "Articles",
+        "url": "https://growwithaiguide.substack.com/p/claude-makes-the-best-motion-graphics",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-growwithaiguide-substack-com-claude-makes-the-best-motion-graphics-i-ve-ever-seen-e268615c38.png",
+        "publishedAt": "2026-09-30T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-quantslant-com-claude-opus-5-5-motion-graphics-60s-showreel-from-one-promp",
+        "name": "Claude Opus 5.5 Motion Graphics: 60s Showreel from One Prompt",
+        "description": "Editorial team · Claude Opus 5.5 motion graphics test: 60-second showreel from one prompt, 18 minutes of work, $3 API cost. What the viral posts don't show.",
+        "category": "Articles",
+        "url": "https://quantslant.com/claude-opus-5-5-motion-graphics",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-quantslant-com-claude-opus-5-5-motion-graphics-60s-showreel-from-one-promp-2f36379bf1.webp",
+        "publishedAt": "2026-09-30T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-wps-com-how-claude-opus-5-5-generates-videos-with-code",
+        "name": "How Claude Opus 5.5 Generates Videos with Code",
+        "description": "Algirdas Jasaitis · Explore Claude Opus 5.5 video generation, the code-to-MP4 workflow behind viral demos, practical prompts, costs, limits, and use cases.",
+        "category": "Articles",
+        "url": "https://www.wps.com/blog/how-claude-opus-5-5-generates-videos-with-code",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-wps-com-how-claude-opus-5-5-generates-videos-with-code-ae6856583a.png",
+        "publishedAt": "2026-09-30T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-theblueprintai-substack-com-how-to-build-your-own-motion-design-studio-with-claude-opus",
+        "name": "How to Build Your Own Motion Design Studio with Claude Opus 5.5",
+        "description": "The AI Blueprint · Turn simple prompts into polished motion graphics, animations, and ready-to-publish videos without a traditional design team.",
+        "category": "Articles",
+        "url": "https://theblueprintai.substack.com/p/how-to-build-your-own-motion-design",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-theblueprintai-substack-com-how-to-build-your-own-motion-design-studio-with-claude-opus-2360781347.gif",
+        "publishedAt": "2026-09-30T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-vibemotionai-net-how-to-create-motion-graphics-with-claude-opus-5-5",
+        "name": "How to Create Motion Graphics with Claude Opus 5.5",
+        "description": "Vibe Motion AI · Turn a creative brief into an editable motion graphics video with Claude Opus 5.5 and Vibe Motion. Includes example prompts, revision tips…",
+        "category": "Articles",
+        "url": "https://vibemotionai.net/blog/claude-opus-5-5-motion-graphics",
+        "cover": null,
+        "publishedAt": "2026-09-30T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-avilevi-co-il-motion-graphics-with-opus-5-5-55-styles-and-a-prompt-for-ea",
+        "name": "Motion Graphics with Opus 5.5: 55 Styles and a Prompt for Each",
+        "description": "avilevi.co.il · A live showreel of 55 motion graphics styles that Claude Opus 5.5 made from code, with a copy-ready prompt for each so you can make your ow…",
+        "category": "Articles",
+        "url": "https://www.avilevi.co.il/en/blog/opus-5-5-motion-graphics-prompts",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-avilevi-co-il-motion-graphics-with-opus-5-5-55-styles-and-a-prompt-for-ea-c53a62488c.jpg",
+        "publishedAt": "2026-09-30T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-apimaster-ai-claude-opus-5-5-video-prompts-that-actually-look-good",
+        "name": "Claude Opus 5.5 Video Prompts That Actually Look Good",
+        "description": "apimaster.ai · Skip the giant prompt dump. These five visually distinctive Claude Opus 5.5 video prompts focus on beat-synced motion design, real-footage…",
+        "category": "Articles",
+        "url": "https://apimaster.ai/blog/claude-opus-5-5-video-prompts",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-apimaster-ai-claude-opus-5-5-video-prompts-that-actually-look-good-930e841f63.png",
+        "publishedAt": "2026-09-29T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-friction-com-my-claude-opus-5-5-motion-design-what-the-demos-show",
+        "name": "Claude Opus 5.5 motion design: what the demos show",
+        "description": "Friction Research · See how Claude Opus 5.5 can help write motion code, what creator examples demonstrate, and how to review the rendered animation.",
+        "category": "Articles",
+        "url": "https://friction.com.my/insights/claude-opus-5-5-motion-design",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-friction-com-my-claude-opus-5-5-motion-design-what-the-demos-show-4aff8afeb5.jpg",
+        "publishedAt": "2026-09-29T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-apimaster-ai-how-to-make-better-claude-opus-5-5-videos-storyboards-rend",
+        "name": "How to Make Better Claude Opus 5.5 Videos: Storyboards, Rendering, and Debugging",
+        "description": "apimaster.ai · A practical Claude Opus 5.5 video workflow: choose the right rendering stack, plan shots, preview cheaply, keep assets licensed, and debug…",
+        "category": "Articles",
+        "url": "https://apimaster.ai/blog/claude-opus-5-5-video-guide",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-apimaster-ai-claude-opus-5-5-video-prompts-that-actually-look-good-930e841f63.png",
+        "publishedAt": "2026-09-29T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-aiartimind-com-how-to-make-motion-graphics-with-claude-opus-5-5-without-the",
+        "name": "How to Make Motion Graphics With Claude Opus 5.5 Without the AI-Slop Look",
+        "description": "aiartimind.com · A step-by-step Claude Opus 5.5 motion graphics workflow, shown with real renders: pick a deterministic engine, add taste rules, brief with…",
+        "category": "Articles",
+        "url": "https://aiartimind.com/how-to-make-motion-graphics-with-claude-opus-5-5",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-aiartimind-com-how-to-make-motion-graphics-with-claude-opus-5-5-without-the-322c3f3840.png",
+        "publishedAt": "2026-09-29T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-medium-com-i-made-10-motion-videos-with-opus-5-5-in-3-days",
+        "name": "I made 10+ motion videos with Opus 5.5 in 3 days.",
+        "description": "Gajanan Rajput · A three-day run of 10+ Opus 5.5 motion videos, and the workflow behind them",
+        "category": "Articles",
+        "url": "https://medium.com/@rajputgajanan50/claude-opus-5-5-motion-design-how-i-made-10-videos-in-3-days-365bfd0e68eb",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-medium-com-i-made-10-motion-videos-with-opus-5-5-in-3-days-00d0aacbd2.png",
+        "publishedAt": "2026-09-29T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-gaznil-com-make-a-motion-graphics-video-with-claude-ai-free-prompt",
+        "name": "Make a Motion Graphics Video With Claude AI (Free Prompt)",
+        "description": "gaznil.com · Claude built a full motion graphics film with sound from code, not AI video. Copy the exact prompt and workflow and try it yourself today.",
+        "category": "Articles",
+        "url": "https://gaznil.com/make-motion-graphics-video-with-claude-ai",
+        "cover": null,
+        "publishedAt": "2026-09-29T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-aiformortals-co-make-the-launch-video-for-sonnet-5-5",
+        "name": "Make the launch video for Sonnet 5.5",
+        "description": "Pat Simmons · A 30 to 60 second launch video for Sonnet 5.5 built from Anthropic's launch page, following my free Launch Video Clone skill.",
+        "category": "Articles",
+        "url": "https://www.aiformortals.co/built-by-pat/make-the-launch-video-for-sonnet-5-5-5koom8",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-aiformortals-co-make-the-launch-video-for-sonnet-5-5-db4d64a85f.jpg",
+        "publishedAt": "2026-09-29T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-ofox-ai-make-videos-with-opus-5-5-prompts-and-mp4-export",
+        "name": "Make videos with Opus 5.5: prompts and MP4 export",
+        "description": "Ofox · Use Opus 5.5 video prompts for motion graphics, understand the rendering workflow, and try an editable Remotion starter with an MP4 export…",
+        "category": "Articles",
+        "url": "https://ofox.ai/blog/opus-5-5-video-prompts-mp4-guide",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-ofox-ai-make-videos-with-opus-5-5-prompts-and-mp4-export-b37fd2403b.png",
+        "publishedAt": "2026-09-29T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-capitalandcompute-net-claude-opus-5-5-motion-graphics-best-tools-free-and-paid",
+        "name": "Claude Opus 5.5 Motion Graphics: Best Tools, Free and Paid",
+        "description": "Capital and Compute · Opus 5.5 writes the code, a render engine makes the video. Ten open-source tools, five paid ones, and two free defaults that are not open source.",
+        "category": "Articles",
+        "url": "https://capitalandcompute.net/blog/claude-motion-graphics-tools",
+        "cover": null,
+        "publishedAt": "2026-09-28T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-grainzilla-com-higgsfield-x-claude-opus-5-5-editable-ae-motion-design",
+        "name": "Higgsfield x Claude Opus 5.5: Editable AE Motion Design",
+        "description": "Grainzilla · Higgsfield paired Claude Opus 5.5 with its After Effects pipeline, so editors describe a title sequence and get an editable AE project inst…",
+        "category": "Articles",
+        "url": "https://grainzilla.com/higgsfield-pairs-claude-opus-5-5-with-its-after-effects-pipeline-for-editable-motion-design",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-grainzilla-com-higgsfield-x-claude-opus-5-5-editable-ae-motion-design-b86dbfb8d7.jpg",
+        "publishedAt": "2026-09-28T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-ciyo-ai-opus-5-5-video-guide-how-the-one-prompt-motion-graphics-are",
+        "name": "Opus 5.5 Video Guide: How the One-Prompt Motion Graphics Are Made",
+        "description": "Ciyo editorial team · Those one-prompt Opus 5.5 videos are real, sort of. A friendly guide from one-line showreel to overnight film, plus a teaser we rendered an…",
+        "category": "Articles",
+        "url": "https://ciyo.ai/blog/opus-5-5-video-motion-graphics-guide",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-ciyo-ai-opus-5-5-video-guide-how-the-one-prompt-motion-graphics-are-9f35962c87.jpg",
+        "publishedAt": "2026-09-28T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-intelligentartifact-com-sonnet-5-5-making-videos-seven-examples-peter-yang",
+        "name": "Sonnet 5.5 Making Videos: Seven Examples",
+        "description": "intelligentartifact.com · Peter Yang tests code-generated motion graphics, product launches, talking-head edits, music videos, and anime—then extracts a practical wo…",
+        "category": "Articles",
+        "url": "https://intelligentartifact.com/posts/sonnet-5-5-making-videos-seven-examples",
+        "cover": null,
+        "publishedAt": "2026-09-28T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-ai-joaoqueiros-com-sonnet-5-5-video-making-seven-creator-tests-and-two-prompts",
+        "name": "Sonnet 5.5 Video Making: Seven Creator Tests and Two Prompts",
+        "description": "João Queirós · Peter Yang builds seven videos with Claude Sonnet 5.5: coded motion, a mascot story, branded launch film, vertical short, talking-head over…",
+        "category": "Articles",
+        "url": "https://www.ai.joaoqueiros.com/blog/sonnet-5-5-video-making-seven-examples-prompts",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-ai-joaoqueiros-com-sonnet-5-5-video-making-seven-creator-tests-and-two-prompts-8fa551fbbe.png",
+        "publishedAt": "2026-09-28T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-frontiernow-dev-the-prompt-behind-opus-5-5-s-viral-videos",
+        "name": "The prompt behind Opus 5.5's viral videos",
+        "description": "Frontier Now Editorial · The prompts behind Opus 5.5's viral videos, from the Skillry prompt gallery.",
+        "category": "Articles",
+        "url": "https://frontiernow.dev/en/resources/articles/skillry-opus-55-prompt-gallery",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-frontiernow-dev-the-prompt-behind-opus-5-5-s-viral-videos-0bc58d759e.jpg",
+        "publishedAt": "2026-09-28T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-charliehills-substack-com-claude-code-motion-graphics-and-video-with-opus-5-5",
+        "name": "Claude Code motion graphics and video with Opus 5.5",
+        "description": "Charlie Hills · How to create studio-quality motion from one prompt",
+        "category": "Articles",
+        "url": "https://charliehills.substack.com/p/claude-code-motion-graphics",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-charliehills-substack-com-claude-code-motion-graphics-and-video-with-opus-5-5-8f08bd67f3.gif",
+        "publishedAt": "2026-09-27T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-getreely-co-claude-opus-5-5-motion-design-for-saas-and-mobile-apps",
+        "name": "Claude Opus 5.5 Motion Design for SaaS and Mobile Apps",
+        "description": "Georgii Emelianov · Claude Opus 5.5 motion design, applied to a real product: what to give the agent for a SaaS web app vs a native mobile app, the brief, and…",
+        "category": "Articles",
+        "url": "https://getreely.co/blog/claude-opus-5-5-motion-design",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-getreely-co-claude-opus-5-5-motion-design-for-saas-and-mobile-apps-7c21778618.webp",
+        "publishedAt": "2026-09-27T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-agent-signal-ai-claude-video-generation-seven-workflows-compared",
+        "name": "Claude video generation: seven workflows compared",
+        "description": "Shogo Mizushima · Compare seven Claude video workflows. Start with motion graphics written by Claude Code alone, with no external video generation or MCP, th…",
+        "category": "Articles",
+        "url": "https://agent-signal.ai/en/blog/claude-video-generation-workflows",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-agent-signal-ai-claude-video-generation-seven-workflows-compared-1887742412.webp",
+        "publishedAt": "2026-09-27T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-beatapi-io-how-to-make-videos-with-claude-opus-5-5-2026-guide",
+        "name": "How to Make Videos with Claude Opus 5.5 (2026 Guide)",
+        "description": "Beat API Team · Turn Claude Opus 5.5 HTML animations into MP4 with Playwright and ffmpeg. Includes prompts, a render loop, limitations and a cost example.",
+        "category": "Articles",
+        "url": "https://beatapi.io/blog/how-to-make-videos-with-claude-opus-5-5",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-beatapi-io-how-to-make-videos-with-claude-opus-5-5-2026-guide-5ea889a35d.webp",
+        "publishedAt": "2026-09-27T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-blog-cosine-ren-making-videos-with-opus-5-5-workflow-and-prompt-resources",
+        "name": "Making Videos with Opus 5.5: Workflow and Prompt Resources",
+        "description": "cos @cosine · Notes on how I used Opus 5.5 to make a long tutorial video, plus a collection of showcase works, prompts, Skills and tools I came across, f…",
+        "category": "Articles",
+        "url": "https://blog.cosine.ren/en/post/opus-5-5-motion-video-resources",
+        "cover": null,
+        "publishedAt": "2026-09-27T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-100-school-beehiiv-com-claude-became-a-motion-designer",
+        "name": "💯 Claude became a motion designer",
+        "description": "Max Haining · This weird Opus 5.5 moment changed how I think we should learn AI.",
+        "category": "Articles",
+        "url": "https://100-school.beehiiv.com/p/opus-5-5",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-100-school-beehiiv-com-claude-became-a-motion-designer-ed5e445982.png",
+        "publishedAt": "2026-09-27T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-getaitopia-io-claude-code-motion-graphics-16-free-opus-5-5-animation-prom",
+        "name": "Claude Code Motion Graphics: 16 Free Opus 5.5 Animation Prompts",
+        "description": "Joon Ahn · Make motion graphics with Claude Code and Opus 5.5. 16 HTML animations on one 8-second loop, all 16 copy-paste prompts, and a free kit down…",
+        "category": "Articles",
+        "url": "https://getaitopia.io/blog/claude-code-motion-graphics",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-getaitopia-io-claude-code-motion-graphics-16-free-opus-5-5-animation-prom-a4e3e6b45e.jpg",
+        "publishedAt": "2026-09-26T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-news-lavx-hu-generating-video-by-writing-code-inside-launchvideo",
+        "name": "Generating Video by Writing Code: Inside LaunchVideo",
+        "description": "Elena Varga · A new project called LaunchVideo generates MP4 clips from URLs or text prompts. It uses Claude Opus 5.5 to write an HTML animation, then re…",
+        "category": "Articles",
+        "url": "https://news.lavx.hu/article/generating-video-by-writing-code-inside-launchvideo",
+        "cover": null,
+        "publishedAt": "2026-09-25T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-moderncreator-app-opus-5-5-just-changed-video-editing-forever-free-skills",
+        "name": "Opus 5.5 Just Changed Video Editing Forever (free skills)",
+        "description": "Nate Herk · A screen-recorded walkthrough of the exact prompts behind five one-shot AI edits, and the five-step process behind all of them.",
+        "category": "Articles",
+        "url": "https://moderncreator.app/2026-09-25-nate-herk-ai-automation-opus-5-5-just-changed-video-editing-forever-free-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-moderncreator-app-opus-5-5-just-changed-video-editing-forever-free-skills-be604e2b07.jpg",
+        "publishedAt": "2026-09-25T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-vuela-ai-can-claude-make-videos-yes-here-s-how-it-works-2026",
+        "name": "Can Claude make videos? Yes, here's how it works (2026)",
+        "description": "vuela.ai · Claude Motion turns content into animated MP4s on Team and Enterprise plans.",
+        "category": "Articles",
+        "url": "https://vuela.ai/blog/can-claude-make-videos",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-vuela-ai-can-claude-make-videos-yes-here-s-how-it-works-2026-d66cacf569.png",
+        "publishedAt": "2026-09-24T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-iart-ai-claude-motion-graphics-5-opus-5-5-prompts",
+        "name": "Claude Motion Graphics: 5 Opus 5.5 Prompts",
+        "description": "Zhangcan Ding · Five Claude Opus 5.5 motion graphics prompts: a showreel, logo reveal, kinetic type, a seamless 3D loop and a data story, with the film eac…",
+        "category": "Articles",
+        "url": "https://www.iart.ai/blog/claude-motion-graphics",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-iart-ai-claude-motion-graphics-5-opus-5-5-prompts-e7543523ed.png",
+        "publishedAt": "2026-09-29T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-nateszerotoai-substack-com-how-to-make-animations-with-opus-5-5",
+        "name": "How to Make Animations With Opus 5.5",
+        "description": "Nate · The best part about AI, for me, is that it opens up skills that used to be out of reach if you weren’t technical.",
+        "category": "Articles",
+        "url": "https://nateszerotoai.substack.com/p/make-animations-opus-5-5",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-nateszerotoai-substack-com-how-to-make-animations-with-opus-5-5-787c3456cc.gif",
+        "publishedAt": "2026-10-02T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-opus5video-com-how-to-make-videos-with-claude-opus-5-5-step-by-step-2026",
+        "name": "How to Make Videos with Claude Opus 5.5 (Step-by-Step, 2026)",
+        "description": "opus5video.com · How to make motion-graphics videos with Claude Opus 5.5: how it works, Remotion vs HyperFrames vs HTML, the 6-step workflow, real costs and…",
+        "category": "Articles",
+        "url": "https://opus5video.com/how-to-make-videos-with-claude",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-opus5video-com-how-to-make-videos-with-claude-opus-5-5-step-by-step-2026-1ce323d2d6.jpg",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-movez-substack-com-how-to-build-motion-design-studio-with-opus-5-5-full-cours",
+        "name": "How to build motion design studio with Opus 5.5 ( Full-course )",
+        "description": "0xMovez AI · Most people who try motion design with Opus 5.5 end up with the same video: centered text on a gradient, everything fading in, a logo at th…",
+        "category": "Articles",
+        "url": "https://movez.substack.com/p/how-to-build-motion-design-studio",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-movez-substack-com-how-to-build-motion-design-studio-with-opus-5-5-full-cours-fa385d204f.png",
+        "publishedAt": "2026-10-04T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-learnwithmeai-com-i-built-a-claude-skill-that-makes-the-viral-opus-5-5-motion",
+        "name": "I Built a Claude Skill That Makes the Viral Opus 5.5 Motion Videos (3 Movies, Never Left Claude Code)",
+        "description": "Gencay · The videos generated by Opus 5.5 went viral.",
+        "category": "Articles",
+        "url": "https://www.learnwithmeai.com/p/claude-code-motion-skill",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-learnwithmeai-com-i-built-a-claude-skill-that-makes-the-viral-opus-5-5-motion-31c6d65439.png",
+        "publishedAt": "2026-10-05T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-cybercorsairs-com-motion-graphics-code-professional-videos-made-easy",
+        "name": "Motion Graphics Code: Professional Videos Made Easy",
+        "description": "cybercorsairs.com · Create professional motion graphics with Claude Code. No video models needed. Debunk AI animation myths and discover it's easier than you t…",
+        "category": "Articles",
+        "url": "https://cybercorsairs.com/claude-sonnet-5-5-codes-promo-videos-with-no-video-model",
+        "cover": null,
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "article-iart-ai-opus-5-5-animation-every-frame-in-javascript",
+        "name": "Opus 5.5 Animation: Every Frame in JavaScript",
+        "description": "Zhangcan Ding · How to make a JavaScript animation with Claude Opus 5.5: every frame drawn on a canvas, music in Web Audio. Two ways, with Claude Code or n…",
+        "category": "Articles",
+        "url": "https://www.iart.ai/blog/ai-javascript-animation",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/article-iart-ai-opus-5-5-animation-every-frame-in-javascript-ead71683c6.png",
+        "publishedAt": "2026-09-24T00:00:00.000Z",
+        "addedAt": "2026-10-25"
+      },
+      {
+        "id": "openmontage",
+        "name": "OpenMontage",
+        "description": "An agentic video production system with 12 pipelines",
+        "category": "Skills",
+        "url": "https://github.com/calesthio/OpenMontage",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/openmontage-b1ab069d9c.png",
+        "stars": 71690,
+        "updatedAt": "2026-10-24T00:49:34Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models", "remotion", "ffmpeg"]
+      },
+      {
+        "id": "brag",
+        "name": "Brag",
+        "description": "One command turns your project into a launch video",
+        "category": "Skills",
+        "url": "https://github.com/latent-spaces/brag",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/brag-8a7434d8be.png",
+        "stars": 18425,
+        "updatedAt": "2026-10-23T21:18:13Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes"]
+      },
+      {
+        "id": "diffusion-studio-lottie",
+        "name": "Diffusion Studio Lottie",
+        "description": "Lottie animations from Claude Code or Codex",
+        "category": "Skills",
+        "url": "https://github.com/diffusionstudio/lottie",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/diffusion-studio-lottie-e9b71e91dc.gif",
+        "stars": 5622,
+        "updatedAt": "2026-07-25T07:22:58Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "firered-openstoryline",
+        "name": "FireRed OpenStoryline",
+        "description": "Intention-driven AI video editing agent",
+        "category": "Skills",
+        "url": "https://github.com/FireRedTeam/FireRed-OpenStoryline",
+        "cover": null,
+        "stars": 3559,
+        "updatedAt": "2026-07-31T03:16:31Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "chengfeng-videocut",
+        "name": "Chengfeng Videocut",
+        "description": "A video editing agent built on Claude Code skills",
+        "category": "Skills",
+        "url": "https://github.com/Agentchengfeng/chengfeng-videocut-skills",
+        "cover": null,
+        "stars": 3129,
+        "updatedAt": "2026-10-10T11:04:24Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "narrator-ai",
+        "name": "Narrator AI",
+        "description": "Automated movie narration and commentary videos",
+        "category": "Skills",
+        "url": "https://github.com/NarratorAI-Studio/narrator-ai-cli-skill",
+        "cover": null,
+        "stars": 3069,
+        "updatedAt": "2026-07-05T14:10:21Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "pixel2motion",
+        "name": "pixel2motion",
+        "description": "Raster logos into smooth SVG animation",
+        "category": "Skills",
+        "url": "https://github.com/nolangz/pixel2motion",
+        "cover": null,
+        "stars": 2503,
+        "updatedAt": "2026-08-21T12:06:57Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "claude-code-video-toolkit",
+        "name": "Claude Code Video Toolkit",
+        "description": "Script-to-render explainers and demos",
+        "category": "Skills",
+        "url": "https://github.com/digitalsamba/claude-code-video-toolkit",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/claude-code-video-toolkit-7bf5be2036.gif",
+        "stars": 2335,
+        "updatedAt": "2026-10-21T23:00:50Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "video-models"]
+      },
+      {
+        "id": "story-to-hand-drawn-video",
+        "name": "Story to Hand-drawn Video",
+        "description": "Stories into hand-drawn diary-comic animations",
+        "category": "Skills",
+        "url": "https://github.com/gnipbao/story-to-handdrawn-video",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/story-to-hand-drawn-video-6ca1490d65.png",
+        "stars": 2293,
+        "updatedAt": "2026-09-22T10:13:34Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "vox-director",
+        "name": "Vox Director",
+        "description": "One topic to a Vox-style paper-collage video",
+        "category": "Skills",
+        "url": "https://github.com/Alisa0808/vox-director",
+        "cover": null,
+        "stars": 2445,
+        "updatedAt": "2026-10-05T16:15:11Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models", "ffmpeg"]
+      },
+      {
+        "id": "lanshu-ai-presenter",
+        "name": "Lanshu AI Presenter",
+        "description": "Presenter videos from a script, with checks",
+        "category": "Skills",
+        "url": "https://github.com/cclank/lanshu-create-ai-presenter-video",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/lanshu-ai-presenter-bb2fcb2d4b.jpg",
+        "stars": 2810,
+        "updatedAt": "2026-10-11T23:54:19Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg", "hyperframes", "video-models"]
+      },
+      {
+        "id": "gbro-collage-b-roll",
+        "name": "Gbro Collage B-roll",
+        "description": "Halftone paper-collage B-roll from a line of voiceover",
+        "category": "Skills",
+        "url": "https://github.com/pyang5166/gbro-collage-broll",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/gbro-collage-b-roll-a51528abb8.gif",
+        "stars": 1501,
+        "updatedAt": "2026-07-15T12:50:50Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models"]
+      },
+      {
+        "id": "vibe-motion-skills",
+        "name": "Vibe Motion Skills",
+        "description": "A grab-bag of motion and graphic effects",
+        "category": "Skills",
+        "url": "https://github.com/vibe-motion/skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/vibe-motion-skills-fd146ac622.gif",
+        "stars": 1395,
+        "updatedAt": "2026-10-05T15:06:13Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html", "remotion"]
+      },
+      {
+        "id": "manim-skill",
+        "name": "Manim Skill",
+        "description": "3Blue1Brown-style animations with Manim",
+        "category": "Skills",
+        "url": "https://github.com/adithya-s-k/manim_skill",
+        "cover": null,
+        "stars": 1213,
+        "updatedAt": "2026-01-23T16:30:42Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["manim"]
+      },
+      {
+        "id": "onetake",
+        "name": "Onetake",
+        "description": "Launch films in one continuous camera move",
+        "category": "Skills",
+        "url": "https://github.com/feitangyuan/onetake",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/onetake-a5422253cf.gif",
+        "stars": 3204,
+        "updatedAt": "2026-10-21T17:58:00Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "cartcut",
+        "name": "CartCut",
+        "description": "An open video editor built for AI agents",
+        "category": "Skills",
+        "url": "https://github.com/cartesiancs/cartcut",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/cartcut-06940ca7c0.png",
+        "stars": 818,
+        "updatedAt": "2026-10-21T08:55:16Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "premiere-pro-mcp",
+        "name": "Premiere Pro MCP",
+        "description": "Drive Adobe Premiere Pro edits from an agent",
+        "category": "Skills",
+        "url": "https://github.com/hetpatel-11/Adobe_Premiere_Pro_MCP",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/premiere-pro-mcp-0ee762e346.png",
+        "stars": 755,
+        "updatedAt": "2026-10-24T21:21:21Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["adobe"]
+      },
+      {
+        "id": "live-panel",
+        "name": "Live Panel",
+        "description": "Animated architecture diagrams from one JSON file",
+        "category": "Skills",
+        "url": "https://github.com/ythx-101/live-panel-skill",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/live-panel-f917402cfe.webp",
+        "stars": 801,
+        "updatedAt": "2026-10-20T15:59:20Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "video-recap-skills",
+        "name": "Video Recap Skills",
+        "description": "Chinese narration recaps cut from footage",
+        "category": "Skills",
+        "url": "https://github.com/zenstory-ai/video-recap-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/video-recap-skills-7ca5f1c7a2.jpg",
+        "stars": 589,
+        "updatedAt": "2026-10-21T06:24:22Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "baocut",
+        "name": "BaoCut",
+        "description": "Transcribe, subtitle, dub and cut on a timeline",
+        "category": "Skills",
+        "url": "https://github.com/JimLiu/baocut",
+        "cover": null,
+        "stars": 1426,
+        "updatedAt": "2026-10-25T06:15:55Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "heygen-skills",
+        "name": "HeyGen Skills",
+        "description": "Avatar videos through HeyGen's Video Agent",
+        "category": "Skills",
+        "url": "https://github.com/heygen-com/skills",
+        "cover": null,
+        "stars": 519,
+        "updatedAt": "2026-07-14T21:33:38Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models"]
+      },
+      {
+        "id": "hyperframes-motion-director",
+        "name": "HyperFrames Motion Director",
+        "description": "Chinese motion videos from articles and products",
+        "category": "Skills",
+        "url": "https://github.com/geekjourneyx/hyperframes-motion-director",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/hyperframes-motion-director-d4d6110f5c.png",
+        "stars": 467,
+        "updatedAt": "2026-07-26T08:28:32Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes"]
+      },
+      {
+        "id": "claude-animation-base",
+        "name": "Claude Animation Base",
+        "description": "A starter kit for hand-painted cartoons",
+        "category": "Skills",
+        "url": "https://github.com/JohnHeibel/ClaudeAnimationBase",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/claude-animation-base-ddc7404eb7.webp",
+        "stars": 1746,
+        "updatedAt": "2026-09-24T07:41:21Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "mathlens",
+        "name": "MathLens",
+        "description": "Narrated Manim explainers for math problems",
+        "category": "Skills",
+        "url": "https://github.com/shuyicc/MathLens",
+        "cover": null,
+        "stars": 358,
+        "updatedAt": "2026-03-10T03:24:47Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["manim"]
+      },
+      {
+        "id": "explainroo",
+        "name": "Explainroo",
+        "description": "Narrated explainers and product demos, all local",
+        "category": "Skills",
+        "url": "https://github.com/vincentsch/explainroo",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/explainroo-35a4b85642.webp",
+        "stars": 639,
+        "updatedAt": "2026-10-20T07:47:04Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html", "ffmpeg"]
+      },
+      {
+        "id": "agent-storyboard",
+        "name": "Agent Storyboard",
+        "description": "A local storyboard workbench for agents",
+        "category": "Skills",
+        "url": "https://github.com/Yuuhann1999/agent-storyboard",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/agent-storyboard-389ebe97c2.png",
+        "stars": 372,
+        "updatedAt": "2026-10-23T00:30:38Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "image-story-video-wizard",
+        "name": "Image Story Video Wizard",
+        "description": "Narrated image-story videos, step by step",
+        "category": "Skills",
+        "url": "https://github.com/aaronyi97/image-story-video-wizard",
+        "cover": null,
+        "stars": 361,
+        "updatedAt": "2026-09-15T08:51:44Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models", "hyperframes"]
+      },
+      {
+        "id": "hand-drawn-explainer",
+        "name": "Hand-drawn Explainer",
+        "description": "Chinese hand-drawn whiteboard explainers",
+        "category": "Skills",
+        "url": "https://github.com/hi-nikola/hand-drawn-explainer-video-nikola",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/hand-drawn-explainer-df6c90120e.jpg",
+        "stars": 428,
+        "updatedAt": "2026-09-03T04:25:04Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes", "html"]
+      },
+      {
+        "id": "xianxia-cinematic-director",
+        "name": "Xianxia Cinematic Director",
+        "description": "Xianxia storyboards and camera moves",
+        "category": "Skills",
+        "url": "https://github.com/liyue-aigc/xianxia-cinematic-video-director",
+        "cover": null,
+        "stars": 271,
+        "updatedAt": "2026-08-13T03:18:56Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models"]
+      },
+      {
+        "id": "vox-ai-motion-graphics",
+        "name": "Vox AI Motion Graphics",
+        "description": "Vox-style paper-collage explainers from a topic",
+        "category": "Skills",
+        "url": "https://github.com/Anil-matcha/vox-ai-motion-graphics-generator",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/vox-ai-motion-graphics-cc9fbc4df9.jpg",
+        "stars": 286,
+        "updatedAt": "2026-09-02T15:19:37Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models", "ffmpeg"]
+      },
+      {
+        "id": "claude-shorts",
+        "name": "Claude Shorts",
+        "description": "Longform video clipped into vertical shorts",
+        "category": "Skills",
+        "url": "https://github.com/AgriciDaniel/claude-shorts",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/claude-shorts-32d3f51618.jpeg",
+        "stars": 239,
+        "updatedAt": "2026-07-11T02:32:45Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg", "remotion"]
+      },
+      {
+        "id": "auto-video-agent",
+        "name": "Auto Video Agent",
+        "description": "Subtitles into illustrated, assembled videos",
+        "category": "Skills",
+        "url": "https://github.com/LetMeHappyCode/auto-video-agent",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/auto-video-agent-582bcceff1.jpg",
+        "stars": 11,
+        "updatedAt": "2026-09-21T04:01:22Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models", "ffmpeg"]
+      },
+      {
+        "id": "vox-collage-b-roll",
+        "name": "Vox Collage B-roll",
+        "description": "A spoken line into a paper-collage clip",
+        "category": "Skills",
+        "url": "https://github.com/MegaTroll222/VOX-COLLAGE-BROLL",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/vox-collage-b-roll-9504dbd125.gif",
+        "stars": 262,
+        "updatedAt": "2026-07-17T07:01:59Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models", "ffmpeg"]
+      },
+      {
+        "id": "motion-video-kit",
+        "name": "Motion Video Kit",
+        "description": "Premium business videos with a critic loop",
+        "category": "Skills",
+        "url": "https://github.com/echris6/motion-video-kit",
+        "cover": null,
+        "stars": 1179,
+        "updatedAt": "2026-10-14T17:07:17Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html", "hyperframes"]
+      },
+      {
+        "id": "erduo-b-roll-engine",
+        "name": "Erduo B-roll Engine",
+        "description": "SRT-driven B-roll in HyperFrames or Remotion",
+        "category": "Skills",
+        "url": "https://github.com/erduo1998-cell/erduo-broll-loop-engineering",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/erduo-b-roll-engine-99bcc79b04.gif",
+        "stars": 229,
+        "updatedAt": "2026-10-10T13:48:53Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes", "remotion"]
+      },
+      {
+        "id": "oh-my-cassette",
+        "name": "Oh My Cassette",
+        "description": "A pocket AI co-editor for montages",
+        "category": "Skills",
+        "url": "https://github.com/Cassette-Editor/oh-my-cassette",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/oh-my-cassette-3e7c9a1c99.jpg",
+        "stars": 117,
+        "updatedAt": "2026-10-22T01:25:12Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "director-skills",
+        "name": "Director Skills",
+        "description": "Agent skills for AI video creation",
+        "category": "Skills",
+        "url": "https://github.com/kangarooking/director-skills",
+        "cover": null,
+        "stars": 239,
+        "updatedAt": "2026-10-20T07:37:24Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models"]
+      },
+      {
+        "id": "hbg-life-simulation",
+        "name": "HBG Life Simulation",
+        "description": "Comic-style life-story narration videos",
+        "category": "Skills",
+        "url": "https://github.com/Mr-funny/hbg-life-simulation",
+        "cover": null,
+        "stars": 149,
+        "updatedAt": "2026-08-05T15:37:52Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes"]
+      },
+      {
+        "id": "ai-video-editing-skill",
+        "name": "AI Video Editing Skill",
+        "description": "Raw travel footage into a finished vlog",
+        "category": "Skills",
+        "url": "https://github.com/znyupup/ai-video-editing-skill",
+        "cover": null,
+        "stars": 163,
+        "updatedAt": "2026-04-27T14:55:22Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "naive-video-skill",
+        "name": "Naive Video Skill",
+        "description": "Talking-head videos captioned and animated",
+        "category": "Skills",
+        "url": "https://github.com/naive-kun/naive-video-skill",
+        "cover": null,
+        "stars": 135,
+        "updatedAt": "2026-08-11T08:35:55Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg", "remotion", "hyperframes"]
+      },
+      {
+        "id": "avatar-mix",
+        "name": "Avatar Mix",
+        "description": "HeyGen avatar videos with animated backgrounds",
+        "category": "Skills",
+        "url": "https://github.com/Upload-Post/avatar-mix",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/avatar-mix-57a1fa3379.gif",
+        "stars": 134,
+        "updatedAt": "2026-07-15T18:01:24Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models", "hyperframes", "ffmpeg"]
+      },
+      {
+        "id": "easyedit",
+        "name": "EasyEdit",
+        "description": "Movie fan edits, cut to speech and the beat",
+        "category": "Skills",
+        "url": "https://github.com/blixvip/easyedit",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/easyedit-ea504794b3.png",
+        "stars": 162,
+        "updatedAt": "2026-10-08T22:47:37Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg", "hyperframes"]
+      },
+      {
+        "id": "videodb-skills",
+        "name": "VideoDB Skills",
+        "description": "Server-side video search, editing and streaming",
+        "category": "Skills",
+        "url": "https://github.com/video-db/skills",
+        "cover": null,
+        "stars": 139,
+        "updatedAt": "2026-09-11T12:27:34Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "claude-remotion-kickstart",
+        "name": "Claude Remotion Kickstart",
+        "description": "Programmatic videos with Claude Code and Remotion",
+        "category": "Skills",
+        "url": "https://github.com/jhartquist/claude-remotion-kickstart",
+        "cover": null,
+        "stars": 122,
+        "updatedAt": "2025-12-09T03:58:08Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "seecut",
+        "name": "SeeCut",
+        "description": "Talking-head clips auto-edited into shorts",
+        "category": "Skills",
+        "url": "https://github.com/YeJe-cpu/SeeCut",
+        "cover": null,
+        "stars": 384,
+        "updatedAt": "2026-10-18T10:16:06Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg", "hyperframes", "video-models"]
+      },
+      {
+        "id": "monet",
+        "name": "Monet",
+        "description": "Edit videos with Claude Code or Codex",
+        "category": "Skills",
+        "url": "https://github.com/Monet-AI-Editor/Monet",
+        "cover": null,
+        "stars": 119,
+        "updatedAt": "2026-07-07T01:36:26Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg", "html"]
+      },
+      {
+        "id": "remotion-ad-video",
+        "name": "Remotion Ad Video",
+        "description": "Ad videos from a URL in Remotion",
+        "category": "Skills",
+        "url": "https://github.com/leosssvip-dot/remotion-ad-video-skill",
+        "cover": null,
+        "stars": 110,
+        "updatedAt": "2026-06-10T09:03:21Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "hyperframes"]
+      },
+      {
+        "id": "book-video-factory",
+        "name": "Book Video Factory",
+        "description": "Chinese book-review shorts with an audit trail",
+        "category": "Skills",
+        "url": "https://github.com/jaxxchen003/book-video-factory",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/book-video-factory-ecfe355662.jpg",
+        "stars": 110,
+        "updatedAt": "2026-08-17T02:18:41Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html", "ffmpeg"]
+      },
+      {
+        "id": "promo-creator-skills",
+        "name": "Promo Creator Skills",
+        "description": "A full product promo workflow in HyperFrames",
+        "category": "Skills",
+        "url": "https://github.com/kangarooking/promo-creator-skills",
+        "cover": null,
+        "stars": 111,
+        "updatedAt": "2026-05-12T16:39:08Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes"]
+      },
+      {
+        "id": "cut-video",
+        "name": "Cut Video",
+        "description": "Remove silences and filler from long recordings",
+        "category": "Skills",
+        "url": "https://github.com/louisedesadeleer/cut-video",
+        "cover": null,
+        "stars": 114,
+        "updatedAt": "2026-07-09T12:05:10Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "adu-motion-video",
+        "name": "Adu Motion Video",
+        "description": "Motion templates for talking-head videos",
+        "category": "Skills",
+        "url": "https://github.com/adunext/adu-motion-video",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/adu-motion-video-9763eb64b8.jpg",
+        "stars": 498,
+        "updatedAt": "2026-10-19T12:09:37Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "vex",
+        "name": "Vex",
+        "description": "Claude Code for video editing",
+        "category": "Skills",
+        "url": "https://github.com/AKMessi/vex",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/vex-f442ae0d22.png",
+        "stars": 95,
+        "updatedAt": "2026-10-13T08:08:12Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg", "hyperframes", "remotion"]
+      },
+      {
+        "id": "motion-video-skill",
+        "name": "Motion Video Skill",
+        "description": "Beat-synced HyperFrames videos with voiceover",
+        "category": "Skills",
+        "url": "https://github.com/bestagentkits/motion-video-skill",
+        "cover": null,
+        "stars": 126,
+        "updatedAt": "2026-09-28T18:57:40Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes"]
+      },
+      {
+        "id": "after-effects-mcp",
+        "name": "After Effects MCP",
+        "description": "Automate After Effects from an agent",
+        "category": "Skills",
+        "url": "https://github.com/JUNKDOGE-JOE/after-effects-mcp",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/after-effects-mcp-baa3a50b33.png",
+        "stars": 86,
+        "updatedAt": "2026-10-22T10:42:17Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["adobe"]
+      },
+      {
+        "id": "remotion-motion-graphics-skill",
+        "name": "Remotion Motion Graphics Skill",
+        "description": "Production-ready Remotion motion graphics",
+        "category": "Skills",
+        "url": "https://github.com/Liamrjohnston/remotion-motion-graphics-skill",
+        "cover": null,
+        "stars": 134,
+        "updatedAt": "2026-07-24T00:01:19Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "30x-video",
+        "name": "30x Video",
+        "description": "One URL in, an agency-grade launch video out",
+        "category": "Skills",
+        "url": "https://github.com/norahe0304-art/30x-video",
+        "cover": null,
+        "stars": 64,
+        "updatedAt": "2026-07-09T14:06:56Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "ghost-editor",
+        "name": "Ghost Editor",
+        "description": "Talking-head footage into styled reels",
+        "category": "Skills",
+        "url": "https://github.com/kurbaitaev/ghost-editor",
+        "cover": null,
+        "stars": 79,
+        "updatedAt": "2026-10-14T09:38:18Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg", "hyperframes"]
+      },
+      {
+        "id": "brewreel",
+        "name": "BrewReel",
+        "description": "Vertical promos from cheap models",
+        "category": "Skills",
+        "url": "https://github.com/Finderchangchang/brewreel",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/brewreel-f83dd14aa0.png",
+        "stars": 173,
+        "updatedAt": "2026-10-12T08:15:06Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models", "remotion"]
+      },
+      {
+        "id": "remotion-ads",
+        "name": "Remotion Ads",
+        "description": "Instagram Reels and carousel ads in Remotion",
+        "category": "Skills",
+        "url": "https://github.com/Maartenlouis/remotion-ads",
+        "cover": null,
+        "stars": 62,
+        "updatedAt": "2026-05-06T09:43:29Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "unclejobs-motion-video",
+        "name": "Unclejobs Motion Video",
+        "description": "A staged harness for motion and video work",
+        "category": "Skills",
+        "url": "https://github.com/unclejobs-ai/motion-video-skill",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/unclejobs-motion-video-ea07ee1280.png",
+        "stars": 129,
+        "updatedAt": "2026-10-24T18:41:53Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "ffmpeg"]
+      },
+      {
+        "id": "gbro-collage-info",
+        "name": "Gbro Collage Info",
+        "description": "Paper-collage infographics from voiceover scripts",
+        "category": "Skills",
+        "url": "https://github.com/pyang5166/gbro-collage-info",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/gbro-collage-info-3c955a2b34.gif",
+        "stars": 55,
+        "updatedAt": "2026-08-01T07:25:25Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes", "video-models"]
+      },
+      {
+        "id": "remotion-claude-video",
+        "name": "Remotion Claude Video",
+        "description": "Getting started with Remotion in Claude Code",
+        "category": "Skills",
+        "url": "https://github.com/JJenglert1/remotion-claude-video",
+        "cover": null,
+        "stars": 49,
+        "updatedAt": "2026-02-03T16:43:25Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "vlog-cut",
+        "name": "Vlog Cut",
+        "description": "Edit raw footage to follow your script",
+        "category": "Skills",
+        "url": "https://github.com/hahadu4520/vlog-cut",
+        "cover": null,
+        "stars": 49,
+        "updatedAt": "2026-05-08T07:55:19Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "story-hand-drawn-video",
+        "name": "Story Hand-drawn Video",
+        "description": "Stories into hand-drawn crayon shorts",
+        "category": "Skills",
+        "url": "https://github.com/liangdabiao/story-handdrawn-video",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/story-hand-drawn-video-db0733baab.gif",
+        "stars": 52,
+        "updatedAt": "2026-08-09T01:52:01Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "code-video",
+        "name": "Code Video",
+        "description": "Researched hand-drawn and 8-bit promo videos",
+        "category": "Skills",
+        "url": "https://github.com/Changroro/code-video",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/code-video-41813481fc.gif",
+        "stars": 57,
+        "updatedAt": "2026-09-29T13:51:42Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "blender-education-video",
+        "name": "Blender Education Video",
+        "description": "Fact-checked cinematic explainers in Blender",
+        "category": "Skills",
+        "url": "https://github.com/sunxiayi/make-blender-education-video-skill",
+        "cover": null,
+        "stars": 60,
+        "updatedAt": "2026-07-25T04:33:31Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["blender"]
+      },
+      {
+        "id": "knowledge-explainer",
+        "name": "Knowledge Explainer",
+        "description": "Markdown scripts into explainer animations",
+        "category": "Skills",
+        "url": "https://github.com/znyupup/knowledge-explainer-skill",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/knowledge-explainer-c6abd5dff0.gif",
+        "stars": 50,
+        "updatedAt": "2026-04-29T03:32:19Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "adobe"]
+      },
+      {
+        "id": "typewriter-video",
+        "name": "Typewriter Video",
+        "description": "VS Code-style typing animations",
+        "category": "Skills",
+        "url": "https://github.com/yammaku/typewriter-video",
+        "cover": null,
+        "stars": 42,
+        "updatedAt": "2026-04-03T07:44:12Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "remotion-video-director",
+        "name": "Remotion Video Director",
+        "description": "Guided creative direction for Remotion videos",
+        "category": "Skills",
+        "url": "https://github.com/BayramAnnakov/remotion-video-director",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/remotion-video-director-e8833074a2.gif",
+        "stars": 44,
+        "updatedAt": "2026-03-13T21:05:04Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "video-clipforge",
+        "name": "Video ClipForge",
+        "description": "A daily short-video pipeline on HyperFrames",
+        "category": "Skills",
+        "url": "https://github.com/Johnson-Jia/video-clipforge",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/video-clipforge-71df4db96f.png",
+        "stars": 44,
+        "updatedAt": "2026-08-24T12:15:36Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes", "html"]
+      },
+      {
+        "id": "reelmimic",
+        "name": "ReelMimic",
+        "description": "A new video in the style of one you love",
+        "category": "Skills",
+        "url": "https://github.com/edenfunf/reelmimic",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/reelmimic-6f00d54cd7.gif",
+        "stars": 168,
+        "updatedAt": "2026-10-23T15:25:38Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes", "video-models"]
+      },
+      {
+        "id": "zack-d-films-generator",
+        "name": "Zack D Films Generator",
+        "description": "3D animated curiosity shorts from a topic",
+        "category": "Skills",
+        "url": "https://github.com/Anil-matcha/zack-d-films-ai-video-generator",
+        "cover": null,
+        "stars": 25,
+        "updatedAt": "2026-10-06T21:15:22Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models", "ffmpeg"]
+      },
+      {
+        "id": "vidmuse-video-creator",
+        "name": "VidMuse Video Creator",
+        "description": "Images, videos and B-roll through VidMuse",
+        "category": "Skills",
+        "url": "https://github.com/erduo1998-cell/vidmuse-video-creator",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/vidmuse-video-creator-c0657886d2.png",
+        "stars": 41,
+        "updatedAt": "2026-10-10T13:45:15Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models"]
+      },
+      {
+        "id": "3brown1blue",
+        "name": "3brown1blue",
+        "description": "First-principles Manim animation",
+        "category": "Skills",
+        "url": "https://github.com/AmitSubhash/3brown1blue",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/3brown1blue-f8789e2a52.gif",
+        "stars": 40,
+        "updatedAt": "2026-06-27T19:29:17Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["manim"]
+      },
+      {
+        "id": "codex-video-short-maker",
+        "name": "Codex Video Short Maker",
+        "description": "Auto-trimmed vertical shorts with captions",
+        "category": "Skills",
+        "url": "https://github.com/Kappaemme-git/codex-video-short-maker-skill",
+        "cover": null,
+        "stars": 35,
+        "updatedAt": "2026-05-01T16:10:40Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "story-hand-drawn-remotion",
+        "name": "Story Hand-drawn Remotion",
+        "description": "Stories revealed as sketch, then color",
+        "category": "Skills",
+        "url": "https://github.com/liangdabiao/story-handdrawn-remotion",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/story-hand-drawn-remotion-f1de3f6753.gif",
+        "stars": 38,
+        "updatedAt": "2026-08-09T15:39:03Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "self-media-video-packaging",
+        "name": "Self-media Video Packaging",
+        "description": "Motion packaging for talking-head videos",
+        "category": "Skills",
+        "url": "https://github.com/zhouyuechuan2025-ui/ai-self-media-video-packaging-skill",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/self-media-video-packaging-f790d9d2d4.png",
+        "stars": 41,
+        "updatedAt": "2026-10-14T04:34:31Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "remotion-director",
+        "name": "Remotion Director",
+        "description": "A finished motion piece from a one-line brief",
+        "category": "Skills",
+        "url": "https://github.com/Zane-0x5a/remotion-director",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/remotion-director-0a3af1634e.webp",
+        "stars": 44,
+        "updatedAt": "2026-10-24T11:54:28Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "paper-algorithm",
+        "name": "Paper Algorithm",
+        "description": "One sentence to a voiceover video",
+        "category": "Skills",
+        "url": "https://github.com/TryWorld2026/paper-algorithm",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/paper-algorithm-cbd1e495f6.png",
+        "stars": 33,
+        "updatedAt": "2026-10-24T05:52:20Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes"]
+      },
+      {
+        "id": "video-vox",
+        "name": "Video Vox",
+        "description": "Vox-style Spanish explainer shorts",
+        "category": "Skills",
+        "url": "https://github.com/santmun/video-vox",
+        "cover": null,
+        "stars": 32,
+        "updatedAt": "2026-07-14T15:37:33Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "video-models"]
+      },
+      {
+        "id": "jj-koubo",
+        "name": "JJ Koubo",
+        "description": "Edit talking-head and interview videos locally",
+        "category": "Skills",
+        "url": "https://github.com/darrenli6/JJKoubo",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/jj-koubo-648e4c2993.png",
+        "stars": 39,
+        "updatedAt": "2026-08-20T05:35:41Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg", "hyperframes"]
+      },
+      {
+        "id": "onboarding-video-generator",
+        "name": "Onboarding Video Generator",
+        "description": "Column-sized onboarding videos in Remotion",
+        "category": "Skills",
+        "url": "https://github.com/gorkem-bwl/onboarding-video-generator",
+        "cover": null,
+        "stars": 31,
+        "updatedAt": "2026-05-10T05:00:13Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "remotion-code-motion-explainer",
+        "name": "Remotion Code Motion Explainer",
+        "description": "Continuous, editable Remotion explainers",
+        "category": "Skills",
+        "url": "https://github.com/vibe-motion/remotion-code-motion-explainer",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/remotion-code-motion-explainer-8d20db60bb.gif",
+        "stars": 37,
+        "updatedAt": "2026-07-28T16:34:09Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "hbg-code-explainer",
+        "name": "HBG Code Explainer",
+        "description": "Chinese dual-voice code explainers",
+        "category": "Skills",
+        "url": "https://github.com/Mr-funny/hbg-douyin-code-explainer-video",
+        "cover": null,
+        "stars": 32,
+        "updatedAt": "2026-07-30T01:15:04Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["hyperframes", "html"]
+      },
+      {
+        "id": "paint-mv-skills",
+        "name": "Paint MV Skills",
+        "description": "Watercolour lyric music videos",
+        "category": "Skills",
+        "url": "https://github.com/lintsinghua/paint-mv-skills",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/paint-mv-skills-f6581fbc07.jpg",
+        "stars": 45,
+        "updatedAt": "2026-09-29T08:30:01Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "product-demo-director",
+        "name": "Product Demo Director",
+        "description": "Demo films paced to narration",
+        "category": "Skills",
+        "url": "https://github.com/crimeacs/product-demo-director",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/product-demo-director-a0efc0f7b3.gif",
+        "stars": 36,
+        "updatedAt": "2026-10-24T06:02:44Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "ffmpeg"]
+      },
+      {
+        "id": "ultrademo",
+        "name": "Ultrademo",
+        "description": "Narrated demos from a live web app",
+        "category": "Skills",
+        "url": "https://github.com/new-xp/ultrademo",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/ultrademo-817c2dcb96.gif",
+        "stars": 36,
+        "updatedAt": "2026-07-10T12:58:50Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "ffmpeg"]
+      },
+      {
+        "id": "react-bits-video",
+        "name": "React Bits Video",
+        "description": "Flashy videos from React Bits and Remotion",
+        "category": "Skills",
+        "url": "https://github.com/GordenSun/react-bits-video",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/react-bits-video-290c6f38c3.jpg",
+        "stars": 29,
+        "updatedAt": "2026-05-22T16:38:35Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "html"]
+      },
+      {
+        "id": "reel-video",
+        "name": "Reel Video",
+        "description": "Storyboarded AI clips via Grok",
+        "category": "Skills",
+        "url": "https://github.com/AsadMoulviDev/reel-video",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/reel-video-c3b192ea3e.gif",
+        "stars": 29,
+        "updatedAt": "2026-08-09T00:49:24Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models"]
+      },
+      {
+        "id": "claude-gif",
+        "name": "Claude GIF",
+        "description": "Platform-ready GIFs, six ways",
+        "category": "Skills",
+        "url": "https://github.com/AgriciDaniel/claude-gif",
+        "cover": null,
+        "stars": 29,
+        "updatedAt": "2026-04-10T17:13:23Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html", "video-models", "remotion"]
+      },
+      {
+        "id": "remotion-guofeng-starter",
+        "name": "Remotion Guofeng Starter",
+        "description": "Chinese paper-cutout poem videos",
+        "category": "Skills",
+        "url": "https://github.com/AllenAI2014/remotion-guofeng-starter",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/remotion-guofeng-starter-268a883c35.png",
+        "stars": 31,
+        "updatedAt": "2026-09-02T13:17:23Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "voxstylehub",
+        "name": "VoxStyleHub",
+        "description": "Vox-style editorial collage videos",
+        "category": "Skills",
+        "url": "https://github.com/Phantomlau3674/voxstylehub-steven",
+        "cover": null,
+        "stars": 24,
+        "updatedAt": "2026-07-22T10:35:55Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "ruic-motion-reel",
+        "name": "RuiC Motion Reel",
+        "description": "Code-rendered 15-second motion reels",
+        "category": "Skills",
+        "url": "https://github.com/HRuiCcc/RuiC-motion-reel",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/ruic-motion-reel-2f4168d1ce.gif",
+        "stars": 163,
+        "updatedAt": "2026-09-30T04:17:30Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg"]
+      },
+      {
+        "id": "montara",
+        "name": "Montara",
+        "description": "A scriptable, renderer-agnostic video pipeline",
+        "category": "Skills",
+        "url": "https://github.com/abhinavshrivastava950/Montara",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/montara-175ee7b4d8.jpg",
+        "stars": 22,
+        "updatedAt": "2026-09-28T15:16:50Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html", "remotion", "hyperframes"]
+      },
+      {
+        "id": "aftr",
+        "name": "aftr",
+        "description": "Puppeteer for After Effects",
+        "category": "Skills",
+        "url": "https://github.com/Arman-Luthra/aftr",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/aftr-74b4974008.png",
+        "stars": 25,
+        "updatedAt": "2026-07-13T01:35:03Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["adobe"]
+      },
+      {
+        "id": "lipnardo",
+        "name": "Lipnardo",
+        "description": "Batch HeyGen avatar videos",
+        "category": "Skills",
+        "url": "https://github.com/AgriciDaniel/lipnardo",
+        "cover": null,
+        "stars": 22,
+        "updatedAt": "2026-04-18T10:53:05Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["video-models"]
+      },
+      {
+        "id": "framewright",
+        "name": "Framewright",
+        "description": "Short videos made entirely from code",
+        "category": "Skills",
+        "url": "https://github.com/smwbev/framewright",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/framewright-eb70bfb063.webp",
+        "stars": 23,
+        "updatedAt": "2026-09-26T11:30:13Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["html"]
+      },
+      {
+        "id": "purffle-shorts",
+        "name": "Purffle Shorts",
+        "description": "Faceless YouTube Shorts, open source",
+        "category": "Skills",
+        "url": "https://github.com/Chamanrajragu/purffle-shorts",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/purffle-shorts-3c76ce4025.gif",
+        "stars": 46,
+        "updatedAt": "2026-10-20T06:55:11Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["ffmpeg", "video-models"]
+      },
+      {
+        "id": "ccvideo",
+        "name": "ccvideo",
+        "description": "Claude-style promos from real captures",
+        "category": "Skills",
+        "url": "https://github.com/AmazingAng/ccvideo",
+        "cover": "https://assets.motionvideo.xyz/directories/tools/ccvideo-e06657028d.gif",
+        "stars": 20,
+        "updatedAt": "2026-07-31T10:54:44Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion"]
+      },
+      {
+        "id": "personal-ip-brand-intro",
+        "name": "Personal IP Brand Intro",
+        "description": "Beat-matched personal brand intros",
+        "category": "Skills",
+        "url": "https://github.com/toufuim/personal-ip-brand-intro-skill",
+        "cover": null,
+        "stars": 20,
+        "updatedAt": "2026-07-30T05:46:34Z",
+        "addedAt": "2026-10-25",
+        "renderers": ["remotion", "hyperframes"]
       }
     ]
   },
@@ -1114,7 +3746,9 @@
         "description": "Motion studio for Web3 and SaaS",
         "category": "Studio",
         "url": "https://www.pixelframe.co/",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/pixelframe-859e56d981.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/pixelframe-859e56d981.webp",
+        "addedAt": "2026-10-10",
+        "specialties": ["product-films", "brand"]
       },
       {
         "id": "mouad",
@@ -1122,7 +3756,9 @@
         "description": "Motion & animation for AI startups",
         "category": "Designers",
         "url": "https://mouad.work/",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/mouad-b638af2ff2.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/mouad-b638af2ff2.webp",
+        "addedAt": "2026-10-10",
+        "specialties": ["product-films", "ui-motion"]
       },
       {
         "id": "titouan-gillet",
@@ -1130,7 +3766,9 @@
         "description": "Launch videos for AI-native startups",
         "category": "Designers",
         "url": "https://vizionary.fr/",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/titouan-gillet-fc18874262.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/titouan-gillet-fc18874262.webp",
+        "addedAt": "2026-10-10",
+        "specialties": ["product-films", "explainers"]
       },
       {
         "id": "ilker",
@@ -1138,7 +3776,9 @@
         "description": "Creative engineer for AI video",
         "category": "Designers",
         "url": "https://x.com/ailker",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/ilker-46f731b7a6.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/ilker-46f731b7a6.webp",
+        "addedAt": "2026-10-10",
+        "specialties": ["product-films"]
       },
       {
         "id": "conrad",
@@ -1146,7 +3786,9 @@
         "description": "Motion design for product films",
         "category": "Designers",
         "url": "https://x.com/Conrad_rd",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/conrad-ca936e8687.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/conrad-ca936e8687.webp",
+        "addedAt": "2026-10-10",
+        "specialties": ["product-films"]
       },
       {
         "id": "rsquare",
@@ -1154,7 +3796,9 @@
         "description": "Motion-driven design studio",
         "category": "Studio",
         "url": "https://rsquare.work/",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/rsquare-de6ebb06fe.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/rsquare-de6ebb06fe.webp",
+        "addedAt": "2026-10-10",
+        "specialties": ["brand"]
       },
       {
         "id": "achx",
@@ -1162,7 +3806,9 @@
         "description": "Launch partner for next unicorns",
         "category": "Studio",
         "url": "https://www.achxstudio.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/achx-31636cdc86.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/achx-31636cdc86.webp",
+        "addedAt": "2026-10-10",
+        "specialties": ["product-films"]
       },
       {
         "id": "monalog",
@@ -1170,7 +3816,9 @@
         "description": "A creative software studio",
         "category": "Studio",
         "url": "https://monalog.co/",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/monalog-c02f1ea300.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/monalog-c02f1ea300.webp",
+        "addedAt": "2026-10-10",
+        "specialties": ["brand", "ui-motion"]
       },
       {
         "id": "isaac-edits",
@@ -1178,7 +3826,9 @@
         "description": "Launch videos for startup clients",
         "category": "Designers",
         "url": "https://x.com/isaacedits_",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/isaac-edits-af7fe1a1d1.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/isaac-edits-af7fe1a1d1.webp",
+        "addedAt": "2026-10-10",
+        "specialties": ["product-films"]
       },
       {
         "id": "flowjam",
@@ -1186,7 +3836,9 @@
         "description": "We make launch videos for AI startups",
         "category": "Studio",
         "url": "https://www.flowjam.com/",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/flowjam-e15ae48906.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/flowjam-e15ae48906.webp",
+        "addedAt": "2026-10-10",
+        "specialties": ["product-films", "explainers"]
       },
       {
         "id": "ravie",
@@ -1194,7 +3846,9 @@
         "description": "Make important moments impossible to miss",
         "category": "Studio",
         "url": "https://www.ravie.co/",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/ravie-e7e0a7c097.webp"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/ravie-e7e0a7c097.webp",
+        "addedAt": "2026-10-10",
+        "specialties": ["brand", "product-films"]
       },
       {
         "id": "skale",
@@ -1202,7 +3856,9 @@
         "description": "Launch videos for startups",
         "category": "Studio",
         "url": "https://skale.solutions/",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/skale-4eba499490.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/skale-4eba499490.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["product-films"]
       },
       {
         "id": "flash-motion",
@@ -1210,7 +3866,9 @@
         "description": "Launch videos for SaaS, AI and tech",
         "category": "Studio",
         "url": "https://flashmotion.io",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/flash-motion-1e546df49a.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/flash-motion-1e546df49a.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["product-films"]
       },
       {
         "id": "intently",
@@ -1218,7 +3876,9 @@
         "description": "Product videos for fintech",
         "category": "Studio",
         "url": "http://intently.agency",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/intently-b5a954b20a.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/intently-b5a954b20a.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["product-films", "ui-motion"]
       },
       {
         "id": "creww",
@@ -1226,7 +3886,9 @@
         "description": "AI films and video",
         "category": "Studio",
         "url": "http://creww.studio",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/creww-f42962fcec.png"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/creww-f42962fcec.png",
+        "addedAt": "2026-10-24",
+        "specialties": ["brand", "product-films"]
       },
       {
         "id": "nick-greenawalt",
@@ -1234,7 +3896,9 @@
         "description": "Experiential motion designer",
         "category": "Designers",
         "url": "https://x.com/motionbynick",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/nick-greenawalt-745611286c.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/nick-greenawalt-745611286c.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["brand"]
       },
       {
         "id": "franc-ois-lefebvre",
@@ -1242,7 +3906,9 @@
         "description": "Motion designer and After Effects author",
         "category": "Designers",
         "url": "https://x.com/lachamade",
-        "cover": null
+        "cover": null,
+        "addedAt": "2026-10-24",
+        "specialties": ["explainers"]
       },
       {
         "id": "jake-bartlett",
@@ -1250,7 +3916,9 @@
         "description": "Motion designer and instructor",
         "category": "Designers",
         "url": "http://www.jakeinmotion.com",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/jake-bartlett-2c1c15550d.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/jake-bartlett-2c1c15550d.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["explainers"]
       },
       {
         "id": "khlaseek",
@@ -1258,7 +3926,9 @@
         "description": "Product and motion designer",
         "category": "Designers",
         "url": "https://khliink.vercel.app/khlaseekdesigner",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/khlaseek-9a87f32085.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/khlaseek-9a87f32085.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["ui-motion", "brand", "product-films"]
       },
       {
         "id": "phavorism",
@@ -1266,7 +3936,9 @@
         "description": "Motion designer and ad breakdowns",
         "category": "Designers",
         "url": "https://x.com/Phavorism",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/phavorism-d247590a15.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/phavorism-d247590a15.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["product-films"]
       },
       {
         "id": "finaltouch",
@@ -1274,7 +3946,9 @@
         "description": "AI video creator for brands",
         "category": "Designers",
         "url": "https://x.com/Finaltoucch",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/finaltouch-8921db686a.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/finaltouch-8921db686a.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["brand", "product-films"]
       },
       {
         "id": "oma-devuae",
@@ -1282,7 +3956,9 @@
         "description": "Product videos and brand content",
         "category": "Designers",
         "url": "https://www.behance.net/omadevuae",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/oma-devuae-cf296c0344.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/oma-devuae-cf296c0344.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["brand"]
       },
       {
         "id": "leo-mazzei",
@@ -1290,7 +3966,9 @@
         "description": "Rive, motion and UI design",
         "category": "Designers",
         "url": "https://x.com/mazzeimotion",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/leo-mazzei-961ed63cdd.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/leo-mazzei-961ed63cdd.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["ui-motion"]
       },
       {
         "id": "jesse-gilbert",
@@ -1298,7 +3976,9 @@
         "description": "Motion designer",
         "category": "Designers",
         "url": "https://x.com/JesseGilbert",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/jesse-gilbert-dfec61fc1a.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/jesse-gilbert-dfec61fc1a.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["brand"]
       },
       {
         "id": "addx-studio",
@@ -1306,7 +3986,9 @@
         "description": "Launch videos for SaaS companies",
         "category": "Studio",
         "url": "https://addxstudio.com",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/addx-studio-049bcce407.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/addx-studio-049bcce407.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["product-films", "explainers"]
       },
       {
         "id": "refine-studio",
@@ -1314,7 +3996,9 @@
         "description": "Launch videos for web3 and AI teams",
         "category": "Studio",
         "url": "https://refinestudio.io/launch",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/refine-studio-de1b770e9a.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/refine-studio-de1b770e9a.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["product-films"]
       },
       {
         "id": "airform",
@@ -1322,7 +4006,9 @@
         "description": "Launch videos for complex products",
         "category": "Studio",
         "url": "https://airform.design/motion-design",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/airform-6bbf67a46f.png"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/airform-6bbf67a46f.png",
+        "addedAt": "2026-10-24",
+        "specialties": ["product-films", "ui-motion"]
       },
       {
         "id": "nen-creative",
@@ -1330,7 +4016,9 @@
         "description": "Launch films and design for AI startups",
         "category": "Studio",
         "url": "https://nencreative.com",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/nen-creative-c60bf50f33.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/nen-creative-c60bf50f33.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["product-films", "brand"]
       },
       {
         "id": "relate-studio",
@@ -1338,7 +4026,9 @@
         "description": "Brand and promo videos for crypto teams",
         "category": "Studio",
         "url": "https://www.relate.studio",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/relate-studio-934d6a91a3.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/relate-studio-934d6a91a3.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["brand", "ui-motion"]
       },
       {
         "id": "golden-wolf",
@@ -1346,7 +4036,9 @@
         "description": "Animation studio for global brands",
         "category": "Studio",
         "url": "https://goldenwolf.tv",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/golden-wolf-501e5a451b.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/golden-wolf-501e5a451b.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["brand", "explainers"]
       },
       {
         "id": "illo",
@@ -1354,7 +4046,9 @@
         "description": "Motion design and illustration studio",
         "category": "Studio",
         "url": "https://illo.tv",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/illo-9b3a663d5a.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/illo-9b3a663d5a.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["explainers", "brand"]
       },
       {
         "id": "buck",
@@ -1362,7 +4056,9 @@
         "description": "Brand animation and design for brands",
         "category": "Studio",
         "url": "https://www.buck.co",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/buck-d749597673.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/buck-d749597673.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["brand", "3d", "explainers"]
       },
       {
         "id": "breadnbeyond",
@@ -1370,7 +4066,9 @@
         "description": "Animated explainer videos for startups",
         "category": "Studio",
         "url": "https://breadnbeyond.com",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/breadnbeyond-8fb0d644d3.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/breadnbeyond-8fb0d644d3.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["explainers"]
       },
       {
         "id": "abdullah-skromatic",
@@ -1378,7 +4076,9 @@
         "description": "Launch videos for founders and brands",
         "category": "Designers",
         "url": "https://skromatic.com",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/abdullah-skromatic-b8ad72ca52.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/abdullah-skromatic-b8ad72ca52.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["product-films", "brand"]
       },
       {
         "id": "naso",
@@ -1386,7 +4086,9 @@
         "description": "SaaS explainers and launch videos",
         "category": "Designers",
         "url": "https://x.com/Nasowise1",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/naso-cc826e1a29.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/naso-cc826e1a29.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["explainers", "product-films"]
       },
       {
         "id": "precious-cypher",
@@ -1394,7 +4096,9 @@
         "description": "Product videos for SaaS and tech brands",
         "category": "Designers",
         "url": "http://www.preciousmotion.com",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/precious-cypher-c7d52066b9.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/precious-cypher-c7d52066b9.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["product-films", "explainers"]
       },
       {
         "id": "heisenbergg",
@@ -1402,7 +4106,9 @@
         "description": "Rive animations and product launch videos",
         "category": "Designers",
         "url": "https://heisenbergg.com",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/heisenbergg-fbe1882185.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/heisenbergg-fbe1882185.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["ui-motion", "product-films"]
       },
       {
         "id": "ben-aguilera",
@@ -1410,7 +4116,9 @@
         "description": "Videos for tech startups",
         "category": "Designers",
         "url": "http://reallygoodvideos.com",
-        "cover": ""
+        "cover": "",
+        "addedAt": "2026-10-24",
+        "specialties": ["product-films"]
       },
       {
         "id": "bartek-radziejewski",
@@ -1418,7 +4126,9 @@
         "description": "Rive interactions for apps and websites",
         "category": "Designers",
         "url": "http://radbar.studio",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/bartek-radziejewski-22c7658971.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/bartek-radziejewski-22c7658971.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["ui-motion"]
       },
       {
         "id": "matt-je-drzejewski",
@@ -1426,7 +4136,9 @@
         "description": "Interactive UI animation for apps",
         "category": "Designers",
         "url": "http://www.animattor.co",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/matt-je-drzejewski-b48f7c5be5.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/matt-je-drzejewski-b48f7c5be5.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["ui-motion"]
       },
       {
         "id": "kyryll-meshkov",
@@ -1434,7 +4146,9 @@
         "description": "Interactive animations for modern apps",
         "category": "Designers",
         "url": "https://www.cineponica.pictures/",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/kyryll-meshkov-416b7ab2f4.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/kyryll-meshkov-416b7ab2f4.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["ui-motion"]
       },
       {
         "id": "joey-judkins",
@@ -1442,7 +4156,9 @@
         "description": "Interactive Rive animation for apps",
         "category": "Designers",
         "url": "https://x.com/JJMotionStudio",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/joey-judkins-f52ab5d720.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/joey-judkins-f52ab5d720.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["ui-motion"]
       },
       {
         "id": "yuji-onimotion",
@@ -1450,7 +4166,9 @@
         "description": "Rive and product animation for companies",
         "category": "Designers",
         "url": "https://onimotion.jp/",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/yuji-onimotion-3f5c2fe6a8.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/yuji-onimotion-3f5c2fe6a8.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["explainers", "product-films"]
       },
       {
         "id": "mayte-cg",
@@ -1458,7 +4176,9 @@
         "description": "Motion, UI design and Rive animation",
         "category": "Designers",
         "url": "http://maytecg.com",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/mayte-cg-b2cc692162.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/mayte-cg-b2cc692162.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["ui-motion"]
       },
       {
         "id": "john-odunayo",
@@ -1466,7 +4186,9 @@
         "description": "Motion graphics for brands like TON",
         "category": "Designers",
         "url": "http://johnodunayo.my.canva.site",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/john-odunayo-994f7303ed.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/john-odunayo-994f7303ed.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["brand"]
       },
       {
         "id": "solarin-ayotomiwa",
@@ -1474,7 +4196,9 @@
         "description": "Motion design for fintech, web3 and SaaS",
         "category": "Designers",
         "url": "https://sayotomiwa.framer.website/",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/solarin-ayotomiwa-0f005fc847.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/solarin-ayotomiwa-0f005fc847.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["product-films"]
       },
       {
         "id": "nicolas-dorey",
@@ -1482,7 +4206,9 @@
         "description": "Freelance motion design and VFX",
         "category": "Designers",
         "url": "https://x.com/NicoMotions",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/nicolas-dorey-c9a3164abf.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/nicolas-dorey-c9a3164abf.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["product-films"]
       },
       {
         "id": "victor-v",
@@ -1490,7 +4216,9 @@
         "description": "3D motion design for brands",
         "category": "Designers",
         "url": "http://vicv.co",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/victor-v-a281692d37.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/victor-v-a281692d37.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["3d"]
       },
       {
         "id": "vikrant-patankar",
@@ -1498,7 +4226,9 @@
         "description": "Brand films and product demos",
         "category": "Designers",
         "url": "https://www.vikpat.com",
-        "cover": "https://assets.motionvideo.xyz/directories/studios/vikrant-patankar-774591dae0.jpg"
+        "cover": "https://assets.motionvideo.xyz/directories/studios/vikrant-patankar-774591dae0.jpg",
+        "addedAt": "2026-10-24",
+        "specialties": ["brand", "product-films"]
       }
     ]
   }

@@ -4,6 +4,7 @@ import { env } from "cloudflare:workers";
 import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 
+import { DEFAULT_LOCALE, localizedPath } from "@/constants/locales";
 import { MCP_RESOURCE, MCP_SCOPE } from "@/constants/oauth";
 import { absoluteUrl } from "@/constants/url";
 import { findBookmarkItem } from "@/lib/bookmark-catalog";
@@ -29,7 +30,7 @@ const featuredUrlOf = (row: {
     return undefined;
   }
   return item.kind === "video"
-    ? absoluteUrl(`/videos/${item.video.slug}`)
+    ? absoluteUrl(localizedPath(`/videos/${item.video.slug}`, DEFAULT_LOCALE))
     : item.entry.url;
 };
 

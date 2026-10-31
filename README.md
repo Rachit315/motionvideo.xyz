@@ -6,13 +6,18 @@
 
 # MotionVideo
 
-**Motion design, written in code.**
+[![GitHub stars](https://img.shields.io/github/stars/motionvideohq/motionvideo.xyz?style=flat)](https://github.com/motionvideohq/motionvideo.xyz/stargazers) [![CI](https://github.com/motionvideohq/motionvideo.xyz/actions/workflows/ci.yml/badge.svg)](https://github.com/motionvideohq/motionvideo.xyz/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/github/license/motionvideohq/motionvideo.xyz?style=flat)](LICENSE) [![Follow on X](https://img.shields.io/badge/Follow-%40motionvideohq-000000?style=flat&logo=x&logoColor=white)](https://x.com/motionvideohq)
 
-A directory of motion videos made with AI and code, with the prompts and skills behind them.<br /> Plus agent skills that teach your coding agent timing, easing, and choreography.
+<p align="center">
+  <sub><a href="docs/readme/README.zh-CN.md">中文</a> · <a href="docs/readme/README.ja.md">日本語</a> · <a href="docs/readme/README.ko.md">한국어</a> · <a href="docs/readme/README.es.md">Español</a> · <a href="docs/readme/README.fr.md">Français</a> · <a href="docs/readme/README.pt.md">Português</a> · <a href="docs/readme/README.de.md">Deutsch</a> · <a href="docs/readme/README.ru.md">Русский</a></sub>
+</p>
 
-[Website](https://motionvideo.xyz) · [About](https://motionvideo.xyz/about) · [Contact](https://motionvideo.xyz/contact)
+<p align="center">
+  <strong>Motion design, written in code.</strong><br/>
+  A directory of motion videos made with AI and code, with the prompts and skills behind them.<br /> Plus agent skills that teach your coding agent timing, easing, and choreography.
+</p>
 
-[![GitHub stars](https://img.shields.io/github/stars/motionvideohq/motionvideo.xyz?style=flat-square)](https://github.com/motionvideohq/motionvideo.xyz/stargazers) [![License: MIT](https://img.shields.io/github/license/motionvideohq/motionvideo.xyz?style=flat-square)](LICENSE) [![Follow on X](https://img.shields.io/badge/Follow-%40alaymanguy-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/alaymanguy)
+[Website](https://motionvideo.xyz) · [About](https://motionvideo.xyz/about) · [Contact](https://motionvideo.xyz/contact) · [Sponsor](https://motionvideo.xyz/sponsor)
 
 </div>
 
@@ -23,7 +28,7 @@ A directory of motion videos made with AI and code, with the prompts and skills 
 | Area | Tools |
 | --- | --- |
 | Framework | [TanStack Start](https://tanstack.com/start) (React 19, file-based routing, server functions) |
-| UI | [shadcn/ui](https://ui.shadcn.com) on [Base UI](https://base-ui.com), [Tailwind CSS v4](https://tailwindcss.com), [intlayer](https://intlayer.org) (en, es, fr) |
+| UI | [shadcn/ui](https://ui.shadcn.com) on [Base UI](https://base-ui.com), [Tailwind CSS v4](https://tailwindcss.com), [intlayer](https://intlayer.org) |
 | Hosting | [Cloudflare Workers](https://workers.cloudflare.com) with Durable Objects (live presence), deployed with [Wrangler](https://developers.cloudflare.com/workers/wrangler/) and Workers Builds |
 | Data | [Cloudflare D1](https://developers.cloudflare.com/d1/) (SQLite) with [Drizzle ORM](https://orm.drizzle.team), [R2](https://developers.cloudflare.com/r2/) for video assets and uploads |
 | Auth | [Better Auth](https://www.better-auth.com) (email sign-in codes), [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/) |
@@ -32,18 +37,17 @@ A directory of motion videos made with AI and code, with the prompts and skills 
 | Analytics | [PostHog](https://posthog.com) |
 | Tooling | [pnpm](https://pnpm.io), [Vite](https://vite.dev), [Oxlint](https://oxc.rs) + [Oxfmt](https://oxc.rs) via [Ultracite](https://www.ultracite.ai), [Lefthook](https://lefthook.dev) |
 
-## Getting started
+## Contributing
 
-```bash
-pnpm install
-cp apps/web/.env.example apps/web/.env
-pnpm --filter @motionvideo/web db:migrate:local
-pnpm dev
-```
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for local setup, checks, generated files, and the pull request process. Use [issues](https://github.com/motionvideohq/motionvideo.xyz/issues) for bugs and feature requests. By participating, you agree to the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-Email templates are React Email components in `apps/web/src/emails`. Preview them with `pnpm --filter @motionvideo/web email:dev` (port 3001).
+## Security
 
-Open the videos in Remotion Studio with `pnpm studio`.
+Please do not open public issues for security vulnerabilities. Follow [SECURITY.md](SECURITY.md) and report them privately through GitHub Security Advisories.
+
+## Contributors
+
+[![Contributors](https://contrib.rocks/image?repo=motionvideohq/motionvideo.xyz)](https://github.com/motionvideohq/motionvideo.xyz/graphs/contributors)
 
 ## License
 

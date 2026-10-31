@@ -198,10 +198,28 @@ export const SponsorPlacements = () => {
         body={content.placementItems.card.body}
         tiers={["diamond", "gold", "silver"]}
       >
-        {/* The feed's top, cropped from a wider grid (the left lane runs off
-            the edge, so lanes keep a real card's width): the sponsored card
-            in the first row's rightmost lane, fading out where the crop ends. */}
-        <div className="-ml-[24%] grid h-72 w-[124%] grid-cols-3 items-start gap-2.5 mask-b-from-60% p-3">
+        {/* One feed lane (viewports under 592px: `laneCount` adds a second
+            lane at a 560px grid, inside the grid's 16px padding): the
+            sponsored card a few tiles in, full width between two posters. */}
+        <div className="flex flex-col gap-2.5 mask-b-from-70% p-3 min-[592px]:hidden">
+          <div
+            aria-hidden="true"
+            className="flex h-14 shrink-0 flex-col justify-end overflow-hidden"
+          >
+            <PosterTile video={VIDEOS.octopus} />
+          </div>
+          <div className="flex aspect-video shrink-0">
+            <SponsoredCard placement="feed" demo />
+          </div>
+          <div aria-hidden="true" className="h-14 overflow-hidden">
+            <PosterTile video={VIDEOS.kinetic} />
+          </div>
+        </div>
+        {/* Two or more lanes: the feed's top, cropped from a wider grid (the left
+            lane runs off the edge, so lanes keep a real card's width): the
+            sponsored card in the first row's rightmost lane, fading out where
+            the crop ends. */}
+        <div className="-ml-[24%] hidden h-72 w-[124%] grid-cols-3 items-start gap-2.5 mask-b-from-60% p-3 min-[592px]:grid">
           <div aria-hidden="true" className="flex flex-col gap-2.5">
             <PosterTile video={VIDEOS.showreel} />
             <PosterTile video={VIDEOS.morph} />
@@ -225,10 +243,11 @@ export const SponsorPlacements = () => {
         body={content.placementItems.slots.body}
         tiers={["diamond", "gold"]}
       >
-        {/* The gallery's intro tile (title, copy, actions, then the slots)
-            beside the first feed lane. */}
-        <div className="grid h-64 grid-cols-[minmax(0,3fr)_minmax(0,2fr)] grid-rows-[100%] gap-3 p-3">
-          <div className="flex min-h-0 flex-col justify-end gap-3">
+        {/* The gallery's intro tile (title, copy, actions, then the slots):
+            full width over the first card in the one-lane feed (under
+            592px, as above); beside the first feed lane once there are two. */}
+        <div className="flex h-80 flex-col gap-3 p-3 min-[592px]:grid min-[592px]:h-64 min-[592px]:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] min-[592px]:grid-rows-[100%]">
+          <div className="flex shrink-0 flex-col justify-end gap-3 min-[592px]:min-h-0">
             <div aria-hidden="true" className="flex flex-col gap-3">
               <div>
                 <p className="truncate text-lg leading-tight font-semibold tracking-tight">
@@ -260,7 +279,7 @@ export const SponsorPlacements = () => {
           </div>
           <div
             aria-hidden="true"
-            className="flex min-h-0 flex-col gap-2.5 overflow-hidden mask-b-from-60%"
+            className="flex min-h-0 flex-1 flex-col gap-2.5 overflow-hidden mask-b-from-40% min-[592px]:flex-none min-[592px]:mask-b-from-60%"
           >
             <PosterTile video={VIDEOS.photo} />
             <PosterTile video={VIDEOS.abstract} />
@@ -273,11 +292,13 @@ export const SponsorPlacements = () => {
         tiers={["diamond"]}
       >
         {/* A video's detail view: the player over a blurred backdrop, and
-            the sidebar with the Diamond list item under the source button. */}
-        <div className="grid h-96 text-xs sm:grid-cols-[minmax(0,1fr)_19rem]">
+            the sidebar with the Diamond list item under the source button.
+            Under `lg` they stack, as the real view does: the bottom of the
+            stage, then the sidebar below its top border. */}
+        <div className="grid h-[26rem] grid-rows-[7rem_minmax(0,1fr)] text-xs lg:h-96 lg:grid-cols-[minmax(0,1fr)_19rem] lg:grid-rows-none">
           <div
             aria-hidden="true"
-            className="relative hidden items-center justify-center overflow-hidden bg-black p-4 sm:flex"
+            className="relative flex items-end justify-center overflow-hidden bg-black px-4 pb-4 lg:items-center lg:p-4"
           >
             <img
               src={DETAIL.video.poster}
@@ -291,13 +312,13 @@ export const SponsorPlacements = () => {
               alt=""
               loading="lazy"
               decoding="async"
-              className="relative w-full rounded-lg shadow-2xl"
+              className="relative w-2/3 rounded-lg shadow-2xl lg:w-full"
               style={{
                 aspectRatio: `${DETAIL.video.width} / ${DETAIL.video.height}`,
               }}
             />
           </div>
-          <div className="flex flex-col gap-3 mask-b-from-80% p-3 sm:border-l">
+          <div className="flex flex-col gap-3 border-t mask-b-from-80% p-3 lg:border-t-0 lg:border-l">
             <div aria-hidden="true" className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <IconChip>

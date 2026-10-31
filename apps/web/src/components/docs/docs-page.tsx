@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import browserCollections from "collections/browser";
 import { findNeighbour } from "fumadocs-core/page-tree";
 import type * as PageTree from "fumadocs-core/page-tree";
@@ -16,10 +15,10 @@ import { Edit } from "reicon-react/icons/Edit";
 import { DocsSidebar } from "@/components/docs/docs-sidebar";
 import { DocsToc, DocsTocCollapsible } from "@/components/docs/docs-toc";
 import { docsMdxComponents } from "@/components/docs/mdx-components";
+import { LocalizedLink as Link } from "@/components/localized-link";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { LINK } from "@/constants/links";
-import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 import { createMetadata } from "@/seo/metadata";
 import { getDocsPage } from "@/server/docs-functions";
@@ -185,14 +184,13 @@ export const loadDocsPage = async (
 
 export const docsHead = (data: DocsLoaderData | undefined) =>
   createMetadata({
-    canonical: data?.url ?? ROUTES.DOCS,
     title: data?.english.title ?? "Docs",
     description: data?.english.description,
   });
 
 // Three columns from lg (sidebar, article, and from xl the table of
 // contents); below lg the pages are listed in the site menu and the contents
-// fold above the article. The locale comes from intlayer (SSR renders English);
+// fold above the article. The locale comes from the URL's `/$locale` prefix;
 // pages without a translation show the English file.
 export const DocsPage = ({ data }: { data: DocsLoaderData }) => {
   const { locale } = useLocale();

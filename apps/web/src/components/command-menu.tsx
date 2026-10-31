@@ -1,4 +1,3 @@
-import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer, useLocale } from "react-intlayer";
@@ -26,7 +25,7 @@ import { Undo } from "reicon-react/icons/Undo";
 import { User2 } from "reicon-react/icons/User2";
 import { VideoLib } from "reicon-react/icons/VideoLib";
 
-import { GitHubIcon, XIcon } from "@/components/brand-icons";
+import { GitHubIcon, XIcon } from "@/components/icons";
 import {
   Command,
   CommandDialog,
@@ -40,6 +39,7 @@ import {
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { LINK } from "@/constants/links";
 import { useHotkey } from "@/hooks/use-hotkey";
+import { useLocalizedNavigate as useNavigate } from "@/hooks/use-localized-navigate";
 import { useIsMac } from "@/hooks/use-mac";
 import { track } from "@/lib/analytics";
 import type { DirectoryEntry, DirectoryKind } from "@/lib/directories";
@@ -179,8 +179,8 @@ export const CommandMenu = () => {
   }, []);
 
   const groups = useMemo<PaletteGroup[]>(() => {
-    // Pages navigate by href: /docs/<page> are one splat route, so they have
-    // no typed `to`. PagePath still limits `page()` to real pages.
+    // PagePath limits `page()` to real pages; the localized navigate adds the
+    // locale prefix.
     const page = (
       to: PagePath,
       label: string,
@@ -191,7 +191,7 @@ export const CommandMenu = () => {
       label,
       keywords: [to, ...keywords],
       icon,
-      action: () => navigate({ href: to }),
+      action: () => navigate({ to }),
     });
     const videos: PaletteItem[] = data.videos.map((video) => ({
       id: `video:${video.slug}`,

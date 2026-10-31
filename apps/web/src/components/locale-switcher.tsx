@@ -2,7 +2,6 @@ import { useIntlayer, useLocale } from "react-intlayer";
 import { ChevronDown } from "reicon-react/icons/ChevronDown";
 import { Global } from "reicon-react/icons/Global";
 
-import { SUPPORTED_LOCALES } from "@/components/locale-provider";
 import { buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,19 +10,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-/** Each language in its own name. */
-export const LOCALE_NAMES = {
-  en: "English",
-  es: "Español",
-  fr: "Français",
-  zh: "简体中文",
-  ko: "한국어",
-  ja: "日本語",
-  de: "Deutsch",
-  pt: "Português",
-  ru: "Русский",
-} as const;
+import { LOCALE_NAMES, LOCALES } from "@/constants/locales";
 
 export const LocaleSwitcher = () => {
   const { locale, setLocale } = useLocale();
@@ -43,15 +30,13 @@ export const LocaleSwitcher = () => {
         <DropdownMenuRadioGroup
           value={locale}
           onValueChange={(value) => {
-            const selected = SUPPORTED_LOCALES.find(
-              (supported) => supported === value
-            );
+            const selected = LOCALES.find((supported) => supported === value);
             if (selected) {
               setLocale(selected);
             }
           }}
         >
-          {SUPPORTED_LOCALES.map((value) => (
+          {LOCALES.map((value) => (
             <DropdownMenuRadioItem key={value} value={value} lang={value}>
               {LOCALE_NAMES[value]}
             </DropdownMenuRadioItem>
