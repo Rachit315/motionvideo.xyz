@@ -120,3 +120,6 @@ export const createAuth = (
       tanstackStartCookies(),
     ],
   });
+
+/** The Better Auth instance this site runs (all plugins, typed API). */
+export type Auth = ReturnType<typeof createAuth>;

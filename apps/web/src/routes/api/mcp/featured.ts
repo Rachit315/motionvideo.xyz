@@ -9,7 +9,7 @@ import { MCP_RESOURCE, MCP_SCOPE } from "@/constants/oauth";
 import { absoluteUrl } from "@/constants/url";
 import { findBookmarkItem } from "@/lib/bookmark-catalog";
 import type { SubmissionKind } from "@/lib/community";
-import { auth } from "@/server/auth";
+import { getAuth } from "@/server/auth";
 import { communitySubmissions } from "@/server/db/community-schema";
 import { user } from "@/server/db/schema";
 
@@ -34,53 +34,54 @@ const featuredUrlOf = (row: {
     : item.entry.url;
 };
 
-const handleFeatured = requireMcpAuth(
-  auth,
-  async (_request, claims) => {
-    if (!claims.sub) {
-      return Response.json({ error: "missing_subject" }, { status: 401 });
-    }
-    const db = drizzle(env.DB);
-    const account = await db
-      .select({ email: user.email })
-      .from(user)
-      .where(eq(user.id, claims.sub))
-      .get();
-    if (!account) {
-      return Response.json({ submissions: [] });
-    }
-    const rows = await db
-      .select({
-        featuredItemId: communitySubmissions.featuredItemId,
-        kind: communitySubmissions.kind,
-        title: communitySubmissions.title,
-        url: communitySubmissions.url,
-        description: communitySubmissions.description,
-        createdAt: communitySubmissions.createdAt,
-      })
-      .from(communitySubmissions)
-      .where(
-        and(
-          eq(communitySubmissions.email, account.email),
-          eq(communitySubmissions.status, "featured")
+const handleFeatured = (request: Request) =>
+  requireMcpAuth(
+    getAuth(),
+    async (_request, claims) => {
+      if (!claims.sub) {
+        return Response.json({ error: "missing_subject" }, { status: 401 });
+      }
+      const db = drizzle(env.DB);
+      const account = await db
+        .select({ email: user.email })
+        .from(user)
+        .where(eq(user.id, claims.sub))
+        .get();
+      if (!account) {
+        return Response.json({ submissions: [] });
+      }
+      const rows = await db
+        .select({
+          featuredItemId: communitySubmissions.featuredItemId,
+          kind: communitySubmissions.kind,
+          title: communitySubmissions.title,
+          url: communitySubmissions.url,
+          description: communitySubmissions.description,
+          createdAt: communitySubmissions.createdAt,
+        })
+        .from(communitySubmissions)
+        .where(
+          and(
+            eq(communitySubmissions.email, account.email),
+            eq(communitySubmissions.status, "featured")
+          )
         )
-      )
-      .orderBy(desc(communitySubmissions.createdAt))
-      .all();
-    const submissions = rows.map((row) => ({
-      description: row.description,
-      featuredItemId: row.featuredItemId ?? undefined,
-      featuredUrl: featuredUrlOf(row),
-      kind: row.kind,
-      status: "featured",
-      submittedAt: row.createdAt.toISOString(),
-      title: row.title,
-      url: row.url,
-    }));
-    return Response.json({ submissions });
-  },
-  { requiredScopes: [MCP_SCOPE], resource: MCP_RESOURCE }
-);
+        .orderBy(desc(communitySubmissions.createdAt))
+        .all();
+      const submissions = rows.map((row) => ({
+        description: row.description,
+        featuredItemId: row.featuredItemId ?? undefined,
+        featuredUrl: featuredUrlOf(row),
+        kind: row.kind,
+        status: "featured",
+        submittedAt: row.createdAt.toISOString(),
+        title: row.title,
+        url: row.url,
+      }));
+      return Response.json({ submissions });
+    },
+    { requiredScopes: [MCP_SCOPE], resource: MCP_RESOURCE }
+  )(request);
 
 export const Route = createFileRoute("/api/mcp/featured")({
   server: {

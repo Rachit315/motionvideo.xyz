@@ -7,7 +7,7 @@ import { MCP_RESOURCE, MCP_SCOPE } from "@/constants/oauth";
 import { MOVES } from "@/lib/moves";
 import type { Move, MovePrompt } from "@/lib/moves";
 
-import { auth } from "./auth";
+import { getAuth } from "./auth";
 import movePrompts from "./data/move-prompts.json";
 import { user } from "./db/schema";
 import { hasLivePlan } from "./plans";
@@ -79,7 +79,7 @@ const subjectHasPlan = async (userId: string) => {
  */
 export const proMovesResponse = (request: Request, slug?: string) =>
   requireMcpAuth(
-    auth,
+    getAuth(),
     async (_request, claims) => {
       if (!claims.sub) {
         return json({ error: "missing_subject" }, 401);
