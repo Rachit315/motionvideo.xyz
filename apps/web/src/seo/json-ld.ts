@@ -169,6 +169,7 @@ export type BreadcrumbItem = { path: string } & (
         | "about"
         | "blog"
         | "brand"
+        | "changelog"
         | "contact"
         | "privacy"
         | "refunds"
@@ -234,6 +235,25 @@ export const breadcrumbJsonLd = (
     })),
   });
 };
+
+/**
+ * One changelog entry, for its /changelog/$slug page. `inLanguage` is
+ * English on every locale: entries are only written in English.
+ */
+export const changelogEntryJsonLd = (
+  entry: { date: string; description: string; path: string; title: string },
+  locale?: string
+) =>
+  jsonLdScript({
+    "@type": "BlogPosting",
+    author: { "@id": ORGANIZATION_ID },
+    datePublished: entry.date,
+    description: entry.description,
+    headline: entry.title,
+    inLanguage: DEFAULT_LOCALE,
+    publisher: { "@id": ORGANIZATION_ID },
+    url: absoluteUrl(localizedPath(entry.path, resolveLocale(locale))),
+  });
 
 // The Moves library is a glossary of motion design techniques: each move is a
 // DefinedTerm in one DefinedTermSet, so search engines read the names (and

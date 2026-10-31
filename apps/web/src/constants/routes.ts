@@ -7,6 +7,7 @@ export const ROUTES = {
   ADMIN_SUBMISSIONS: "/admin/submissions",
   BLOG: "/blog",
   BRAND: "/brand",
+  CHANGELOG: "/changelog",
   CHECKOUT: "/checkout",
   CONSENT: "/consent",
   CONTACT: "/contact",
@@ -72,6 +73,7 @@ export const ACCOUNT_PAGES: ReadonlySet<string> = new Set([
 export const STATIC_PAGES: readonly string[] = [
   ROUTES.ABOUT,
   ROUTES.BRAND,
+  ROUTES.CHANGELOG,
   ROUTES.CONTACT,
   ROUTES.PRIVACY,
   ROUTES.REFUNDS,

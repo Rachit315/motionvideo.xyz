@@ -187,6 +187,7 @@ export const SiteFooter = () => {
     [ROUTES.ABOUT, content.about],
     [ROUTES.BRAND, content.brand],
     [ROUTES.BLOG, content.blog],
+    [ROUTES.CHANGELOG, content.changelog],
     [ROUTES.CONTACT, content.contact],
     [ROUTES.SPONSOR, content.sponsor],
   ] as const;

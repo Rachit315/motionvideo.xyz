@@ -5,6 +5,7 @@ import { DEFAULT_LOCALE, LOCALES, localizedPath } from "@/constants/locales";
 import { ROUTES, STATIC_PAGES } from "@/constants/routes";
 import { absoluteUrl } from "@/constants/url";
 import catalog from "@/data/motion-catalog.json";
+import { CHANGELOG_ENTRIES } from "@/lib/changelog";
 import { DIRECTORY_CATEGORIES } from "@/lib/directories";
 import {
   MOTION_CATEGORIES,
@@ -87,6 +88,10 @@ const PAGES: { lastmod?: string; path: string }[] = [
     ROUTES.DOCS_API,
   ].map((path) => ({ path })),
   ...STATIC_PAGES.map((page) => ({ path: page })),
+  ...CHANGELOG_ENTRIES.map((entry) => ({
+    lastmod: entry.data.date,
+    path: entry.url,
+  })),
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({
