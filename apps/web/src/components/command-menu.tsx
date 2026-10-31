@@ -1,24 +1,30 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { useIntlayer, useLocale } from "react-intlayer";
+import { Bezier } from "reicon-react/icons/Bezier";
 import { Briefcase } from "reicon-react/icons/Briefcase";
-import { Compass } from "reicon-react/icons/Compass";
+import { Code } from "reicon-react/icons/Code";
 import { Designtools } from "reicon-react/icons/Designtools";
+import { Docs } from "reicon-react/icons/Docs";
+import { DocumentText } from "reicon-react/icons/DocumentText";
 import { Envelope } from "reicon-react/icons/Envelope";
-import { File } from "reicon-react/icons/File";
 import { HandHeart } from "reicon-react/icons/HandHeart";
-import { Information } from "reicon-react/icons/Information";
+import { Layout } from "reicon-react/icons/Layout";
 import { Lock } from "reicon-react/icons/Lock";
 import { Monitor } from "reicon-react/icons/Monitor";
 import { Moon } from "reicon-react/icons/Moon";
+import { Office } from "reicon-react/icons/Office";
 import { Play } from "reicon-react/icons/Play";
+import { Plug } from "reicon-react/icons/Plug";
 import { Plus } from "reicon-react/icons/Plus";
 import { Scroll } from "reicon-react/icons/Scroll";
 import { Search } from "reicon-react/icons/Search";
+import { Sliders } from "reicon-react/icons/Sliders";
 import { Sparkles } from "reicon-react/icons/Sparkles";
 import { Sun } from "reicon-react/icons/Sun";
 import { Undo } from "reicon-react/icons/Undo";
 import { User2 } from "reicon-react/icons/User2";
+import { VideoLib } from "reicon-react/icons/VideoLib";
 
 import { GitHubIcon, XIcon } from "@/components/icons";
 import {
@@ -48,10 +54,16 @@ type PagePath =
   | "/creatives"
   | "/skills"
   | "/extras"
+  | "/customize"
   | "/jobs"
   | "/sponsor"
+  | "/moves"
+  | "/templates"
+  | "/docs"
+  | "/motionvideo-mcp"
   | "/motionvideo-skill"
   | "/about"
+  | "/blog"
   | "/brand"
   | "/contact"
   | "/privacy"
@@ -169,8 +181,8 @@ export const CommandMenu = () => {
   }, []);
 
   const groups = useMemo<PaletteGroup[]>(() => {
-    // SAFETY: every page below is a literal member of the PagePath union, so
-    // these casts are exact.
+    // PagePath limits `page()` to real pages; the localized navigate adds the
+    // locale prefix.
     const page = (
       to: PagePath,
       label: string,
@@ -181,7 +193,7 @@ export const CommandMenu = () => {
       label,
       keywords: [to, ...keywords],
       icon,
-      action: () => navigate({ to: to as PagePath }),
+      action: () => navigate({ to }),
     });
     const videos: PaletteItem[] = data.videos.map((video) => ({
       id: `video:${video.slug}`,
@@ -217,7 +229,7 @@ export const CommandMenu = () => {
         id: "pages",
         heading: content.pages.value,
         items: [
-          page("/", content.discover.value, <Compass aria-hidden="true" />),
+          page("/", content.discover.value, <VideoLib aria-hidden="true" />),
           page(
             "/tools",
             content.tools.value,
@@ -234,20 +246,52 @@ export const CommandMenu = () => {
             <Sparkles aria-hidden="true" />
           ),
           page("/extras", content.extras.value, <Plus aria-hidden="true" />),
+          page(
+            "/customize",
+            content.customize.value,
+            <Sliders aria-hidden="true" />,
+            ["prompt", "customize", "personalize"]
+          ),
           page("/jobs", content.jobs.value, <Briefcase aria-hidden="true" />, [
             "hiring",
             "career",
             "work",
           ]),
-          page("/motionvideo-skill", "SKILL.md", <File aria-hidden="true" />, [
-            "skill",
-            "skill.md",
-            "agent",
+          page("/moves", content.moves.value, <Bezier aria-hidden="true" />, [
+            "techniques",
+            "prompts",
+            "easing",
           ]),
           page(
-            "/about",
-            content.about.value,
-            <Information aria-hidden="true" />
+            "/templates",
+            content.templates.value,
+            <Layout aria-hidden="true" />,
+            ["prompt", "template", "pro"]
+          ),
+          page(
+            "/motionvideo-mcp",
+            content.mcp.value,
+            <Plug aria-hidden="true" />,
+            ["mcp", "claude", "cursor", "server"]
+          ),
+          page(
+            "/motionvideo-skill",
+            content.skill.value,
+            <Code aria-hidden="true" />,
+            ["skill", "SKILL.md", "agent", "pro"]
+          ),
+          page("/docs", content.docs.value, <Docs aria-hidden="true" />, [
+            "documentation",
+            "quickstart",
+            "api",
+            "skill.md",
+          ]),
+          page("/about", content.about.value, <Office aria-hidden="true" />),
+          page(
+            "/blog",
+            content.blog.value,
+            <DocumentText aria-hidden="true" />,
+            ["articles", "guides"]
           ),
           page(
             "/contact",

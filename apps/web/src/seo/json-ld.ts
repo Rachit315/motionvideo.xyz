@@ -2,16 +2,14 @@ import { getIntlayer } from "intlayer";
 
 import { LINK } from "@/constants/links";
 import { DEFAULT_LOCALE, isLocale, localizedPath } from "@/constants/locales";
-import {
-  BASE_PRICE_CENTS,
-  LAUNCH_PRICE_CENTS,
-  PRODUCT_NAME,
-} from "@/constants/pricing";
-import type { Offer } from "@/constants/pricing";
+import { PLAN_PRICE_CENTS, PLANS, planOffers } from "@/constants/plans";
+import type { Plan, PlanBilling } from "@/constants/plans";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { absoluteUrl } from "@/constants/url";
 import type { MotionVideo } from "@/lib/motion-catalog";
+import { movePath } from "@/lib/moves";
+import type { Move } from "@/lib/moves";
 
 // Structured data, emitted as <script type="application/ld+json"> through a
 // route's `head().scripts`.
@@ -79,25 +77,49 @@ export const websiteJsonLd = (locale?: string) => {
 
 export const organizationJsonLd = () => jsonLdScript(organization);
 
-export const productJsonLd = (offer?: Offer, locale?: string) => {
-  const resolved = resolveLocale(locale);
-  return jsonLdScript({
-    "@type": "Product",
-    brand: { "@type": "Brand", name: SITE.NAME },
-    description: getIntlayer("directory-meta", resolved).skill.description,
-    image: absoluteUrl("/og.jpg"),
-    name: PRODUCT_NAME,
-    url: absoluteUrl(localizedPath(ROUTES.MOTIONVIDEO_SKILL, resolved)),
-    offers: {
-      "@type": "Offer",
-      availability: "https://schema.org/InStock",
-      price: (
-        (offer?.active ? LAUNCH_PRICE_CENTS : BASE_PRICE_CENTS) / 100
-      ).toFixed(2),
-      priceCurrency: "USD",
-      url: absoluteUrl(localizedPath(ROUTES.PRICING, resolved)),
-    },
-  });
+const PLAN_NAME: Record<Plan, string> = {
+  business: `${SITE.NAME} Business`,
+  pro: `${SITE.NAME} Pro`,
+};
+
+// ISO 8601 renewal period; lifetime has none.
+const BILLING_DURATION: Partial<Record<PlanBilling, string>> = {
+  annual: "P1Y",
+  monthly: "P1M",
+};
+
+// One Product per plan, with an Offer per billing option, for /pro.
+export const planJsonLd = (locale?: string) => {
+  const proUrl = absoluteUrl(localizedPath(ROUTES.PRO, resolveLocale(locale)));
+  return PLANS.map((plan) =>
+    jsonLdScript({
+      "@type": "Product",
+      brand: { "@type": "Brand", name: SITE.NAME },
+      description: SITE.DESCRIPTION.LONG,
+      image: absoluteUrl("/og.jpg"),
+      name: PLAN_NAME[plan],
+      url: proUrl,
+      offers: planOffers(plan).map((billing) => {
+        const price = ((PLAN_PRICE_CENTS[plan][billing] ?? 0) / 100).toFixed(2);
+        const duration = BILLING_DURATION[billing];
+        return {
+          "@type": "Offer",
+          availability: "https://schema.org/InStock",
+          price,
+          priceCurrency: "USD",
+          url: `${proUrl}?billing=${billing}`,
+          ...(duration && {
+            priceSpecification: {
+              "@type": "UnitPriceSpecification",
+              billingDuration: duration,
+              price,
+              priceCurrency: "USD",
+            },
+          }),
+        };
+      }),
+    })
+  );
 };
 
 // The skill page's FAQ, in the language the page shows it in: FAQ markup
@@ -113,24 +135,48 @@ export const faqJsonLd = (locale?: string) =>
     })),
   });
 
-/** A page one level below home: its footer link label and app path. */
-export interface BreadcrumbItem {
-  page:
-    | "about"
-    | "brand"
-    | "changelog"
-    | "contact"
-    | "privacy"
-    | "refunds"
-    | "terms";
-  path: string;
-}
+// One blog post. Posts are written in English whichever locale serves them;
+// the URL is the page's own (locale-prefixed) address.
+export const blogPostingJsonLd = (
+  post: { slug: string; title: string; description: string; date: string },
+  locale?: string
+) => {
+  const url = absoluteUrl(
+    localizedPath(`${ROUTES.BLOG}/${post.slug}`, resolveLocale(locale))
+  );
+  return jsonLdScript({
+    "@type": "BlogPosting",
+    author: { "@id": ORGANIZATION_ID },
+    dateModified: post.date,
+    datePublished: post.date,
+    description: post.description,
+    headline: post.title,
+    image: absoluteUrl("/og.jpg"),
+    inLanguage: "en",
+    mainEntityOfPage: url,
+    publisher: { "@id": ORGANIZATION_ID },
+    url,
+  });
+};
 
-/** A page below a `BreadcrumbItem`, already named in the page's language. */
-interface ChildCrumb {
-  name: string;
-  path: string;
-}
+/**
+ * One crumb below home and its app path: a footer page (`page`, labelled in
+ * the page's language) or a catalog entry named by its own data (`name`).
+ */
+export type BreadcrumbItem = { path: string } & (
+  | {
+      page:
+        | "about"
+        | "blog"
+        | "brand"
+        | "changelog"
+        | "contact"
+        | "privacy"
+        | "refunds"
+        | "terms";
+    }
+  | { name: string }
+);
 
 /**
  * One gallery video, for its /videos/$slug page. `description` is the page's
@@ -162,21 +208,22 @@ export const videoJsonLd = (
     ),
   });
 
-// Home › <page> (› <child>), for pages below the home page, named in the
-// page's language (the footer's link labels).
+// Home › <page> › …, from the page below the home page down to the current
+// one, named in the page's language (footer pages use the footer's labels).
 export const breadcrumbJsonLd = (
-  current: BreadcrumbItem,
-  locale?: string,
-  child?: ChildCrumb
+  trail: BreadcrumbItem | BreadcrumbItem[],
+  locale?: string
 ) => {
   const resolved = resolveLocale(locale);
   const crumbs = [
     { name: getIntlayer("json-ld", resolved).home, path: ROUTES.HOME },
-    {
-      name: getIntlayer("site-footer", resolved)[current.page],
-      path: current.path,
-    },
-    ...(child ? [child] : []),
+    ...[trail].flat().map((item) => ({
+      name:
+        "page" in item
+          ? getIntlayer("site-footer", resolved)[item.page]
+          : item.name,
+      path: item.path,
+    })),
   ];
   return jsonLdScript({
     "@type": "BreadcrumbList",
@@ -206,4 +253,35 @@ export const changelogEntryJsonLd = (
     inLanguage: DEFAULT_LOCALE,
     publisher: { "@id": ORGANIZATION_ID },
     url: absoluteUrl(localizedPath(entry.path, resolveLocale(locale))),
+  });
+
+// The Moves library is a glossary of motion design techniques: each move is a
+// DefinedTerm in one DefinedTermSet, so search engines read the names (and
+// their aliases) as terms with definitions.
+const movesSet = (locale?: string) => ({
+  "@type": "DefinedTermSet",
+  name: `${SITE.NAME} Moves`,
+  url: absoluteUrl(localizedPath(ROUTES.MOVES, resolveLocale(locale))),
+});
+
+export const movesJsonLd = (moves: Move[], locale?: string) =>
+  jsonLdScript({
+    ...movesSet(locale),
+    description: "Motion design techniques, named and explained.",
+    hasDefinedTerm: moves.map((move) => ({
+      "@type": "DefinedTerm",
+      name: move.name,
+      url: absoluteUrl(localizedPath(movePath(move), resolveLocale(locale))),
+    })),
+  });
+
+export const moveJsonLd = (move: Move, locale?: string) =>
+  jsonLdScript({
+    "@type": "DefinedTerm",
+    alternateName: move.aka,
+    description: move.summary,
+    inDefinedTermSet: movesSet(locale),
+    name: move.name,
+    termCode: move.slug,
+    url: absoluteUrl(localizedPath(movePath(move), resolveLocale(locale))),
   });

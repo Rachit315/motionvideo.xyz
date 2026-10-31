@@ -6,7 +6,8 @@ import { cn } from "@/lib/utils";
  * Base UI slider in the app's styling: a muted track filled with primary up
  * to each thumb. Restyle parts through `data-slot` (`slider-track`,
  * `slider-range`, `slider-thumb`) from `className`. `label` names the thumbs
- * for assistive tech (the root's own aria props don't reach them).
+ * and `getAriaValueText` voices their values for assistive tech (the root's
+ * own aria props don't reach them).
  */
 const Slider = ({
   className,
@@ -15,8 +16,12 @@ const Slider = ({
   min = 0,
   max = 100,
   label,
+  getAriaValueText,
   ...props
-}: SliderPrimitive.Root.Props & { label?: string }) => {
+}: SliderPrimitive.Root.Props & { label?: string } & Pick<
+    SliderPrimitive.Thumb.Props,
+    "getAriaValueText"
+  >) => {
   // One thumb per value: a range for array values, else a single thumb.
   const initial = value ?? defaultValue;
   const thumbs = Array.isArray(initial) ? initial : [initial];
@@ -49,6 +54,7 @@ const Slider = ({
             index={index}
             data-slot="slider-thumb"
             getAriaLabel={label ? () => label : undefined}
+            getAriaValueText={getAriaValueText}
             className="ring-ring/50 relative block size-4 shrink-0 rounded-full border-2 border-white bg-white shadow-[0_0_0_1px_rgb(0_0_0/0.3),0_1px_3px_rgb(0_0_0/0.4)] transition-[box-shadow] select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3"
           />
         ))}

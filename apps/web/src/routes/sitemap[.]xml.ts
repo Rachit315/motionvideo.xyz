@@ -14,6 +14,9 @@ import {
   motionModelSlug,
 } from "@/lib/motion-catalog";
 import { COLOR_PAGES } from "@/lib/motion-video-route";
+import { MOVE_FAMILIES } from "@/lib/move-families";
+import { MOVES, movePath } from "@/lib/moves";
+import { PROMPT_TEMPLATES, templatePath } from "@/lib/prompt-templates";
 
 // Public, canonical pages only: signed-in pages (/dashboard/…), redirects
 // (/studios, /tools/skills), and utility pages (/checkout, /welcome) stay out.
@@ -40,6 +43,11 @@ const PAGES: { lastmod?: string; path: string }[] = [
     lastmod: video.date,
     path: `${ROUTES.HOME}videos/${video.slug}`,
   })),
+  // The customizer, and one page per video with a prompt.
+  { path: ROUTES.CUSTOMIZE },
+  ...catalog.videos
+    .filter((video) => video.prompt)
+    .map((video) => ({ path: `${ROUTES.CUSTOMIZE}/${video.slug}` })),
   { path: ROUTES.TOOLS },
   ...DIRECTORY_CATEGORIES.tool.map((category) => ({
     path: `${ROUTES.TOOLS}/${category.slug}`,
@@ -59,7 +67,26 @@ const PAGES: { lastmod?: string; path: string }[] = [
   { path: ROUTES.JOBS },
   ...JOB_TYPES.map((type) => ({ path: `${ROUTES.JOBS}/${type}` })),
   { path: ROUTES.SPONSOR },
+  { path: ROUTES.PRO },
   { path: ROUTES.MOTIONVIDEO_SKILL },
+  { path: ROUTES.MOTIONVIDEO_MCP },
+  { path: ROUTES.MOVES },
+  ...MOVE_FAMILIES.map((family) => ({
+    path: `${ROUTES.MOVES}/${family}`,
+  })),
+  ...MOVES.map((move) => ({ path: movePath(move) })),
+  { path: ROUTES.TEMPLATES },
+  ...PROMPT_TEMPLATES.map((template) => ({ path: templatePath(template) })),
+  // Docs pages (content/docs/*.mdx).
+  ...[
+    ROUTES.DOCS,
+    ROUTES.DOCS_MCP,
+    ROUTES.DOCS_SKILL,
+    ROUTES.DOCS_MOVES,
+    ROUTES.DOCS_TEMPLATES,
+    ROUTES.DOCS_PLANS,
+    ROUTES.DOCS_API,
+  ].map((path) => ({ path })),
   ...STATIC_PAGES.map((page) => ({ path: page })),
   ...CHANGELOG_ENTRIES.map((entry) => ({
     lastmod: entry.data.date,

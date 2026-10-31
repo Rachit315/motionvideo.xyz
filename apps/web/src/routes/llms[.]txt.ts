@@ -19,7 +19,13 @@ const body = `# ${SITE.NAME}
 ## Pages
 
 - [Gallery](${pageUrl(ROUTES.HOME)}): Motion videos grouped by category (product UI, kinetic type, charts, diagrams…), each with the prompt and skill behind it.
-- [MotionVideo Skill](${pageUrl(ROUTES.MOTIONVIDEO_SKILL)}): The paid skill pack that teaches a coding agent motion design, with pricing, install steps, and an FAQ.
+- [Quickstart](${pageUrl(ROUTES.DOCS)}): How to use ${SITE.NAME} with a coding agent: the MCP server, the gallery prompts, Moves, plans, and the public API.
+- [skill.md](${absoluteUrl(ROUTES.SKILL_MD)}): A skill a coding agent can read to set itself up with ${SITE.NAME}.
+- [MotionVideo MCP](${pageUrl(ROUTES.MOTIONVIDEO_MCP)}): The free MCP server: search the gallery and pull prompts from Claude, ChatGPT, Cursor and other MCP clients. Setup reference: ${pageUrl(ROUTES.DOCS_MCP)}
+- [MotionVideo Skill](${pageUrl(ROUTES.MOTIONVIDEO_SKILL)}): The motion design skill pack included in Pro and Business. Install reference: ${pageUrl(ROUTES.DOCS_SKILL)}
+- [Moves](${pageUrl(ROUTES.MOVES)}): Named motion design techniques with gallery examples; each move's copy-ready prompt is in Pro.
+- [Templates](${pageUrl(ROUTES.TEMPLATES)}): Prompt templates with fill-in fields (concept, palette, length, size); each template's full prompt is in Pro.
+- [MotionVideo Pro](${pageUrl(ROUTES.PRO)}): Pro and Business plans: what they include and what they cost.
 - [Tools](${pageUrl(ROUTES.TOOLS)}): Agent tools and plugins for motion design, by category.
 - [Creatives](${pageUrl(ROUTES.CREATIVES)}): Studios, designers, and agencies that make motion work.
 - [Skills](${pageUrl(ROUTES.SKILLS)}): Agent skills for motion design, by category.
@@ -35,6 +41,7 @@ ${STATIC_PAGES.map(
 
 - [Motion catalog](${absoluteUrl("/api/catalog/")}): JSON of every gallery video with its prompt, model, stack, effort, and media URLs.
 - [Directories](${absoluteUrl("/api/catalog/directories")}): JSON of the tools, studios, skills, and extras directories.
+- [Moves](${absoluteUrl("/api/moves/")}): JSON of every move's public fields (no prompts).
 
 ## Optional
 

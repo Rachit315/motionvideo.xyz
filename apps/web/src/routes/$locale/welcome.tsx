@@ -42,7 +42,7 @@ const Welcome = () => {
               presetEmail={checkout.email}
               welcome
               title={`${content.thanks.value} ${SITE.NAME}!`}
-              callbackURL={localizedPath(ROUTES.DASHBOARD_SKILL, locale)}
+              callbackURL={localizedPath(ROUTES.DASHBOARD_BILLING, locale)}
             />
           </>
         ) : (

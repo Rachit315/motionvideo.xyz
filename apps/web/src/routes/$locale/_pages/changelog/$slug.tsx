@@ -58,9 +58,11 @@ export const Route = createFileRoute("/$locale/_pages/changelog/$slug")({
       }),
       scripts: [
         breadcrumbJsonLd(
-          { page: "changelog", path: ROUTES.CHANGELOG },
-          params.locale,
-          { name: entry.data.title, path: entry.url }
+          [
+            { page: "changelog", path: ROUTES.CHANGELOG },
+            { name: entry.data.title, path: entry.url },
+          ],
+          params.locale
         ),
         changelogEntryJsonLd(
           { ...entry.data, path: entry.url },

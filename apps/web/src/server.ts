@@ -11,6 +11,7 @@ import {
 import { STATIC_PAGES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { UPLOAD_PATH_PREFIX } from "@/lib/uploads";
+import { oauthPreflight, withOAuthCors } from "@/server/oauth-cors";
 
 // Durable Object classes must be exported from the Worker entry.
 export { Presence } from "@/server/presence";
@@ -25,7 +26,8 @@ const STATIC_PATHS = new Set(
 );
 
 const HAS_FILE_EXTENSION = /\.[a-z0-9]+$/iu;
-const SKIP_PREFIXES = ["/api/", "/_", "/uploads/"];
+// OAuth discovery (`/.well-known/…`) is machine-read at fixed URLs.
+const SKIP_PREFIXES = ["/api/", "/_", "/uploads/", "/.well-known/"];
 
 /**
  * Locale for an unprefixed visit: an explicit choice in the cookie first, then
@@ -171,6 +173,10 @@ export default {
       const presence = env.PRESENCE.get(env.PRESENCE.idFromName("site"));
       return presence.fetch(request);
     }
-    return withSecurityHeaders(await route(request));
+    const preflight = oauthPreflight(request);
+    if (preflight) {
+      return preflight;
+    }
+    return withSecurityHeaders(withOAuthCors(request, await route(request)));
   },
 };

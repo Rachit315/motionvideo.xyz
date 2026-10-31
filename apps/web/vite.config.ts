@@ -39,12 +39,14 @@ const config = defineConfig({
   },
   plugins: [
     devtools(),
+    // One instance for both MDX sources: content/docs (source.config.ts) is
+    // compiled into `.source/` at build time, and the macro compiles the
+    // changelog entries. Only src/lib/changelog.ts uses the macro, so its
+    // transform skips every other module.
+    fumadocsMdx({ macro: { include: ["src/lib/changelog.ts"] } }),
     intlayer(),
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     tailwindcss(),
-    // Compiles the changelog's MDX entries. Only src/lib/changelog.ts defines
-    // collections, so the macro transform skips every other module.
-    fumadocsMdx({ macro: { include: ["src/lib/changelog.ts"] } }),
     tanstackStart({
       router: {
         routeFileIgnorePattern: "\\.content\\.",
