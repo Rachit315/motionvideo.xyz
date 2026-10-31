@@ -7,7 +7,7 @@ import {
   UPLOAD_PATH_PREFIX,
   UPLOAD_PURPOSES,
 } from "@/lib/uploads";
-import { auth } from "@/server/auth";
+import { getAuth } from "@/server/auth";
 
 // Image types accepted, recognised by their leading bytes (never by the
 // client's claimed type or extension). No SVG: it can carry script.
@@ -37,7 +37,9 @@ export const Route = createFileRoute("/api/upload")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const session = await auth.api.getSession({ headers: request.headers });
+        const session = await getAuth().api.getSession({
+          headers: request.headers,
+        });
         if (!session) {
           return Response.json({ error: "unauthorized" }, { status: 401 });
         }

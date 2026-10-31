@@ -4,7 +4,7 @@ import { z } from "zod";
 import { localeFromPath, localizedPath } from "@/constants/locales";
 import { PLAN_BILLINGS, PLANS, planOffers } from "@/constants/plans";
 import { ROUTES } from "@/constants/routes";
-import { auth } from "@/server/auth";
+import { getAuth } from "@/server/auth";
 import { createPlanCheckoutUrl } from "@/server/dodo";
 import { liveOwnedRow } from "@/server/plans";
 
@@ -29,7 +29,9 @@ export const Route = createFileRoute("/$locale/checkout")({
         if (!plan || !billing || !planOffers(plan).includes(billing)) {
           return redirect(localizedPath(ROUTES.PRO, locale));
         }
-        const session = await auth.api.getSession({ headers: request.headers });
+        const session = await getAuth().api.getSession({
+          headers: request.headers,
+        });
         if (!session) {
           const back = `${url.pathname}${url.search}`;
           return redirect(

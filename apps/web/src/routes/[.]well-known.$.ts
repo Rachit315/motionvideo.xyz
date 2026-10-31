@@ -9,7 +9,7 @@ import {
   OAUTH_OPENID_CONFIG_SUFFIX,
   OAUTH_WELL_KNOWN_SUFFIX,
 } from "@/constants/oauth";
-import { auth } from "@/server/auth";
+import { getAuth } from "@/server/auth";
 
 // OAuth discovery for clients that insert the issuer path after the
 // `.well-known` segment (RFC 8414 §3.1, OIDC Discovery §4): the MCP server's
@@ -22,12 +22,15 @@ const metadataHeaders = {
   "cache-control": "public, max-age=300",
 };
 
-const authServerMetadata = oauthProviderAuthServerMetadata(auth, {
-  headers: metadataHeaders,
-});
-const openIdConfigMetadata = oauthProviderOpenIdConfigMetadata(auth, {
-  headers: metadataHeaders,
-});
+// Built per request: `getAuth()` must not run at module scope.
+const authServerMetadata = (request: Request) =>
+  oauthProviderAuthServerMetadata(getAuth(), { headers: metadataHeaders })(
+    request
+  );
+const openIdConfigMetadata = (request: Request) =>
+  oauthProviderOpenIdConfigMetadata(getAuth(), { headers: metadataHeaders })(
+    request
+  );
 
 export const Route = createFileRoute("/.well-known/$")({
   server: {
